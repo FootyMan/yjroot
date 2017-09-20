@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+
+#login-center{width: 490px;position: fixed; left: 50%; top:50%; margin-left: -245px; margin-top: -295px;border-radius: 8px; background-color: #fff; overflow: hidden; padding-bottom: 123px;}
+.login-box{}
+.login-box h3{background-color: #323a45; height: 110px; line-height: 110px; font-family: "microsoft yahei"; color: #fff; font-size: 34px; text-align: center; position: relative;}
+.login-box h3 i{position: absolute;border-bottom: 10px solid transparent; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #323a45; bottom: -20px; left: 50%; margin-left: -10px;}
+.login-errorPrompt{height: 50px; background-color: #fbedd6; display: none; padding-left: 35px;}
+.login-errorPrompt.on{display: block;}
+.login-errorPrompt i{ width: 17px; height: 17px; background: url(images/pt-icon.png) no-repeat -4px -4px; margin-top: 16px; margin-right: 13px;}
+.login-errorPrompt span{height: 50px; line-height: 50px; font-family: "microsoft yahei"; color: #ffaa23; font-size: 14px;}
+.login-inputBox{padding: 50px 44px 0 44px;}
+.login-inputBox input{height: 45px;line-height: 45px; width: 380px; border: 1px solid #d9d8d8; padding-left: 20px; border-radius: 8px; margin-bottom: 40px; font-family: "microsoft yahei"; font-size: 14px;}
+.login-inputBox .login-sub{height: 60px; line-height: 60px; text-align: center; margin-bottom: 0; color: #fff;font-family: "microsoft yahei"; font-size: 18px; color: #fff; padding-left: 0; width: 400px; background-color: #4494cd; margin-top: 22px; cursor: pointer;}
+body{background: url(images/pt-loginbg.png) no-repeat center center; background-size:100% 100% ; width: 100%; height: 100%;}

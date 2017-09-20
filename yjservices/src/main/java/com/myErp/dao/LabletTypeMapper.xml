@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myErp.dao.LabletTypeMapper">
+	<resultMap id="labletTypeResultMap" type="com.myErp.manager.bean.LabletType">
+		<id column="lableId" property="lableId" jdbcType="INTEGER" />
+		<result column="lableName" property="lableName" jdbcType="VARCHAR" />
+		<result column="lableType" property="lableType" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		lableId,lableName,lableType
+	</sql>
+
+	<insert id="insertlabletType" parameterType="com.myErp.manager.bean.LabletType"
+		keyProperty="versionId">
+		insert into labletype (lableName,lableType)
+		values(#{lableName},#{lableType})
+	</insert>
+
+	<select id="selectlabletTypeAll" resultMap="labletTypeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from labletype  
+	</select>
+</mapper>

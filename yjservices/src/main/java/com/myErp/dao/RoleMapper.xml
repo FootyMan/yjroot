@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myErp.dao.RoleMapper">
+  <resultMap id="roleResultMap" type="com.myErp.manager.bean.Role" >
+    <id column="roleId" property="roleId" jdbcType="INTEGER" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="VARCHAR" />
+    <result column="depId" property="depId" jdbcType="INTEGER" />
+  </resultMap>
+  
+	<insert id="insertRole" parameterType="com.myErp.manager.bean.Role">
+		insert into role (roleName, createDate, depId)
+		values (#{roleName}, sysdate(), #{depId})
+	</insert>
+	 
+	<select id="selectRoleListByPage" resultMap="roleResultMap" parameterType="com.myErp.manager.bean.Role">
+		select *
+		from role order by roleId
+	</select>
+		<select id="getAllRoleList" resultMap="roleResultMap">
+		select roleId,roleName
+		from role order by roleId
+	</select>
+</mapper>

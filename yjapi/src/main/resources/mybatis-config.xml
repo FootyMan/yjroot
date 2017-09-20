@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0 //EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+		<!-- <setting name="logImpl" value="STDOUT_LOGGING" /> -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="true" />
+	</settings>
+
+	<typeAliases>
+		<!-- <typeAlias alias="User" type="com.test.domain.user" /> -->
+	</typeAliases>
+
+	<plugins>
+		<plugin interceptor="com.myErp.utils.PagePlugin">
+			<property name="dialect" value="mysql" />
+			<property name="pageSqlId" value="(ByPage)|(ForPage)" />
+		</plugin>
+	</plugins>
+
+	<!-- <environments default="development"> -->
+	<!-- <environment id="development"> -->
+	<!-- <transactionManager type="jdbc" /> -->
+	<!-- <dataSource type="POOLED"> -->
+	<!-- <property name="driver" value="com.mysql.jdbc.Driver" /> -->
+	<!-- <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=utf-8" 
+		/> -->
+	<!-- <property name="username" value="root" /> -->
+	<!-- <property name="password" value="root" /> -->
+	<!-- </dataSource> -->
+	<!-- </environment> -->
+	<!-- </environments> -->
+	<mappers>
+		<mapper resource="com/myErp/dao/EmployeeMapper.xml" />
+		<mapper resource="com/myErp/dao/RoleMapper.xml" />
+		<mapper resource="com/myErp/dao/DepMapper.xml" />
+		<mapper resource="com/myErp/dao/UserMapper.xml" />
+		<mapper resource="com/myErp/dao/UserPositionMapper.xml" />
+		<mapper resource="com/myErp/dao/UserVerifyCodeMapper.xml" />
+		<mapper resource="com/myErp/dao/AppversionMapper.xml" />
+		<mapper resource="com/myErp/dao/ProvinceMapper.xml" />
+	</mappers>
+
+
+</configuration>

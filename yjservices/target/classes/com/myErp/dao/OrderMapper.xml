@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myErp.dao.OrderMapper">
+	<resultMap id="orderResultMap" type="com.myErp.manager.bean.Order">
+		<id column="orderId" property="orderId" jdbcType="INTEGER" />
+		<result column="orderNumber" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="orderTime" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="productId" property="productId" jdbcType="INTEGER" />
+		<result column="orderState" property="orderState" jdbcType="INTEGER" />
+		<result column="orderPrice" property="orderPrice" jdbcType="DECIMAL" />
+		<result column="orderSource" property="orderSource" jdbcType="INTEGER" />
+		<result column="payType" property="payType" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column">
+		orderId,orderNumber,userId,orderTime,productId,orderState,orderPrice,orderSource,payType
+	</sql>
+	<insert id="insertOrder" parameterType="com.myErp.manager.bean.Order">
+		insert into t_order
+		(orderNumber,userId,orderTime,productId,orderState,orderPrice,orderSource,payType)
+		values
+		(#{orderNumber},#{userId},now(),#{productId},#{orderState},#{orderPrice},#{orderSource},#{payType})
+	</insert>
+
+	<select id="selectOrderByNumber" resultType="com.myErp.manager.bean.Order"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column"></include>
+		from t_order where orderNumber=#{orderNumber}
+	</select>
+
+
+	<update id="updateOrder" parameterType="com.myErp.manager.bean.Order">
+
+		update t_order
+		<set>
+			<if test="orderState!=null and orderState>0">
+				orderState=#{orderState}
+			</if>
+		</set>
+		where orderNumber=#{orderNumber}
+	</update>
+</mapper>

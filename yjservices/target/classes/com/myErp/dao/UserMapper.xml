@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myErp.dao.UserMapper">
+	<resultMap id="positionResultMap" type="com.myErp.manager.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="appUserResult" type="com.myErp.manager.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<!-- 映射用户资料表 一对一 -->
+		<association property="datum" javaType="com.myErp.manager.bean.UserDatum">
+			<id column="datumId" property="datumId" jdbcType="INTEGER" />
+			<result column="userId" property="userId" jdbcType="INTEGER" />
+			<result column="age" property="age" jdbcType="INTEGER" />
+			<result column="gender" property="gender" jdbcType="INTEGER" />
+			<result column="city" property="city" jdbcType="VARCHAR" />
+			<result column="weight" property="weight" jdbcType="VARCHAR" />
+			<result column="height" property="height" jdbcType="VARCHAR" />
+			<result column="shape" property="shape" jdbcType="VARCHAR" />
+			<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
+			<result column="sign" property="sign" jdbcType="VARCHAR" />
+			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		userId,Id,phone,deviceType,deviceToken,headImage,
+		registerTime,
+		userLevel, nickName, isDisable, isEasemob, userSource,
+		inviteCode,passWord
+	</sql>
+	<insert id="insertUser" parameterType="com.myErp.manager.bean.User"
+		keyProperty="userId">
+		insert into
+		user(id,phone,deviceType,deviceToken,registerTime,userLevel,isDisable,isEasemob,userSource,inviteCode,passWord)
+		select
+		max(id)+1,#{phone},#{deviceType},#{deviceToken},NOW(),1,1,0,#{userSource},#{inviteCode},#{passWord}
+		from user
+	</insert>
+
+	<update id="updateUser" parameterType="com.myErp.manager.bean.User">
+		update user
+		<set>
+			<if test="userLevel!='' and userLevel>0">
+				userLevel=#{userLevel},
+			</if>
+			<if test="isDisable!='' and isDisable>0">
+				isDisable=#{isDisable},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="headImage!='' and headImage!=null">
+				headImage=#{headImage},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				passWord=#{passWord},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	<select id="selectUserByUserId" resultMap="positionResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user where userId=#{userId}
+	</select>
+	<select id="selectUserByInviteCode" resultType="com.myErp.manager.bean.User"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"></include>
+		from user where inviteCode=#{inviteCode}
+	</select>
+	<select id="selectUserByphone" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(1)
+		from user where phone=#{phone}
+	</select>
+	<select id="userLogin" resultType="com.myErp.manager.bean.User"
+		parameterType="com.myErp.manager.bean.User">
+		select
+		<include refid="Base_Column_List" />
+		from user where phone=#{phone} and passWord=#{passWord}
+	</select>
+
+	<select id="appUserList" resultMap="appUserResult"
+		parameterType="com.myErp.manager.bean.AppHomePagePaging">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
+		FROM user a inner join userdatum b
+		on a.userId=b.userId where 1=1
+		<if test="gender>0">
+			and b.gender=#{gender}
+		</if>
+		LIMIT #{pageIndex},#{pageSize}
+	</select>
+	<!-- 首页推荐 -->
+	<select id="appUserRecommend" resultMap="appUserResult">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
+		FROM user a inner join userdatum b
+		on a.userId=b.userId
+		inner join
+		homeuser c
+		on a.userId=c.userId
+		where c.homeType=1
+		order by c.sortColumn
+		desc
+	</select>
+
+	<!-- 附件的人 -->
+	<select id="appRangeUser" resultMap="appUserResult"
+		parameterType="com.myErp.manager.bean.RangeParameter">
+		call
+		Proc_GetNearbyMan(#{lat},#{lon},#{userId},#{pageIndex},#{pageSize})
+	</select>
+
+
+	<!-- 个人详情主页 -->
+	<select id="getUserDetails" resultMap="appUserResult"
+		parameterType="com.myErp.manager.bean.RangeParameter">
+		call Proc_GetUserDetails(#{lat},#{lon},#{userId})
+	</select>
+
+
+	<!-- 个人用户所有信息用于初始化客户端 -->
+	<select id="initUser" resultMap="appUserResult"
+		parameterType="java.lang.Integer">
+		SELECT
+		Fn_SetImgPrefix(a.headImage)headImage,a.Id,a.nickName,b.gender,b.age,b.city,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.userLevel,a.inviteCode
+		FROM user a inner join userdatum b
+		on a.userId=b.userId inner join userposition c
+		on a.userId=c.userId
+		where a.userId=#{userId};
+	</select>
+
+	<!-- 更新浏览次数 -->
+	<update id="updateBrowseNumber" parameterType="java.lang.Integer">
+		update user set
+		browseNumber=browseNumber+1 where userId=#{userId};
+	</update>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myErp.dao.UserImgMapper">
+	<resultMap id="imgResultMap" type="com.myErp.manager.bean.UserImg">
+		<id column="imgId" property="imgId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="imageType" property="imageType" jdbcType="INTEGER" />
+		<result column="imagePath" property="imagePath" jdbcType="VARCHAR" />
+		<result column="imageSort" property="imageSort" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		imgId,userId,imageType,Fn_SetImgPrefix(imagePath)imagePath,imageSort
+	</sql>
+
+	<insert id="insertUserImg" parameterType="java.util.List">
+		insert into userimg (userId, imageType, imagePath,imageSort)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.userId},#{item.imageType},#{item.imagePath},#{item.imageSort})
+		</foreach>
+
+	</insert>
+
+	<select id="selectImgtByUserId" resultMap="imgResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from userimg where userId=#{userId} order by imageSort
+	</select>
+
+</mapper>
