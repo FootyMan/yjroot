@@ -8,17 +8,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class LableResponseData {
 	public LableResponseData()
 	{
-		list=new ArrayList<LableResponseModel>();
+		list=new ArrayList<LableResponse>();
 	}
 
 	@ApiModelProperty(value = "用户所选的标签数据")
-	private List<LableResponseModel> list;
+	private List<LableResponse> list;
 
-	public List<LableResponseModel> getList() {
+	public List<LableResponse> getList() {
 		return list;
 	}
 
-	public void setList(List<LableResponseModel> list) {
+	public void setList(List<LableResponse> list) {
 		this.list = list;
 	}
 

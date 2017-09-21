@@ -14,6 +14,14 @@
 			jdbcType="INTEGER" />
 		<result column="sourceNumber" property="sourceNumber" jdbcType="VARCHAR" />
 	</resultMap>
+	<!-- 我的收益记录 -->
+	<resultMap id="myProfitResultMap" type="com.myErp.manager.bean.MyProfitRecord">
+		<result column="operateDate" property="operateDate" jdbcType="TIMESTAMP" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="productDesc" property="productDesc" jdbcType="VARCHAR" />
+		<result column="financialMoney" property="financialMoney"
+			jdbcType="DECIMAL" />
+	</resultMap>
 
 	<sql id="Base_Column_List">
 		recordID,userId,financialType,financialMoney,operateDate,operateStatus,
@@ -40,6 +48,31 @@
 		select
 		<include refid="Base_Column_List" />
 		from userfinancialdetail where userId=#{userId}
+		<include refid="BASE_Column_Where" />
 	</select>
+
+	<!-- 我的收益记录 -->
+	<select id="selectMyProfit" resultMap="myProfitResultMap"
+		parameterType="java.lang.Integer">
+		SELECT operateDate,
+		(select nickName from user where
+		userId=(select userId from t_order where
+		orderNumber=sourceNumber)) as
+		nickName,
+		replace((select productDesc from product where
+		productId=(select productId from
+		t_order where
+		orderNumber=sourceNumber)),' ','') as productDesc,
+		financialMoney
+		FROM
+		myschema.userfinancialdetail where userId=#{userId} and
+		financialType=1
+	</select>
+
+	<sql id="BASE_Column_Where">
+		<if test="financialType != null and financialType>0">
+			AND financialType=#{financialType}
+		</if>
+	</sql>
 
 </mapper>

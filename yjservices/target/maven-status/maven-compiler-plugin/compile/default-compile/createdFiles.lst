@@ -60,6 +60,7 @@ com\myErp\utils\SystemConfig.class
 com\myErp\dao\UserPositionMapper.class
 com\myErp\manager\bean\AppHomePagePaging.class
 com\myErp\manager\bean\UserPosition.class
+com\myErp\manager\bean\MyProfitRecord.class
 com\myErp\dao\UserLableMappingMapper.class
 com\myErp\manager\bean\Role.class
 com\myErp\enums\FinancialOperateStatus.class

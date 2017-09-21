@@ -2,6 +2,7 @@ package com.myErp.dao;
 
 import java.util.List;
 
+import com.myErp.manager.bean.MyProfitRecord;
 import com.myErp.manager.bean.UserFinancialDetail;
 
 public abstract interface UserFinancialDetailMapper {
@@ -24,4 +25,11 @@ public abstract interface UserFinancialDetailMapper {
 	 * @return
 	 */
 	public abstract List<UserFinancialDetail> selectFinancialDetail(int userId);
+	
+	/**
+	 * 我的收益记录
+	 * @param detail
+	 * @return
+	 */
+	public abstract List<MyProfitRecord> selectMyProfit(int userId);
 }

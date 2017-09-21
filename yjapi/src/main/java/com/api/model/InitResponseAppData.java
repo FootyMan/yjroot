@@ -14,24 +14,29 @@ import io.swagger.annotations.ApiModelProperty;
  */
 public class InitResponseAppData {
 	public InitResponseAppData() {
-		personality = new ArrayList<LableResponseModel>();
-		sports = new ArrayList<LableResponseModel>();
-		music = new ArrayList<LableResponseModel>();
-		cate = new ArrayList<LableResponseModel>();
-		tour = new ArrayList<LableResponseModel>();
+		personality = new ArrayList<LableResponse>();
+		sports = new ArrayList<LableResponse>();
+		music = new ArrayList<LableResponse>();
+		cate = new ArrayList<LableResponse>();
+		tour = new ArrayList<LableResponse>();
 		cityData = new ArrayList<CityResponseParent>();
 	}
 
+	@ApiModelProperty(value = "版本更新信息")
+	private VersionResponse versionData;
+	@ApiModelProperty(value = "二次启动页数据")
+	private PageTwoResponse twoData;
+
 	@ApiModelProperty(value = "个性类")
-	private List<LableResponseModel> personality;
+	private List<LableResponse> personality;
 	@ApiModelProperty(value = "运动类")
-	private List<LableResponseModel> sports;
+	private List<LableResponse> sports;
 	@ApiModelProperty(value = "音乐类")
-	private List<LableResponseModel> music;
+	private List<LableResponse> music;
 	@ApiModelProperty(value = "美食类")
-	private List<LableResponseModel> cate;
+	private List<LableResponse> cate;
 	@ApiModelProperty(value = "旅游类")
-	private List<LableResponseModel> tour;
+	private List<LableResponse> tour;
 	@ApiModelProperty(value = "城市")
 	private List<CityResponseParent> cityData;
 
@@ -43,43 +48,59 @@ public class InitResponseAppData {
 		this.cityData = cityData;
 	}
 
-	public List<LableResponseModel> getPersonality() {
+	public List<LableResponse> getPersonality() {
 		return personality;
 	}
 
-	public void setPersonality(List<LableResponseModel> personality) {
+	public void setPersonality(List<LableResponse> personality) {
 		this.personality = personality;
 	}
 
-	public List<LableResponseModel> getSports() {
+	public List<LableResponse> getSports() {
 		return sports;
 	}
 
-	public void setSports(List<LableResponseModel> sports) {
+	public void setSports(List<LableResponse> sports) {
 		this.sports = sports;
 	}
 
-	public List<LableResponseModel> getMusic() {
+	public List<LableResponse> getMusic() {
 		return music;
 	}
 
-	public void setMusic(List<LableResponseModel> music) {
+	public void setMusic(List<LableResponse> music) {
 		this.music = music;
 	}
 
-	public List<LableResponseModel> getCate() {
+	public List<LableResponse> getCate() {
 		return cate;
 	}
 
-	public void setCate(List<LableResponseModel> cate) {
+	public void setCate(List<LableResponse> cate) {
 		this.cate = cate;
 	}
 
-	public List<LableResponseModel> getTour() {
+	public List<LableResponse> getTour() {
 		return tour;
 	}
 
-	public void setTour(List<LableResponseModel> tour) {
+	public void setTour(List<LableResponse> tour) {
 		this.tour = tour;
+	}
+
+	public VersionResponse getVersionData() {
+		return versionData;
+	}
+
+	public void setVersionData(VersionResponse versionData) {
+		this.versionData = versionData;
+	}
+
+	public PageTwoResponse getTwoData() {
+		return twoData;
+	}
+
+	public void setTwoData(PageTwoResponse twoData) {
+		this.twoData = twoData;
 	}
 }

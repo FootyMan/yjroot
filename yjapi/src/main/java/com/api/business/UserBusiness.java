@@ -3,17 +3,17 @@ package com.api.business;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.api.model.DetailsImgResponseModel;
-import com.api.model.DetailsLableResponseModel;
-import com.api.model.DetailsRequestModel;
-import com.api.model.DetailsResponseModel;
+import com.api.model.DetailsImgResponse;
+import com.api.model.DetailsLableResponse;
+import com.api.model.DetailsRequest;
+import com.api.model.DetailsResponse;
 import com.api.model.InitResponseAppData;
-import com.api.model.InitUserRequestModel;
-import com.api.model.LableResponseModel;
-import com.api.model.PageTwoResponseModel;
-import com.api.model.UserDatumRequestModel;
-import com.api.model.UserPwdResponseModel;
-import com.api.model.VersionResponseModel;
+import com.api.model.InitUserRequest;
+import com.api.model.LableResponse;
+import com.api.model.PageTwoResponse;
+import com.api.model.UserDatumRequest;
+import com.api.model.UserPwdResponse;
+import com.api.model.VersionResponse;
 import com.api.model.baseRequest;
 import com.api.model.baseResponse;
 import com.api.model.userModel;
@@ -66,11 +66,11 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse initUser(UserPositionServiceImpl userPositionService, baseRequest<InitUserRequestModel> user) {
+	public baseResponse initUser(UserPositionServiceImpl userPositionService, baseRequest<InitUserRequest> user) {
 
 		baseResponse response = new baseResponse();
 		// if (user.getUserId() > 0) {
-		InitUserRequestModel initUser = user.getbody();
+		InitUserRequest initUser = user.getbody();
 		if (initUser.getLon() <= 0) {
 			initUser.setLon(116.403963);
 		}
@@ -100,9 +100,9 @@ public class UserBusiness {
 	 * @param versionCode
 	 * @return
 	 */
-	public VersionResponseModel GetAppVersion(AppversionServiceImpl appversionService, int deviceType,
+	public VersionResponse GetAppVersion(AppversionServiceImpl appversionService, int deviceType,
 			int versionCode) {
-		VersionResponseModel versionModel = new VersionResponseModel();
+		VersionResponse versionModel = new VersionResponse();
 		Appversion version = appversionService.selectVersionByDevice(deviceType);
 		if (version != null && version.getVersionCode() > versionCode) {
 			// 提示更新
@@ -120,8 +120,8 @@ public class UserBusiness {
 	 * 
 	 * @return
 	 */
-	public PageTwoResponseModel GetPageTwo() {
-		PageTwoResponseModel pageTwoModel = new PageTwoResponseModel();
+	public PageTwoResponse GetPageTwo() {
+		PageTwoResponse pageTwoModel = new PageTwoResponse();
 		pageTwoModel.setImgUrl(SystemConfig.pageTwo);
 		return pageTwoModel;
 	}
@@ -152,12 +152,12 @@ public class UserBusiness {
 			response.setMsg("邀请码不正确");
 			return response;
 		}
-//		UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(model.getPhone());
-//		if (userCode == null || !userCode.getVerifyCode().equals(model.getVerifyCode())) {
-//			response.setCode(ResultEnum.ServiceErrorCode);
-//			response.setMsg("手机验证码不正确");
-//			return response;
-//		}
+		UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(model.getPhone());
+		if (userCode == null || !userCode.getVerifyCode().equals(model.getVerifyCode())) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("手机验证码不正确");
+			return response;
+		}
 		// 注册
 		User userEntity = new User();
 		userEntity.setPhone(model.getPhone());
@@ -186,11 +186,11 @@ public class UserBusiness {
 	 * @return
 	 */
 	public baseResponse UpdateUserPwd(UserServiceImpl userServiceImpl,
-			UserVerifyCodeServiceImpl userVerifyCodeServiceImpl, baseRequest<UserPwdResponseModel> user) {
+			UserVerifyCodeServiceImpl userVerifyCodeServiceImpl, baseRequest<UserPwdResponse> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
-		UserPwdResponseModel model = user.getbody();
+		UserPwdResponse model = user.getbody();
 		baseResponse response = new baseResponse();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
@@ -292,10 +292,10 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse AddUserDatum(UserDatumServiceImpl userDatumService, baseRequest<UserDatumRequestModel> user) {
+	public baseResponse AddUserDatum(UserDatumServiceImpl userDatumService, baseRequest<UserDatumRequest> user) {
 		baseResponse response = new baseResponse();
 		int datumId = 0;
-		UserDatumRequestModel model = user.getbody();
+		UserDatumRequest model = user.getbody();
 		UserDatum entiy = new UserDatum();
 		entiy.setUserId(user.getUserId());
 		entiy.setAge(model.getAge());
@@ -329,12 +329,12 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<UserDatumRequestModel> GetUserDatum(UserDatumServiceImpl userDatumService,
-			baseRequest<UserDatumRequestModel> user) {
-		baseResponse<UserDatumRequestModel> response = new baseResponse<UserDatumRequestModel>();
+	public baseResponse<UserDatumRequest> GetUserDatum(UserDatumServiceImpl userDatumService,
+			baseRequest<UserDatumRequest> user) {
+		baseResponse<UserDatumRequest> response = new baseResponse<UserDatumRequest>();
 		UserDatum data = userDatumService.selectDatumByUserId(user.getUserId());
 		if (data != null) {
-			UserDatumRequestModel model = new UserDatumRequestModel();
+			UserDatumRequest model = new UserDatumRequest();
 			model.setAge(data.getAge());
 			model.setGender(data.getGender());
 			model.setCity(data.getCity());
@@ -358,7 +358,7 @@ public class UserBusiness {
 	public InitResponseAppData LableEntityToModel(List<LabletType> labletTypes) {
 		InitResponseAppData appData = new InitResponseAppData();
 		for (LabletType labletType : labletTypes) {
-			LableResponseModel lableModel = new LableResponseModel();
+			LableResponse lableModel = new LableResponse();
 			lableModel.setLableId(labletType.getLableId());
 			lableModel.setLableName(labletType.getLableName());
 			// 1个性类
@@ -407,21 +407,22 @@ public class UserBusiness {
 
 	/**
 	 * 用户个人主页详情
+	 * 
 	 * @param userServiceImpl
 	 * @param userImgServiceImpl
 	 * @param userLableMappingServiceImpl
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<DetailsResponseModel> GetUserDetails(UserServiceImpl userServiceImpl,
+	public baseResponse<DetailsResponse> GetUserDetails(UserServiceImpl userServiceImpl,
 			UserImgServiceImpl userImgServiceImpl, UserLableMappingServiceImpl userLableMappingServiceImpl,
-			baseRequest<DetailsRequestModel> request) {
+			baseRequest<DetailsRequest> request) {
 
-		baseResponse<DetailsResponseModel> response = new baseResponse<DetailsResponseModel>();
+		baseResponse<DetailsResponse> response = new baseResponse<DetailsResponse>();
 
-		DetailsResponseModel details = new DetailsResponseModel();
+		DetailsResponse details = new DetailsResponse();
 
-		DetailsRequestModel requestModel = request.getbody();
+		DetailsRequest requestModel = request.getbody();
 		//
 		RangeParameter rangeParameter = new RangeParameter();
 		rangeParameter.setUserId(requestModel.getToUserId());
@@ -439,7 +440,7 @@ public class UserBusiness {
 			details.setHeadImage(userData.getHeadImage());
 			details.setId(userData.getId());
 			details.setNickName(userData.getNickName());
-			details.setGender(datum.getGender());
+			details.setSex(datum.getGender());
 			details.setAge(datum.getAge());
 			details.setCity(datum.getCity());
 			details.setRange(ResponseUtils.GetRange(datum.getRangeM()));
@@ -448,12 +449,13 @@ public class UserBusiness {
 			details.setHeight(datum.getHeight());
 			details.setShape(datum.getShape());
 			details.setSexuat(datum.getSexuat());
+			details.setVip(userData.getUserLevel());
 		}
 		// 图片
 		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(requestModel.getToUserId());
 		if (userImgs != null && userImgs.size() > 0) {
 			for (UserImg userImg : userImgs) {
-				DetailsImgResponseModel img = new DetailsImgResponseModel();
+				DetailsImgResponse img = new DetailsImgResponse();
 				img.setImg(userImg.getImagePath());
 				details.getImgs().add(img);
 			}
@@ -464,7 +466,7 @@ public class UserBusiness {
 		mapping.setUserId(requestModel.getToUserId());
 		List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(mapping);
 		for (UserLableMapping userLableMapping : userLableData) {
-			DetailsLableResponseModel lable = new DetailsLableResponseModel();
+			DetailsLableResponse lable = new DetailsLableResponse();
 			lable.setLableName(userLableMapping.getLabletTypes().getLableName());
 			details.getLables().add(lable);
 		}

@@ -14,11 +14,11 @@ import com.api.business.UserBusiness;
 import com.api.model.CityResponseChild;
 import com.api.model.CityResponseParent;
 import com.api.model.InitResponseAppData;
-import com.api.model.InitResponseModel;
-import com.api.model.InitUserRequestModel;
-import com.api.model.InitUserResponseModel;
-import com.api.model.PageTwoResponseModel;
-import com.api.model.VersionResponseModel;
+import com.api.model.InitResponse;
+import com.api.model.InitUserRequest;
+import com.api.model.InitUserResponse;
+import com.api.model.PageTwoResponse;
+import com.api.model.VersionResponse;
 import com.api.model.baseRequest;
 import com.api.model.baseResponse;
 import com.api.requestresponse.ResponseEncryptBody;
@@ -67,10 +67,9 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/initUser", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-initUser", value = "初始化用户"
-			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置"
-			+ "4返回用户提示更新 5二次启动页", notes = "初始化用户")
-	public baseResponse<InitResponseModel> initUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequestModel> request) {
+			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置", notes = "初始化用户")
+	public baseResponse<InitResponse> initUser(
+			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request) {
 		// for (int i = 0; i < 100000; i++) {
 		// String code = StringUtils.getRandomNum(999999, 111111);
 		// InvitationCode invitation =
@@ -82,26 +81,18 @@ public class InitController {
 		// invitationCodeServiceImpl.insertCode(entity);
 		// }
 		// }
-		baseResponse<InitResponseModel> response = UserBusiness.getInstance().initUser(UserPositionService, request);
-		InitResponseModel initResponseModel = new InitResponseModel();
-		// 返回版本信息
-		VersionResponseModel versionResponseModel = UserBusiness.getInstance().GetAppVersion(appversionService,
-				request.getDeviceType(), request.getVersionCode());
-		// 二次启动页
-		PageTwoResponseModel pageTwoModel = UserBusiness.getInstance().GetPageTwo();
-		initResponseModel.setVersionData(versionResponseModel);
-		initResponseModel.setTwoData(pageTwoModel);
-
+		baseResponse<InitResponse> response = UserBusiness.getInstance().initUser(UserPositionService, request);
+		InitResponse initResponseModel = new InitResponse();
 		List<User> userDatas = userServiceImpl.initUser(request.getUserId());
 		if (userDatas != null && userDatas.size() > 0) {
 			User user = userDatas.get(0);
 			UserDatum datum = user.getDatum();
-			InitUserResponseModel initUser = new InitUserResponseModel();
+			InitUserResponse initUser = new InitUserResponse();
 			initUser.setUserId(request.getUserId());
 			initUser.setId(user.getId());
 			initUser.setHeadImage(user.getHeadImage());
 			initUser.setNickName(user.getNickName());
-			initUser.setGender(datum.getGender());
+			initUser.setSex(datum.getGender());
 			initUser.setAge(datum.getAge());
 			initUser.setCity(datum.getCity());
 			initUser.setSign(datum.getSign());
@@ -109,7 +100,7 @@ public class InitController {
 			initUser.setHeight(datum.getHeight());
 			initUser.setShape(datum.getShape());
 			initUser.setSexuat(datum.getSexuat());
-			initUser.setLevel(user.getUserLevel());
+			initUser.setVip(user.getUserLevel());
 			initUser.setInviteCode(user.getInviteCode());
 			initResponseModel.setUser(initUser);
 		}
@@ -126,7 +117,7 @@ public class InitController {
 	 */
 	@ResponseEncryptBody
 	@RequestMapping(value = "/appData", method = RequestMethod.POST)
-	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色", notes = "初始化app填充的数据")
+	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
 	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest request) {
 		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
 		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
@@ -154,6 +145,15 @@ public class InitController {
 			cityParent.setCities(childs);
 			citys.add(cityParent);
 		});
+
+		// 返回版本信息
+		VersionResponse versionResponseModel = UserBusiness.getInstance().GetAppVersion(appversionService,
+				request.getDeviceType(), request.getVersionCode());
+		// 二次启动页
+		PageTwoResponse pageTwoModel = UserBusiness.getInstance().GetPageTwo();
+		appData.setVersionData(versionResponseModel);
+		appData.setTwoData(pageTwoModel);
+		
 		appData.setCityData(citys);
 		response.setData(appData);
 		return response;

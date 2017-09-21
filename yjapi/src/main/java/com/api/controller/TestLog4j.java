@@ -26,12 +26,16 @@ import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.SystemPropertyUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.api.model.baseResponse;
+import com.api.utils.PageUtils;
 import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.myErp.enums.ProductLevel;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.manager.bean.InvitationCode;
+import com.myErp.manager.bean.UserFinancial;
 import com.myErp.utils.DateStyle;
 import com.myErp.utils.DateUtil;
 import com.myErp.utils.Md5Util;
@@ -47,13 +51,15 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹
-		File f2 = new File("D:\\TestWork\\test1");//转码成UTF-8的目标文件夹
-		try {
-			copyFile(f1, f2);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	 baseResponse response=new baseResponse();
+	 System.out.println(JSON.toJSONString(response));
+//		File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹
+//		File f2 = new File("D:\\TestWork\\test1");//转码成UTF-8的目标文件夹
+//		try {
+//			copyFile(f1, f2);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 //		ProductLevel product = ProductLevel.getProductById(1);
 //		double reward = product.getPrice() * SystemConfig.percentage;

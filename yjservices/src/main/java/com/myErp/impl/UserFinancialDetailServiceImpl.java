@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myErp.dao.UserFinancialDetailMapper;
+import com.myErp.manager.bean.MyProfitRecord;
 import com.myErp.manager.bean.UserFinancialDetail;
 import com.myErp.utils.DBContextHolder;
 
@@ -46,5 +47,16 @@ public class UserFinancialDetailServiceImpl {
 	public List<UserFinancialDetail> selectFinancialDetail(int userId) {
 		DBContextHolder.setDBType("siteRead");
 		return userFinancialDetailMapper.selectFinancialDetail(userId);
+	}
+
+	/**
+	 * 我的收益记录
+	 * 
+	 * @param detail
+	 * @return
+	 */
+	public List<MyProfitRecord> selectMyProfit(int userId) {
+		DBContextHolder.setDBType("siteRead");
+		return userFinancialDetailMapper.selectMyProfit(userId);
 	}
 }

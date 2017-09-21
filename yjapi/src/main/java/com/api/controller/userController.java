@@ -104,7 +104,7 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-pwd", value = "修改密码", notes = "修改密码")
-	public baseResponse UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponseModel> user) {
+	public baseResponse UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponse> user) {
 		baseResponse response = UserBusiness.getInstance().UpdateUserPwd(userServiceImpl, userVerifyCodeServiceImpl,
 				user);
 		return response;
@@ -120,7 +120,7 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getMsgCode", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-getMsgCode", value = "获取短信验证码", notes = "获取短信验证码")
-	public baseResponse getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequestModel> user)
+	public baseResponse getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> user)
 			throws Exception {
 		baseResponse output = new baseResponse();
 		String code = ValidateUtil.GetRandom();
@@ -155,7 +155,7 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/editDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addDatum", value = "添加用户资料和修改用户资料）", notes = "添加用户资料和修改用户资料")
-	public baseResponse AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequestModel> user) {
+	public baseResponse AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user) {
 		baseResponse response = UserBusiness.getInstance().AddUserDatum(userDatumService, user);
 		return response;
 	}
@@ -169,8 +169,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-getDatum", value = "获取用户资料", notes = "添加用户资料和修改用户资料")
-	public baseResponse<UserDatumRequestModel> GetUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest user) {
-		baseResponse<UserDatumRequestModel> response = UserBusiness.getInstance().GetUserDatum(userDatumService, user);
+	public baseResponse<UserDatumRequest> GetUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest user) {
+		baseResponse<UserDatumRequest> response = UserBusiness.getInstance().GetUserDatum(userDatumService, user);
 		// UserBusiness.getInstance().test();
 		return response;
 	}
@@ -189,11 +189,11 @@ public class userController {
 		baseResponse<LableResponseData> response = new baseResponse<LableResponseData>();
 
 		int labeTypeId = 0;
-		List<LableRequestModel> lableRequestDatas = request.getbody().getList();
+		List<LableRequest> lableRequestDatas = request.getbody().getList();
 		if (lableRequestDatas != null && lableRequestDatas.size() > 0) {
 			// 添加
 			List<UserLableMapping> entitys = new ArrayList<UserLableMapping>();
-			for (LableRequestModel item : lableRequestDatas) {
+			for (LableRequest item : lableRequestDatas) {
 				UserLableMapping mapping = new UserLableMapping();
 				mapping.setUserId(request.getUserId());
 				mapping.setLableId(item.getLableId());
@@ -210,7 +210,7 @@ public class userController {
 				selectLable.setLableType(labeTypeId);
 				List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(selectLable);
 				for (UserLableMapping c : userLableData) {
-					LableResponseModel model = new LableResponseModel();
+					LableResponse model = new LableResponse();
 					model.setLableId(c.getLableId());
 					model.setLableType(c.getLableType());
 					model.setLableName(c.getLabletTypes().getLableName());
@@ -257,8 +257,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/details", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-details", value = "个人主页", notes = "个人主页")
-	public baseResponse<DetailsResponseModel> GetUserDetails(
-			@ApiParam(value = "输入") @RequestBody baseRequest<DetailsRequestModel> request) {
+	public baseResponse<DetailsResponse> GetUserDetails(
+			@ApiParam(value = "输入") @RequestBody baseRequest<DetailsRequest> request) {
 		return UserBusiness.getInstance().GetUserDetails(userServiceImpl, userImgServiceImpl,
 				userLableMappingServiceImpl, request);
 	}

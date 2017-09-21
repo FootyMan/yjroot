@@ -62,6 +62,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserInviteServiceI
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\RoleMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\RangeParameter.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\Pagination.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\MyProfitRecord.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\RequestUtils.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\DBContextHolder.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserLableMappingServiceImpl.java

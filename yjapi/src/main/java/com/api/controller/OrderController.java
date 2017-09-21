@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.api.model.AlipayResponseModel;
+import com.api.model.AlipayResponse;
 import com.api.model.HomeObject;
-import com.api.model.HomeRequestModel;
-import com.api.model.HomeResponseModel;
-import com.api.model.OrderRequestModel;
-import com.api.model.WxResponseModel;
+import com.api.model.HomeRequest;
+import com.api.model.HomeResponse;
+import com.api.model.OrderRequest;
+import com.api.model.WxResponse;
 import com.api.model.baseRequest;
 import com.api.model.baseResponse;
 import com.api.requestresponse.ResponseEncryptBody;
@@ -60,8 +60,8 @@ public class OrderController {
 			+ "	timeStamp=时间戳"
 			+ "	nonce_str=随机数")
 	public synchronized baseResponse PayOrder(
-			@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequestModel> request) {
-		OrderRequestModel orderModel = request.getbody();
+			@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request) {
+		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
 		if (product != null && product.getProductId() > 0) {
 			// 生成订单
@@ -76,8 +76,8 @@ public class OrderController {
 			orderServiceImpl.insertOrder(order);
 		}
 		if (orderModel.getPayType()==1) {
-			baseResponse<WxResponseModel> wxResponse=new baseResponse<WxResponseModel>();
-			WxResponseModel wx=new WxResponseModel();
+			baseResponse<WxResponse> wxResponse=new baseResponse<WxResponse>();
+			WxResponse wx=new WxResponse();
 			wx.setAppid("Appid");
 			wx.setPartnerid("Partnerid");
 			wx.setPrepayid("prepayid");
@@ -90,8 +90,8 @@ public class OrderController {
 		}
 		else
 		{
-			baseResponse<AlipayResponseModel> aliPayResponse=new baseResponse<AlipayResponseModel>();
-			AlipayResponseModel alipayResponseModel=new AlipayResponseModel();
+			baseResponse<AlipayResponse> aliPayResponse=new baseResponse<AlipayResponse>();
+			AlipayResponse alipayResponseModel=new AlipayResponse();
 			alipayResponseModel.setAlipayString("alipayString");
 			aliPayResponse.setData(alipayResponseModel);
 			return aliPayResponse;

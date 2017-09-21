@@ -8,28 +8,28 @@ import io.swagger.annotations.ApiModelProperty;
 public class HomeObject {
 
 	public HomeObject() {
-		list = new ArrayList<HomeResponseModel>();
+		list = new ArrayList<HomeResponse>();
 	}
 
 	@ApiModelProperty(value = "推荐、只有PageIndex=1时此数组有值、其他无数据")
-	private List<HomeResponseModel> recommend;
+	private List<HomeResponse> recommend;
 
 	@ApiModelProperty(value = "列表")
-	private List<HomeResponseModel> list;
+	private List<HomeResponse> list;
 
-	public List<HomeResponseModel> getRecommend() {
+	public List<HomeResponse> getRecommend() {
 		return recommend;
 	}
 
-	public void setRecommend(List<HomeResponseModel> recommend) {
+	public void setRecommend(List<HomeResponse> recommend) {
 		this.recommend = recommend;
 	}
 
-	public List<HomeResponseModel> getList() {
+	public List<HomeResponse> getList() {
 		return list;
 	}
 
-	public void setList(List<HomeResponseModel> list) {
+	public void setList(List<HomeResponse> list) {
 		this.list = list;
 	}
 
