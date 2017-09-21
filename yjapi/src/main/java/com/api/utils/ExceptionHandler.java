@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.api.model.baseResponse;
+import com.api.response.baseResponse;
 import com.myErp.utils.CommonMethod;
 
 public class ExceptionHandler implements HandlerExceptionResolver {
@@ -26,8 +26,9 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 			response.setCode(500);
 			response.setMsg("服务器异常！");
 			String reqStr = CommonMethod.ConvertObjToJson(response);
-			arg1.getWriter().write(reqStr);
-		} catch (IOException e) {
+			String des = DES.encrypt(reqStr);
+			arg1.getWriter().write(des);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new ModelAndView();

@@ -44,9 +44,9 @@ public class UserFinancialDetailServiceImpl {
 	 * @param detail
 	 * @return
 	 */
-	public List<UserFinancialDetail> selectFinancialDetail(int userId) {
+	public List<UserFinancialDetail> selectFinancialDetail(UserFinancialDetail detail) {
 		DBContextHolder.setDBType("siteRead");
-		return userFinancialDetailMapper.selectFinancialDetail(userId);
+		return userFinancialDetailMapper.selectFinancialDetail(detail);
 	}
 
 	/**

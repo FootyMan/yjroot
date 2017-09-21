@@ -2,6 +2,7 @@ package com.myErp.manager.bean;
 
 import java.sql.Date;
 
+
 /**
  * 我的收益记录
  * @author HCY
@@ -17,6 +18,15 @@ public class MyProfitRecord {
 	private String productDesc;
 	//收益金额
 	private double financialMoney;
+	//"用户级别 1普通用户 2包月会员 3半年会员 4年费会员"
+	private int userLevel;
+	 
+	public int getUserLevel() {
+		return userLevel;
+	}
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
+	}
 	public Date getOperateDate() {
 		return operateDate;
 	}

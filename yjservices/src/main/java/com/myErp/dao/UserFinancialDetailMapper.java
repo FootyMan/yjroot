@@ -24,7 +24,7 @@ public abstract interface UserFinancialDetailMapper {
 	 * @param detail
 	 * @return
 	 */
-	public abstract List<UserFinancialDetail> selectFinancialDetail(int userId);
+	public abstract List<UserFinancialDetail> selectFinancialDetail(UserFinancialDetail detail);
 	
 	/**
 	 * 我的收益记录

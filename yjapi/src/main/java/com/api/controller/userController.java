@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.api.model.baseResponse;
+
 import com.api.business.UserBusiness;
-import com.api.model.*;
+import com.api.request.*;
 import com.api.utils.PhoneMessageSend;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
+import com.api.utils.decrypt.ResponseEncryptBody;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
 import com.myErp.impl.UserImgServiceImpl;
@@ -38,7 +39,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
-import com.api.requestresponse.ResponseEncryptBody;
+
+import com.api.response.DetailsResponse;
+import com.api.response.InitResponseAppData;
+import com.api.response.LableResponse;
+import com.api.response.LableResponseData;
+import com.api.response.UserPwdResponse;
+import com.api.response.baseResponse;
 
 @Controller
 @RequestMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
@@ -120,27 +127,56 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getMsgCode", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-getMsgCode", value = "获取短信验证码", notes = "获取短信验证码")
-	public baseResponse getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> user)
+	public baseResponse getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> request)
 			throws Exception {
+		PhoneMsgRequest body = request.getbody();
 		baseResponse output = new baseResponse();
+		// 验证码
 		String code = ValidateUtil.GetRandom();
+		PhoneMessageSend send = new PhoneMessageSend();
+		boolean isflag = false;// 发送是否成功
+		String phone = "";// 手机号
+		String msg = "";// 消息
+		// 注册
+		if (body.getType() == 1) {
 
-		if (!StringUtils.isEmpty(user.getbody().getPhone())) {
-			PhoneMessageSend send = new PhoneMessageSend();
-			if (!send.RegisteMessage(user.getbody().getPhone(), code)) {
+			if (!StringUtils.isEmpty(request.getbody().getPhone())) {
+				phone = request.getbody().getPhone();
+				msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
 
-				output.setCode(ResultEnum.ServiceErrorCode);
-				output.setMsg("短信通道失败");
+			} else {
+				output.setCode(ResultEnum.ColmunErrorCode);
+				output.setMsg("手机号为空");
 				return output;
 			}
-		} else {
-			output.setCode(ResultEnum.ColmunErrorCode);
-			output.setMsg("手机号为空");
+		}
+		// 2绑定支付宝账号
+		// 3提现
+		else if ((body.getType() == 2 || body.getType() == 3) && request.getUserId() > 0) {
+			// 根据用户ID获取用户手机号
+			User userData = userServiceImpl.selectUserByUserId(request.getUserId());
+			if (userData != null && userData.getUserId() > 0) {
+				phone = userData.getPhone();
+				if (body.getType() == 2) {
+					msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
+				}
+				// 3提现
+				else {
+					msg = "您在平台提现验证码为" + code + "，一分钟内有效";
+				}
+
+			}
+		}
+		isflag = send.SendPhooneMsg(phone, msg);
+		if (!isflag) {
+
+			output.setCode(ResultEnum.ServiceErrorCode);
+			output.setMsg("短信通道失败");
 			return output;
 		}
 
 		UserVerifyCode verifyCode = new UserVerifyCode();
-		verifyCode.setPhone(user.getbody().getPhone());
+		verifyCode.setPhone(request.getbody().getPhone());
 		verifyCode.setVerifyCode(code);
 		userVerifyCodeServiceImpl.insertUserVerifyCode(verifyCode);
 		return output;
@@ -229,7 +265,7 @@ public class userController {
 	 * @return
 	 */
 	@ResponseEncryptBody
-	@RequestMapping(value = "/getLableByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "/getUserlable", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addLable", value = "根据用户ID获取他的所有标签", notes = "根据用户ID获取他的所有标签")
 	public baseResponse<InitResponseAppData> GetUserLableByUserID(
 			@ApiParam(value = "输入") @RequestBody baseRequest request) {

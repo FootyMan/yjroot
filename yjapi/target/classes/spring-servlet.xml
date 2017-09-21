@@ -16,14 +16,14 @@
 
 	<!--重写 Request和Response 用于加密和解密Request和Response参数 -->
 	<bean id="requestDecryptResponseEncryptBodyProcessorImpl"
-		class="com.api.requestresponse.RequestDecryptResponseEncryptBodyProcessorImpl" />
+		class="com.api.utils.decrypt.RequestDecryptResponseEncryptBodyProcessorImpl" />
 
 	<bean id="decryptEncryptFastJsonHttpMessageConverter"
-		class="com.api.requestresponse.DecryptEncryptFastJsonHttpMessageConverter"
+		class="com.api.utils.decrypt.DecryptEncryptFastJsonHttpMessageConverter"
 		p:requestDecryptResponseEncryptBodyProcessor-ref="requestDecryptResponseEncryptBodyProcessorImpl" />
 
 	<bean id="requestDecryptResponseEncryptBodyMethodProcessor"
-		class="com.api.requestresponse.RequestDecryptResponseEncryptBodyMethodProcessor">
+		class="com.api.utils.decrypt.RequestDecryptResponseEncryptBodyMethodProcessor">
 		<constructor-arg>
 			<list>
 				<ref bean="decryptEncryptFastJsonHttpMessageConverter" />

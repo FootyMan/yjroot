@@ -11,12 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.api.model.baseRequest;
+import com.api.request.baseRequest;
+import com.api.response.baseResponse;
 import com.myErp.utils.CommonMethod;
 import com.myErp.utils.SystemConfig;
 
+import javassist.runtime.Desc;
+
 public class HttpServletRequestReplacedFilter implements Filter {
 	private static Logger logger = Logger.getLogger(HttpServletRequestReplacedFilter.class);
+
 	@Override
 	public void destroy() {
 
@@ -42,7 +46,19 @@ public class HttpServletRequestReplacedFilter implements Filter {
 				if (model != null && model.getTimeStamp().equals("11232")) {
 					chain.doFilter(requestWrapper, response);
 				} else {
-					response.getWriter().write("{\"code\": 2009,\"msg\": \"非法请求\"}");
+					baseResponse<?> r = new baseResponse<Object>();
+					r.setCode(ResultEnum.SignErrorCode);
+					r.setMsg("非法请求");
+					String json = CommonMethod.ConvertObjToJson(r);
+					try {
+						String des = DES.encrypt(json);
+						response.getWriter().write(des);// "{\"code\":
+														// 2009,\"msg\":
+														// \"非法请求\"}"
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				}
 			}

@@ -2,7 +2,7 @@ package com.myErp.enums;
 
 public enum FinancialType {
 
-	Revenue(1, "收入", 1), Defray(1, "支出", 2);
+	Revenue(1, "收入", 1), Defray(2, "支出", 2);
 	private int code;
 	private String desc;
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.api.model.baseResponse;
+import com.api.response.baseResponse;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.UserImgServiceImpl;
 import com.myErp.impl.UserServiceImpl;

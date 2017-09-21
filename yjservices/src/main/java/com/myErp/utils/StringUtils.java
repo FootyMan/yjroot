@@ -165,4 +165,31 @@ public class StringUtils {
 		String orderNubmer = prefix + timeStamp + strUserId + strProductId;
 		return orderNubmer;
 	}
+	
+	/**
+	 * 提现订单号
+	 * 年后两位+ 13位时间戳+用户ID(取前三位，不够前面补0) +000(代表提现)
+	 * @param userId
+	 * @param productId
+	 * @return
+	 */
+	public static String GetOrderNumberWithdrawals(int userId) {
+		// 前缀年后两位开头
+		String prefix = DateUtil.getYearTwo(new Date());
+		// 时间戳
+		String timeStamp = String.valueOf(new Date().getTime());
+		String strUserId = String.valueOf(userId);
+		int userIdN = 3, productIdN = 2;
+		// 大于3截取后三位
+		if (strUserId.length() > 3) {
+			strUserId = strUserId.substring(strUserId.length() - userIdN, strUserId.length());
+		} else {
+			// 不大于3前面补0
+			strUserId = frontCompWithZore(userId, userIdN);
+		}
+
+		String strProductId ="000";//代表提现
+		String orderNubmer = prefix + timeStamp + strUserId + strProductId;
+		return orderNubmer;
+	}
 }

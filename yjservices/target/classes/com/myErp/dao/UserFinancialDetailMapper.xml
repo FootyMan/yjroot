@@ -44,7 +44,7 @@
 		where recordID=#{recordID}
 	</update>
 	<select id="selectFinancialDetail" resultMap="financialDetailResultMap"
-		parameterType="java.lang.Integer">
+		parameterType="com.myErp.manager.bean.UserFinancialDetail">
 		select
 		<include refid="Base_Column_List" />
 		from userfinancialdetail where userId=#{userId}
@@ -54,19 +54,30 @@
 	<!-- 我的收益记录 -->
 	<select id="selectMyProfit" resultMap="myProfitResultMap"
 		parameterType="java.lang.Integer">
-		SELECT operateDate,
-		(select nickName from user where
-		userId=(select userId from t_order where
-		orderNumber=sourceNumber)) as
-		nickName,
-		replace((select productDesc from product where
-		productId=(select productId from
-		t_order where
-		orderNumber=sourceNumber)),' ','') as productDesc,
-		financialMoney
-		FROM
-		myschema.userfinancialdetail where userId=#{userId} and
-		financialType=1
+		<!-- SELECT operateDate, -->
+		<!-- (select nickName from user where -->
+		<!-- userId=(select userId from t_order where -->
+		<!-- orderNumber=sourceNumber)) as -->
+		<!-- nickName, -->
+		<!-- replace((select productDesc from product where -->
+		<!-- productId=(select productId from -->
+		<!-- t_order where -->
+		<!-- orderNumber=sourceNumber)),' ','') as productDesc, -->
+		<!-- financialMoney -->
+		<!-- FROM -->
+		<!-- myschema.userfinancialdetail where userId=#{userId} and -->
+		<!-- financialType=1 -->
+
+		select
+		a.operateDate,c.nickName,d.productDesc,a.financialMoney,c.userLevel
+		from userfinancialdetail as a
+		inner join t_order as b on
+		a.sourceNumber=b.orderNumber
+		inner join user as c on c.userId=1
+		inner
+		join product d on d.productId=b.productId
+		where a.userId=#{userId} and
+		a.financialType=1;
 	</select>
 
 	<sql id="BASE_Column_Where">
