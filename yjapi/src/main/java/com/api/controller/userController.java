@@ -80,7 +80,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/registe", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户注册接口", notes = "用户注册接口")
-	public baseResponse userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user) {
+	public baseResponse userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+			throws Exception {
 		baseResponse response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
 				invitationCodeServiceImpl, userInviteServiceImpl, user);
 		UserBusiness.getInstance().AddUserPoint(UserPositionService, user);
@@ -96,7 +97,7 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户登录接口", notes = "用户登录接口")
-	public baseResponse userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user) {
+	public baseResponse userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user) throws Exception {
 		baseResponse response = UserBusiness.getInstance().userLogin(userServiceImpl, user);
 		return response;
 	}
@@ -111,7 +112,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-pwd", value = "修改密码", notes = "修改密码")
-	public baseResponse UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponse> user) {
+	public baseResponse UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponse> user)
+			throws Exception {
 		baseResponse response = UserBusiness.getInstance().UpdateUserPwd(userServiceImpl, userVerifyCodeServiceImpl,
 				user);
 		return response;
@@ -191,7 +193,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/editDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addDatum", value = "添加用户资料和修改用户资料）", notes = "添加用户资料和修改用户资料")
-	public baseResponse AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user) {
+	public baseResponse AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user)
+			throws Exception {
 		baseResponse response = UserBusiness.getInstance().AddUserDatum(userDatumService, user);
 		return response;
 	}
@@ -205,7 +208,8 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-getDatum", value = "获取用户资料", notes = "添加用户资料和修改用户资料")
-	public baseResponse<UserDatumRequest> GetUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest user) {
+	public baseResponse<UserDatumRequest> GetUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest user)
+			throws Exception {
 		baseResponse<UserDatumRequest> response = UserBusiness.getInstance().GetUserDatum(userDatumService, user);
 		// UserBusiness.getInstance().test();
 		return response;
@@ -268,7 +272,7 @@ public class userController {
 	@RequestMapping(value = "/getUserlable", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addLable", value = "根据用户ID获取他的所有标签", notes = "根据用户ID获取他的所有标签")
 	public baseResponse<InitResponseAppData> GetUserLableByUserID(
-			@ApiParam(value = "输入") @RequestBody baseRequest request) {
+			@ApiParam(value = "输入") @RequestBody baseRequest request) throws Exception {
 		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
 		UserLableMapping mapping = new UserLableMapping();
 		mapping.setUserId(request.getUserId());

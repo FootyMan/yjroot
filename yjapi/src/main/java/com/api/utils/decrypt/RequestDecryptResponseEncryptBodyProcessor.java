@@ -29,8 +29,8 @@ public abstract class RequestDecryptResponseEncryptBodyProcessor {
 		return doDecryptRequestBody(input, httpHeaders, charset);
 	}
 
-	public final String encryptResponseBody(String input, HttpHeaders httpHeaders, Charset charset) {
-		return doEncryptResponseBody(input, httpHeaders, charset);
+	public final String encryptResponseBody(String input) {
+		return doEncryptResponseBody(input);
 	}
 
 	protected String doDecryptRequestBody(String input, HttpHeaders httpHeaders, Charset charset) {
@@ -44,7 +44,7 @@ public abstract class RequestDecryptResponseEncryptBodyProcessor {
 	 * @param charset
 	 * @return
 	 */
-	protected String doEncryptResponseBody(String input, HttpHeaders httpHeaders, Charset charset) {
+	protected String doEncryptResponseBody(String input) {
 		String jiami = input;
 		if (SystemConfig.isEncrypt) {
 			try {

@@ -69,7 +69,8 @@ public class ProfitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "绑定支付宝账号", notes = "绑定支付宝账号")
-	public baseResponse<?> BindAccount(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitAccountRequest> request) {
+	public baseResponse<?> BindAccount(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitAccountRequest> request)
+			throws Exception {
 		baseResponse<?> response = new baseResponse<Object>();
 
 		ProfitAccountRequest accountRequestModel = request.getbody();
@@ -112,7 +113,8 @@ public class ProfitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/myProfit", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "我的收益++提现页面初始化的账号+可提现金额+每日提现上限", notes = "我的收益++提现页面初始化的账号+可提现金额+每日提现上限")
-	public baseResponse<ProfitMyResponse> MyProfit(@ApiParam(value = "输入") @RequestBody baseRequest<?> request) {
+	public baseResponse<ProfitMyResponse> MyProfit(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
+			throws Exception {
 		baseResponse<ProfitMyResponse> response = new baseResponse<ProfitMyResponse>();
 		UserFinancial financial = userFinancialServiceImpl.selectFinancial(request.getUserId());
 		if (financial != null && financial.getFinancialId() > 0) {
@@ -138,7 +140,8 @@ public class ProfitController {
 	@ApiOperation(nickname = "swagger-registe", value = "收益和提现记录 注意返回的data里是集合 字段类型全部String"
 			+ "收益记录返回date=日期	user=用户	type=会员类型	money=佣金"
 			+ "		提现记录date=日期	money=提现金额		state=结算状态", notes = "收益和提现记录")
-	public baseResponse ProfitRecord(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitRecordRequest> request) {
+	public baseResponse ProfitRecord(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitRecordRequest> request)
+			throws Exception {
 		baseResponse response = new baseResponse();
 		ProfitRecordRequest recordRequest = request.getbody();
 		if (recordRequest != null && recordRequest.getType() > 0) {
@@ -162,7 +165,7 @@ public class ProfitController {
 			// 支出记录
 			else {
 				List<ProfitWithDrawResponse> WithDrawResponses = new ArrayList<ProfitWithDrawResponse>();
-				UserFinancialDetail entitydetail=new UserFinancialDetail();
+				UserFinancialDetail entitydetail = new UserFinancialDetail();
 				entitydetail.setUserId(request.getUserId());
 				entitydetail.setFinancialType(2);
 				List<UserFinancialDetail> financialDetails = userFinancialDetailServiceImpl
@@ -197,7 +200,7 @@ public class ProfitController {
 	@RequestMapping(value = "/wd", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "提现", notes = "提现")
 	public baseResponse<?> UserWithdrawals(
-			@ApiParam(value = "输入") @RequestBody baseRequest<ProfitWithDrawRequest> request) {
+			@ApiParam(value = "输入") @RequestBody baseRequest<ProfitWithDrawRequest> request) throws Exception {
 		baseResponse<?> response = new baseResponse<Object>();
 		ProfitWithDrawRequest body = request.getbody();
 		// 验证码是否正确

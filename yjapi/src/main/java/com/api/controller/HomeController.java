@@ -49,40 +49,34 @@ public class HomeController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "首页用户", notes = "首页用户")
-	public baseResponse<HomeObject> HomeUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request) {
+	public baseResponse<HomeObject> HomeUser(@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request) throws Exception {
 		baseResponse<HomeObject> response = new baseResponse<HomeObject>();
-		try {
-			// 首页对象
-			HomeObject object = new HomeObject();
-			// 传入body
-			HomeRequest requestModel = request.getbody();
-			// 如果是第一页查询首页推荐
-			if (requestModel.getPageIndex() == 1) {
-				List<HomeResponse> recommend = new ArrayList<HomeResponse>();
-				List<User> recResult = userServiceImpl.appUserRecommend();
-				for (User user : recResult) {
-					recommend.add(EntityToModel(user));
-				}
-				object.setRecommend(recommend);
-				// 查询推荐用户
+		// 首页对象
+		HomeObject object = new HomeObject();
+		// 传入body
+		HomeRequest requestModel = request.getbody();
+		// 如果是第一页查询首页推荐
+		if (requestModel.getPageIndex() == 1) {
+			List<HomeResponse> recommend = new ArrayList<HomeResponse>();
+			List<User> recResult = userServiceImpl.appUserRecommend();
+			for (User user : recResult) {
+				recommend.add(EntityToModel(user));
 			}
-			//
-			AppHomePagePaging pagePaging = new AppHomePagePaging();
-			pagePaging.setPageIndex((requestModel.getPageIndex() - 1) * PageUtils.PageSize.getValue());
-			pagePaging.setPageSize(PageUtils.PageSize.getValue());
-			pagePaging.setGender(requestModel.getGender());
-			List<User> userData = userServiceImpl.appUserList(pagePaging);
-			List<HomeResponse> list = new ArrayList<HomeResponse>();
-			for (User user : userData) {
-				list.add(EntityToModel(user));
-			}
-			object.setList(list);
-			response.setData(object);
-		} catch (Exception e) {
-			response.setCode(500);
-			response.setMsg("服务器错误!");
+			object.setRecommend(recommend);
+			// 查询推荐用户
 		}
+		//
+		AppHomePagePaging pagePaging = new AppHomePagePaging();
+		pagePaging.setPageIndex((requestModel.getPageIndex() - 1) * PageUtils.PageSize.getValue());
+		pagePaging.setPageSize(PageUtils.PageSize.getValue());
+		pagePaging.setGender(requestModel.getGender());
+		List<User> userData = userServiceImpl.appUserList(pagePaging);
+		List<HomeResponse> list = new ArrayList<HomeResponse>();
+		for (User user : userData) {
+			list.add(EntityToModel(user));
+		}
+		object.setList(list);
+		response.setData(object);
 
 		return response;
 	}
@@ -98,7 +92,7 @@ public class HomeController {
 	@RequestMapping(value = "/range", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-range", value = "附近的人 如果不让访问当前位置 经纬度不需要传、默认天安门", notes = "附近的人")
 	public baseResponse<List<RangeResponse>> RangeUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request) {
+			@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request)throws Exception {
 		baseResponse<List<RangeResponse>> response = new baseResponse<List<RangeResponse>>();
 
 		RangeRequest requestModel = request.getbody();
@@ -123,7 +117,6 @@ public class HomeController {
 		return response;
 	}
 
-	
 	/**
 	 * 实体对象转换model
 	 * 

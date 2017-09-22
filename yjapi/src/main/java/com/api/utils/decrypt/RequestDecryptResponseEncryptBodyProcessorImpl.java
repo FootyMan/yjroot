@@ -17,7 +17,7 @@ public class RequestDecryptResponseEncryptBodyProcessorImpl extends RequestDecry
 	    }
 
 	    @Override
-	    protected String doEncryptResponseBody(String input, HttpHeaders httpHeaders, Charset charset) {
-	        return super.doEncryptResponseBody(input, httpHeaders, charset);
+	    protected String doEncryptResponseBody(String input) {
+	        return super.doEncryptResponseBody(input);
 	    }
 }

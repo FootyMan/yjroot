@@ -20,6 +20,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
 			Exception arg3) {
 		// TODO Auto-generated method stub
+		arg1.setCharacterEncoding("utf-8");
 		logger.error("发生位置:" + arg2 + "堆栈：" + arg3.getStackTrace() + "异常信息:" + arg3.getMessage());
 		try {
 			baseResponse response = new baseResponse();

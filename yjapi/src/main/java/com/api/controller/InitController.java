@@ -21,7 +21,6 @@ import com.api.response.InitUserResponse;
 import com.api.response.PageTwoResponse;
 import com.api.response.VersionResponse;
 import com.api.response.baseResponse;
-import com.api.utils.ResponseUtils;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import com.myErp.impl.AppversionServiceImpl;
 import com.myErp.impl.LabletTypeServiceImpl;
@@ -69,7 +68,7 @@ public class InitController {
 	@ApiOperation(nickname = "swagger-initUser", value = "初始化用户"
 			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置", notes = "初始化用户")
 	public baseResponse<InitResponse> initUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request) {
+			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request)throws Exception {
 		// for (int i = 0; i < 100000; i++) {
 		// String code = StringUtils.getRandomNum(999999, 111111);
 		// InvitationCode invitation =
@@ -118,7 +117,7 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/appData", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
-	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest request) {
+	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest request) throws Exception {
 		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
 		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
 		InitResponseAppData appData = UserBusiness.getInstance().LableEntityToModel(labletTypes);
@@ -153,10 +152,9 @@ public class InitController {
 		PageTwoResponse pageTwoModel = UserBusiness.getInstance().GetPageTwo();
 		appData.setVersionData(versionResponseModel);
 		appData.setTwoData(pageTwoModel);
-		
+
 		appData.setCityData(citys);
 		response.setData(appData);
 		return response;
 	}
-
 }

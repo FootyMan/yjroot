@@ -60,7 +60,7 @@ public class OrderController {
 			+ "	timeStamp=时间戳"
 			+ "	nonce_str=随机数")
 	public synchronized baseResponse PayOrder(
-			@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request) {
+			@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request)throws Exception {
 		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
 		if (product != null && product.getProductId() > 0) {

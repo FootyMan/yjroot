@@ -33,10 +33,12 @@ import com.api.utils.PageUtils;
 import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
 import com.api.wxpay.sdk.WXPayUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myErp.enums.ProductLevel;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.manager.bean.InvitationCode;
 import com.myErp.manager.bean.UserFinancial;
+import com.myErp.utils.CommonMethod;
 import com.myErp.utils.DateStyle;
 import com.myErp.utils.DateUtil;
 import com.myErp.utils.Md5Util;
@@ -52,7 +54,11 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		String reqStr = DES.decrypt("fiQJ0FtQYu4PS5kBUETavXlCGeJH7cYT5BvlVJhlVuo5m7KzDuht3w==");
+//		String dString="11111111";
+//		dString=DES.encrypt(dString);
+//		System.out.println(dString);
+		
+		String reqStr = DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
 		// baseResponse response=new baseResponse();
 		System.out.println(reqStr);
 		// File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹
@@ -101,109 +107,11 @@ public class TestLog4j {
 		// System.out.println(DateUtil.getYearTwo(new Date()));
 	}
 
-	public static void wxOrderPay() throws Exception {
-		WXPayConfigImpl config = WXPayConfigImpl.getInstance();
-		WXPay wxpay = new WXPay(config);
-		String orderNumber = "20170916002";// 订单号
-		int price = 60;// 金额
-		String notify_url = "wxNotify.html";// 支付回调地址
-		String nonce_str = WXPayUtil.generateNonceStr();
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("appid", WXPayConfigImpl.getInstance().getAppID());
-		parameters.put("mch_id", WXPayConfigImpl.getInstance().getMchID());
-		parameters.put("nonce_str", nonce_str);
-		parameters.put("body", "欲见包年费");
-		parameters.put("out_trade_no", orderNumber); // 订单id
-		parameters.put("fee_type", "CNY");
-		parameters.put("total_fee", String.valueOf(price));
-		parameters.put("spbill_create_ip", "8.8.8.8");
-		parameters.put("notify_url", notify_url);
-		parameters.put("trade_type", "APP");
-		Map<String, String> r = wxpay.unifiedOrder(parameters);
-		// {nonce_str=i1hdur2MgVzhCkiS,
-		// appid=wx81039e1a7a12c6a3,
-		// sign=0E4B582ABB994AB0E4638A7FADE79F615C42950283588BB4FB67D111CE07B8FD,
-		// trade_type=APP, return_msg=OK, result_code=SUCCESS,
-		// mch_id=1269287301, return_code=SUCCESS,
-		// prepay_id=wx2017090617090760f390c9d30815941123}
-		if (r.get("result_code").equals("SUCCESS") && r.get("return_code").equals("SUCCESS")) {
-
-			long timeStamp = WXPayUtil.getCurrentTimestamp();
-			HashMap<String, String> resultMap = new HashMap<String, String>();
-			resultMap.put("appid", WXPayConfigImpl.getInstance().getAppID());
-			resultMap.put("prepayid", r.get("prepay_id").toString());
-			resultMap.put("package", "Sign=WXPay");
-			resultMap.put("partnerid", WXPayConfigImpl.getInstance().getMchID());
-			resultMap.put("noncestr", nonce_str);
-			resultMap.put("timestamp", String.valueOf(timeStamp));
-			String sign = WXPayUtil.generateSignature(resultMap, WXPayConfigImpl.getInstance().getKey());
-			resultMap.put("sign", sign);
-			// resultMap.put("trade_type", r.get("trade_type"));
-			System.out.println(resultMap);
-		}
-	}
-
-	private static void copyFile(File f1, File f2) throws FileNotFoundException, IOException {
-		if (f1.isDirectory()) {
-			f2.mkdir();
-			File[] fs = f1.listFiles();
-			for (File subF : fs) {
-				// 递归遍历目录
-				copyFile(subF, new File(f2, subF.getName()));
-			}
-		} else if (f1.isFile() && f1.getName().endsWith(".java")) {
-			// 对java文件进行转码
-			parse2UTF_8(f1, f2);
-		} else {
-			// 对非java文件直接复制
-			copyData(f1, f2);
-		}
-	}
-
-	// 复制文件
-	private static void copyData(File f1, File f2) throws FileNotFoundException, IOException {
-
-		FileInputStream fis = new FileInputStream(f1);
-		FileOutputStream fos = new FileOutputStream(f2, false);
-
-		byte[] bytes = new byte[1024];
-		int temp = 0;
-		while (-1 != (temp = fis.read(bytes))) {
-			fos.write(bytes, 0, temp);
-		}
-
-		fos.flush();
-
-		if (null != fis) {
-			fis.close();
-		}
-		if (null != fos) {
-			fos.close();
-		}
-	}
-
-	/*
-	 * 该方法引用 杰克思勒(Jacksile)的文章：Eclipse修改编码后乱码解决 之后作了小修改 原码地址
-	 * https://www.cnblogs.com/tufujie/p/5137564.html
-	 */
-	private static void parse2UTF_8(File file, File destFile) throws IOException {
-		StringBuffer msg = new StringBuffer();
-		// 读写对象
-		PrintWriter ps = new PrintWriter(
-				new OutputStreamWriter(new FileOutputStream(destFile.getAbsolutePath(), false), "utf8"));
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "gbk"));
-
-		// 读写动作
-		String line = br.readLine();
-		while (line != null) {
-			msg.append(line).append("\r\n");
-			line = br.readLine();
-		}
-		ps.write(msg.toString());
-		br.close();
-		ps.flush();
-		ps.close();
-	}
+	 public static void TestJson()
+	 {
+		   ObjectMapper mapper = new ObjectMapper();
+		 //  mapper.writeValue(out, value);
+		 //CommonMethod.ConvertJsonToObj(objJSON, obj)
+	 }
 
 }
