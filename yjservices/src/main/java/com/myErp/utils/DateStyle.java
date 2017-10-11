@@ -15,7 +15,7 @@ public enum DateStyle {
 			"MM月dd日 HH:mm"), MM_DD_HH_MM_SS_CN("MM月dd日 HH:mm:ss"), YYYY_MM_DD_HH_MM_CN(
 					"yyyy年MM月dd日 HH:mm"), YYYY_MM_DD_HH_MM_SS_CN("yyyy年MM月dd日 HH:mm:ss"),
 
-	HH_MM("HH:mm"), HH_MM_SS("HH:mm:ss");
+	HH_MM("HH:mm"), HH_MM_SS("HH:mm:ss"),MM_dd_HH_MM("MM-dd HH:mm");
 
 	private String value;
 

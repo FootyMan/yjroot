@@ -33,6 +33,7 @@
 		<result column="userSource" property="userSource" jdbcType="INTEGER" />
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
 		<!-- 映射用户资料表 一对一 -->
 		<association property="datum" javaType="com.myErp.manager.bean.UserDatum">
 			<id column="datumId" property="datumId" jdbcType="INTEGER" />
@@ -48,7 +49,7 @@
 			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
-	
+
 	<sql id="Base_Column_List">
 		userId,Id,phone,deviceType,deviceToken,headImage,
 		registerTime,
@@ -115,12 +116,16 @@
 	<select id="appUserList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.AppHomePagePaging">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
+		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign
 		FROM user a inner join userdatum b
-		on a.userId=b.userId where 1=1
+		on
+		a.userId=b.userId where
+		1=1
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
+		order by a.browseNumber desc
 		LIMIT #{pageIndex},#{pageSize}
 	</select>
 	<!-- 首页推荐 -->
@@ -153,15 +158,16 @@
 
 
 	<!-- 个人用户所有信息用于初始化客户端 -->
-	<select id="initUser" resultMap="appUserResult"
-		parameterType="java.lang.Integer">
+	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
 		SELECT
 		Fn_SetImgPrefix(a.headImage)headImage,a.Id,a.nickName,b.gender,b.age,b.city,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		a.userLevel,a.inviteCode
 		FROM user a inner join userdatum b
-		on a.userId=b.userId inner join userposition c
+		on
+		a.userId=b.userId inner join userposition c
 		on a.userId=c.userId
-		where a.userId=#{userId};
+		where
+		a.userId=#{userId};
 	</select>
 
 	<!-- 更新浏览次数 -->
@@ -169,4 +175,41 @@
 		update user set
 		browseNumber=browseNumber+1 where userId=#{userId};
 	</update>
+
+
+	<!-- 用户喜欢列表 -->
+	<select id="userLikeList" resultMap="appUserResult"
+		parameterType="java.lang.Integer">
+		SELECT
+		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join userlike as c
+		on a.userId=c.likeUserId
+		where
+		c.userId=#{userId}
+		order by c.likeDate desc
+	</select>
+
+	<!-- 最近访客列表 只取一年的数据 -->
+	<select id="userBrowseList" resultMap="appUserResult"
+		parameterType="com.myErp.manager.bean.RangeParameter">
+		SELECT
+		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign,c.browseDate
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join userbrowse as c
+		on a.userId=c.browseId
+		where
+		c.toUserId=#{userId} and DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+		&lt;c.browseDate
+		order by c.browseDate desc
+		LIMIT
+		#{pageIndex},#{pageSize}
+
+	</select>
 </mapper>

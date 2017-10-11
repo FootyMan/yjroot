@@ -103,4 +103,20 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> initUser(int userId);
+	
+	/**
+	 * 用户喜欢列表
+	 *
+	 * @param user
+	 * @return
+	 */
+	public abstract List<User> userLikeList(int userId);
+	
+	/**
+	 * 用户访客浏览
+	 *
+	 * @param user
+	 * @return
+	 */
+	public abstract List<User> userBrowseList(RangeParameter rangeParameter);
 }

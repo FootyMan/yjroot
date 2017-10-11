@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.security.KeyStore.PrivateKeyEntry;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,13 +56,36 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-//		String dString="11111111";
-//		dString=DES.encrypt(dString);
-//		System.out.println(dString);
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = sdf.parse("2017-09-26 10:42:11");
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(date);
+		if (c1.get(Calendar.DATE) == c2.get(Calendar.DATE)) {
+			System.out.println(DateUtil.getHH_MM(c2.getTime()) + "来访");
+
+		} else{
+			System.out.println(DateUtil.getDate(c2.getTime()) + "来访");
+			
+		} {
+//			System.out.println("c1:" + c1.get(Calendar.DATE));
+//			System.out.println("c2:" + c2.get(Calendar.DATE));
+		}
+
+		// testDate dd = new testDate();
+		// if (dd.getTestDate() == null) {
+		// System.out.println("null");
+		// } else {
+		// System.out.println("not null");
+		// }
+
+		// String dString="11111111";
+		// dString=DES.encrypt(dString);
+		// System.out.println(dString);
+
 		String reqStr = DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
 		// baseResponse response=new baseResponse();
-		System.out.println(reqStr);
+		// System.out.println(reqStr);
 		// File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹
 		// File f2 = new File("D:\\TestWork\\test1");//转码成UTF-8的目标文件夹
 		// try {
@@ -103,15 +128,26 @@ public class TestLog4j {
 		// for (int i = 0; i < 50; i++) {
 		// System.out.println(StringUtils.GetOrderNumber(1, 1));
 		// }
-		System.out.println(Md5Util.stringByMD5("123456"));
+		// System.out.println(Md5Util.stringByMD5("123456"));
 		// System.out.println(DateUtil.getYearTwo(new Date()));
 	}
 
-	 public static void TestJson()
-	 {
-		   ObjectMapper mapper = new ObjectMapper();
-		 //  mapper.writeValue(out, value);
-		 //CommonMethod.ConvertJsonToObj(objJSON, obj)
-	 }
+	public static void TestJson() {
+		ObjectMapper mapper = new ObjectMapper();
+		// mapper.writeValue(out, value);
+		// CommonMethod.ConvertJsonToObj(objJSON, obj)
+	}
+
+	public static class testDate {
+		private Date testDate;
+
+		public Date getTestDate() {
+			return testDate;
+		}
+
+		public void setTestDate(Date testDate) {
+			this.testDate = testDate;
+		}
+	}
 
 }

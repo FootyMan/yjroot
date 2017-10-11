@@ -14,12 +14,20 @@ public class DetailsRequest {
 	@ApiModelProperty(value = "纬度")
 	private double lat;
 	@ApiModelProperty(value = "要查看详情的用户ID")
-	private int toUserId;
-	public int getToUserId() {
-		return toUserId;
+	private int  detailId;
+	/**
+	 * 要查看详情的用户ID
+	 * @return
+	 */
+	public int getDetailId() {
+		return detailId;
 	}
-	public void setToUserId(int toUserId) {
-		this.toUserId = toUserId;
+	/**
+	 * 要查看详情的用户ID
+	 * @param detailId
+	 */
+	public void setDetailId(int detailId) {
+		this.detailId = detailId;
 	}
 	public double getLon() {
 		return lon;

@@ -19,9 +19,9 @@
 	<!-- </bean> -->
 	<bean id="siteWrite" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+			<property name="url" value="jdbc:mysql://localhost:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;;autoReconnect=true" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="yjsm" />
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->
@@ -32,9 +32,9 @@
 
 	<bean id="siteRead" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+	<property name="url" value="jdbc:mysql://localhost:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;;autoReconnect=true" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="yjsm" />
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->

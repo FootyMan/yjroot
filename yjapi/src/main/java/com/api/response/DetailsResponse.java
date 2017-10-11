@@ -122,6 +122,7 @@ public class DetailsResponse {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
+
 	public int getVip() {
 		return vip;
 	}
@@ -129,6 +130,15 @@ public class DetailsResponse {
 	public void setVip(int vip) {
 		this.vip = vip;
 	}
+
+	public boolean isLike() {
+		return isLike;
+	}
+
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+
 	@ApiModelProperty(value = "用户头像")
 	private String headImage;
 	@ApiModelProperty(value = "用户显示ID")
@@ -156,6 +166,8 @@ public class DetailsResponse {
 	private String sexuat;
 	@ApiModelProperty(value = "用户级别 1普通用户 2包月会员 3半年会员 4年费会员 ")
 	private int vip;
+	@ApiModelProperty(value = "是否喜欢")
+	private boolean isLike=false;
 	@ApiModelProperty(value = "个人所有图片")
 	private List<DetailsImgResponse> imgs;
 	@ApiModelProperty(value = "个人所有标签")

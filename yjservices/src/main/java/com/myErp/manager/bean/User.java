@@ -1,7 +1,8 @@
 package com.myErp.manager.bean;
 
-import java.security.KeyStore.PrivateKeyEntry;
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 
@@ -62,8 +63,21 @@ public class User {
 	 * 用户资料表
 	 */
 	private UserDatum datum;
-	//浏览次数
+	/**
+	 * 浏览次数
+	 */
 	private int browseNumber;
+	/**
+	 * 浏览时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date browseDate;
+	public Date getBrowseDate() {
+		return browseDate;
+	}
+	public void setBrowseDate(Date browseDate) {
+		this.browseDate = browseDate;
+	}
 	public int getBrowseNumber() {
 		return browseNumber;
 	}

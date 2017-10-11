@@ -50,16 +50,9 @@ public class HttpServletRequestReplacedFilter implements Filter {
 					r.setCode(ResultEnum.SignErrorCode);
 					r.setMsg("非法请求");
 					String json = CommonMethod.ConvertObjToJson(r);
-					try {
-						String des = DES.encrypt(json);
-						response.getWriter().write(des);// "{\"code\":
+					json = DecryptEncryptUtils.doEncryptResponseBody(json);
+					response.getWriter().write(json);// "{\"code\":
 														// 2009,\"msg\":
-														// \"非法请求\"}"
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
 				}
 			}
 		}

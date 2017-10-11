@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.api.business.UserBusiness;
 import com.api.request.*;
 import com.api.response.HomeResponse;
 import com.api.response.RangeResponse;
 import com.api.response.baseResponse;
+import com.api.utils.PageParameter;
 import com.api.utils.PageUtils;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -60,7 +62,7 @@ public class HomeController {
 			List<HomeResponse> recommend = new ArrayList<HomeResponse>();
 			List<User> recResult = userServiceImpl.appUserRecommend();
 			for (User user : recResult) {
-				recommend.add(EntityToModel(user));
+				recommend.add(UserBusiness.getInstance().EntityToModel(user));
 			}
 			object.setRecommend(recommend);
 			// 查询推荐用户
@@ -69,11 +71,11 @@ public class HomeController {
 		AppHomePagePaging pagePaging = new AppHomePagePaging();
 		pagePaging.setPageIndex((requestModel.getPageIndex() - 1) * PageUtils.PageSize.getValue());
 		pagePaging.setPageSize(PageUtils.PageSize.getValue());
-		pagePaging.setGender(requestModel.getGender());
+		pagePaging.setGender(requestModel.getSex());
 		List<User> userData = userServiceImpl.appUserList(pagePaging);
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {
-			list.add(EntityToModel(user));
+			list.add(UserBusiness.getInstance().EntityToModel(user));
 		}
 		object.setList(list);
 		response.setData(object);
@@ -97,10 +99,7 @@ public class HomeController {
 
 		RangeRequest requestModel = request.getbody();
 		//
-		RangeParameter rangeParameter = new RangeParameter();
-		rangeParameter.setPageIndex((requestModel.getPageIndex() - 1) * PageUtils.PageSize.getValue());
-		rangeParameter.setPageSize(PageUtils.PageSize.getValue());
-		rangeParameter.setUserId(request.getUserId());
+		RangeParameter rangeParameter = PageParameter.GetRangePage(requestModel.getPageIndex(),request.getUserId());
 		// 如果经纬度小于等于0 证明当前位置不可访问 默认天安门
 		if (requestModel.getLat() <= 0 || requestModel.getLon() <= 0) {
 			requestModel.setLat(ResultEnum.defaultLat);
@@ -134,23 +133,6 @@ public class HomeController {
 		UserDatum datum = user.getDatum();
 		model.setRange(ResponseUtils.GetRange(datum.getRangeM()));
 		model.setSign(datum.getSign());
-		return model;
-	}
-
-	/**
-	 * 实体对象转换model
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public HomeResponse EntityToModel(User user) {
-		HomeResponse model = new HomeResponse();
-		model.setUserId(user.getUserId());
-		model.setNickName(user.getNickName());
-		model.setVip(user.getUserLevel());
-		model.setHeadImage(user.getHeadImage());
-		model.setSex(user.getDatum().getGender());
-		model.setAge(user.getDatum().getAge());
 		return model;
 	}
 }

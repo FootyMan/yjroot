@@ -76,29 +76,28 @@
 					</li>
 
 					<li><a href="/main#"><i class="fa fa-th-large"></i> <span
-							class="nav-label">人力管理</span> <span class="fa arrow"></span></a>
+							class="nav-label">会员管理</span> <span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="./hr/employee/list">员工管理</a></li>
-							<li><a class="J_menuItem" href="./hr/role/list">角色管理</a>
-							<li><a class="J_menuItem" href="./hr/dep/list">部门管理</a>
-							<li><a class="J_menuItem" href="/sys/roleFunc/list">角色权限</a>
-							</li>
-							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li>
-							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li>
-							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li>
+							<li><a class="J_menuItem" href="./hr/employee/list">会员管理</a></li>
+							<li><a class="J_menuItem" href="./hr/role/list">首页用户</a>
+							<li><a class="J_menuItem" href="./hr/dep/list">订单管理</a>
+							<li><a class="J_menuItem" href="/sys/roleFunc/list">用户提现</a></li>
+<!-- 							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li> -->
 						</ul></li>
 
 
-					<li><a href="/main#"><i class="fa fa-th-large"></i> <span
-							class="nav-label">人力管理</span> <span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="./hr/employee/list">员工管理</a></li>
-							<li><a class="J_menuItem" href="/sys/roleFunc/list">角色权限</a>
-							</li>
-							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li>
-							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li>
-							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li>
-						</ul></li>
+<!-- 					<li><a href="/main#"><i class="fa fa-th-large"></i> <span -->
+<!-- 							class="nav-label">人力管理</span> <span class="fa arrow"></span></a> -->
+<!-- 						<ul class="nav nav-second-level"> -->
+<!-- 							<li><a class="J_menuItem" href="./hr/employee/list">员工管理</a></li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/roleFunc/list">角色权限</a> -->
+<!-- 							</li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li> -->
+<!-- 							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li> -->
+<!-- 						</ul></li> -->
 
 				</ul>
 			</div>

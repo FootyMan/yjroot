@@ -1,7 +1,5 @@
 package com.api.utils;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +25,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 			response.setCode(500);
 			response.setMsg("服务器异常！");
 			String reqStr = CommonMethod.ConvertObjToJson(response);
-			String des = DES.encrypt(reqStr);
+			String des =DecryptEncryptUtils.doEncryptResponseBody(reqStr);
 			arg1.getWriter().write(des);
 		} catch (Exception e) {
 			e.printStackTrace();

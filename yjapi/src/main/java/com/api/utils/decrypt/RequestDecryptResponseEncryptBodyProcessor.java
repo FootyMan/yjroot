@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 
-import com.api.utils.DES;
-import com.myErp.utils.SystemConfig;
+import com.api.utils.DecryptEncryptUtils;
 
 /**
  * @author sdcuike
@@ -39,25 +38,14 @@ public abstract class RequestDecryptResponseEncryptBodyProcessor {
 
 	/**
 	 * Response加密操作
+	 * 
 	 * @param input
 	 * @param httpHeaders
 	 * @param charset
 	 * @return
 	 */
 	protected String doEncryptResponseBody(String input) {
-		String jiami = input;
-		if (SystemConfig.isEncrypt) {
-			try {
-				jiami = DES.encrypt(input);
-//				System.out.println("加密后数据" + jiami);
-//
-//				String jimi = DES.decrypt(jiami);
-//				System.out.println("解密后数据" + jimi);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-
+		String jiami = DecryptEncryptUtils.doEncryptResponseBody(input);
 		return jiami;
 	}
 

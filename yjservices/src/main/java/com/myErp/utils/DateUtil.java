@@ -352,6 +352,14 @@ public class DateUtil {
 	public static String getTime(Date date) {
 		return DateToString(date, DateStyle.HH_MM_SS);
 	}
+	/**
+	 * 获取时分
+	 * @param date
+	 * @return
+	 */
+	public static String getHH_MM(Date date) {
+		return DateToString(date, DateStyle.HH_MM);
+	}
 
 	public static Week getWeek(String date) {
 		Week week = null;

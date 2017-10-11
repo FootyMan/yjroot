@@ -150,4 +150,27 @@ public class UserServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userMappe.initUser(userId);
 	}
+
+	/**
+	 * 用户喜欢列表
+	 *
+	 * @param user
+	 * @return
+	 */
+	public List<User> userLikeList(int userId) {
+		DBContextHolder.setDBType("siteRead");
+		return userMappe.userLikeList(userId);
+	}
+	
+	/**
+	 * 最近访客
+	 *
+	 * @param user
+	 * @return
+	 */
+	public List<User> userBrowseList(RangeParameter rangeParameter) {
+		DBContextHolder.setDBType("siteRead");
+		List<User> list=userMappe.userBrowseList(rangeParameter);
+		return list;
+	}
 }

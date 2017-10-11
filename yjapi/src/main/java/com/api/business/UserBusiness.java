@@ -1,26 +1,33 @@
 package com.api.business;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
 import com.api.request.InitUserRequest;
 import com.api.request.UserDatumRequest;
+import com.api.request.UserLikeRequest;
 import com.api.request.baseRequest;
 import com.api.request.userModel;
+import com.api.response.BrowseNumberResponse;
 import com.api.response.DetailsImgResponse;
 import com.api.response.DetailsLableResponse;
 import com.api.response.DetailsResponse;
+import com.api.response.HomeResponse;
 import com.api.response.InitResponseAppData;
+import com.api.response.InitUserResponse;
 import com.api.response.LableResponse;
 import com.api.response.PageTwoResponse;
+import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.VersionResponse;
 import com.api.response.baseResponse;
+import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.AppversionServiceImpl;
 import com.myErp.impl.InvitationCodeServiceImpl;
+import com.myErp.impl.UserBrowseServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
 import com.myErp.impl.UserImgServiceImpl;
 import com.myErp.impl.UserInviteServiceImpl;
@@ -28,17 +35,20 @@ import com.myErp.impl.UserLableMappingServiceImpl;
 import com.myErp.impl.UserPositionServiceImpl;
 import com.myErp.impl.UserServiceImpl;
 import com.myErp.impl.UserVerifyCodeServiceImpl;
+import com.myErp.impl.UserlikeServiceImpl;
 import com.myErp.manager.bean.Appversion;
 import com.myErp.manager.bean.InvitationCode;
 import com.myErp.manager.bean.LabletType;
 import com.myErp.manager.bean.RangeParameter;
 import com.myErp.manager.bean.User;
+import com.myErp.manager.bean.UserBrowse;
 import com.myErp.manager.bean.UserDatum;
 import com.myErp.manager.bean.UserImg;
 import com.myErp.manager.bean.UserInvite;
 import com.myErp.manager.bean.UserLableMapping;
 import com.myErp.manager.bean.UserPosition;
 import com.myErp.manager.bean.UserVerifyCode;
+import com.myErp.manager.bean.Userlike;
 import com.myErp.utils.Md5Util;
 import com.myErp.utils.SystemConfig;
 
@@ -100,8 +110,7 @@ public class UserBusiness {
 	 * @param versionCode
 	 * @return
 	 */
-	public VersionResponse GetAppVersion(AppversionServiceImpl appversionService, int deviceType,
-			int versionCode) {
+	public VersionResponse GetAppVersion(AppversionServiceImpl appversionService, int deviceType, int versionCode) {
 		VersionResponse versionModel = new VersionResponse();
 		Appversion version = appversionService.selectVersionByDevice(deviceType);
 		if (version != null && version.getVersionCode() > versionCode) {
@@ -396,10 +405,16 @@ public class UserBusiness {
 	 * @param userPositionService
 	 * @param request
 	 */
-	public void UpdateUserBrowse(UserServiceImpl userServiceImpl, int userId) {
+	public void UpdateUserBrowse(UserServiceImpl userServiceImpl, UserBrowseServiceImpl userBrowseServiceImpl,
+			int detailId, int userId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
-				userServiceImpl.updateBrowseNumber(userId);
+				userServiceImpl.updateBrowseNumber(detailId);
+				// 添加浏览记录 也就是访客记录
+				UserBrowse browes = new UserBrowse();
+				browes.setBrowseId(userId);
+				browes.setToUserId(detailId);
+				userBrowseServiceImpl.insertBrowse(browes);
 			}
 		});
 		t.start();
@@ -416,23 +431,24 @@ public class UserBusiness {
 	 */
 	public baseResponse<DetailsResponse> GetUserDetails(UserServiceImpl userServiceImpl,
 			UserImgServiceImpl userImgServiceImpl, UserLableMappingServiceImpl userLableMappingServiceImpl,
+			UserlikeServiceImpl userlikeServiceImpl, UserBrowseServiceImpl userBrowseServiceImpl,
 			baseRequest<DetailsRequest> request) {
 
 		baseResponse<DetailsResponse> response = new baseResponse<DetailsResponse>();
 
 		DetailsResponse details = new DetailsResponse();
 
-		DetailsRequest requestModel = request.getbody();
+		DetailsRequest body = request.getbody();
 		//
 		RangeParameter rangeParameter = new RangeParameter();
-		rangeParameter.setUserId(requestModel.getToUserId());
+		rangeParameter.setUserId(body.getDetailId());
 		// 如果经纬度小于等于0 证明当前位置不可访问 默认天安门
-		if (requestModel.getLat() <= 0 || requestModel.getLon() <= 0) {
-			requestModel.setLat(ResultEnum.defaultLat);
-			requestModel.setLon(ResultEnum.defaultLon);
+		if (body.getLat() <= 0 || body.getLon() <= 0) {
+			body.setLat(ResultEnum.defaultLat);
+			body.setLon(ResultEnum.defaultLon);
 		}
-		rangeParameter.setLat(requestModel.getLat());
-		rangeParameter.setLon(requestModel.getLon());
+		rangeParameter.setLat(body.getLat());
+		rangeParameter.setLon(body.getLon());
 		List<User> userDatas = userServiceImpl.getUserDetails(rangeParameter);
 		if (userDatas != null && userDatas.size() > 0) {
 			User userData = userDatas.get(0);
@@ -452,7 +468,7 @@ public class UserBusiness {
 			details.setVip(userData.getUserLevel());
 		}
 		// 图片
-		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(requestModel.getToUserId());
+		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(body.getDetailId());
 		if (userImgs != null && userImgs.size() > 0) {
 			for (UserImg userImg : userImgs) {
 				DetailsImgResponse img = new DetailsImgResponse();
@@ -463,17 +479,170 @@ public class UserBusiness {
 		}
 		// 标签
 		UserLableMapping mapping = new UserLableMapping();
-		mapping.setUserId(requestModel.getToUserId());
+		mapping.setUserId(body.getDetailId());
 		List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(mapping);
 		for (UserLableMapping userLableMapping : userLableData) {
 			DetailsLableResponse lable = new DetailsLableResponse();
 			lable.setLableName(userLableMapping.getLabletTypes().getLableName());
 			details.getLables().add(lable);
 		}
+		// 是否喜欢
+		Userlike userlike = new Userlike();
+		userlike.setUserId(request.getUserId());
+		userlike.setLikeUserId(body.getDetailId());
+		Userlike likeData = userlikeServiceImpl.selectUserLikeById(userlike);
+		if (likeData != null) {
+			details.setLike(true);
+		}
 		response.setData(details);
 
-		UserBusiness.getInstance().UpdateUserBrowse(userServiceImpl, requestModel.getToUserId());
+		UserBusiness.getInstance().UpdateUserBrowse(userServiceImpl, userBrowseServiceImpl, body.getDetailId(),
+				request.getUserId());
 		return response;
+	}
+
+	/**
+	 * 用户喜欢和不喜欢
+	 * 
+	 * @param userlikeServiceImpl
+	 * @param request
+	 * @return
+	 */
+	public baseResponse<UserLikeResponse> UserLike(UserlikeServiceImpl userlikeServiceImpl,
+			baseRequest<UserLikeRequest> request) {
+		baseResponse<UserLikeResponse> response = new baseResponse<UserLikeResponse>();
+		int result = 0;
+		UserLikeRequest body = request.getbody();
+		Userlike like = new Userlike();
+		like.setUserId(request.getUserId());
+		like.setLikeUserId(body.getLikeId());
+		UserLikeResponse responseData = new UserLikeResponse();
+		if (body.getType() == 1)// 喜欢
+		{
+			// 先查询是否存在
+			Userlike likeData = userlikeServiceImpl.selectUserLikeById(like);
+			if (likeData == null) {
+				result = userlikeServiceImpl.insertUserlike(like);
+				responseData.setType(1);
+			} else {
+				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setMsg("此用户您已经喜欢、请勿重复喜欢");
+				return response;
+			}
+
+		} else {
+			// 不喜欢
+			result = userlikeServiceImpl.deleteUserlike(like);
+			responseData.setType(2);
+		}
+		if (result <= 0) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("操作失败");
+			return response;
+		}
+		response.setData(responseData);
+		return response;
+	}
+
+	/**
+	 * 喜欢列表
+	 * 
+	 * @param userlikeServiceImpl
+	 * @param request
+	 * @return
+	 */
+	public baseResponse<List<HomeResponse>> UserLikeList(UserServiceImpl userServiceImpl, baseRequest<?> request) {
+		baseResponse<List<HomeResponse>> response = new baseResponse<List<HomeResponse>>();
+		List<HomeResponse> list = new ArrayList<HomeResponse>();
+		List<User> userData = userServiceImpl.userLikeList(request.getUserId());
+		for (User user : userData) {
+			list.add(EntityToModel(user));
+		}
+		response.setData(list);
+		return response;
+	}
+
+	/**
+	 * 初始化用户信息
+	 * 
+	 * @param userServiceImpl
+	 * @param userId
+	 * @return
+	 */
+	public InitUserResponse InitUserData(UserServiceImpl userServiceImpl, int userId) {
+		InitUserResponse initUser = new InitUserResponse();
+		List<User> userDatas = userServiceImpl.initUser(userId);
+		if (userDatas != null && userDatas.size() > 0) {
+			User user = userDatas.get(0);
+			UserDatum datum = user.getDatum();
+			initUser.setUserId(userId);
+			initUser.setId(user.getId());
+			initUser.setHeadImage(user.getHeadImage());
+			initUser.setNickName(user.getNickName());
+			initUser.setSex(datum.getGender());
+			initUser.setAge(datum.getAge());
+			initUser.setCity(datum.getCity());
+			initUser.setSign(datum.getSign());
+			initUser.setWeight(datum.getWeight());
+			initUser.setHeight(datum.getHeight());
+			initUser.setShape(datum.getShape());
+			initUser.setSexuat(datum.getSexuat());
+			initUser.setVip(user.getUserLevel());
+			initUser.setInviteCode(user.getInviteCode());
+		}
+		return initUser;
+	}
+
+	/**
+	 * 获取最近访客
+	 * 
+	 * @param userBrowseServiceImpl
+	 * @param request
+	 * @return
+	 */
+	public baseResponse<?> GetUserBrowse(UserBrowseServiceImpl userBrowseServiceImpl, UserServiceImpl userServiceImpl,
+			baseRequest<BrowseRequest> request) {
+		baseResponse<Object> response = new baseResponse<Object>();
+		BrowseRequest body = request.getbody();
+		// 返回数量
+		if (body.getType() == 1) {
+			BrowseNumberResponse numberData = new BrowseNumberResponse();
+			int number = userBrowseServiceImpl.selectBrowseByNumber(request.getUserId());
+			numberData.setBrowseNumber(number);
+			response.setData(numberData);
+		} else if (body.getType() == 2) {
+			List<HomeResponse> browesResponse=new ArrayList<HomeResponse>();
+			RangeParameter rangeParameter = PageParameter.GetRangePage(body.getPageIndex(), request.getUserId());
+			// 数据
+			List<User> browesData = userServiceImpl.userBrowseList(rangeParameter);
+			for (User user : browesData) {
+				browesResponse.add(EntityToModel(user));
+			}
+			response.setData(browesResponse);
+		}
+		return response;
+	}
+
+	/**
+	 * 实体对象转换model
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public HomeResponse EntityToModel(User user) {
+		HomeResponse model = new HomeResponse();
+		model.setUserId(user.getUserId());
+		model.setNickName(user.getNickName());
+		model.setVip(user.getUserLevel());
+		model.setHeadImage(user.getHeadImage());
+		model.setSex(user.getDatum().getGender());
+		model.setAge(user.getDatum().getAge());
+		model.setSign(user.getDatum().getSign());
+		// 访问时间设置
+		if (user.getBrowseDate() != null) {
+			model.setBrowseData(ResponseUtils.GetBrowseTime(user.getBrowseDate()));
+		}
+		return model;
 	}
 
 	public void test() {

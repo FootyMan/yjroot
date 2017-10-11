@@ -4,20 +4,20 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.api.business.UserBusiness;
 import com.api.request.*;
 import com.api.utils.PhoneMessageSend;
-import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import com.myErp.impl.InvitationCodeServiceImpl;
+import com.myErp.impl.UserBrowseServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
 import com.myErp.impl.UserImgServiceImpl;
 import com.myErp.impl.UserInviteServiceImpl;
@@ -25,25 +25,23 @@ import com.myErp.impl.UserLableMappingServiceImpl;
 import com.myErp.impl.UserPositionServiceImpl;
 import com.myErp.impl.UserServiceImpl;
 import com.myErp.impl.UserVerifyCodeServiceImpl;
+import com.myErp.impl.UserlikeServiceImpl;
 import com.myErp.manager.bean.LabletType;
-import com.myErp.manager.bean.RangeParameter;
 import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserDatum;
-import com.myErp.manager.bean.UserImg;
 import com.myErp.manager.bean.UserLableMapping;
 import com.myErp.manager.bean.UserVerifyCode;
 import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
 import com.myErp.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
-
 import com.api.response.DetailsResponse;
+import com.api.response.HomeResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
 import com.api.response.LableResponseData;
+import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.baseResponse;
 
@@ -69,9 +67,13 @@ public class userController {
 	private InvitationCodeServiceImpl invitationCodeServiceImpl;
 	@Autowired
 	private UserInviteServiceImpl userInviteServiceImpl;
+	@Autowired
+	private UserlikeServiceImpl userlikeServiceImpl;
+	@Autowired
+	private UserBrowseServiceImpl userBrowseServiceImpl;
 
 	/**
-	 * 用户注册接口
+	 * 用户注册接口 注册成功返回用户所有信息
 	 * 
 	 * @param input
 	 * @return
@@ -80,11 +82,15 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/registe", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户注册接口", notes = "用户注册接口")
-	public baseResponse userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+	public baseResponse<?> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
 			throws Exception {
-		baseResponse response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
+		baseResponse<?> response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
 				invitationCodeServiceImpl, userInviteServiceImpl, user);
 		UserBusiness.getInstance().AddUserPoint(UserPositionService, user);
+		// InitUserResponse initUser =
+		// UserBusiness.getInstance().InitUserData(userServiceImpl,
+		// user.getUserId());
+		// response.setData(initUser);
 		return response;
 	}
 
@@ -97,8 +103,9 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户登录接口", notes = "用户登录接口")
-	public baseResponse userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user) throws Exception {
-		baseResponse response = UserBusiness.getInstance().userLogin(userServiceImpl, user);
+	public baseResponse<?> userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+			throws Exception {
+		baseResponse<?> response = UserBusiness.getInstance().userLogin(userServiceImpl, user);
 		return response;
 	}
 
@@ -112,9 +119,9 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-pwd", value = "修改密码", notes = "修改密码")
-	public baseResponse UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponse> user)
+	public baseResponse<?> UpdateUserPwd(@ApiParam(value = "输入") @RequestBody baseRequest<UserPwdResponse> user)
 			throws Exception {
-		baseResponse response = UserBusiness.getInstance().UpdateUserPwd(userServiceImpl, userVerifyCodeServiceImpl,
+		baseResponse<?> response = UserBusiness.getInstance().UpdateUserPwd(userServiceImpl, userVerifyCodeServiceImpl,
 				user);
 		return response;
 	}
@@ -129,10 +136,10 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getMsgCode", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-getMsgCode", value = "获取短信验证码", notes = "获取短信验证码")
-	public baseResponse getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> request)
+	public baseResponse<?> getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> request)
 			throws Exception {
 		PhoneMsgRequest body = request.getbody();
-		baseResponse output = new baseResponse();
+		baseResponse<?> output = new baseResponse<Object>();
 		// 验证码
 		String code = ValidateUtil.GetRandom();
 		PhoneMessageSend send = new PhoneMessageSend();
@@ -193,9 +200,9 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/editDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addDatum", value = "添加用户资料和修改用户资料）", notes = "添加用户资料和修改用户资料")
-	public baseResponse AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user)
+	public baseResponse<?> AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user)
 			throws Exception {
-		baseResponse response = UserBusiness.getInstance().AddUserDatum(userDatumService, user);
+		baseResponse<?> response = UserBusiness.getInstance().AddUserDatum(userDatumService, user);
 		return response;
 	}
 
@@ -296,11 +303,56 @@ public class userController {
 	 */
 	@ResponseEncryptBody
 	@RequestMapping(value = "/details", method = RequestMethod.POST)
-	@ApiOperation(nickname = "swagger-details", value = "个人主页", notes = "个人主页")
+	@ApiOperation(nickname = "swagger-details", value = "个人主页", notes = "个人主页  喜欢不喜欢是isLike ")
 	public baseResponse<DetailsResponse> GetUserDetails(
 			@ApiParam(value = "输入") @RequestBody baseRequest<DetailsRequest> request) {
 		return UserBusiness.getInstance().GetUserDetails(userServiceImpl, userImgServiceImpl,
-				userLableMappingServiceImpl, request);
+				userLableMappingServiceImpl, userlikeServiceImpl, userBrowseServiceImpl, request);
 	}
 
+	/**
+	 * 用户喜欢
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/like", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-details", value = "用户喜欢", notes = "用户喜欢")
+	public baseResponse<UserLikeResponse> UserLike(
+			@ApiParam(value = "输入") @RequestBody baseRequest<UserLikeRequest> request) {
+
+		return UserBusiness.getInstance().UserLike(userlikeServiceImpl, request);
+	}
+
+	/**
+	 * 喜欢列表
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/likeList", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-details", value = "喜欢列表", notes = "喜欢列表")
+	public baseResponse<List<HomeResponse>> UserLikeList(@ApiParam(value = "输入") @RequestBody baseRequest<?> request) {
+		return UserBusiness.getInstance().UserLikeList(userServiceImpl, request);
+	}
+
+	/**
+	 * 最近访客数量
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/browse", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-details", value = "最近访客", notes = "最近访客 "
+			+ "	如果传入type=1 获取数量 返回body里只有browseNumber	"
+			+ "	如果传入type=2获取访问列表 传入pageIndex 返回列表比首页多一个访问时间browseData")
+	public baseResponse<?> GetUserBrowse(@ApiParam(value = "输入") @RequestBody baseRequest<BrowseRequest> request) {
+		return UserBusiness.getInstance().GetUserBrowse(userBrowseServiceImpl, userServiceImpl, request);
+	}
 }

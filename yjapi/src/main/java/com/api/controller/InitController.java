@@ -68,7 +68,7 @@ public class InitController {
 	@ApiOperation(nickname = "swagger-initUser", value = "初始化用户"
 			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置", notes = "初始化用户")
 	public baseResponse<InitResponse> initUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request)throws Exception {
+			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request) throws Exception {
 		// for (int i = 0; i < 100000; i++) {
 		// String code = StringUtils.getRandomNum(999999, 111111);
 		// InvitationCode invitation =
@@ -82,27 +82,8 @@ public class InitController {
 		// }
 		baseResponse<InitResponse> response = UserBusiness.getInstance().initUser(UserPositionService, request);
 		InitResponse initResponseModel = new InitResponse();
-		List<User> userDatas = userServiceImpl.initUser(request.getUserId());
-		if (userDatas != null && userDatas.size() > 0) {
-			User user = userDatas.get(0);
-			UserDatum datum = user.getDatum();
-			InitUserResponse initUser = new InitUserResponse();
-			initUser.setUserId(request.getUserId());
-			initUser.setId(user.getId());
-			initUser.setHeadImage(user.getHeadImage());
-			initUser.setNickName(user.getNickName());
-			initUser.setSex(datum.getGender());
-			initUser.setAge(datum.getAge());
-			initUser.setCity(datum.getCity());
-			initUser.setSign(datum.getSign());
-			initUser.setWeight(datum.getWeight());
-			initUser.setHeight(datum.getHeight());
-			initUser.setShape(datum.getShape());
-			initUser.setSexuat(datum.getSexuat());
-			initUser.setVip(user.getUserLevel());
-			initUser.setInviteCode(user.getInviteCode());
-			initResponseModel.setUser(initUser);
-		}
+		InitUserResponse initUser = UserBusiness.getInstance().InitUserData(userServiceImpl, request.getUserId());
+		initResponseModel.setUser(initUser);
 		response.setData(initResponseModel);
 		return response;
 	}
@@ -117,7 +98,8 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/appData", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
-	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest request) throws Exception {
+	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest request)
+			throws Exception {
 		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
 		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
 		InitResponseAppData appData = UserBusiness.getInstance().LableEntityToModel(labletTypes);
