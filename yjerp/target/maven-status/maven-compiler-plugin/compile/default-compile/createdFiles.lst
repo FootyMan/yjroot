@@ -1,9 +1,10 @@
 com\myweb\commond\ResponseInterceptor.class
 com\test\controller\hr\jsonTest.class
 com\test\controller\hr\DepController.class
+com\erp\model\UserModel.class
 com\test\controller\TestMyBatis.class
 com\test\controller\hr\EmployeeController.class
+com\test\controller\hr\UserController.class
 com\test\controller\hr\RoleController.class
-com\test\controller\userController.class
 com\test\controller\AccountsController.class
 com\test\controller\HomeController.class

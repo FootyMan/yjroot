@@ -112,8 +112,8 @@
 		<include refid="Base_Column_List" />
 		from user where phone=#{phone} and passWord=#{passWord}
 	</select>
-
-	<select id="appUserList" resultMap="appUserResult"
+	<!-- 首页列表 -->
+	<select id="HomeUserList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.AppHomePagePaging">
 		SELECT
 		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
@@ -128,8 +128,22 @@
 		order by a.browseNumber desc
 		LIMIT #{pageIndex},#{pageSize}
 	</select>
+	<!-- 首页列表count -->
+	<select id="HomeUserListCount" resultType="java.lang.Integer"
+		parameterType="com.myErp.manager.bean.AppHomePagePaging">
+		SELECT
+		count(1)
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId where
+		1=1
+		<if test="gender>0">
+			and b.gender=#{gender}
+		</if>
+	</select>
+
 	<!-- 首页推荐 -->
-	<select id="appUserRecommend" resultMap="appUserResult">
+	<select id="HomeUserRecommend" resultMap="appUserResult">
 		SELECT
 		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
 		FROM user a inner join userdatum b
@@ -143,12 +157,40 @@
 	</select>
 
 	<!-- 附件的人 -->
-	<select id="appRangeUser" resultMap="appUserResult"
+	<select id="RangeUserList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.RangeParameter">
-		call
-		Proc_GetNearbyMan(#{lat},#{lon},#{userId},#{pageIndex},#{pageSize})
+		SELECT
+		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
+		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
+		rangeM,b.sign,b.sexuat
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId inner join
+		userposition c
+		on a.userId=c.userId
+		where
+		a.userId!=#{userId}
+		<include refid="Range_Column_Where"></include>
+		ORDER BY
+		rangeM ASC
+		LIMIT
+		#{pageIndex},#{pageSize}
 	</select>
-
+	<!-- 附件的人总数量 -->
+	<select id="RangelistCount" resultType="java.lang.Integer"
+		parameterType="com.myErp.manager.bean.RangeParameter">
+		SELECT
+		count(1)
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join
+		userposition c
+		on a.userId=c.userId
+		where
+		a.userId!=#{userId}
+		<include refid="Range_Column_Where"></include>
+	</select>
 
 	<!-- 个人详情主页 -->
 	<select id="getUserDetails" resultMap="appUserResult"
@@ -212,4 +254,20 @@
 		#{pageIndex},#{pageSize}
 
 	</select>
+
+
+	<sql id="Range_Column_Where">
+		<if test="showId>0">
+			AND a.Id=#{showId}
+		</if>
+		<if test="sex>0">
+			AND b.gender=#{sex}
+		</if>
+		<if test="city != null and city != ''">
+			AND b.city=#{city}
+		</if>
+		<if test="beginAge>0 and endAge >0">
+			AND a.age between #{beginAge} and #{endAge}
+		</if>
+	</sql>
 </mapper>

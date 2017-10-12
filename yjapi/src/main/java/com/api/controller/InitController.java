@@ -11,16 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.api.business.UserBusiness;
-import com.api.request.CityResponseChild;
-import com.api.request.CityResponseParent;
-import com.api.request.InitUserRequest;
-import com.api.request.baseRequest;
-import com.api.response.InitResponse;
-import com.api.response.InitResponseAppData;
-import com.api.response.InitUserResponse;
-import com.api.response.PageTwoResponse;
-import com.api.response.VersionResponse;
-import com.api.response.baseResponse;
+import com.api.request.*;
+import com.api.response.*;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import com.myErp.impl.AppversionServiceImpl;
 import com.myErp.impl.LabletTypeServiceImpl;
@@ -81,10 +73,8 @@ public class InitController {
 		// }
 		// }
 		baseResponse<InitResponse> response = UserBusiness.getInstance().initUser(UserPositionService, request);
-		InitResponse initResponseModel = new InitResponse();
-		InitUserResponse initUser = UserBusiness.getInstance().InitUserData(userServiceImpl, request.getUserId());
-		initResponseModel.setUser(initUser);
-		response.setData(initResponseModel);
+		InitResponse initUser = UserBusiness.getInstance().InitUserData(userServiceImpl, request.getUserId());
+		response.setData(initUser);
 		return response;
 	}
 

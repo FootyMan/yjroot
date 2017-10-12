@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.api.business.UserBusiness;
 import com.api.request.*;
 import com.api.response.HomeResponse;
+import com.api.response.RangeDataResponse;
 import com.api.response.RangeResponse;
 import com.api.response.baseResponse;
 import com.api.utils.PageParameter;
@@ -27,6 +28,7 @@ import com.myErp.manager.bean.LabletType;
 import com.myErp.manager.bean.RangeParameter;
 import com.myErp.manager.bean.User;
 import com.myErp.manager.bean.UserDatum;
+import com.myErp.utils.StringUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +53,8 @@ public class HomeController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "首页用户", notes = "首页用户")
-	public baseResponse<HomeObject> HomeUser(@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request) throws Exception {
+	public baseResponse<HomeObject> HomeUser(@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request)
+			throws Exception {
 		baseResponse<HomeObject> response = new baseResponse<HomeObject>();
 		// 首页对象
 		HomeObject object = new HomeObject();
@@ -60,7 +63,7 @@ public class HomeController {
 		// 如果是第一页查询首页推荐
 		if (requestModel.getPageIndex() == 1) {
 			List<HomeResponse> recommend = new ArrayList<HomeResponse>();
-			List<User> recResult = userServiceImpl.appUserRecommend();
+			List<User> recResult = userServiceImpl.HomeUserRecommend();
 			for (User user : recResult) {
 				recommend.add(UserBusiness.getInstance().EntityToModel(user));
 			}
@@ -68,14 +71,17 @@ public class HomeController {
 			// 查询推荐用户
 		}
 		//
-		AppHomePagePaging pagePaging = new AppHomePagePaging();
-		pagePaging.setPageIndex((requestModel.getPageIndex() - 1) * PageUtils.PageSize.getValue());
-		pagePaging.setPageSize(PageUtils.PageSize.getValue());
-		pagePaging.setGender(requestModel.getSex());
-		List<User> userData = userServiceImpl.appUserList(pagePaging);
+		AppHomePagePaging pagePaging =  PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex());
+		List<User> userData = userServiceImpl.HomeUserList(pagePaging);
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {
 			list.add(UserBusiness.getInstance().EntityToModel(user));
+		}
+
+		// 获取总页数
+		if (list != null && list.size() > 0 && requestModel.getPageIndex() == 1) {
+			int count = userServiceImpl.HomeUserListCount(pagePaging);
+			object.setTotalPage(PageParameter.GetTotalPage(count, pagePaging.getPageSize()));
 		}
 		object.setList(list);
 		response.setData(object);
@@ -93,13 +99,14 @@ public class HomeController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/range", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-range", value = "附近的人 如果不让访问当前位置 经纬度不需要传、默认天安门", notes = "附近的人")
-	public baseResponse<List<RangeResponse>> RangeUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request)throws Exception {
-		baseResponse<List<RangeResponse>> response = new baseResponse<List<RangeResponse>>();
+	public baseResponse<RangeResponse> RangeUser(@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request)
+			throws Exception {
+		baseResponse<RangeResponse> response = new baseResponse<RangeResponse>();
 
+		RangeResponse rangeResponse = new RangeResponse();
 		RangeRequest requestModel = request.getbody();
 		//
-		RangeParameter rangeParameter = PageParameter.GetRangePage(requestModel.getPageIndex(),request.getUserId());
+		RangeParameter rangeParameter = PageParameter.GetRangePage(requestModel.getPageIndex(), request.getUserId());
 		// 如果经纬度小于等于0 证明当前位置不可访问 默认天安门
 		if (requestModel.getLat() <= 0 || requestModel.getLon() <= 0) {
 			requestModel.setLat(ResultEnum.defaultLat);
@@ -107,12 +114,28 @@ public class HomeController {
 		}
 		rangeParameter.setLat(requestModel.getLat());
 		rangeParameter.setLon(requestModel.getLon());
-		List<User> userData = userServiceImpl.appRangeUser(rangeParameter);
-		List<RangeResponse> list = new ArrayList<RangeResponse>();
+		rangeParameter.setShowId(requestModel.getShowId());
+		rangeParameter.setSex(requestModel.getSex());
+		rangeParameter.setCity(requestModel.getCity());
+		// 年龄区间截取
+		if (!StringUtils.isEmpty(requestModel.getAgeSection())) {
+			String[] age = requestModel.getAgeSection().split("-");
+			rangeParameter.setBeginAge(Integer.parseInt(age[0]));
+			rangeParameter.setEndAge(Integer.parseInt(age[1]));
+		}
+		List<User> userData = userServiceImpl.RangeUserList(rangeParameter);
+		List<RangeDataResponse> list = new ArrayList<RangeDataResponse>();
 		for (User user : userData) {
 			list.add(EntityToModelExt(user));
 		}
-		response.setData(list);
+
+		// 获取总页数
+		if (list != null && list.size() > 0 && rangeParameter.getPageIndex() == 1) {
+			int count = userServiceImpl.RangelistCount(rangeParameter);
+			rangeResponse.setTotalPage(PageParameter.GetTotalPage(count, rangeParameter.getPageSize()));
+		}
+		rangeResponse.setList(list);
+		response.setData(rangeResponse);
 		return response;
 	}
 
@@ -122,8 +145,8 @@ public class HomeController {
 	 * @param user
 	 * @return
 	 */
-	public RangeResponse EntityToModelExt(User user) {
-		RangeResponse model = new RangeResponse();
+	public RangeDataResponse EntityToModelExt(User user) {
+		RangeDataResponse model = new RangeDataResponse();
 		model.setUserId(user.getUserId());
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
@@ -133,6 +156,7 @@ public class HomeController {
 		UserDatum datum = user.getDatum();
 		model.setRange(ResponseUtils.GetRange(datum.getRangeM()));
 		model.setSign(datum.getSign());
+		model.setSexuat(datum.getSexuat());
 		return model;
 	}
 }

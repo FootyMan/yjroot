@@ -62,7 +62,15 @@ public abstract interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> appUserList(AppHomePagePaging pagePaging);
+	public abstract List<User> HomeUserList(AppHomePagePaging pagePaging);
+
+	/**
+	 * app用户首页数据Count
+	 *
+	 * @param user
+	 * @return
+	 */
+	public abstract int HomeUserListCount(AppHomePagePaging pagePaging);
 
 	/**
 	 * app用户首页推荐
@@ -70,7 +78,7 @@ public abstract interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> appUserRecommend();
+	public abstract List<User> HomeUserRecommend();
 
 	/**
 	 * 附近的人
@@ -78,7 +86,15 @@ public abstract interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> appRangeUser(RangeParameter rangeParameter);
+	public abstract List<User> RangeUserList(RangeParameter rangeParameter);
+
+	/**
+	 * 附近的人数量
+	 *
+	 * @param user
+	 * @return
+	 */
+	public abstract int RangelistCount(RangeParameter rangeParameter);
 
 	/**
 	 * 个人详情主页
@@ -103,7 +119,7 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> initUser(int userId);
-	
+
 	/**
 	 * 用户喜欢列表
 	 *
@@ -111,7 +127,7 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> userLikeList(int userId);
-	
+
 	/**
 	 * 用户访客浏览
 	 *

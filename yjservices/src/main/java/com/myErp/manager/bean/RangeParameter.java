@@ -23,7 +23,56 @@ public class RangeParameter {
 	
 	private int userId;
 	
-	
+	/**
+	 * 显示ID
+	 */
+	private int showId;
+	/**
+	 * 性别
+	 */
+	private int sex;
+	/**
+	 * 地区
+	 */
+	private String city;
+	/**
+	 * 年龄范围
+	 */
+	private int beginAge;
+	/**
+	 * 年龄范围
+	 */
+	private int endAge;
+	public int getShowId() {
+		return showId;
+	}
+	public void setShowId(int showId) {
+		this.showId = showId;
+	}
+	public int getSex() {
+		return sex;
+	}
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getBeginAge() {
+		return beginAge;
+	}
+	public void setBeginAge(int beginAge) {
+		this.beginAge = beginAge;
+	}
+	public int getEndAge() {
+		return endAge;
+	}
+	public void setEndAge(int endAge) {
+		this.endAge = endAge;
+	}
 	public int getUserId() {
 		return userId;
 	}

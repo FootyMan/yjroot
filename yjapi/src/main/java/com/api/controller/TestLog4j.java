@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.SystemPropertyUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.api.alipay.sdk.AlipayPayManager;
 import com.api.response.baseResponse;
 import com.api.utils.DES;
 import com.api.utils.PageUtils;
@@ -36,6 +37,7 @@ import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myErp.easemob.EaseMobBusiness;
 import com.myErp.enums.ProductLevel;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.manager.bean.InvitationCode;
@@ -56,21 +58,33 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = sdf.parse("2017-09-26 10:42:11");
-		Calendar c1 = Calendar.getInstance();
-		Calendar c2 = Calendar.getInstance();
-		c2.setTime(date);
-		if (c1.get(Calendar.DATE) == c2.get(Calendar.DATE)) {
-			System.out.println(DateUtil.getHH_MM(c2.getTime()) + "来访");
-
-		} else{
-			System.out.println(DateUtil.getDate(c2.getTime()) + "来访");
-			
-		} {
-//			System.out.println("c1:" + c1.get(Calendar.DATE));
-//			System.out.println("c2:" + c2.get(Calendar.DATE));
-		}
+		
+		String orderNumber=StringUtils.GetOrderNumber(1, 1);
+		AlipayPayManager manager=new AlipayPayManager();
+		String orderString=manager.GetOrderString(orderNumber, "月度会员", "0.01");
+		System.out.println(orderString);
+ 
+//		// 获取token
+//		String toket = EaseMobBusiness.QueryToken();
+//		// 创建用户
+//		EaseMobBusiness.AccountCreate(userName);
+//		// 删除用户
+//		EaseMobBusiness.AccountDel(userName);
+		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date date = sdf.parse("2017-09-26 10:42:11");
+		// Calendar c1 = Calendar.getInstance();
+		// Calendar c2 = Calendar.getInstance();
+		// c2.setTime(date);
+		// if (c1.get(Calendar.DATE) == c2.get(Calendar.DATE)) {
+		// System.out.println(DateUtil.getHH_MM(c2.getTime()) + "来访");
+		//
+		// } else{
+		// System.out.println(DateUtil.getDate(c2.getTime()) + "来访");
+		//
+		// } {
+		// System.out.println("c1:" + c1.get(Calendar.DATE));
+		// System.out.println("c2:" + c2.get(Calendar.DATE));
+		// }
 
 		// testDate dd = new testDate();
 		// if (dd.getTestDate() == null) {
@@ -84,6 +98,7 @@ public class TestLog4j {
 		// System.out.println(dString);
 
 		String reqStr = DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
+	//	toket = EaseMobBusiness.QueryToken();
 		// baseResponse response=new baseResponse();
 		// System.out.println(reqStr);
 		// File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹

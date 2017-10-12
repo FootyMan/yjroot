@@ -14,6 +14,7 @@ com\api\response\DetailsResponse.class
 com\api\utils\HttpServletRequestReplacedFilter.class
 com\api\utils\DecryptEncryptUtils.class
 com\api\response\InitWithdrawalsResponse.class
+com\api\response\UserInfoResponse.class
 com\api\response\WxResponse.class
 com\api\wxpay\sdk\WXPayConstants.class
 com\api\controller\OrderController.class
@@ -45,12 +46,12 @@ com\api\business\UserBusiness$4.class
 com\api\response\BrowseNumberResponse.class
 com\api\controller\TestLog4j$testDate.class
 com\api\request\PhoneMsgRequest.class
-com\api\response\InitUserResponse.class
 com\api\controller\TestLog4j.class
 com\api\response\LableResponseData.class
 com\api\request\DetailsRequest.class
 com\api\business\UserBusiness$3.class
 com\api\request\UserDatumRequest.class
+com\api\response\DetailsUserResponse.class
 com\api\wxpay\sdk\WXPayReport$ReportInfo.class
 com\api\utils\BodyReaderHttpServletRequestWrapper$1.class
 com\api\wxpay\sdk\WXPayDomainSimpleImpl.class

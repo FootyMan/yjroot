@@ -1,10 +1,16 @@
 package com.api.business;
 
+import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.alibaba.druid.sql.dialect.oracle.ast.clause.ModelClause.ReturnRowsClause;
 import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
 import com.api.request.InitUserRequest;
+import com.api.request.PhoneMsgRequest;
 import com.api.request.UserDatumRequest;
 import com.api.request.UserLikeRequest;
 import com.api.request.baseRequest;
@@ -14,10 +20,12 @@ import com.api.response.DetailsImgResponse;
 import com.api.response.DetailsLableResponse;
 import com.api.response.DetailsResponse;
 import com.api.response.HomeResponse;
+import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
-import com.api.response.InitUserResponse;
 import com.api.response.LableResponse;
 import com.api.response.PageTwoResponse;
+import com.api.response.DetailsUserResponse;
+import com.api.response.UserInfoResponse;
 import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.VersionResponse;
@@ -50,6 +58,7 @@ import com.myErp.manager.bean.UserPosition;
 import com.myErp.manager.bean.UserVerifyCode;
 import com.myErp.manager.bean.Userlike;
 import com.myErp.utils.Md5Util;
+import com.myErp.utils.StringUtils;
 import com.myErp.utils.SystemConfig;
 
 public class UserBusiness {
@@ -141,14 +150,14 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse userRegister(UserServiceImpl userServiceImpl,
+	public baseResponse<InitResponse> userRegister(UserServiceImpl userServiceImpl,
 			UserVerifyCodeServiceImpl userVerifyCodeServiceImpl, InvitationCodeServiceImpl invitationCodeServiceImpl,
 			UserInviteServiceImpl userInviteServiceImpl, baseRequest<userModel> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
 		userModel model = user.getbody();
-		baseResponse response = new baseResponse();
+		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
@@ -183,6 +192,8 @@ public class UserBusiness {
 			response.setMsg("注册用户失败");
 			return response;
 		}
+		InitResponse initUser = InitUserData(userServiceImpl, user.getUserId());
+		response.setData(initUser);
 		AddUserInvite(userInviteServiceImpl, codeData, userEntity.getUserId());
 		return response;
 
@@ -232,12 +243,12 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse userLogin(UserServiceImpl userServiceImpl, baseRequest<userModel> user) {
+	public baseResponse<InitResponse> userLogin(UserServiceImpl userServiceImpl, baseRequest<userModel> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
 		userModel model = user.getbody();
-		baseResponse response = new baseResponse();
+		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
 		// 注册
 		User userEntity = new User();
 		userEntity.setPhone(model.getPhone());
@@ -248,6 +259,8 @@ public class UserBusiness {
 			response.setMsg("用户名或密码错误");
 			return response;
 		}
+		InitResponse initUser = InitUserData(userServiceImpl, resultUser.getUserId());
+		response.setData(initUser);
 		return response;
 
 	}
@@ -437,7 +450,7 @@ public class UserBusiness {
 		baseResponse<DetailsResponse> response = new baseResponse<DetailsResponse>();
 
 		DetailsResponse details = new DetailsResponse();
-
+		DetailsUserResponse userBase = new DetailsUserResponse();
 		DetailsRequest body = request.getbody();
 		//
 		RangeParameter rangeParameter = new RangeParameter();
@@ -453,19 +466,19 @@ public class UserBusiness {
 		if (userDatas != null && userDatas.size() > 0) {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
-			details.setHeadImage(userData.getHeadImage());
-			details.setId(userData.getId());
-			details.setNickName(userData.getNickName());
-			details.setSex(datum.getGender());
-			details.setAge(datum.getAge());
-			details.setCity(datum.getCity());
-			details.setRange(ResponseUtils.GetRange(datum.getRangeM()));
-			details.setSign(datum.getSign());
-			details.setWeight(datum.getWeight());
-			details.setHeight(datum.getHeight());
-			details.setShape(datum.getShape());
-			details.setSexuat(datum.getSexuat());
-			details.setVip(userData.getUserLevel());
+			userBase.setHeadImage(userData.getHeadImage());
+			userBase.setShowId(userData.getId());
+			userBase.setNickName(userData.getNickName());
+			userBase.setSex(datum.getGender());
+			userBase.setAge(datum.getAge());
+			userBase.setCity(datum.getCity());
+			userBase.setRange(ResponseUtils.GetRange(datum.getRangeM()));
+			userBase.setSign(datum.getSign());
+			userBase.setWeight(datum.getWeight());
+			userBase.setHeight(datum.getHeight());
+			userBase.setShape(datum.getShape());
+			userBase.setSexuat(datum.getSexuat());
+			userBase.setVip(userData.getUserLevel());
 		}
 		// 图片
 		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(body.getDetailId());
@@ -492,8 +505,9 @@ public class UserBusiness {
 		userlike.setLikeUserId(body.getDetailId());
 		Userlike likeData = userlikeServiceImpl.selectUserLikeById(userlike);
 		if (likeData != null) {
-			details.setLike(true);
+			userBase.setLike(true);
 		}
+		details.setUser(userBase);
 		response.setData(details);
 
 		UserBusiness.getInstance().UpdateUserBrowse(userServiceImpl, userBrowseServiceImpl, body.getDetailId(),
@@ -569,27 +583,40 @@ public class UserBusiness {
 	 * @param userId
 	 * @return
 	 */
-	public InitUserResponse InitUserData(UserServiceImpl userServiceImpl, int userId) {
-		InitUserResponse initUser = new InitUserResponse();
+	public InitResponse InitUserData(UserServiceImpl userServiceImpl, int userId) {
+		InitResponse initUser = new InitResponse();
+		UserInfoResponse info=new UserInfoResponse();
 		List<User> userDatas = userServiceImpl.initUser(userId);
 		if (userDatas != null && userDatas.size() > 0) {
 			User user = userDatas.get(0);
 			UserDatum datum = user.getDatum();
-			initUser.setUserId(userId);
-			initUser.setId(user.getId());
-			initUser.setHeadImage(user.getHeadImage());
-			initUser.setNickName(user.getNickName());
-			initUser.setSex(datum.getGender());
-			initUser.setAge(datum.getAge());
-			initUser.setCity(datum.getCity());
-			initUser.setSign(datum.getSign());
-			initUser.setWeight(datum.getWeight());
-			initUser.setHeight(datum.getHeight());
-			initUser.setShape(datum.getShape());
-			initUser.setSexuat(datum.getSexuat());
-			initUser.setVip(user.getUserLevel());
-			initUser.setInviteCode(user.getInviteCode());
+			
+			info.setUserId(userId);
+			info.setShowId(user.getId());
+			info.setHeadImage(user.getHeadImage());
+			info.setNickName(user.getNickName());
+			info.setSex(datum.getGender());
+			info.setAge(datum.getAge());
+			info.setCity(datum.getCity());
+			info.setSign(datum.getSign());
+			info.setWeight(datum.getWeight());
+			info.setHeight(datum.getHeight());
+			info.setShape(datum.getShape());
+			info.setSexuat(datum.getSexuat());
+			info.setVip(user.getUserLevel());
+			info.setInviteCode(user.getInviteCode());
+			info.setFull(true);
+		} else {
+			User user = userServiceImpl.selectUserByUserId(userId);
+			if (user!=null) {
+				info.setUserId(userId);
+				info.setShowId(user.getId());
+				info.setNickName(user.getNickName());
+				info.setVip(user.getUserLevel());
+				info.setFull(false);
+			}
 		}
+		initUser.setUser(info);
 		return initUser;
 	}
 
@@ -611,7 +638,7 @@ public class UserBusiness {
 			numberData.setBrowseNumber(number);
 			response.setData(numberData);
 		} else if (body.getType() == 2) {
-			List<HomeResponse> browesResponse=new ArrayList<HomeResponse>();
+			List<HomeResponse> browesResponse = new ArrayList<HomeResponse>();
 			RangeParameter rangeParameter = PageParameter.GetRangePage(body.getPageIndex(), request.getUserId());
 			// 数据
 			List<User> browesData = userServiceImpl.userBrowseList(rangeParameter);
@@ -621,6 +648,49 @@ public class UserBusiness {
 			response.setData(browesResponse);
 		}
 		return response;
+	}
+
+	public Map<String, String> GetMessage(UserServiceImpl userServiceImpl, baseRequest<PhoneMsgRequest> request,
+			baseResponse<?> output, String code) {
+		Map<String, String> map = new HashMap<String, String>();
+		String phone = "";// 手机号
+		String msg = "";// 消息
+		PhoneMsgRequest body = request.getbody();
+		// 注册
+		if (body.getType() == 1) {
+
+			if (!StringUtils.isEmpty(request.getbody().getPhone())) {
+				phone = request.getbody().getPhone();
+				msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
+
+			} else {
+				output.setCode(ResultEnum.ColmunErrorCode);
+				output.setMsg("手机号为空");
+				return null;
+			}
+		}
+		// 2绑定支付宝账号
+		// 3提现
+		else if ((body.getType() == 2 || body.getType() == 3) && request.getUserId() > 0) {
+			// 根据用户ID获取用户手机号
+			User userData = userServiceImpl.selectUserByUserId(request.getUserId());
+			if (userData != null && userData.getUserId() > 0) {
+				phone = userData.getPhone();
+				if (body.getType() == 2) {
+					msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
+				}
+				// 3提现
+				else {
+					msg = "您在平台提现验证码为" + code + "，一分钟内有效";
+				}
+
+			}
+		} else {
+			return null;
+		}
+		map.put("phone", phone);
+		map.put("msg", msg);
+		return map;
 	}
 
 	/**

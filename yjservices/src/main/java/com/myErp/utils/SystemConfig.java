@@ -33,4 +33,14 @@ public class SystemConfig {
 	 * 奖励百分比
 	 */
 	public static double percentage=Double.parseDouble(PropertiesUtils.ReadProperties(fileName, "reward.percentage"));
+	
+	/**
+	 * 是否测试环境平台
+	 */
+	public static boolean isQAplatform = Boolean.parseBoolean(PropertiesUtils.ReadProperties(fileName, "isqa_platform"));
+	
+	/**
+	 * 支付宝回调地址
+	 */
+	public static String AlipayNotifyurl = PropertiesUtils.ReadProperties(fileName, "alipay_notify_url");
 }

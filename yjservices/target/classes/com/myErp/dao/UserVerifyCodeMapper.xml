@@ -11,7 +11,7 @@
 
 	<insert id="insertUserVerifyCode" parameterType="com.myErp.manager.bean.UserVerifyCode"
 		keyProperty="Id">
-		insert into UserVerifyCode (phone,
+		insert into userverifycode (phone,
 		verifyCode,createTime)
 		values (#{phone},
 		#{verifyCode},NOW())

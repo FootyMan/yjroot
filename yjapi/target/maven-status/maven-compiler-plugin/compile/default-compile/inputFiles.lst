@@ -1,3 +1,4 @@
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\UserInfoResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\business\UserBusiness.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\DecryptEncryptUtils.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\TestLog4j.java
@@ -19,7 +20,6 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\DES.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayReport.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\LableRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\decrypt\RequestDecryptResponseEncryptBodyMethodProcessor.java
-D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\InitUserResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\UserPwdResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\ExceptionHandler.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\OrderRequest.java
@@ -35,6 +35,7 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\DetailsRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\ProfitRecordResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\UserLikeResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayRequest.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\DetailsUserResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayUtil.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\userModel.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\InitController.java

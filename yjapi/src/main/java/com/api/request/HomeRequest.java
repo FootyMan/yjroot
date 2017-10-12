@@ -6,7 +6,7 @@ public class HomeRequest {
 
 	@ApiModelProperty(value = "页码")
 	private int pageIndex;
-	@ApiModelProperty(value = "男女")
+	@ApiModelProperty(value = "0全部 1男 2女")
 	private int sex;
 	public int getSex() {
 		return sex;

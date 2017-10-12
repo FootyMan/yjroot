@@ -1,5 +1,6 @@
 com\myErp\manager\bean\UserRecharge.class
 com\myErp\utils\IPage.class
+com\myErp\dao\UserlikeMapper.class
 com\myErp\manager\bean\LabletType.class
 com\myErp\manager\bean\UserDatum.class
 com\myErp\impl\InvitationCodeServiceImpl$1.class
@@ -16,6 +17,7 @@ com\myErp\impl\OrderServiceImpl.class
 com\myErp\manager\bean\UserFinancial.class
 com\myErp\impl\UserRechargeServiceImpl.class
 com\myErp\enums\ProductLevel.class
+com\myErp\dao\UserBrowseMapper.class
 com\myErp\impl\UserFinancialServiceImpl.class
 com\myErp\enums\RechargeValid.class
 com\myErp\utils\CommonMethod.class
@@ -38,8 +40,10 @@ com\myErp\enums\OrderState.class
 com\myErp\manager\bean\RangeParameter.class
 com\myErp\impl\UserDatumServiceImpl.class
 com\myErp\manager\bean\Employee.class
+com\myErp\impl\UserlikeServiceImpl.class
 com\myErp\dao\UserMapper.class
 com\myErp\impl\UserInviteServiceImpl.class
+com\myErp\manager\bean\Userlike.class
 com\myErp\impl\UserImgServiceImpl.class
 com\myErp\utils\CookieUtil.class
 com\myErp\manager\bean\Dept.class
@@ -56,10 +60,12 @@ com\myErp\dao\OrderMapper.class
 com\myErp\manager\bean\UserFinancialDetail.class
 com\myErp\manager\bean\User.class
 com\myErp\utils\Md5Util.class
+com\myErp\utils\HttpClientUtil.class
 com\myErp\utils\SystemConfig.class
 com\myErp\dao\UserPositionMapper.class
 com\myErp\manager\bean\AppHomePagePaging.class
 com\myErp\manager\bean\UserPosition.class
+com\myErp\manager\bean\UserBrowse.class
 com\myErp\manager\bean\MyProfitRecord.class
 com\myErp\dao\UserLableMappingMapper.class
 com\myErp\manager\bean\Role.class
@@ -74,11 +80,14 @@ com\myErp\dao\UserFinancialDetailMapper.class
 com\myErp\utils\BasePage.class
 com\myErp\impl\UserVerifyCodeServiceImpl.class
 com\myErp\dao\UserVerifyCodeMapper.class
+com\myErp\easemob\EaseMobBusiness.class
 com\myErp\impl\ProductServiceImpl.class
 com\myErp\impl\UserServiceImpl.class
 com\myErp\utils\PagePlugin.class
+com\myErp\impl\UserBrowseServiceImpl.class
 com\myErp\utils\DBContextHolder.class
 com\myErp\utils\DynamicDataSource.class
+com\myErp\manager\bean\UserDislike.class
 com\myErp\utils\DateStyle.class
 com\myErp\utils\StringUtils.class
 com\myErp\impl\ProvinceServiceImpl.class

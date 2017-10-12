@@ -4,11 +4,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class InitResponse {
 	@ApiModelProperty(value = "用户信息")
-	private InitUserResponse user;
-	public InitUserResponse getUser() {
+	private UserInfoResponse user;
+	public UserInfoResponse getUser() {
 		return user;
 	}
-	public void setUser(InitUserResponse user) {
+	public void setUser(UserInfoResponse user) {
 		this.user = user;
 	}
 	

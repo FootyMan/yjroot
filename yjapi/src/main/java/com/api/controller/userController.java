@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,24 +28,17 @@ import com.myErp.impl.UserServiceImpl;
 import com.myErp.impl.UserVerifyCodeServiceImpl;
 import com.myErp.impl.UserlikeServiceImpl;
 import com.myErp.manager.bean.LabletType;
-import com.myErp.manager.bean.User;
 import com.myErp.manager.bean.UserLableMapping;
 import com.myErp.manager.bean.UserVerifyCode;
 import com.myErp.utils.StringUtils;
+import com.myErp.utils.SystemConfig;
 import com.myErp.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
-import com.api.response.DetailsResponse;
-import com.api.response.HomeResponse;
-import com.api.response.InitResponseAppData;
-import com.api.response.LableResponse;
-import com.api.response.LableResponseData;
-import com.api.response.UserLikeResponse;
-import com.api.response.UserPwdResponse;
-import com.api.response.baseResponse;
-
+import com.api.response.*;
+ 
 @Controller
 @RequestMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 		MediaType.APPLICATION_JSON_VALUE })
@@ -82,9 +76,9 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/registe", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户注册接口", notes = "用户注册接口")
-	public baseResponse<?> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+	public baseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
 			throws Exception {
-		baseResponse<?> response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
+		baseResponse<InitResponse> response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
 				invitationCodeServiceImpl, userInviteServiceImpl, user);
 		UserBusiness.getInstance().AddUserPoint(UserPositionService, user);
 		// InitUserResponse initUser =
@@ -103,9 +97,9 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户登录接口", notes = "用户登录接口")
-	public baseResponse<?> userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+	public baseResponse<InitResponse> userLogin(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
 			throws Exception {
-		baseResponse<?> response = UserBusiness.getInstance().userLogin(userServiceImpl, user);
+		baseResponse<InitResponse> response = UserBusiness.getInstance().userLogin(userServiceImpl, user);
 		return response;
 	}
 
@@ -138,52 +132,34 @@ public class userController {
 	@ApiOperation(nickname = "swagger-getMsgCode", value = "获取短信验证码", notes = "获取短信验证码")
 	public baseResponse<?> getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> request)
 			throws Exception {
-		PhoneMsgRequest body = request.getbody();
 		baseResponse<?> output = new baseResponse<Object>();
-		// 验证码
-		String code = ValidateUtil.GetRandom();
+		// 验证码 如果是测试默认1234
+		String code = "1234";
+		if (!SystemConfig.isQAplatform) {
+			code = ValidateUtil.GetRandom();
+		}
 		PhoneMessageSend send = new PhoneMessageSend();
 		boolean isflag = false;// 发送是否成功
-		String phone = "";// 手机号
-		String msg = "";// 消息
-		// 注册
-		if (body.getType() == 1) {
 
-			if (!StringUtils.isEmpty(request.getbody().getPhone())) {
-				phone = request.getbody().getPhone();
-				msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
+		Map<String, String> map = UserBusiness.getInstance().GetMessage(userServiceImpl, request, output, code);
+		if (map != null && !SystemConfig.isQAplatform) {
+			isflag = send.SendPhooneMsg(map.get("phone"), map.get("msg"));
+			if (!isflag) {
 
-			} else {
-				output.setCode(ResultEnum.ColmunErrorCode);
-				output.setMsg("手机号为空");
+				output.setCode(ResultEnum.ServiceErrorCode);
+				output.setMsg("短信通道失败");
+				return output;
+			}
+		} else {
+			if (!StringUtils.isEmpty(output.getMsg())) {
+
+				return output;
+			} else if (map == null) {
+				output.setCode(ResultEnum.ServiceErrorCode);
+				output.setMsg("参数不符");
 				return output;
 			}
 		}
-		// 2绑定支付宝账号
-		// 3提现
-		else if ((body.getType() == 2 || body.getType() == 3) && request.getUserId() > 0) {
-			// 根据用户ID获取用户手机号
-			User userData = userServiceImpl.selectUserByUserId(request.getUserId());
-			if (userData != null && userData.getUserId() > 0) {
-				phone = userData.getPhone();
-				if (body.getType() == 2) {
-					msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
-				}
-				// 3提现
-				else {
-					msg = "您在平台提现验证码为" + code + "，一分钟内有效";
-				}
-
-			}
-		}
-		isflag = send.SendPhooneMsg(phone, msg);
-		if (!isflag) {
-
-			output.setCode(ResultEnum.ServiceErrorCode);
-			output.setMsg("短信通道失败");
-			return output;
-		}
-
 		UserVerifyCode verifyCode = new UserVerifyCode();
 		verifyCode.setPhone(request.getbody().getPhone());
 		verifyCode.setVerifyCode(code);
@@ -350,8 +326,7 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/browse", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-details", value = "最近访客", notes = "最近访客 "
-			+ "	如果传入type=1 获取数量 返回body里只有browseNumber	"
-			+ "	如果传入type=2获取访问列表 传入pageIndex 返回列表比首页多一个访问时间browseData")
+			+ "	如果传入type=1 获取数量 返回body里只有browseNumber	" + "	如果传入type=2获取访问列表 传入pageIndex 返回列表比首页多一个访问时间browseData")
 	public baseResponse<?> GetUserBrowse(@ApiParam(value = "输入") @RequestBody baseRequest<BrowseRequest> request) {
 		return UserBusiness.getInstance().GetUserBrowse(userBrowseServiceImpl, userServiceImpl, request);
 	}

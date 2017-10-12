@@ -13,6 +13,9 @@ public class HomeObject {
 		list = new ArrayList<HomeResponse>();
 	}
 
+	@ApiModelProperty(value = "总分页数 只有pageIndex=1时返回")
+	private int totalPage;
+
 	@ApiModelProperty(value = "推荐、只有PageIndex=1时此数组有值、其他无数据")
 	private List<HomeResponse> recommend;
 
@@ -33,6 +36,14 @@ public class HomeObject {
 
 	public void setList(List<HomeResponse> list) {
 		this.list = list;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
 	}
 
 }

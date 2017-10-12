@@ -90,10 +90,21 @@ public class UserServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public List<User> appUserList(AppHomePagePaging pagePaging) {
+	public List<User> HomeUserList(AppHomePagePaging pagePaging) {
 
 		DBContextHolder.setDBType("siteRead");
-		return userMappe.appUserList(pagePaging);
+		return userMappe.HomeUserList(pagePaging);
+	}
+
+	/**
+	 * app用户首页数据Count
+	 *
+	 * @param user
+	 * @return
+	 */
+	public int HomeUserListCount(AppHomePagePaging pagePaging) {
+		DBContextHolder.setDBType("siteRead");
+		return userMappe.HomeUserListCount(pagePaging);
 	}
 
 	/**
@@ -102,9 +113,9 @@ public class UserServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public List<User> appUserRecommend() {
+	public List<User> HomeUserRecommend() {
 		DBContextHolder.setDBType("siteRead");
-		return userMappe.appUserRecommend();
+		return userMappe.HomeUserRecommend();
 	}
 
 	/**
@@ -113,9 +124,20 @@ public class UserServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public List<User> appRangeUser(RangeParameter rangeParameter) {
+	public List<User> RangeUserList(RangeParameter rangeParameter) {
 		DBContextHolder.setDBType("siteRead");
-		return userMappe.appRangeUser(rangeParameter);
+		return userMappe.RangeUserList(rangeParameter);
+	}
+
+	/**
+	 * 附近的人分页数量
+	 *
+	 * @param user
+	 * @return
+	 */
+	public int RangelistCount(RangeParameter rangeParameter) {
+		DBContextHolder.setDBType("siteRead");
+		return userMappe.RangelistCount(rangeParameter);
 	}
 
 	/**
@@ -161,7 +183,7 @@ public class UserServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userMappe.userLikeList(userId);
 	}
-	
+
 	/**
 	 * 最近访客
 	 *
@@ -170,7 +192,7 @@ public class UserServiceImpl {
 	 */
 	public List<User> userBrowseList(RangeParameter rangeParameter) {
 		DBContextHolder.setDBType("siteRead");
-		List<User> list=userMappe.userBrowseList(rangeParameter);
+		List<User> list = userMappe.userBrowseList(rangeParameter);
 		return list;
 	}
 }
