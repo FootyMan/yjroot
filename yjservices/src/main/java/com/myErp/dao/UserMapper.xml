@@ -86,6 +86,9 @@
 			<if test="passWord!=null and passWord!=''">
 				passWord=#{passWord},
 			</if>
+			<if test="nickName!=null and nickName!=''">
+				nickName=#{nickName},
+			</if>
 		</set>
 		where userId=#{userId}
 	</update>
@@ -135,7 +138,8 @@
 		count(1)
 		FROM user a inner join userdatum b
 		on
-		a.userId=b.userId where
+		a.userId=b.userId
+		where
 		1=1
 		<if test="gender>0">
 			and b.gender=#{gender}
@@ -254,8 +258,19 @@
 		#{pageIndex},#{pageSize}
 
 	</select>
-
-
+	<!-- 用户资料页面 -->
+	<select id="selectDatumByUserId" resultMap="appUserResult"
+		parameterType="java.lang.Integer">
+		select
+		b.datumId,b.userId,b.age,b.gender,b.cityId,b.weight,b.height,b.shape,b.sexuat,b.sign,
+		a.nickName,Fn_SetImgPrefix(headImage)headImage
+		from user a inner join
+		userdatum b
+		on
+		a.userId=b.userId
+		where
+		b.userId=#{userId}
+	</select>
 	<sql id="Range_Column_Where">
 		<if test="showId>0">
 			AND a.Id=#{showId}

@@ -1,9 +1,8 @@
 package com.api.controller;
 
-import java.util.ArrayList;
+ 
 import java.util.List;
-import java.util.function.Predicate;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -21,8 +20,8 @@ import com.myErp.impl.UserPositionServiceImpl;
 import com.myErp.impl.UserServiceImpl;
 import com.myErp.manager.bean.LabletType;
 import com.myErp.manager.bean.Province;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserDatum;
+import com.myErp.redis.CityRedisManager;
+import com.myErp.utils.ResultModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -93,29 +92,30 @@ public class InitController {
 		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
 		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
 		InitResponseAppData appData = UserBusiness.getInstance().LableEntityToModel(labletTypes);
-		// 获取城市
-		List<Province> listCity = provinceServiceImpl.selectProvinces();
-		Predicate<Province> contain1 = n -> n.getParentId() == 0;
+		// // 获取城市
+		// List<Province> listCity = provinceServiceImpl.selectProvinces();
+		// Predicate<Province> contain1 = n -> n.getParentId() == 0;
 
-		List<CityResponseParent> citys = new ArrayList<CityResponseParent>();
+		// List<CityResponseParent> citys = new ArrayList<CityResponseParent>();
 
 		// 启用java lambda表达式
-		listCity.stream().filter(contain1).forEach(n -> {
-			CityResponseParent cityParent = new CityResponseParent();
-			cityParent.setId(n.getProvinceId());
-			cityParent.setName(n.getName());
-
-			List<CityResponseChild> childs = new ArrayList<CityResponseChild>();
-			Predicate<Province> child = c -> c.getParentId() == n.getProvinceId();
-			listCity.stream().filter(child).forEach(p -> {
-				CityResponseChild citychild = new CityResponseChild();
-				citychild.setId(p.getProvinceId());
-				citychild.setName(p.getName());
-				childs.add(citychild);
-			});
-			cityParent.setCities(childs);
-			citys.add(cityParent);
-		});
+		// listCity.stream().filter(contain1).forEach(n -> {
+		// CityResponseParent cityParent = new CityResponseParent();
+		// cityParent.setId(n.getProvinceId());
+		// cityParent.setName(n.getName());
+		//
+		// List<CityResponseChild> childs = new ArrayList<CityResponseChild>();
+		// Predicate<Province> child = c -> c.getParentId() ==
+		// n.getProvinceId();
+		// listCity.stream().filter(child).forEach(p -> {
+		// CityResponseChild citychild = new CityResponseChild();
+		// citychild.setId(p.getProvinceId());
+		// citychild.setName(p.getName());
+		// childs.add(citychild);
+		// });
+		// cityParent.setCities(childs);
+		// citys.add(cityParent);
+		// });
 
 		// 返回版本信息
 		VersionResponse versionResponseModel = UserBusiness.getInstance().GetAppVersion(appversionService,
@@ -125,8 +125,42 @@ public class InitController {
 		appData.setVersionData(versionResponseModel);
 		appData.setTwoData(pageTwoModel);
 
-		appData.setCityData(citys);
+		// appData.setCityData(citys);
 		response.setData(appData);
 		return response;
 	}
+
+	/**
+	 * 初始化redis
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/redis", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-user", value = "服务端自用", notes = "服务端自用")
+	public baseResponse<?> InitRedis(@ApiParam(value = "输入") @RequestBody baseRequest<InitRedisRequest> request)
+			throws Exception {
+		baseResponse<?> response = new baseResponse<Object>();
+		InitRedisRequest body = request.getbody();
+		if (body.getCatchType() == 1) {
+			// 获取城市
+			List<Province> listCity = provinceServiceImpl.selectProvinces();
+			CityRedisManager manager = new CityRedisManager();
+			ResultModel result = manager.SetCity(listCity);
+			if (result.isSuccess()) {
+				response.setMsg("城市初始化成功");
+			}
+			else {
+				response.setMsg(result.getMsg());
+			}
+//			for (Province province : manager.GetCityAll()) {
+//				System.out.println(province.getName());
+//			}
+			response.setMsg(manager.GetCitySingle(400).getName());
+		}
+		return response;
+	}
+
 }

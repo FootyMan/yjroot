@@ -10,7 +10,11 @@
 
 	<select id="selectProvinces" resultMap="provinceResultMap">
 		select *
-		from province order by provinceId
+		from province
+		order by provinceId
 	</select>
-
+	<select id="SelectProvincesById" resultType="com.myErp.manager.bean.Province"
+		parameterType="java.lang.Integer">
+		SELECT * FROM province WHERE provinceId=#{provinceId}
+	</select>
 </mapper>

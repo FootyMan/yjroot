@@ -7,6 +7,7 @@ import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 
 public class AlipayPayManager {
+	
 
 	public String GetOrderString(String orderNumber,String productdesc,String amount)
 	{

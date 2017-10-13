@@ -21,7 +21,7 @@ public class InitResponseAppData {
 		music = new ArrayList<LableResponse>();
 		cate = new ArrayList<LableResponse>();
 		tour = new ArrayList<LableResponse>();
-		cityData = new ArrayList<CityResponseParent>();
+//		cityData = new ArrayList<CityResponseParent>();
 	}
 
 	@ApiModelProperty(value = "版本更新信息")
@@ -39,16 +39,16 @@ public class InitResponseAppData {
 	private List<LableResponse> cate;
 	@ApiModelProperty(value = "旅游类")
 	private List<LableResponse> tour;
-	@ApiModelProperty(value = "城市")
-	private List<CityResponseParent> cityData;
+//	@ApiModelProperty(value = "城市")
+//	private List<CityResponseParent> cityData;
 
-	public List<CityResponseParent> getCityData() {
-		return cityData;
-	}
-
-	public void setCityData(List<CityResponseParent> cityData) {
-		this.cityData = cityData;
-	}
+//	public List<CityResponseParent> getCityData() {
+//		return cityData;
+//	}
+//
+//	public void setCityData(List<CityResponseParent> cityData) {
+//		this.cityData = cityData;
+//	}
 
 	public List<LableResponse> getPersonality() {
 		return personality;

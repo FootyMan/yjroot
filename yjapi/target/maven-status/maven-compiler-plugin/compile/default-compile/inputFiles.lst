@@ -15,6 +15,7 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\BrowseRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\baseRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\LableRequestData.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\BodyReaderHttpServletRequestWrapper.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\RangeDataResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\InitResponseAppData.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\DES.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayReport.java
@@ -69,9 +70,12 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\ProfitWithDrawRequest.
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPay.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\UserLikeRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\HomeController.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\alipay\sdk\AlipayConfig.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\alipay\sdk\AlipayPayManager.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\ProfitWithDrawResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\ProfitRecordRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\PhoneMessageSend.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\InitRedisRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\AlipayResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\DetailsLableResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\PageTwoResponse.java

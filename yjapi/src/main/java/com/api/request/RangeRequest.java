@@ -10,8 +10,8 @@ public class RangeRequest {
 	private int showId;
 	@ApiModelProperty(value = "筛选条件 性别")
 	private int sex;
-	@ApiModelProperty(value = "筛选条件 城市")
-	private String city;
+	@ApiModelProperty(value = "筛选条件 城市Id")
+	private int cityId;
 	@ApiModelProperty(value = "筛选条件 年龄区间 格式:15-20")
 	private String ageSection;
 	public int getShowId() {
@@ -26,11 +26,11 @@ public class RangeRequest {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
-	public String getCity() {
-		return city;
+	public int getCityId() {
+		return cityId;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 	public String getAgeSection() {
 		return ageSection;

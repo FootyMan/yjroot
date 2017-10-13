@@ -83,10 +83,10 @@ public class PayNotifController {
 		outSteam.close();
 		inStream.close();
 		String result = new String(outSteam.toByteArray(), "utf-8");
-		System.out.println("微信支付通知结果：" + result);
+		logger.info("微信支付通知结果：" + result);
 		Map<String, String> map = WXPayUtil.xmlToMap(result);
 		if (map.get("return_code").equals("SUCCESS")) {
-			System.out.println("微信支付成功 订单号：" + map.get("out_trade_no"));
+			logger.info("微信支付成功 订单号：" + map.get("out_trade_no"));
 			Pay(map.get("out_trade_no"));
 			// String notifyStr = WXPayUtil.setXML("SUCCESS", "");
 			// 更新订单状态
@@ -114,7 +114,7 @@ public class PayNotifController {
 		logger.info("支付宝回调参数：" + requestParams.toString());
 		// 获取支付宝POST过来反馈信息
 		Map<String, String> params = new HashMap<String, String>();
-		if (requestParams.size()>0) {
+		if (requestParams.size() > 0) {
 			for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
 				String name = (String) iter.next();
 				String[] values = (String[]) requestParams.get(name);
@@ -123,7 +123,8 @@ public class PayNotifController {
 					valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
 				}
 				// 乱码解决，这段代码在出现乱码时使用。
-				// valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+				// valueStr = new String(valueStr.getBytes("ISO-8859-1"),
+				// "utf-8");
 				params.put(name, valueStr);
 			}
 			if ("TRADE_SUCCESS".equals(params.get("trade_status"))) {
@@ -132,96 +133,97 @@ public class PayNotifController {
 				// 商户订单号
 				String out_trade_no = params.get("out_trade_no");
 				// 支付宝交易号
+				logger.info("支付宝回调参数订单号：" + out_trade_no);
 				String trade_no = params.get("trade_no");
 				Pay(out_trade_no);
 				response.getWriter().write("SUCCESS");
-			}
-			else
-			{
+			} else {
 				response.getWriter().write("fail");
 			}
-		}
-		else
-		{
+		} else {
 			response.getWriter().write("无通知参数");
 		}
-		
+
 		// String notifyStr = WXPayUtil.setXML("SUCCESS", "");
 		// 更新订单状态
 		// 更新用户级别
 		// 增加用户充值记录
 		// 更新用户账户给邀请人返还20%钱 用于提现
 
-		
-
 	}
 
 	public void Pay(String orderNumber) {
-		Order orderData = orderServiceImpl.selectOrderByNumber(orderNumber);
-		if (orderData != null && orderData.getOrderState() == OrderState.getOrderStateByCode(1).getOrderState()) {
+		try {
+			Order orderData = orderServiceImpl.selectOrderByNumber(orderNumber);
+			if (orderData != null && orderData.getOrderState() == OrderState.getOrderStateByCode(1).getOrderState()) {
 
-			Order entityOrder = new Order();
-			entityOrder.setOrderNumber(orderNumber);
-			entityOrder.setOrderState(OrderState.getOrderStateByCode(2).getOrderState());
-			// 更新订单状态
-			orderServiceImpl.updateOrder(entityOrder);
-			// 获取产品详情
-			ProductLevel product = ProductLevel.getProductById(orderData.getProductId());
-			// 更新用户级别
-			User entityUser = new User();
-			entityUser.setUserId(orderData.getUserId());
-			entityUser.setUserLevel(ProductLevel.getProductById(orderData.getProductId()).getTypeId());
-			userServiceImpl.updateUser(entityUser);
-			// 增加用户充值记录
-			UserRecharge rechargeData = userRechargeServiceImpl.selectRechargeByuserId(orderData.getUserId());
-			UserRecharge entityRecharge = new UserRecharge();
-			entityRecharge.setUserId(orderData.getUserId());
-			entityRecharge.setIsValid(RechargeValid.getRechargeByCode(1).getValidCode());
-			if (rechargeData != null && rechargeData.getRechargeId() > 0) {
-				// 往上累加
-				entityRecharge.setRechargeId(rechargeData.getRechargeId());
-				entityRecharge.setTotalMoney(rechargeData.getTotalMoney() + product.getPrice());
-				entityRecharge.setEndTime(DateUtil.addDay(rechargeData.getEndTime(), product.getDay()));
-				entityRecharge.setValidDays(rechargeData.getValidDays() + product.getDay());
-				userRechargeServiceImpl.updateRecharge(entityRecharge);
+				Order entityOrder = new Order();
+				entityOrder.setOrderNumber(orderNumber);
+				entityOrder.setOrderState(OrderState.getOrderStateByCode(2).getOrderState());
+				// 更新订单状态
+				orderServiceImpl.updateOrder(entityOrder);
+				// 获取产品详情
+				ProductLevel product = ProductLevel.getProductById(orderData.getProductId());
+				// 更新用户级别
+				User entityUser = new User();
+				entityUser.setUserId(orderData.getUserId());
+				entityUser.setUserLevel(ProductLevel.getProductById(orderData.getProductId()).getTypeId());
+				userServiceImpl.updateUser(entityUser);
+				// 增加用户充值记录
+				UserRecharge rechargeData = userRechargeServiceImpl.selectRechargeByuserId(orderData.getUserId());
+				UserRecharge entityRecharge = new UserRecharge();
+				entityRecharge.setUserId(orderData.getUserId());
+				entityRecharge.setIsValid(RechargeValid.getRechargeByCode(1).getValidCode());
+				if (rechargeData != null && rechargeData.getRechargeId() > 0) {
+					// 往上累加
+					entityRecharge.setRechargeId(rechargeData.getRechargeId());
+					entityRecharge.setTotalMoney(rechargeData.getTotalMoney() + product.getPrice());
+					entityRecharge.setEndTime(DateUtil.addDay(rechargeData.getEndTime(), product.getDay()));
+					entityRecharge.setValidDays(rechargeData.getValidDays() + product.getDay());
+					userRechargeServiceImpl.updateRecharge(entityRecharge);
 
-			} else {
-				// 直接插入
-				entityRecharge.setTotalMoney(product.getPrice());
-				entityRecharge.setEndTime(DateUtil.addDay(new Date(), product.getDay()));
-				entityRecharge.setValidDays(product.getDay());
-				userRechargeServiceImpl.insertRecharge(entityRecharge);
+				} else {
+					// 直接插入
+					entityRecharge.setTotalMoney(product.getPrice());
+					entityRecharge.setEndTime(DateUtil.addDay(new Date(), product.getDay()));
+					entityRecharge.setValidDays(product.getDay());
+					userRechargeServiceImpl.insertRecharge(entityRecharge);
+				}
+				// 更新用户账户给邀请人返还20%钱 用于提现
+				double reward = product.getPrice() * SystemConfig.percentage;
+				UserFinancial financial = userFinancialServiceImpl.selectFinancial(orderData.getUserId());
+				UserFinancial userFinacial = new UserFinancial();
+				userFinacial.setUserId(orderData.getUserId());
+				if (financial != null && financial.getFinancialId() > 0) {
+					// 更新
+					userFinacial.setTotalMoney(financial.getTotalMoney() + reward);
+					userFinacial.setTotalRevenue(financial.getTotalRevenue() + reward);
+					userFinancialServiceImpl.updateFinancial(userFinacial);
+
+				} else {
+					// 插入一条
+					userFinacial.setTotalMoney(reward);
+					userFinacial.setTotalRevenue(reward);
+					userFinacial.setPayAccount("");
+					userFinacial.setPayRealName("");
+					userFinacial.setPhone("");
+					userFinancialServiceImpl.insertFinancial(userFinacial);
+				}
+				// 插入明细
+				UserFinancialDetail detail = new UserFinancialDetail();
+				detail.setUserId(orderData.getUserId());
+				detail.setFinancialType(FinancialType.getFinancialTypeByCode(1).getTypeId());
+				detail.setFinancialMoney(reward);
+				detail.setOperateDate(new Date());
+				detail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(3).getStateCode());
+				detail.setSourceNumber(orderNumber);
+				userFinancialDetailServiceImpl.insertFinancialDetail(detail);
+				// orderData.getProductId()
 			}
-			// 更新用户账户给邀请人返还20%钱 用于提现
-			double reward = product.getPrice() * SystemConfig.percentage;
-			UserFinancial financial = userFinancialServiceImpl.selectFinancial(orderData.getUserId());
-			UserFinancial userFinacial = new UserFinancial();
-			userFinacial.setUserId(orderData.getUserId());
-			if (financial != null && financial.getFinancialId() > 0) {
-				// 更新
-				userFinacial.setTotalMoney(financial.getTotalMoney() + reward);
-				userFinacial.setTotalRevenue(financial.getTotalRevenue() + reward);
-				userFinancialServiceImpl.updateFinancial(userFinacial);
 
-			} else {
-				// 插入一条
-				userFinacial.setTotalMoney(reward);
-				userFinacial.setTotalRevenue(reward);
-				userFinacial.setPayAccount("");
-				userFinacial.setPayRealName("");
-				userFinacial.setPhone("");
-				userFinancialServiceImpl.insertFinancial(userFinacial);
-			}
-			// 插入明细
-			UserFinancialDetail detail = new UserFinancialDetail();
-			detail.setUserId(orderData.getUserId());
-			detail.setFinancialType(FinancialType.getFinancialTypeByCode(1).getTypeId());
-			detail.setFinancialMoney(reward);
-			detail.setOperateDate(new Date());
-			detail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(3).getStateCode());
-			detail.setSourceNumber(orderNumber);
-			userFinancialDetailServiceImpl.insertFinancialDetail(detail);
-			// orderData.getProductId()
+		} catch (Exception e) {
+			logger.error("支付宝回调错误订单号：" + orderNumber + "异常信息" + e.getMessage() + "堆栈信息" + e.getStackTrace());
 		}
+
 	}
 }

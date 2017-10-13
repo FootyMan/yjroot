@@ -32,9 +32,9 @@ public class RangeParameter {
 	 */
 	private int sex;
 	/**
-	 * 地区
+	 * 地区Id
 	 */
-	private String city;
+	private int cityId;
 	/**
 	 * 年龄范围
 	 */
@@ -55,11 +55,11 @@ public class RangeParameter {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
-	public String getCity() {
-		return city;
+	public int getCityId() {
+		return cityId;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 	public int getBeginAge() {
 		return beginAge;

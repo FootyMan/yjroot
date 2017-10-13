@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -30,6 +31,7 @@ import org.springframework.util.SystemPropertyUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.api.alipay.sdk.AlipayPayManager;
+import com.api.response.AlipayResponse;
 import com.api.response.baseResponse;
 import com.api.utils.DES;
 import com.api.utils.PageUtils;
@@ -41,7 +43,9 @@ import com.myErp.easemob.EaseMobBusiness;
 import com.myErp.enums.ProductLevel;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.manager.bean.InvitationCode;
+import com.myErp.manager.bean.Province;
 import com.myErp.manager.bean.UserFinancial;
+import com.myErp.redis.CityRedisManager;
 import com.myErp.utils.CommonMethod;
 import com.myErp.utils.DateStyle;
 import com.myErp.utils.DateUtil;
@@ -58,18 +62,51 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		
-		String orderNumber=StringUtils.GetOrderNumber(1, 1);
-		AlipayPayManager manager=new AlipayPayManager();
-		String orderString=manager.GetOrderString(orderNumber, "月度会员", "0.01");
+		CityRedisManager redis = new CityRedisManager();
+		List<Province> provinces = new ArrayList<Province>();
+
+//		Province province = new Province();
+//		for (int i = 0; i < 2; i++) {
+//			province.setProvinceId(i);
+//			province.setParentId(i);
+//			province.setName("北京");
+//			provinces.add(province);
+//			// 添加
+//			redis.SetCity(provinces);
+//		}
+		// 获取
+		List<Province> listp = redis.GetCityAll();
+		for (Province x : listp) {
+			System.out.println(x.getProvinceId());
+			System.out.println(x.getParentId());
+			System.out.println(x.getName());
+		}
+		// 获取单个
+		Province sign = redis.GetCitySingle(1);
+		System.out.println(sign.getName());
+		// 删除单个
+		redis.RemoveCityById(1);
+		// 再获取
+		listp = redis.GetCityAll();
+		System.out.println(listp.size());
+
+		// 删除所有
+		redis.RemoveCityAll();
+		// 再获取
+		listp = redis.GetCityAll();
+		System.out.println(listp.size());
+
+		String orderNumber = StringUtils.GetOrderNumber(1, 1);
+		AlipayPayManager manager = new AlipayPayManager();
+		String orderString = manager.GetOrderString(orderNumber, "月度会员", "0.01");
 		System.out.println(orderString);
- 
-//		// 获取token
-//		String toket = EaseMobBusiness.QueryToken();
-//		// 创建用户
-//		EaseMobBusiness.AccountCreate(userName);
-//		// 删除用户
-//		EaseMobBusiness.AccountDel(userName);
+
+		// // 获取token
+		// String toket = EaseMobBusiness.QueryToken();
+		// // 创建用户
+		// EaseMobBusiness.AccountCreate(userName);
+		// // 删除用户
+		// EaseMobBusiness.AccountDel(userName);
 		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Date date = sdf.parse("2017-09-26 10:42:11");
 		// Calendar c1 = Calendar.getInstance();
@@ -98,7 +135,7 @@ public class TestLog4j {
 		// System.out.println(dString);
 
 		String reqStr = DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
-	//	toket = EaseMobBusiness.QueryToken();
+		// toket = EaseMobBusiness.QueryToken();
 		// baseResponse response=new baseResponse();
 		// System.out.println(reqStr);
 		// File f1 = new File("D:\\TestWork\\test");//需要转码的GBK格式文件夹

@@ -7,7 +7,7 @@
 		<result column="userId" property="userId" jdbcType="INTEGER" />
 		<result column="age" property="age" jdbcType="INTEGER" />
 		<result column="gender" property="gender" jdbcType="INTEGER" />
-		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="cityId" property="cityId" jdbcType="INTEGER" />
 		<result column="weight" property="weight" jdbcType="VARCHAR" />
 		<result column="height" property="height" jdbcType="VARCHAR" />
 		<result column="shape" property="shape" jdbcType="VARCHAR" />
@@ -15,15 +15,15 @@
 		<result column="sign" property="sign" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		datumId,userId,age,gender,city,weight,height,shape,sexuat, sign
+		datumId,userId,age,gender,cityId,weight,height,shape,sexuat,sign
 	</sql>
 
 	<insert id="insertDatum" parameterType="com.myErp.manager.bean.UserDatum"
 		keyProperty="datumId">
 		insert into userdatum
-		(userId,age,gender,city,weight,height,shape,sexuat,sign)
+		(userId,age,gender,cityId,weight,height,shape,sexuat,sign)
 		values
-		(#{userId},#{age},#{gender},#{city},#{weight},#{height},#{shape},#{sexuat},#{sign})
+		(#{userId},#{age},#{gender},#{cityId},#{weight},#{height},#{shape},#{sexuat},#{sign})
 	</insert>
 
 	<update id="updateDatum" parameterType="com.myErp.manager.bean.UserDatum">
@@ -32,8 +32,8 @@
 			<if test="age>0">
 				age=#{age},
 			</if>
-			<if test="city!= null and city!='' ">
-				city=#{city},
+			<if test="cityId!= null and cityId!='' ">
+				cityId=#{cityId},
 			</if>
 			<if test="weight!= null and weight!='' ">
 				weight=#{weight},
@@ -56,8 +56,9 @@
 	<select id="selectDatumByUserId" resultType="com.myErp.manager.bean.UserDatum"
 		parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
-		from userdatum
+		<include refid="Base_Column_List"></include>
+		from
+		userdatum
 		where userId=#{userId}
 	</select>
 </mapper>

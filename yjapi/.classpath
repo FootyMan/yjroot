@@ -33,7 +33,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/TestWork/alipay-sdk-JAVA-20170829142651/alipay-sdk-java-20170829142630.jar"/>
-	<classpathentry kind="lib" path="D:/TestWork/alipay-sdk-JAVA-20170829142651/alipay-sdk-java-20170829142630-source.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

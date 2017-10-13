@@ -116,7 +116,7 @@ public class HomeController {
 		rangeParameter.setLon(requestModel.getLon());
 		rangeParameter.setShowId(requestModel.getShowId());
 		rangeParameter.setSex(requestModel.getSex());
-		rangeParameter.setCity(requestModel.getCity());
+		rangeParameter.setCityId(requestModel.getCityId());
 		// 年龄区间截取
 		if (!StringUtils.isEmpty(requestModel.getAgeSection())) {
 			String[] age = requestModel.getAgeSection().split("-");

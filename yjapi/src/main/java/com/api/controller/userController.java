@@ -18,6 +18,7 @@ import com.api.utils.PhoneMessageSend;
 import com.api.utils.ResultEnum;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import com.myErp.impl.InvitationCodeServiceImpl;
+import com.myErp.impl.ProvinceServiceImpl;
 import com.myErp.impl.UserBrowseServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
 import com.myErp.impl.UserImgServiceImpl;
@@ -38,7 +39,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
 import com.api.response.*;
- 
+
 @Controller
 @RequestMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 		MediaType.APPLICATION_JSON_VALUE })
@@ -65,6 +66,8 @@ public class userController {
 	private UserlikeServiceImpl userlikeServiceImpl;
 	@Autowired
 	private UserBrowseServiceImpl userBrowseServiceImpl;
+	@Autowired
+	private ProvinceServiceImpl provinceServiceImpl;
 
 	/**
 	 * 用户注册接口 注册成功返回用户所有信息
@@ -78,8 +81,8 @@ public class userController {
 	@ApiOperation(nickname = "swagger-registe", value = "用户注册接口", notes = "用户注册接口")
 	public baseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
 			throws Exception {
-		baseResponse<InitResponse> response = UserBusiness.getInstance().userRegister(userServiceImpl, userVerifyCodeServiceImpl,
-				invitationCodeServiceImpl, userInviteServiceImpl, user);
+		baseResponse<InitResponse> response = UserBusiness.getInstance().userRegister(userServiceImpl,
+				userVerifyCodeServiceImpl, invitationCodeServiceImpl, userInviteServiceImpl, user);
 		UserBusiness.getInstance().AddUserPoint(UserPositionService, user);
 		// InitUserResponse initUser =
 		// UserBusiness.getInstance().InitUserData(userServiceImpl,
@@ -178,7 +181,7 @@ public class userController {
 	@ApiOperation(nickname = "swagger-addDatum", value = "添加用户资料和修改用户资料）", notes = "添加用户资料和修改用户资料")
 	public baseResponse<?> AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user)
 			throws Exception {
-		baseResponse<?> response = UserBusiness.getInstance().AddUserDatum(userDatumService, user);
+		baseResponse<?> response = UserBusiness.getInstance().AddUserDatum(userServiceImpl,userDatumService, user);
 		return response;
 	}
 
@@ -190,10 +193,10 @@ public class userController {
 	 */
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getDatum", method = RequestMethod.POST)
-	@ApiOperation(nickname = "swagger-getDatum", value = "获取用户资料", notes = "添加用户资料和修改用户资料")
+	@ApiOperation(nickname = "swagger-getDatum", value = "获取用户资料", notes = "获取用户资料")
 	public baseResponse<UserDatumRequest> GetUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest user)
 			throws Exception {
-		baseResponse<UserDatumRequest> response = UserBusiness.getInstance().GetUserDatum(userDatumService, user);
+		baseResponse<UserDatumRequest> response = UserBusiness.getInstance().GetUserDatum(userServiceImpl, user);
 		// UserBusiness.getInstance().test();
 		return response;
 	}

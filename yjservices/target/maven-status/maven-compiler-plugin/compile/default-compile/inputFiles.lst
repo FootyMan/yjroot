@@ -15,6 +15,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\OrderState.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\Encriptor.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserImgServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserRechargeMapper.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\redis\RedisManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserInviteMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\FinancialOperateStatus.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserFinancialServiceImpl.java
@@ -66,8 +67,10 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserFinancialMapper
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\ProductLevel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserPosition.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\PropertiesUtils.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\SerializeUtil.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserDislike.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\DynamicDataSource.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\redis\CityRedisManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\InvitationCodeMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\Order.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\EmployeeServiceImpl.java
@@ -85,6 +88,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserShape.
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\GlobalsConstant.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserLableMappingMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserBrowseServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\redis\RedisUtil.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserFinancialDetailMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserVerifyCodeMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\OrderServiceImpl.java

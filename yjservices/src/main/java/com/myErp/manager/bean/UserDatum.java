@@ -25,7 +25,7 @@ public class UserDatum {
 	/**
 	 * 城市
 	 */
-	private String city;
+	private int cityId;
 	/**
 	 * 体重
 	 */
@@ -80,11 +80,11 @@ public class UserDatum {
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-	public String getCity() {
-		return city;
+	public int getCityId() {
+		return cityId;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 	public String getWeight() {
 		return weight;

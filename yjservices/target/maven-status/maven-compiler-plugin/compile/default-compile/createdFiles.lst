@@ -34,7 +34,9 @@ com\myErp\impl\InvitationCodeServiceImpl.class
 com\myErp\impl\UserFinancialDetailServiceImpl.class
 com\myErp\utils\Pagination.class
 com\myErp\utils\DateUtil.class
+com\myErp\utils\SerializeUtil.class
 com\myErp\enums\UserLevel.class
+com\myErp\redis\RedisUtil.class
 com\myErp\dao\EmployeeMapper.class
 com\myErp\enums\OrderState.class
 com\myErp\manager\bean\RangeParameter.class
@@ -47,6 +49,7 @@ com\myErp\manager\bean\Userlike.class
 com\myErp\impl\UserImgServiceImpl.class
 com\myErp\utils\CookieUtil.class
 com\myErp\manager\bean\Dept.class
+com\myErp\redis\CityRedisManager.class
 com\myErp\manager\bean\Product.class
 com\myErp\impl\DepServiceImpl.class
 com\myErp\utils\PaginationInterceptor.class
@@ -60,6 +63,7 @@ com\myErp\dao\OrderMapper.class
 com\myErp\manager\bean\UserFinancialDetail.class
 com\myErp\manager\bean\User.class
 com\myErp\utils\Md5Util.class
+com\myErp\redis\RedisManager.class
 com\myErp\utils\HttpClientUtil.class
 com\myErp\utils\SystemConfig.class
 com\myErp\dao\UserPositionMapper.class

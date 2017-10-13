@@ -1,6 +1,7 @@
 com\api\wxpay\sdk\WXPayUtil.class
 com\api\request\HomeObject.class
 com\api\utils\decrypt\RequestDecryptResponseEncryptBodyProcessor.class
+com\api\request\InitRedisRequest.class
 com\api\wxpay\sdk\WXPayConstants$SignType.class
 com\api\controller\PayNotifController.class
 com\api\request\LableRequestData.class
@@ -25,6 +26,7 @@ com\api\request\LableRequest.class
 com\api\request\CityResponseChild.class
 com\api\controller\ProfitController.class
 com\api\response\LableResponse.class
+com\api\alipay\sdk\AlipayPayManager.class
 com\api\utils\Encodes.class
 com\api\request\ProfitWithDrawRequest.class
 com\api\utils\DES.class
@@ -35,6 +37,7 @@ com\api\utils\ExceptionHandler.class
 com\api\config\SwaggerConfiguration.class
 com\api\request\ProfitAccountRequest.class
 com\api\request\userModel.class
+com\api\response\RangeDataResponse.class
 com\api\wxpay\sdk\WXPayReport.class
 com\api\request\baseRequest.class
 com\api\response\ProfitMyResponse.class
@@ -85,6 +88,7 @@ com\api\wxpay\sdk\IWXPayDomain.class
 com\api\controller\FileController.class
 com\api\request\CityResponseParent.class
 com\api\response\RangeResponse.class
+com\api\alipay\sdk\AlipayConfig.class
 com\api\response\DetailsLableResponse.class
 com\api\wxpay\sdk\IWXPayDomain$DomainInfo.class
 com\api\wxpay\sdk\WXPayConfig.class

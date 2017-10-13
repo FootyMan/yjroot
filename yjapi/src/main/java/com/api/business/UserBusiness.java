@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alibaba.druid.sql.dialect.oracle.ast.clause.ModelClause.ReturnRowsClause;
 import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
@@ -35,6 +37,7 @@ import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.AppversionServiceImpl;
 import com.myErp.impl.InvitationCodeServiceImpl;
+import com.myErp.impl.ProvinceServiceImpl;
 import com.myErp.impl.UserBrowseServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
 import com.myErp.impl.UserImgServiceImpl;
@@ -47,6 +50,7 @@ import com.myErp.impl.UserlikeServiceImpl;
 import com.myErp.manager.bean.Appversion;
 import com.myErp.manager.bean.InvitationCode;
 import com.myErp.manager.bean.LabletType;
+import com.myErp.manager.bean.Province;
 import com.myErp.manager.bean.RangeParameter;
 import com.myErp.manager.bean.User;
 import com.myErp.manager.bean.UserBrowse;
@@ -57,6 +61,7 @@ import com.myErp.manager.bean.UserLableMapping;
 import com.myErp.manager.bean.UserPosition;
 import com.myErp.manager.bean.UserVerifyCode;
 import com.myErp.manager.bean.Userlike;
+import com.myErp.redis.CityRedisManager;
 import com.myErp.utils.Md5Util;
 import com.myErp.utils.StringUtils;
 import com.myErp.utils.SystemConfig;
@@ -192,7 +197,7 @@ public class UserBusiness {
 			response.setMsg("注册用户失败");
 			return response;
 		}
-		InitResponse initUser = InitUserData(userServiceImpl, user.getUserId());
+		InitResponse initUser = InitUserData(userServiceImpl, userEntity.getUserId());
 		response.setData(initUser);
 		AddUserInvite(userInviteServiceImpl, codeData, userEntity.getUserId());
 		return response;
@@ -314,19 +319,27 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse AddUserDatum(UserDatumServiceImpl userDatumService, baseRequest<UserDatumRequest> user) {
+	public baseResponse AddUserDatum(UserServiceImpl userServiceImpl, UserDatumServiceImpl userDatumService,
+			baseRequest<UserDatumRequest> user) {
 		baseResponse response = new baseResponse();
 		int datumId = 0;
 		UserDatumRequest model = user.getbody();
 		UserDatum entiy = new UserDatum();
 		entiy.setUserId(user.getUserId());
 		entiy.setAge(model.getAge());
-		entiy.setCity(model.getCity());
+		entiy.setCityId(model.getCityId());
 		entiy.setWeight(model.getWeight());
 		entiy.setHeight(model.getHeight());
 		entiy.setShape(model.getShape());
 		entiy.setSexuat(model.getSexuat());
 		entiy.setSign(model.getSign());
+
+		// 是否需要更新昵称
+		if (!StringUtils.isEmpty(model.getNickName())) {
+			User entiyUser = new User();
+			entiyUser.setNickName(model.getNickName());
+			userServiceImpl.updateUser(entiyUser);
+		}
 		// 查询用户是否存在 存在则更新 不存在添加
 		UserDatum data = userDatumService.selectDatumByUserId(user.getUserId());
 		if (data != null && data.getDatumId() > 0) {
@@ -351,20 +364,23 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<UserDatumRequest> GetUserDatum(UserDatumServiceImpl userDatumService,
-			baseRequest<UserDatumRequest> user) {
+	public baseResponse<UserDatumRequest> GetUserDatum(UserServiceImpl userServiceImpl, baseRequest<?> request) {
 		baseResponse<UserDatumRequest> response = new baseResponse<UserDatumRequest>();
-		UserDatum data = userDatumService.selectDatumByUserId(user.getUserId());
-		if (data != null) {
+		List<User> data = userServiceImpl.selectDatumByUserId(request.getUserId());
+		if (data != null && data.size() > 0) {
+			User user = data.get(0);
+			UserDatum datum = user.getDatum();
 			UserDatumRequest model = new UserDatumRequest();
-			model.setAge(data.getAge());
-			model.setGender(data.getGender());
-			model.setCity(data.getCity());
-			model.setWeight(data.getWeight());
-			model.setHeight(data.getHeight());
-			model.setShape(data.getShape());
-			model.setSexuat(data.getSexuat());
-			model.setSign(data.getSign());
+			model.setAge(datum.getAge());
+			model.setGender(datum.getGender());
+			model.setCityId(datum.getCityId());
+			model.setWeight(datum.getWeight());
+			model.setHeight(datum.getHeight());
+			model.setShape(datum.getShape());
+			model.setSexuat(datum.getSexuat());
+			model.setSign(datum.getSign());
+			model.setHeadImage(user.getHeadImage());
+			model.setNickName(user.getNickName());
 			response.setData(model);
 		}
 		return response;
@@ -471,7 +487,8 @@ public class UserBusiness {
 			userBase.setNickName(userData.getNickName());
 			userBase.setSex(datum.getGender());
 			userBase.setAge(datum.getAge());
-			userBase.setCity(datum.getCity());
+			userBase.setCityId(datum.getCityId());
+			userBase.setCityName(userServiceImpl.SelectProvincesById(userBase.getCityId()).getName());
 			userBase.setRange(ResponseUtils.GetRange(datum.getRangeM()));
 			userBase.setSign(datum.getSign());
 			userBase.setWeight(datum.getWeight());
@@ -585,19 +602,23 @@ public class UserBusiness {
 	 */
 	public InitResponse InitUserData(UserServiceImpl userServiceImpl, int userId) {
 		InitResponse initUser = new InitResponse();
-		UserInfoResponse info=new UserInfoResponse();
+		UserInfoResponse info = new UserInfoResponse();
 		List<User> userDatas = userServiceImpl.initUser(userId);
 		if (userDatas != null && userDatas.size() > 0) {
 			User user = userDatas.get(0);
 			UserDatum datum = user.getDatum();
-			
+
 			info.setUserId(userId);
 			info.setShowId(user.getId());
 			info.setHeadImage(user.getHeadImage());
 			info.setNickName(user.getNickName());
 			info.setSex(datum.getGender());
 			info.setAge(datum.getAge());
-			info.setCity(datum.getCity());
+			// 根据城市Id转换具体城市 TODO:需要优化成缓存
+			// prv
+			// new CityRedisManager().GetCitySingle(datum.getCity());
+			info.setCityId(datum.getCityId());
+			info.setCityName(userServiceImpl.SelectProvincesById(info.getCityId()).getName());
 			info.setSign(datum.getSign());
 			info.setWeight(datum.getWeight());
 			info.setHeight(datum.getHeight());
@@ -608,7 +629,7 @@ public class UserBusiness {
 			info.setFull(true);
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
-			if (user!=null) {
+			if (user != null) {
 				info.setUserId(userId);
 				info.setShowId(user.getId());
 				info.setNickName(user.getNickName());

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.myErp.manager.bean.*;
+import com.myErp.utils.DBContextHolder;
 
 public abstract interface UserMapper {
 
@@ -135,4 +136,12 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> userBrowseList(RangeParameter rangeParameter);
+	
+	/**
+	 * 根据ID获取
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public abstract List<User> selectDatumByUserId(int userId);
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.api.alipay.sdk.AlipayPayManager;
 import com.api.request.HomeObject;
 import com.api.request.HomeRequest;
 import com.api.request.OrderRequest;
@@ -50,17 +51,11 @@ public class OrderController {
 	 */
 	@ResponseEncryptBody
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
-	@ApiOperation(nickname = "swagger-user", value = "订单支付", notes = "支付接口返回匿名类型"
-			+ "如果是支付宝body里面会有一个alipayString"
-			+ "	如果是是微信body包含appid=appid"
-			+ "	partnerid=商户Id"
-			+ "	prepayid=预支付ID"
-			+ "	trade_type=类型"
-			+ "	sign=签名"
-			+ "	timeStamp=时间戳"
-			+ "	nonce_str=随机数")
-	public synchronized baseResponse PayOrder(
-			@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request)throws Exception {
+	@ApiOperation(nickname = "swagger-user", value = "订单支付", notes = "支付接口返回匿名类型" + "如果是支付宝body里面会有一个alipayString"
+			+ "	如果是是微信body包含appid=appid" + "	partnerid=商户Id" + "	prepayid=预支付ID" + "	trade_type=类型" + "	sign=签名"
+			+ "	timeStamp=时间戳" + "	nonce_str=随机数")
+	public synchronized baseResponse PayOrder(@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request)
+			throws Exception {
 		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
 		if (product != null && product.getProductId() > 0) {
@@ -75,9 +70,9 @@ public class OrderController {
 			order.setPayType(orderModel.getPayType());
 			orderServiceImpl.insertOrder(order);
 		}
-		if (orderModel.getPayType()==1) {
-			baseResponse<WxResponse> wxResponse=new baseResponse<WxResponse>();
-			WxResponse wx=new WxResponse();
+		if (orderModel.getPayType() == 1) {
+			baseResponse<WxResponse> wxResponse = new baseResponse<WxResponse>();
+			WxResponse wx = new WxResponse();
 			wx.setAppid("Appid");
 			wx.setPartnerid("Partnerid");
 			wx.setPrepayid("prepayid");
@@ -88,13 +83,21 @@ public class OrderController {
 			wxResponse.setData(wx);
 			return wxResponse;
 		}
-		else
-		{
-			baseResponse<AlipayResponse> aliPayResponse=new baseResponse<AlipayResponse>();
-			AlipayResponse alipayResponseModel=new AlipayResponse();
-			alipayResponseModel.setAlipayString("alipayString");
+		// 支付宝
+		else if (orderModel.getPayType() == 2) {
+			baseResponse<AlipayResponse> aliPayResponse = new baseResponse<AlipayResponse>();
+
+			AlipayResponse alipayResponseModel = new AlipayResponse();
+			AlipayPayManager alipayManager = new AlipayPayManager();
+			// 获取订单号
+			String orderNumber = StringUtils.GetOrderNumber(request.getUserId(), orderModel.getProductId());
+			// 获取支付宝订单字符串
+			String orderString = alipayManager.GetOrderString(orderNumber, product.getProductDesc(),
+					String.valueOf(product.getPrice()));
+			alipayResponseModel.setAlipayString(orderString);
 			aliPayResponse.setData(alipayResponseModel);
 			return aliPayResponse;
 		}
+		return null;
 	}
 }
