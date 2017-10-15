@@ -13,7 +13,6 @@
 	<!-- 识别注解 -->
 	<context:component-scan base-package="com.myErp.impl" />
 	<context:component-scan base-package="com.api" />
-	<context:component-scan base-package="com.api.business" />
 
 	<!--重写 Request和Response 用于加密和解密Request和Response参数 -->
 	<bean id="requestDecryptResponseEncryptBodyProcessorImpl"
