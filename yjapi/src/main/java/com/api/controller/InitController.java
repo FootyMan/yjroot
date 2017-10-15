@@ -58,8 +58,8 @@ public class InitController {
 	@RequestMapping(value = "/initUser", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-initUser", value = "初始化用户"
 			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置", notes = "初始化用户")
-	public baseResponse<InitResponse> initUser(
-			@ApiParam(value = "输入") @RequestBody baseRequest<InitUserRequest> request) throws Exception {
+	public baseResponse<InitResponse> initUser(//InitUserRequest
+			@ApiParam(value = "输入") @RequestBody baseRequest<?> request) throws Exception {
 		// for (int i = 0; i < 100000; i++) {
 		// String code = StringUtils.getRandomNum(999999, 111111);
 		// InvitationCode invitation =

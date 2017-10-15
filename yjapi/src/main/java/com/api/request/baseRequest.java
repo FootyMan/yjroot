@@ -20,10 +20,31 @@ public class baseRequest<T> {
 
 	@ApiModelProperty(value = "用户ID")
 	private int userId;
-	
+
 	@ApiModelProperty(value = "设备号")
 	private String deviceToken;
-	
+
+	@ApiModelProperty(value = "经度")
+	private double lon;
+	@ApiModelProperty(value = "纬度")
+	private double lat;
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
 	private T body;
 
 	public String getTimeStamp() {
@@ -65,6 +86,7 @@ public class baseRequest<T> {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
 	public String getDeviceToken() {
 		return deviceToken;
 	}
@@ -72,6 +94,7 @@ public class baseRequest<T> {
 	public void setDeviceToken(String deviceToken) {
 		this.deviceToken = deviceToken;
 	}
+
 	public T getbody() {
 		return body;
 	}
@@ -79,6 +102,7 @@ public class baseRequest<T> {
 	public void setbody(T body) {
 		this.body = body;
 	}
+
 	public int getVersionCode() {
 		return versionCode;
 	}

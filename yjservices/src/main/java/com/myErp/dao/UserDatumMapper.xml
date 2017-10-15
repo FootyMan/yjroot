@@ -32,7 +32,7 @@
 			<if test="age>0">
 				age=#{age},
 			</if>
-			<if test="cityId!= null and cityId!='' ">
+			<if test="cityId!= null and cityId>0 ">
 				cityId=#{cityId},
 			</if>
 			<if test="weight!= null and weight!='' ">
@@ -49,6 +49,9 @@
 			</if>
 			<if test="sign!= null and sign!='' ">
 				sign=#{sign},
+			</if>
+			<if test="gender!= null and gender>0">
+				gender=#{gender},
 			</if>
 		</set>
 		where userId=#{userId}

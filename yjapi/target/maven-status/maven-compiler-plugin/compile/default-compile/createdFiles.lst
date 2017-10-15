@@ -23,6 +23,7 @@ com\api\utils\decrypt\RequestDecryptResponseEncryptBodyProcessorImpl.class
 com\api\business\UserBusiness$2.class
 com\api\wxpay\sdk\WXPayReport$3.class
 com\api\request\LableRequest.class
+com\api\response\FileUploadResponse.class
 com\api\request\CityResponseChild.class
 com\api\controller\ProfitController.class
 com\api\response\LableResponse.class

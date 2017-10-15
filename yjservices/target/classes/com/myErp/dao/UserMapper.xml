@@ -40,7 +40,7 @@
 			<result column="userId" property="userId" jdbcType="INTEGER" />
 			<result column="age" property="age" jdbcType="INTEGER" />
 			<result column="gender" property="gender" jdbcType="INTEGER" />
-			<result column="city" property="city" jdbcType="VARCHAR" />
+			<result column="cityId" property="cityId" jdbcType="INTEGER" />
 			<result column="weight" property="weight" jdbcType="VARCHAR" />
 			<result column="height" property="height" jdbcType="VARCHAR" />
 			<result column="shape" property="shape" jdbcType="VARCHAR" />
@@ -98,7 +98,7 @@
 		<include refid="Base_Column_List" />
 		from user where userId=#{userId}
 	</select>
-	<select id="selectUserByInviteCode" resultType="com.myErp.manager.bean.User"
+	<select id="selectUserByInviteCode" resultMap="positionResultMap"
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List"></include>
@@ -119,7 +119,7 @@
 	<select id="HomeUserList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.AppHomePagePaging">
 		SELECT
-		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
 		FROM user a inner join userdatum b
 		on
@@ -160,11 +160,11 @@
 		desc
 	</select>
 
-	<!-- 附件的人 -->
+	<!-- 附近的人 -->
 	<select id="RangeUserList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.RangeParameter">
 		SELECT
-		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
 		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
 		rangeM,b.sign,b.sexuat
 		FROM user a inner join userdatum b
@@ -180,7 +180,7 @@
 		LIMIT
 		#{pageIndex},#{pageSize}
 	</select>
-	<!-- 附件的人总数量 -->
+	<!-- 附近的人总数量 -->
 	<select id="RangelistCount" resultType="java.lang.Integer"
 		parameterType="com.myErp.manager.bean.RangeParameter">
 		SELECT
@@ -206,12 +206,11 @@
 	<!-- 个人用户所有信息用于初始化客户端 -->
 	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
 		SELECT
-		Fn_SetImgPrefix(a.headImage)headImage,a.Id,a.nickName,b.gender,b.age,b.city,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		a.userLevel,a.inviteCode
 		FROM user a inner join userdatum b
 		on
-		a.userId=b.userId inner join userposition c
-		on a.userId=c.userId
+		a.userId=b.userId
 		where
 		a.userId=#{userId};
 	</select>
@@ -227,7 +226,7 @@
 	<select id="userLikeList" resultMap="appUserResult"
 		parameterType="java.lang.Integer">
 		SELECT
-		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
 		FROM user a inner join userdatum b
 		on
@@ -243,7 +242,7 @@
 	<select id="userBrowseList" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.RangeParameter">
 		SELECT
-		a.userId,a.Id,Fn_SetImgPrefix(a.headImage)headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign,c.browseDate
 		FROM user a inner join userdatum b
 		on
@@ -263,7 +262,7 @@
 		parameterType="java.lang.Integer">
 		select
 		b.datumId,b.userId,b.age,b.gender,b.cityId,b.weight,b.height,b.shape,b.sexuat,b.sign,
-		a.nickName,Fn_SetImgPrefix(headImage)headImage
+		a.nickName,headImage
 		from user a inner join
 		userdatum b
 		on
@@ -278,11 +277,11 @@
 		<if test="sex>0">
 			AND b.gender=#{sex}
 		</if>
-		<if test="city != null and city != ''">
-			AND b.city=#{city}
+		<if test="cityId != null and cityId >0">
+			AND b.cityId=#{cityId}
 		</if>
 		<if test="beginAge>0 and endAge >0">
-			AND a.age between #{beginAge} and #{endAge}
+			AND b.age between #{beginAge} and #{endAge}
 		</if>
 	</sql>
 </mapper>

@@ -29,6 +29,7 @@ import com.myErp.manager.bean.RangeParameter;
 import com.myErp.manager.bean.User;
 import com.myErp.manager.bean.UserDatum;
 import com.myErp.utils.StringUtils;
+import com.myErp.utils.SystemConfig;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,7 +72,7 @@ public class HomeController {
 			// 查询推荐用户
 		}
 		//
-		AppHomePagePaging pagePaging =  PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex());
+		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex());
 		List<User> userData = userServiceImpl.HomeUserList(pagePaging);
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {
@@ -108,18 +109,19 @@ public class HomeController {
 		//
 		RangeParameter rangeParameter = PageParameter.GetRangePage(requestModel.getPageIndex(), request.getUserId());
 		// 如果经纬度小于等于0 证明当前位置不可访问 默认天安门
-		if (requestModel.getLat() <= 0 || requestModel.getLon() <= 0) {
-			requestModel.setLat(ResultEnum.defaultLat);
-			requestModel.setLon(ResultEnum.defaultLon);
+		if (request.getLat() <= 0 || request.getLon() <= 0) {
+			request.setLat(ResultEnum.defaultLat);
+			request.setLon(ResultEnum.defaultLon);
 		}
-		rangeParameter.setLat(requestModel.getLat());
-		rangeParameter.setLon(requestModel.getLon());
+		rangeParameter.setLat(request.getLat());
+		rangeParameter.setLon(request.getLon());
 		rangeParameter.setShowId(requestModel.getShowId());
 		rangeParameter.setSex(requestModel.getSex());
 		rangeParameter.setCityId(requestModel.getCityId());
 		// 年龄区间截取
 		if (!StringUtils.isEmpty(requestModel.getAgeSection())) {
-			String[] age = requestModel.getAgeSection().split("-");
+			String ageSection = requestModel.getAgeSection().replaceAll(" ", "");
+			String[] age = ageSection.split("-");
 			rangeParameter.setBeginAge(Integer.parseInt(age[0]));
 			rangeParameter.setEndAge(Integer.parseInt(age[1]));
 		}
@@ -150,7 +152,7 @@ public class HomeController {
 		model.setUserId(user.getUserId());
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
-		model.setHeadImage(user.getHeadImage());
+		model.setHeadImage(SystemConfig.Imgurl + user.getHeadImage());
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		UserDatum datum = user.getDatum();

@@ -44,20 +44,4 @@ public class RangeRequest {
 	public void setPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
 	}
-	public double getLon() {
-		return lon;
-	}
-	public void setLon(double lon) {
-		this.lon = lon;
-	}
-	public double getLat() {
-		return lat;
-	}
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-	@ApiModelProperty(value = "经度")
-	private double lon;
-	@ApiModelProperty(value = "纬度")
-	private double lat;
 }

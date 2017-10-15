@@ -1,5 +1,7 @@
 package com.myErp.redis;
 
+import com.myErp.utils.SystemConfig;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -51,17 +53,22 @@ public class RedisUtil {
 	 * @return
 	 */
 	public synchronized static Jedis getJedis() {
-		try {
-			if (jedisPool != null) {
-				Jedis resource = jedisPool.getResource();
-				return resource;
-			} else {
+		// 是否读取缓存数据开关
+		if (SystemConfig.IsReadRedis) {
+			try {
+				if (jedisPool != null) {
+					Jedis resource = jedisPool.getResource();
+					return resource;
+				} else {
+					return null;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 				return null;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
+		return null;
+
 	}
 
 	/**

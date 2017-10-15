@@ -43,4 +43,14 @@ public class SystemConfig {
 	 * 支付宝回调地址
 	 */
 	public static String AlipayNotifyurl = PropertiesUtils.ReadProperties(fileName, "alipay_notify_url");
+	
+	/**
+	 * 是否从缓存读取数据
+	 */
+	public static boolean IsReadRedis = Boolean.parseBoolean(PropertiesUtils.ReadProperties(fileName, "isread_redis"));
+	
+	/**
+	 * 图片前缀
+	 */
+	public static String Imgurl = PropertiesUtils.ReadProperties(fileName, "img_url");
 }

@@ -1,14 +1,11 @@
 package com.api.business;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.druid.sql.dialect.oracle.ast.clause.ModelClause.ReturnRowsClause;
+import org.apache.log4j.Logger;
 import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
 import com.api.request.InitUserRequest;
@@ -32,6 +29,7 @@ import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.VersionResponse;
 import com.api.response.baseResponse;
+import com.api.utils.ExceptionHandler;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -68,6 +66,8 @@ import com.myErp.utils.SystemConfig;
 
 public class UserBusiness {
 
+	private static Logger logger = Logger.getLogger(UserBusiness.class);
+
 	private UserBusiness() {
 	}
 
@@ -90,22 +90,22 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse initUser(UserPositionServiceImpl userPositionService, baseRequest<InitUserRequest> user) {
+	public baseResponse<InitResponse> initUser(UserPositionServiceImpl userPositionService, baseRequest<?> user) {
 
-		baseResponse response = new baseResponse();
-		// if (user.getUserId() > 0) {
-		InitUserRequest initUser = user.getbody();
-		if (initUser.getLon() <= 0) {
-			initUser.setLon(116.403963);
-		}
-		if (initUser.getLat() <= 0) {
-			initUser.setLat(39.915119);
-		}
+		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
 		UserPosition position = new UserPosition();
-		position.setUserId(user.getUserId());
 		position.setIsPosition(1);
-		position.setLongitude(initUser.getLon());
-		position.setLatitude(initUser.getLat());
+		if (user.getLon() <= 0) {
+			user.setLon(ResultEnum.defaultLon);
+		}
+		if (user.getLat() <= 0) {
+			user.setLat(ResultEnum.defaultLat);
+			position.setIsPosition(0);
+		}
+		
+		position.setUserId(user.getUserId());
+		position.setLongitude(user.getLon());
+		position.setLatitude(user.getLat());
 		int positionId = userPositionService.updatePosition(position);
 		if (positionId <= 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
@@ -276,14 +276,21 @@ public class UserBusiness {
 	 * @param userPositionService
 	 * @param request
 	 */
-	public void AddUserPoint(UserPositionServiceImpl userPositionService, baseRequest request) {
+	public void AddUserPoint(UserPositionServiceImpl userPositionService, baseRequest request,int userId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
 				UserPosition position = new UserPosition();
-				position.setUserId(request.getUserId());
 				position.setIsPosition(1);
-				position.setLongitude(116.403963);
-				position.setLatitude(39.915119);
+				if (request.getLon() <= 0) {
+					request.setLon(ResultEnum.defaultLon);
+				}
+				if (request.getLat() <= 0) {
+					request.setLat(ResultEnum.defaultLat);
+					position.setIsPosition(0);
+				}
+				position.setUserId(userId);
+				position.setLongitude(request.getLon());
+				position.setLatitude(request.getLat());
 				userPositionService.insertPosition(position);
 			}
 		});
@@ -319,40 +326,42 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse AddUserDatum(UserServiceImpl userServiceImpl, UserDatumServiceImpl userDatumService,
-			baseRequest<UserDatumRequest> user) {
-		baseResponse response = new baseResponse();
+	public baseResponse<InitResponse> AddUserDatum(UserServiceImpl userServiceImpl,
+			UserDatumServiceImpl userDatumService, baseRequest<UserDatumRequest> request) {
+		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
 		int datumId = 0;
-		UserDatumRequest model = user.getbody();
+		UserDatumRequest model = request.getbody();
 		UserDatum entiy = new UserDatum();
-		entiy.setUserId(user.getUserId());
+		entiy.setUserId(request.getUserId());
 		entiy.setAge(model.getAge());
 		entiy.setCityId(model.getCityId());
 		entiy.setWeight(model.getWeight());
 		entiy.setHeight(model.getHeight());
 		entiy.setShape(model.getShape());
 		entiy.setSexuat(model.getSexuat());
+		entiy.setGender(model.getSex());
 		entiy.setSign(model.getSign());
-
+		logger.info("昵称：" + model.getSign());
 		// 是否需要更新昵称
 		if (!StringUtils.isEmpty(model.getNickName())) {
 			User entiyUser = new User();
+			entiyUser.setUserId(request.getUserId());
 			entiyUser.setNickName(model.getNickName());
 			userServiceImpl.updateUser(entiyUser);
 		}
 		// 查询用户是否存在 存在则更新 不存在添加
-		UserDatum data = userDatumService.selectDatumByUserId(user.getUserId());
+		UserDatum data = userDatumService.selectDatumByUserId(request.getUserId());
 		if (data != null && data.getDatumId() > 0) {
 			// 更新
 			datumId = userDatumService.updateDatum(entiy);
 		} else {
-			entiy.setGender(model.getGender());
 			datumId = userDatumService.insertDatum(entiy);
 		}
 		if (datumId <= 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
 			response.setMsg("添加资料失败");
 		}
+		response.setData(InitUserData(userServiceImpl, request.getUserId()));
 		return response;
 
 	}
@@ -372,14 +381,14 @@ public class UserBusiness {
 			UserDatum datum = user.getDatum();
 			UserDatumRequest model = new UserDatumRequest();
 			model.setAge(datum.getAge());
-			model.setGender(datum.getGender());
+			model.setSex(datum.getGender());
 			model.setCityId(datum.getCityId());
 			model.setWeight(datum.getWeight());
 			model.setHeight(datum.getHeight());
 			model.setShape(datum.getShape());
 			model.setSexuat(datum.getSexuat());
 			model.setSign(datum.getSign());
-			model.setHeadImage(user.getHeadImage());
+			model.setHeadImage(SystemConfig.Imgurl+user.getHeadImage());
 			model.setNickName(user.getNickName());
 			response.setData(model);
 		}
@@ -482,7 +491,7 @@ public class UserBusiness {
 		if (userDatas != null && userDatas.size() > 0) {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
-			userBase.setHeadImage(userData.getHeadImage());
+			userBase.setHeadImage(SystemConfig.Imgurl+userData.getHeadImage());
 			userBase.setShowId(userData.getId());
 			userBase.setNickName(userData.getNickName());
 			userBase.setSex(datum.getGender());
@@ -610,7 +619,7 @@ public class UserBusiness {
 
 			info.setUserId(userId);
 			info.setShowId(user.getId());
-			info.setHeadImage(user.getHeadImage());
+			info.setHeadImage(SystemConfig.Imgurl+user.getHeadImage());
 			info.setNickName(user.getNickName());
 			info.setSex(datum.getGender());
 			info.setAge(datum.getAge());
@@ -725,7 +734,7 @@ public class UserBusiness {
 		model.setUserId(user.getUserId());
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
-		model.setHeadImage(user.getHeadImage());
+		model.setHeadImage(SystemConfig.Imgurl+user.getHeadImage());
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		model.setSign(user.getDatum().getSign());

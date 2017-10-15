@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.api.response.FileUploadResponse;
 import com.api.response.baseResponse;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.UserImgServiceImpl;
@@ -58,23 +59,26 @@ public class FileController {
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-fileUpload", value = "用户上传头像和图片库 因文件上传不是标准的json "
 			+ "除图片需增加参数userId 和imageType 1头像2图片库", notes = "用户上传图片")
-	public baseResponse fileUpload(@ApiParam(value = "输入") HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		baseResponse output = new baseResponse();
+	public baseResponse<FileUploadResponse> fileUpload(@ApiParam(value = "输入") HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		baseResponse<FileUploadResponse> fileResponse = new baseResponse<FileUploadResponse>();
+		FileUploadResponse fileList = new FileUploadResponse();
+		// 返回加前缀的图片数组
+		List<String> imgResponse = new ArrayList<String>();
 		List<String> imgStr = new ArrayList<String>();
 		// 用户ID
 		int userId = request.getParameter("userId") == null ? 0 : Integer.parseInt(request.getParameter("userId"));
 		if (userId <= 0) {
-			output.setCode(ResultEnum.ServiceErrorCode);
-			output.setMsg("用户ID为空");
-			return output;
+			fileResponse.setCode(ResultEnum.ServiceErrorCode);
+			fileResponse.setMsg("用户ID为空");
+			return fileResponse;
 		}
 		// 1是头像 2是个人图库
 		String imageType = request.getParameter("imageType");
 		if (StringUtils.isEmpty(imageType)) {
-			output.setCode(ResultEnum.ServiceErrorCode);
-			output.setMsg("图片类型为空");
-			return output;
+			fileResponse.setCode(ResultEnum.ServiceErrorCode);
+			fileResponse.setMsg("图片类型为空");
+			return fileResponse;
 		}
 		// 以年与日存储目录路径
 		Date date = new Date();
@@ -116,28 +120,32 @@ public class FileController {
 			}
 		}
 
-		if (imageType.equals("1"))// 1是头像
+		if (imageType.equals("1") && imgStr.size() > 0)// 1是头像
 		{
 			User user = new User();
 			user.setUserId(userId);
 			user.setHeadImage(imgStr.get(0));
 			userServiceImpl.updateUser(user);
+			imgResponse.add(SystemConfig.Imgurl + imgStr.get(0));
 			// 更新user表HandImage
 		} else {
 			// 添加个人图片 userImage
 			List<UserImg> imgs = new ArrayList<UserImg>();
 			for (int j = 0; j < imgStr.size(); j++) {
 				UserImg img = new UserImg();
+				String url=imgStr.get(j).toString();
 				img.setUserId(userId);
 				img.setImageType(0);
-				img.setImagePath(imgStr.get(j).toString());
+				img.setImagePath(url);
 				img.setImageSort(j);
 				imgs.add(img);
+				imgResponse.add(SystemConfig.Imgurl+url);
 			}
 			userImgServiceImpl.insertUserImg(imgs);
 		}
-
-		return output;
+		fileList.setImgList(imgResponse);
+		fileResponse.setData(fileList);
+		return fileResponse;
 	}
 
 }

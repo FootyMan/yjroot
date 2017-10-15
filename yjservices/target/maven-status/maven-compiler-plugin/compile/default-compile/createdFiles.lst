@@ -63,6 +63,7 @@ com\myErp\dao\OrderMapper.class
 com\myErp\manager\bean\UserFinancialDetail.class
 com\myErp\manager\bean\User.class
 com\myErp\utils\Md5Util.class
+com\myErp\utils\ResultModel.class
 com\myErp\redis\RedisManager.class
 com\myErp\utils\HttpClientUtil.class
 com\myErp\utils\SystemConfig.class

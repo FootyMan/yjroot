@@ -12,7 +12,7 @@ public class UserPosition {
 	 */
 	private int positionId;
 	/**
-	 * 是否在线
+	 * 是否开启定位 1开启 0 NO
 	 */
 	private int isPosition;
 	/**

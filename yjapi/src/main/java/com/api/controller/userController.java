@@ -66,8 +66,6 @@ public class userController {
 	private UserlikeServiceImpl userlikeServiceImpl;
 	@Autowired
 	private UserBrowseServiceImpl userBrowseServiceImpl;
-	@Autowired
-	private ProvinceServiceImpl provinceServiceImpl;
 
 	/**
 	 * 用户注册接口 注册成功返回用户所有信息
@@ -79,15 +77,11 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/registe", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "用户注册接口", notes = "用户注册接口")
-	public baseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> user)
+	public baseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> request)
 			throws Exception {
 		baseResponse<InitResponse> response = UserBusiness.getInstance().userRegister(userServiceImpl,
-				userVerifyCodeServiceImpl, invitationCodeServiceImpl, userInviteServiceImpl, user);
-		UserBusiness.getInstance().AddUserPoint(UserPositionService, user);
-		// InitUserResponse initUser =
-		// UserBusiness.getInstance().InitUserData(userServiceImpl,
-		// user.getUserId());
-		// response.setData(initUser);
+				userVerifyCodeServiceImpl, invitationCodeServiceImpl, userInviteServiceImpl, request);
+		UserBusiness.getInstance().AddUserPoint(UserPositionService, request, response.getData().getUser().getUserId());
 		return response;
 	}
 
@@ -179,9 +173,10 @@ public class userController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/editDatum", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addDatum", value = "添加用户资料和修改用户资料）", notes = "添加用户资料和修改用户资料")
-	public baseResponse<?> AddUserDatum(@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user)
-			throws Exception {
-		baseResponse<?> response = UserBusiness.getInstance().AddUserDatum(userServiceImpl,userDatumService, user);
+	public baseResponse<InitResponse> AddUserDatum(
+			@ApiParam(value = "输入") @RequestBody baseRequest<UserDatumRequest> user) throws Exception {
+		baseResponse<InitResponse> response = UserBusiness.getInstance().AddUserDatum(userServiceImpl, userDatumService,
+				user);
 		return response;
 	}
 

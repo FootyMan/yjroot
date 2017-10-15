@@ -71,6 +71,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\SerializeUtil.jav
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserDislike.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\DynamicDataSource.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\redis\CityRedisManager.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\ResultModel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\InvitationCodeMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\Order.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\EmployeeServiceImpl.java

@@ -9,7 +9,7 @@ public class UserDatumRequest {
 	@ApiModelProperty(value = "年龄")
 	private int age;
 	@ApiModelProperty(value = "性别")
-	private int gender;
+	private int sex;
 	@ApiModelProperty(value = "城市Id")
 	private int cityId;
 	@ApiModelProperty(value = "体重")
@@ -41,12 +41,12 @@ public class UserDatumRequest {
 		this.age = age;
 	}
 
-	public int getGender() {
-		return gender;
+	public int getSex() {
+		return sex;
 	}
 
-	public void setGender(int gender) {
-		this.gender = gender;
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 
 	public int getCityId() {

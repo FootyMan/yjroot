@@ -44,6 +44,7 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\decrypt\ResponseEncryptB
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayConfig.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\OrderController.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\PayNotifController.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\FileUploadResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\HomeObject.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\decrypt\DecryptEncryptFastJsonHttpMessageConverter.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\userController.java
