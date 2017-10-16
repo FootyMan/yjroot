@@ -13,7 +13,7 @@ import com.api.request.baseRequest;
 import com.api.response.HomeResponse;
 import com.api.response.RangeDataResponse;
 import com.api.response.RangeResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -39,8 +39,8 @@ public class HomeBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<HomeObject> GetHomeList(baseRequest<HomeRequest> request) {
-		baseResponse<HomeObject> response = new baseResponse<HomeObject>();
+	public BaseResponse<HomeObject> GetHomeList(baseRequest<HomeRequest> request) {
+		BaseResponse<HomeObject> response = new BaseResponse<HomeObject>();
 		// 首页对象
 		HomeObject object = new HomeObject();
 		// 传入body
@@ -78,8 +78,8 @@ public class HomeBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<RangeResponse> GetRangeList(baseRequest<RangeRequest> request) {
-		baseResponse<RangeResponse> response = new baseResponse<RangeResponse>();
+	public BaseResponse<RangeResponse> GetRangeList(baseRequest<RangeRequest> request) {
+		BaseResponse<RangeResponse> response = new BaseResponse<RangeResponse>();
 
 		RangeResponse rangeResponse = new RangeResponse();
 		RangeRequest requestModel = request.getbody();
@@ -128,7 +128,7 @@ public class HomeBusiness {
 		model.setUserId(user.getUserId());
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
-		model.setHeadImage(SystemConfig.Imgurl + user.getHeadImage());
+		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		UserDatum datum = user.getDatum();

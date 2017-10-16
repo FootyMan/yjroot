@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class DetailsResponse {
 	public DetailsResponse() {
-		imgs = new ArrayList<DetailsImgResponse>();
+		imgs = new ArrayList<UserImgResponse>();
 		lables = new ArrayList<DetailsLableResponse>();
 		user=new DetailsUserResponse();
 	}
@@ -20,11 +20,11 @@ public class DetailsResponse {
 		this.user = user;
 	}
 
-	public List<DetailsImgResponse> getImgs() {
+	public List<UserImgResponse> getImgs() {
 		return imgs;
 	}
 
-	public void setImgs(List<DetailsImgResponse> imgs) {
+	public void setImgs(List<UserImgResponse> imgs) {
 		this.imgs = imgs;
 	}
 
@@ -36,7 +36,7 @@ public class DetailsResponse {
 		this.lables = lables;
 	}
 	@ApiModelProperty(value = "个人所有图片")
-	private List<DetailsImgResponse> imgs;
+	private List<UserImgResponse> imgs;
 	@ApiModelProperty(value = "个人所有标签")
 	private List<DetailsLableResponse> lables;
 	@ApiModelProperty(value = "用户基本信息")

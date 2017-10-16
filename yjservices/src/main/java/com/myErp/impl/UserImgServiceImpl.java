@@ -36,4 +36,15 @@ public class UserImgServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userImgMapper.selectImgtByUserId(userId);
 	}
+
+	/**
+	 * 删除图片
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public int DeleteImageByImgId(int imgId) {
+		DBContextHolder.setDBType("siteRead");
+		return userImgMapper.deleteImageByImgId(imgId);
+	}
 }

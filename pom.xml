@@ -9,7 +9,6 @@
 		<module>yjservices</module>
 		<module>yjerp</module>
 		<module>yjapi</module>
-		<module>yjjob</module>
 	</modules>
 	<properties>
 		<spring.version>4.3.7.RELEASE</spring.version>

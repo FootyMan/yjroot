@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
- 
+
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
- 
 import com.api.response.FileUploadResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.UserImgServiceImpl;
 import com.myErp.impl.UserServiceImpl;
@@ -30,24 +29,26 @@ import com.myErp.utils.SystemConfig;
 
 @Service("FileBusiness")
 public class FileBusiness {
-	
+
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 	@Autowired
 	private UserImgServiceImpl userImgServiceImpl;
-	private String uploadPath = SystemConfig.imguserpath;
-	File tempPathFile;
-
 
 	/**
 	 * 文件上传
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public baseResponse<FileUploadResponse> FileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		baseResponse<FileUploadResponse> fileResponse = new baseResponse<FileUploadResponse>();
+	public BaseResponse<FileUploadResponse> FileUpload(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		BaseResponse<FileUploadResponse> fileResponse = new BaseResponse<FileUploadResponse>();
+
+		File tempPathFile = null;
+		String uploadPath = SystemConfig.imguserpath;
 		FileUploadResponse fileList = new FileUploadResponse();
 		// 返回加前缀的图片数组
 		List<String> imgResponse = new ArrayList<String>();
@@ -112,7 +113,7 @@ public class FileBusiness {
 			user.setUserId(userId);
 			user.setHeadImage(imgStr.get(0));
 			userServiceImpl.updateUser(user);
-			imgResponse.add(SystemConfig.Imgurl + imgStr.get(0));
+			imgResponse.add(SystemConfig.ImgurlPrefix + imgStr.get(0));
 			// 更新user表HandImage
 		} else {
 			// 添加个人图片 userImage
@@ -125,7 +126,7 @@ public class FileBusiness {
 				img.setImagePath(url);
 				img.setImageSort(j);
 				imgs.add(img);
-				imgResponse.add(SystemConfig.Imgurl + url);
+				imgResponse.add(SystemConfig.ImgurlPrefix + url);
 			}
 			userImgServiceImpl.insertUserImg(imgs);
 		}
@@ -133,5 +134,20 @@ public class FileBusiness {
 		fileResponse.setData(fileList);
 		return fileResponse;
 	}
- 
+
+	/**
+	 * 删除磁盘文件
+	 * 
+	 * @param url
+	 */
+	public void RemoveFile(String url) {
+		if (!StringUtils.isEmpty(url)) {
+			url=url.replace(SystemConfig.ImgurlPrefix, "");
+			String imgUrl = SystemConfig.imguserpath + url;
+			File dirFile = new File(imgUrl);
+			dirFile.delete();
+		}
+
+	}
+
 }

@@ -32,6 +32,7 @@ com\myErp\manager\bean\SessionEmp.class
 com\myErp\dao\UserDatumMapper.class
 com\myErp\impl\InvitationCodeServiceImpl.class
 com\myErp\impl\UserFinancialDetailServiceImpl.class
+com\zhzy\erp\impl\UserServiceImplERP.class
 com\myErp\utils\Pagination.class
 com\myErp\utils\DateUtil.class
 com\myErp\utils\SerializeUtil.class
@@ -66,7 +67,9 @@ com\myErp\utils\Md5Util.class
 com\myErp\utils\ResultModel.class
 com\myErp\redis\RedisManager.class
 com\myErp\utils\HttpClientUtil.class
+com\myErp\enums\DeviceType.class
 com\myErp\utils\SystemConfig.class
+com\zhzy\erp\dao\UserMapperERP.class
 com\myErp\dao\UserPositionMapper.class
 com\myErp\manager\bean\AppHomePagePaging.class
 com\myErp\manager\bean\UserPosition.class

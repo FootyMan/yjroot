@@ -1,6 +1,5 @@
 package com.myErp.impl;
-
-import java.security.KeyStore.PrivateKeyEntry;
+import java.util.List;
 
 import com.myErp.dao.UserRechargeMapper;
 import com.myErp.manager.bean.UserRecharge;
@@ -46,5 +45,16 @@ public class UserRechargeServiceImpl {
 	public UserRecharge selectRechargeByuserId(int userId) {
 		DBContextHolder.setDBType("siteRead");
 		return userRechargeMapper.selectRechargeByuserId(userId);
+	}
+	
+	/**
+	 * 查询即将到期的会员
+	 * 
+	 * @param recharge
+	 * @return
+	 */
+	public List<UserRecharge> GetExpireUser(String endTime) {
+		DBContextHolder.setDBType("siteRead");
+		return userRechargeMapper.selectExpireUser(endTime);
 	}
 }

@@ -16,7 +16,7 @@ import com.api.request.baseRequest;
 
 import com.api.response.ProfitMyResponse;
 
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 
 import com.api.utils.decrypt.ResponseEncryptBody;
 
@@ -43,7 +43,7 @@ public class ProfitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "绑定支付宝账号", notes = "绑定支付宝账号")
-	public baseResponse<?> BindAccount(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitAccountRequest> request)
+	public BaseResponse<?> BindAccount(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitAccountRequest> request)
 			throws Exception {
 
 		return profitBusiness.BindAccount(request);
@@ -59,7 +59,7 @@ public class ProfitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/myProfit", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "我的收益++提现页面初始化的账号+可提现金额+每日提现上限", notes = "我的收益++提现页面初始化的账号+可提现金额+每日提现上限")
-	public baseResponse<ProfitMyResponse> MyProfit(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
+	public BaseResponse<ProfitMyResponse> MyProfit(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
 			throws Exception {
 
 		return profitBusiness.GetMyProfit(request);
@@ -77,7 +77,7 @@ public class ProfitController {
 	@ApiOperation(nickname = "swagger-registe", value = "收益和提现记录 注意返回的data里是集合 字段类型全部String"
 			+ "收益记录返回date=日期	user=用户	type=会员类型	money=佣金"
 			+ "		提现记录date=日期	money=提现金额		state=结算状态", notes = "收益和提现记录")
-	public baseResponse<?> ProfitRecord(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitRecordRequest> request)
+	public BaseResponse<?> ProfitRecord(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitRecordRequest> request)
 			throws Exception {
 
 		return profitBusiness.ProfitRecord(request);
@@ -93,7 +93,7 @@ public class ProfitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/wd", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-registe", value = "提现", notes = "提现")
-	public baseResponse<?> UserWithdrawals(
+	public BaseResponse<?> UserWithdrawals(
 			@ApiParam(value = "输入") @RequestBody baseRequest<ProfitWithDrawRequest> request) throws Exception {
 		return profitBusiness.UserWithdrawals(request);
 	}

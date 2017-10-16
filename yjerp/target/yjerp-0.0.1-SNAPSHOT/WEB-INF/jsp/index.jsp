@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="renderer" content="webkit">
 
-<title>MyErp</title>
+<title>众合致远ERP系统</title>
 <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
 <meta name="description"
 	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
@@ -78,7 +78,7 @@
 					<li><a href="/main#"><i class="fa fa-th-large"></i> <span
 							class="nav-label">会员管理</span> <span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="./hr/employee/list">会员管理</a></li>
+							<li><a class="J_menuItem" href="./user/list">会员管理</a></li>
 							<li><a class="J_menuItem" href="./hr/role/list">首页用户</a>
 							<li><a class="J_menuItem" href="./hr/dep/list">订单管理</a>
 							<li><a class="J_menuItem" href="/sys/roleFunc/list">用户提现</a></li>

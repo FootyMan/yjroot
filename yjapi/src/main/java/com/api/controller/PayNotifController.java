@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.ExceptionHandler;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.myErp.enums.FinancialOperateStatus;

@@ -60,7 +60,7 @@ public class BusinessUtils {
 		model.setUserId(user.getUserId());
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
-		model.setHeadImage(SystemConfig.Imgurl + user.getHeadImage());
+		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		model.setSign(user.getDatum().getSign());

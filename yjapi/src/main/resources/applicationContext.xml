@@ -19,26 +19,26 @@
 	<!-- </bean> -->
 	<bean id="siteWrite" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;;autoReconnect=true" />
+		<property name="url" value="jdbc:mysql://60.205.188.215:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;;autoReconnect=true" />
 		<property name="username" value="root" />
 		<property name="password" value="yjsm" />
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="10" />
+		<property name="maxActive" value="200" />
 		<!--initialSize: 初始化连接 -->
 		<property name="initialSize" value="5" />
 	</bean>
 
 	<bean id="siteRead" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true" />
+		<property name="url" value="jdbc:mysql://60.205.188.215:3306/myschema?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true" />
 		<property name="username" value="root" />
 		<property name="password" value="yjsm" />
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="10" />
+		<property name="maxActive" value="200" />
 		<!--initialSize: 初始化连接 -->
 		<property name="initialSize" value="5" />
 	</bean>

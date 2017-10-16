@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  
 import com.api.business.FileBusiness;
 import com.api.response.FileUploadResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +40,7 @@ public class FileController {
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-fileUpload", value = "用户上传头像和图片库 因文件上传不是标准的json "
 			+ "除图片需增加参数userId 和imageType 1头像2图片库", notes = "用户上传图片")
-	public baseResponse<FileUploadResponse> fileUpload(@ApiParam(value = "输入") HttpServletRequest request,
+	public BaseResponse<FileUploadResponse> fileUpload(@ApiParam(value = "输入") HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		return fileBusiness.FileUpload(request, response);
 	}

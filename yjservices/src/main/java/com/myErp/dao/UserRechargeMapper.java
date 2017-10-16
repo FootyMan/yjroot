@@ -1,5 +1,7 @@
 package com.myErp.dao;
 
+import java.util.List;
+
 import com.myErp.manager.bean.UserRecharge;
 
 public abstract interface UserRechargeMapper {
@@ -27,4 +29,14 @@ public abstract interface UserRechargeMapper {
 	 * @return
 	 */
 	public abstract UserRecharge selectRechargeByuserId(int userId);
+
+	/**
+	 * 查询即将到期的会员
+	 * 
+	 * @param endTime
+	 * @return
+	 */
+
+	public abstract List<UserRecharge> selectExpireUser(String endTime);
+
 }

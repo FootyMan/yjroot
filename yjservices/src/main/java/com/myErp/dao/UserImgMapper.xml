@@ -31,4 +31,8 @@
 		from userimg where userId=#{userId} order by imageSort
 	</select>
 
+
+	<delete id="deleteImageByImgId" parameterType="java.lang.Integer">
+		delete from userimg where imgId=#{imgId}
+	</delete>
 </mapper>

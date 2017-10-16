@@ -12,7 +12,7 @@ import com.api.response.InitResponseAppData;
 import com.api.response.PageTwoResponse;
 import com.api.response.UserInfoResponse;
 import com.api.response.VersionResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
 import com.myErp.impl.AppversionServiceImpl;
 import com.myErp.impl.LabletTypeServiceImpl;
@@ -50,9 +50,9 @@ public class InitBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<InitResponse> initUser(baseRequest<?> user) {
+	public BaseResponse<InitResponse> initUser(baseRequest<?> user) {
 
-		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		UserPosition position = new UserPosition();
 		position.setIsPosition(1);
 		if (user.getLon() <= 0) {
@@ -76,8 +76,8 @@ public class InitBusiness {
 		return response;
 	}
 
-	public baseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
-		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
+	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
+		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
 		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
 		InitResponseAppData appData =businessUtils.LableEntityToModel(labletTypes);
 		// // 获取城市
@@ -166,7 +166,7 @@ public class InitBusiness {
 
 			info.setUserId(userId);
 			info.setShowId(user.getId());
-			info.setHeadImage(SystemConfig.Imgurl + user.getHeadImage());
+			info.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
 			info.setNickName(user.getNickName());
 			info.setSex(datum.getGender());
 			info.setAge(datum.getAge());
@@ -197,9 +197,9 @@ public class InitBusiness {
 		return initUser;
 	}
 	
-	public baseResponse<?> InitRedis(baseRequest<InitRedisRequest> request)
+	public BaseResponse<?> InitRedis(baseRequest<InitRedisRequest> request)
 	{
-		baseResponse<?> response = new baseResponse<Object>();
+		BaseResponse<?> response = new BaseResponse<Object>();
 		InitRedisRequest body = request.getbody();
 		if (body.getCatchType() == 1) {
 			// 获取城市

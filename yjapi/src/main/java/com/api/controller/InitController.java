@@ -41,10 +41,10 @@ public class InitController {
 	@RequestMapping(value = "/initUser", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-initUser", value = "初始化用户"
 			+ "1、登录和注册之后 必须调用此接口（方便获取用户位置）2、如果已登录 打开APP先调用此接口 传入经纬度 3、此接口返回用户偏好设置", notes = "初始化用户")
-	public baseResponse<InitResponse> initUser(// InitUserRequest
+	public BaseResponse<InitResponse> initUser(// InitUserRequest
 			@ApiParam(value = "输入") @RequestBody baseRequest<?> request) throws Exception {
 
-		baseResponse<InitResponse> response = initBusiness.initUser(request);
+		BaseResponse<InitResponse> response = initBusiness.initUser(request);
 		InitResponse initUser = initBusiness.InitUserData(request.getUserId());
 		response.setData(initUser);
 		return response;
@@ -60,7 +60,7 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/appData", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
-	public baseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
+	public BaseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
 			throws Exception {
 		return initBusiness.InitAppData(request);
 	}
@@ -75,7 +75,7 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/redis", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "服务端自用", notes = "服务端自用")
-	public baseResponse<?> InitRedis(@ApiParam(value = "输入") @RequestBody baseRequest<InitRedisRequest> request)
+	public BaseResponse<?> InitRedis(@ApiParam(value = "输入") @RequestBody baseRequest<InitRedisRequest> request)
 			throws Exception {
 
 		return initBusiness.InitRedis(request);

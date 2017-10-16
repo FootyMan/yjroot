@@ -1,5 +1,6 @@
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\RoleServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\LabletTypeServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\zhzy\erp\impl\UserServiceImplERP.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\SexuaType.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\ReflectHelper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\ValidateUtil.java
@@ -20,6 +21,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserInviteMapper.ja
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\FinancialOperateStatus.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserFinancialServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserPositionServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\DeviceType.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\OrderMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\Appversion.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\CookieUtil.java
@@ -61,6 +63,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\LabletType
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserLableMapping.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\EncodingTool.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\impl\UserVerifyCodeServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\zhzy\erp\impl\package-info.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\enums\RechargeValid.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserDatum.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\UserFinancialMapper.java
@@ -70,6 +73,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\PropertiesUtils.j
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\SerializeUtil.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\manager\bean\UserDislike.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\DynamicDataSource.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\zhzy\erp\dao\UserMapperERP.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\redis\CityRedisManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\utils\ResultModel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\myErp\dao\InvitationCodeMapper.java

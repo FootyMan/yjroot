@@ -15,7 +15,7 @@ import com.api.request.baseRequest;
 import com.api.response.ProfitMyResponse;
 import com.api.response.ProfitRecordResponse;
 import com.api.response.ProfitWithDrawResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
 import com.myErp.enums.FinancialOperateStatus;
 import com.myErp.enums.FinancialType;
@@ -50,9 +50,9 @@ public class ProfitBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<?> BindAccount(baseRequest<ProfitAccountRequest> request) {
+	public BaseResponse<?> BindAccount(baseRequest<ProfitAccountRequest> request) {
 
-		baseResponse<?> response = new baseResponse<Object>();
+		BaseResponse<?> response = new BaseResponse<Object>();
 
 		ProfitAccountRequest accountRequestModel = request.getbody();
 		// 验证码是否正确
@@ -90,8 +90,8 @@ public class ProfitBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<ProfitMyResponse> GetMyProfit(baseRequest<?> request) {
-		baseResponse<ProfitMyResponse> response = new baseResponse<ProfitMyResponse>();
+	public BaseResponse<ProfitMyResponse> GetMyProfit(baseRequest<?> request) {
+		BaseResponse<ProfitMyResponse> response = new BaseResponse<ProfitMyResponse>();
 		UserFinancial financial = userFinancialServiceImpl.selectFinancial(request.getUserId());
 		if (financial != null && financial.getFinancialId() > 0) {
 			ProfitMyResponse myProfit = new ProfitMyResponse();
@@ -110,8 +110,8 @@ public class ProfitBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<?> ProfitRecord(baseRequest<ProfitRecordRequest> request) {
-		baseResponse response = new baseResponse();
+	public BaseResponse<?> ProfitRecord(baseRequest<ProfitRecordRequest> request) {
+		BaseResponse response = new BaseResponse();
 		ProfitRecordRequest recordRequest = request.getbody();
 		if (recordRequest != null && recordRequest.getType() > 0) {
 
@@ -165,8 +165,8 @@ public class ProfitBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<?> UserWithdrawals(baseRequest<ProfitWithDrawRequest> request) {
-		baseResponse<?> response = new baseResponse<Object>();
+	public BaseResponse<?> UserWithdrawals(baseRequest<ProfitWithDrawRequest> request) {
+		BaseResponse<?> response = new BaseResponse<Object>();
 		ProfitWithDrawRequest body = request.getbody();
 		// 验证码是否正确
 		User userData = userServiceImpl.selectUserByUserId(request.getUserId());

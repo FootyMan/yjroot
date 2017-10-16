@@ -41,6 +41,7 @@
 		<mapper resource="com/myErp/dao/EmployeeMapper.xml" />
 		<mapper resource="com/myErp/dao/RoleMapper.xml" />
 		<mapper resource="com/myErp/dao/DepMapper.xml" />
+		<mapper resource="com/zhzy/erp/dao/UserMapperERP.xml" />
 	</mappers>
 
 

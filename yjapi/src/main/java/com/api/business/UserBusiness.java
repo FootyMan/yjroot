@@ -14,12 +14,13 @@ import com.api.request.DetailsRequest;
 import com.api.request.LableRequest;
 import com.api.request.LableRequestData;
 import com.api.request.PhoneMsgRequest;
+import com.api.request.RemoveImgRequest;
 import com.api.request.UserDatumRequest;
 import com.api.request.UserLikeRequest;
 import com.api.request.baseRequest;
 import com.api.request.userModel;
 import com.api.response.BrowseNumberResponse;
-import com.api.response.DetailsImgResponse;
+import com.api.response.UserImgResponse;
 import com.api.response.DetailsLableResponse;
 import com.api.response.DetailsResponse;
 import com.api.response.HomeResponse;
@@ -27,10 +28,11 @@ import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
 import com.api.response.LableResponseData;
+import com.api.response.MyImageResponse;
 import com.api.response.DetailsUserResponse;
 import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -86,8 +88,6 @@ public class UserBusiness {
 	@Autowired
 	private BusinessUtils businessUtils;
 
-	
-
 	/**
 	 * 添加用户验证码
 	 */
@@ -101,8 +101,8 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<LableResponseData> AddUserLable(baseRequest<LableRequestData> request) {
-		baseResponse<LableResponseData> response = new baseResponse<LableResponseData>();
+	public BaseResponse<LableResponseData> AddUserLable(baseRequest<LableRequestData> request) {
+		BaseResponse<LableResponseData> response = new BaseResponse<LableResponseData>();
 
 		int labeTypeId = 0;
 		List<LableRequest> lableRequestDatas = request.getbody().getList();
@@ -144,8 +144,8 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<InitResponseAppData> GetUserLableByUserID(baseRequest<?> request) {
-		baseResponse<InitResponseAppData> response = new baseResponse<InitResponseAppData>();
+	public BaseResponse<InitResponseAppData> GetUserLableByUserID(baseRequest<?> request) {
+		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
 		UserLableMapping mapping = new UserLableMapping();
 		mapping.setUserId(request.getUserId());
 		List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(mapping);
@@ -158,18 +158,19 @@ public class UserBusiness {
 		}
 		return response;
 	}
+
 	/**
 	 * 用户注册
 	 * 
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<InitResponse> userRegister(baseRequest<userModel> user) {
+	public BaseResponse<InitResponse> userRegister(baseRequest<userModel> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
 		userModel model = user.getbody();
-		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
@@ -204,7 +205,7 @@ public class UserBusiness {
 			response.setMsg("注册用户失败");
 			return response;
 		}
-		InitResponse initUser =initBusiness.InitUserData(userEntity.getUserId());
+		InitResponse initUser = initBusiness.InitUserData(userEntity.getUserId());
 		response.setData(initUser);
 		AddUserInvite(userInviteServiceImpl, codeData, userEntity.getUserId());
 		return response;
@@ -217,12 +218,12 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse UpdateUserPwd(baseRequest<UserPwdResponse> user) {
+	public BaseResponse UpdateUserPwd(baseRequest<UserPwdResponse> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
 		UserPwdResponse model = user.getbody();
-		baseResponse response = new baseResponse();
+		BaseResponse response = new BaseResponse();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
@@ -254,12 +255,12 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<InitResponse> userLogin(baseRequest<userModel> user) {
+	public BaseResponse<InitResponse> userLogin(baseRequest<userModel> user) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
 		userModel model = user.getbody();
-		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		// 注册
 		User userEntity = new User();
 		userEntity.setPhone(model.getPhone());
@@ -270,7 +271,7 @@ public class UserBusiness {
 			response.setMsg("用户名或密码错误");
 			return response;
 		}
-		InitResponse initUser =initBusiness.InitUserData(resultUser.getUserId());
+		InitResponse initUser = initBusiness.InitUserData(resultUser.getUserId());
 		response.setData(initUser);
 		return response;
 
@@ -305,8 +306,8 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<InitResponse> AddUserDatum(baseRequest<UserDatumRequest> request) {
-		baseResponse<InitResponse> response = new baseResponse<InitResponse>();
+	public BaseResponse<InitResponse> AddUserDatum(baseRequest<UserDatumRequest> request) {
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		int datumId = 0;
 		UserDatumRequest model = request.getbody();
 		UserDatum entiy = new UserDatum();
@@ -351,8 +352,8 @@ public class UserBusiness {
 	 * @param user
 	 * @return
 	 */
-	public baseResponse<UserDatumRequest> GetUserDatum(baseRequest<?> request) {
-		baseResponse<UserDatumRequest> response = new baseResponse<UserDatumRequest>();
+	public BaseResponse<UserDatumRequest> GetUserDatum(baseRequest<?> request) {
+		BaseResponse<UserDatumRequest> response = new BaseResponse<UserDatumRequest>();
 		List<User> data = userServiceImpl.selectDatumByUserId(request.getUserId());
 		if (data != null && data.size() > 0) {
 			User user = data.get(0);
@@ -366,7 +367,7 @@ public class UserBusiness {
 			model.setShape(datum.getShape());
 			model.setSexuat(datum.getSexuat());
 			model.setSign(datum.getSign());
-			model.setHeadImage(SystemConfig.Imgurl + user.getHeadImage());
+			model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
 			model.setNickName(user.getNickName());
 			response.setData(model);
 		}
@@ -403,9 +404,9 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<DetailsResponse> GetUserDetails(baseRequest<DetailsRequest> request) {
+	public BaseResponse<DetailsResponse> GetUserDetails(baseRequest<DetailsRequest> request) {
 
-		baseResponse<DetailsResponse> response = new baseResponse<DetailsResponse>();
+		BaseResponse<DetailsResponse> response = new BaseResponse<DetailsResponse>();
 
 		DetailsResponse details = new DetailsResponse();
 		DetailsUserResponse userBase = new DetailsUserResponse();
@@ -424,7 +425,7 @@ public class UserBusiness {
 		if (userDatas != null && userDatas.size() > 0) {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
-			userBase.setHeadImage(SystemConfig.Imgurl + userData.getHeadImage());
+			userBase.setHeadImage(SystemConfig.ImgurlPrefix + userData.getHeadImage());
 			userBase.setShowId(userData.getId());
 			userBase.setNickName(userData.getNickName());
 			userBase.setSex(datum.getGender());
@@ -440,15 +441,8 @@ public class UserBusiness {
 			userBase.setVip(userData.getUserLevel());
 		}
 		// 图片
-		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(body.getDetailId());
-		if (userImgs != null && userImgs.size() > 0) {
-			for (UserImg userImg : userImgs) {
-				DetailsImgResponse img = new DetailsImgResponse();
-				img.setImg(userImg.getImagePath());
-				details.getImgs().add(img);
-			}
 
-		}
+		details.setImgs(GetImgListByUserId(body.getDetailId()));
 		// 标签
 		UserLableMapping mapping = new UserLableMapping();
 		mapping.setUserId(body.getDetailId());
@@ -474,14 +468,65 @@ public class UserBusiness {
 	}
 
 	/**
+	 * 我的图片
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public BaseResponse<MyImageResponse> GetUserImage(baseRequest<?> request) {
+		BaseResponse<MyImageResponse> response = new BaseResponse<MyImageResponse>();
+		MyImageResponse myImg = new MyImageResponse();
+		myImg.setImgList(GetImgListByUserId(request.getUserId()));
+		response.setData(myImg);
+		return response;
+	}
+
+	/**
+	 * 删除图片
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public BaseResponse<?> RemonveImageByImageId(baseRequest<RemoveImgRequest> request) {
+		BaseResponse<?> response = new BaseResponse<Object>();
+
+		int result = userImgServiceImpl.DeleteImageByImgId(request.getbody().getImgId());
+		if (result <= 0) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("删除图片失败");
+		}
+		return response;
+	}
+
+	/**
+	 * 根据userId获取图片
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<UserImgResponse> GetImgListByUserId(int userId) {
+		List<UserImgResponse> imgList = new ArrayList<UserImgResponse>();
+		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(userId);
+		if (userImgs != null && userImgs.size() > 0) {
+			for (UserImg userImg : userImgs) {
+				UserImgResponse img = new UserImgResponse();
+				img.setImg(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+				img.setImgId(userImg.getImgId());
+				imgList.add(img);
+			}
+		}
+		return imgList;
+	}
+
+	/**
 	 * 用户喜欢和不喜欢
 	 * 
 	 * @param userlikeServiceImpl
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<UserLikeResponse> UserLike(baseRequest<UserLikeRequest> request) {
-		baseResponse<UserLikeResponse> response = new baseResponse<UserLikeResponse>();
+	public BaseResponse<UserLikeResponse> UserLike(baseRequest<UserLikeRequest> request) {
+		BaseResponse<UserLikeResponse> response = new BaseResponse<UserLikeResponse>();
 		int result = 0;
 		UserLikeRequest body = request.getbody();
 		Userlike like = new Userlike();
@@ -522,8 +567,8 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<List<HomeResponse>> UserLikeList(baseRequest<?> request) {
-		baseResponse<List<HomeResponse>> response = new baseResponse<List<HomeResponse>>();
+	public BaseResponse<List<HomeResponse>> UserLikeList(baseRequest<?> request) {
+		BaseResponse<List<HomeResponse>> response = new BaseResponse<List<HomeResponse>>();
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		List<User> userData = userServiceImpl.userLikeList(request.getUserId());
 		for (User user : userData) {
@@ -540,8 +585,8 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<?> GetUserBrowse(baseRequest<BrowseRequest> request) {
-		baseResponse<Object> response = new baseResponse<Object>();
+	public BaseResponse<?> GetUserBrowse(baseRequest<BrowseRequest> request) {
+		BaseResponse<Object> response = new BaseResponse<Object>();
 		BrowseRequest body = request.getbody();
 		// 返回数量
 		if (body.getType() == 1) {
@@ -562,7 +607,7 @@ public class UserBusiness {
 		return response;
 	}
 
-	public Map<String, String> GetMessage(baseRequest<PhoneMsgRequest> request, baseResponse<?> output, String code) {
+	public Map<String, String> GetMessage(baseRequest<PhoneMsgRequest> request, BaseResponse<?> output, String code) {
 		Map<String, String> map = new HashMap<String, String>();
 		String phone = "";// 手机号
 		String msg = "";// 消息

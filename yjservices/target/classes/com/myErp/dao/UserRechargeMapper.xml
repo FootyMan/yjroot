@@ -31,7 +31,7 @@
 			<if test="totalMoney>0">
 				totalMoney=#{totalMoney},
 			</if>
-			<if test="endTime!=null">
+			<if test="endTime!=null and endTime!=''">
 				endTime=#{endTime},
 			</if>
 			<if test="validDays>0">
@@ -49,5 +49,14 @@
 		<include refid="BASE_COLUMN"></include>
 		from userrecharge
 		where userId=#{userId}
+	</select>
+
+	<!-- 查询即将到期的会员 -->
+	<select id="selectExpireUser" resultMap="rechargeResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="BASE_COLUMN"></include>
+		from userrecharge
+		WHERE endTime&lt;=#{endTime} and isValid=2
 	</select>
 </mapper>

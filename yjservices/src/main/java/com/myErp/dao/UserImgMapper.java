@@ -21,4 +21,12 @@ public abstract interface UserImgMapper {
 	 * @return
 	 */
 	public abstract List<UserImg> selectImgtByUserId(int userId);
+
+	/**
+	 * 删除图片
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public abstract int deleteImageByImgId(int imgId);
 }

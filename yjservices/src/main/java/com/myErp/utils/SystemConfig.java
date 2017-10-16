@@ -52,5 +52,5 @@ public class SystemConfig {
 	/**
 	 * 图片前缀
 	 */
-	public static String Imgurl = PropertiesUtils.ReadProperties(fileName, "img_url");
+	public static String ImgurlPrefix = PropertiesUtils.ReadProperties(fileName, "img_url");
 }

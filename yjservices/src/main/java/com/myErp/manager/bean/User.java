@@ -35,7 +35,7 @@ public class User {
 	 */
 	private Date registerTime;
 	/**
-	 *用户级别1普通用户 2vip会员 3黄金会员 3钻石会员 4最强荣耀 5最强王者
+	 *用户级别1普通用户 2包月会员 3半年会员 4年费会员
 	 */
 	private int userLevel;
 	/**

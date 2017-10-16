@@ -32,7 +32,7 @@ import org.springframework.util.SystemPropertyUtils;
 import com.alibaba.fastjson.JSON;
 import com.api.alipay.sdk.AlipayPayManager;
 import com.api.response.AlipayResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.DES;
 import com.api.utils.PageUtils;
 import com.api.wxpay.sdk.WXPay;

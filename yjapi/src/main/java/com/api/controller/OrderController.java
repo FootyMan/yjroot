@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.api.business.OrderBusiness;
 import com.api.request.OrderRequest;
 import com.api.request.baseRequest;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ public class OrderController {
 	@ApiOperation(nickname = "swagger-user", value = "订单支付", notes = "支付接口返回匿名类型" + "如果是支付宝body里面会有一个alipayString"
 			+ "	如果是是微信body包含appid=appid" + "	partnerid=商户Id" + "	prepayid=预支付ID" + "	trade_type=类型" + "	sign=签名"
 			+ "	timeStamp=时间戳" + "	nonce_str=随机数")
-	public synchronized baseResponse<?> PayOrder(@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request)
+	public synchronized BaseResponse<?> PayOrder(@ApiParam(value = "输入") @RequestBody baseRequest<OrderRequest> request)
 			throws Exception {
 		
 		return orderBusiness.PayOrder(request);

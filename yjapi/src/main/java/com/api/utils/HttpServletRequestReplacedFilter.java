@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.api.request.baseRequest;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.myErp.utils.CommonMethod;
 import com.myErp.utils.SystemConfig;
 
@@ -46,7 +46,7 @@ public class HttpServletRequestReplacedFilter implements Filter {
 				if (model != null && model.getTimeStamp().equals("11232")) {
 					chain.doFilter(requestWrapper, response);
 				} else {
-					baseResponse<?> r = new baseResponse<Object>();
+					BaseResponse<?> r = new BaseResponse<Object>();
 					r.setCode(ResultEnum.SignErrorCode);
 					r.setMsg("非法请求");
 					String json = CommonMethod.ConvertObjToJson(r);

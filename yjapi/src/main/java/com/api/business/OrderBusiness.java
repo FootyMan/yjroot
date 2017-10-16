@@ -8,7 +8,7 @@ import com.api.request.OrderRequest;
 import com.api.request.baseRequest;
 import com.api.response.AlipayResponse;
 import com.api.response.WxResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.myErp.impl.OrderServiceImpl;
 import com.myErp.impl.ProductServiceImpl;
 import com.myErp.manager.bean.Order;
@@ -29,7 +29,7 @@ public class OrderBusiness {
 	 * @param request
 	 * @return
 	 */
-	public baseResponse<?> PayOrder(baseRequest<OrderRequest> request)
+	public BaseResponse<?> PayOrder(baseRequest<OrderRequest> request)
 	{
 		
 		OrderRequest orderModel = request.getbody();
@@ -47,7 +47,7 @@ public class OrderBusiness {
 			orderServiceImpl.insertOrder(order);
 		}
 		if (orderModel.getPayType() == 1) {
-			baseResponse<WxResponse> wxResponse = new baseResponse<WxResponse>();
+			BaseResponse<WxResponse> wxResponse = new BaseResponse<WxResponse>();
 			WxResponse wx = new WxResponse();
 			wx.setAppid("Appid");
 			wx.setPartnerid("Partnerid");
@@ -61,7 +61,7 @@ public class OrderBusiness {
 		}
 		// 支付宝
 		else if (orderModel.getPayType() == 2) {
-			baseResponse<AlipayResponse> aliPayResponse = new baseResponse<AlipayResponse>();
+			BaseResponse<AlipayResponse> aliPayResponse = new BaseResponse<AlipayResponse>();
 
 			AlipayResponse alipayResponseModel = new AlipayResponse();
 			AlipayPayManager alipayManager = new AlipayPayManager();

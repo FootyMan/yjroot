@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.api.business.HomeBusiness;
 import com.api.request.*;
 import com.api.response.RangeResponse;
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.api.utils.decrypt.ResponseEncryptBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +36,7 @@ public class HomeController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "首页用户", notes = "首页用户")
-	public baseResponse<HomeObject> HomeUser(@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request)
+	public BaseResponse<HomeObject> HomeUser(@ApiParam(value = "输入") @RequestBody baseRequest<HomeRequest> request)
 			throws Exception {
 
 		return homeBusiness.GetHomeList(request);
@@ -52,7 +52,7 @@ public class HomeController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/range", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-range", value = "附近的人 如果不让访问当前位置 经纬度不需要传、默认天安门", notes = "附近的人")
-	public baseResponse<RangeResponse> RangeUser(@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request)
+	public BaseResponse<RangeResponse> RangeUser(@ApiParam(value = "输入") @RequestBody baseRequest<RangeRequest> request)
 			throws Exception {
 
 		return homeBusiness.GetRangeList(request);

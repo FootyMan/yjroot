@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.api.response.baseResponse;
+import com.api.response.BaseResponse;
 import com.myErp.utils.CommonMethod;
 
 public class ExceptionHandler implements HandlerExceptionResolver {
@@ -21,7 +21,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 		arg1.setCharacterEncoding("utf-8");
 		logger.error("发生位置:" + arg2 + "堆栈：" + arg3.getStackTrace() + "异常信息:" + arg3.getMessage());
 		try {
-			baseResponse response = new baseResponse();
+			BaseResponse response = new BaseResponse();
 			response.setCode(500);
 			response.setMsg("服务器异常！");
 			String reqStr = CommonMethod.ConvertObjToJson(response);
