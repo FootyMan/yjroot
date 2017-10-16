@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class BaseResponse<T> {
 
-	@ApiModelProperty(value = "返回码200正常  100验签错误 500服务器错误 250字段位空")
+	@ApiModelProperty(value = "返回码200正常  100验签错误 500服务器错误 250字段位空 412先决条件失败 （不符合服务端要求）")
 	private int code = ResultEnum.SuccessCode;
 	@ApiModelProperty(value = "错误和提示消息")
 	private String msg = "";

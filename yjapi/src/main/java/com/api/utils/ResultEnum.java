@@ -10,6 +10,12 @@ public class ResultEnum {
 	 * 服务器错误
 	 */
 	public static int ServiceErrorCode = 500;
+	
+	/**
+	 * 服务器验证
+	 * 先决条件失败 
+	 */
+	public static int VerificationCode=412;
 	/**
 	 * 验签错误
 	 */

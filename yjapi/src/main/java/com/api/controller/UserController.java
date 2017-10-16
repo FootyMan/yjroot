@@ -53,7 +53,10 @@ public class UserController {
 	public BaseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> request)
 			throws Exception {
 		BaseResponse<InitResponse> response = userBusiness.userRegister(request);
-		businessUtils.AddUserPoint(request, response.getData().getUser().getUserId());
+		if (response.getData() != null && response.getData().getUser().getUserId() > 0) {
+			businessUtils.AddUserPoint(request, response.getData().getUser().getUserId());
+		}
+
 		return response;
 	}
 
@@ -278,8 +281,8 @@ public class UserController {
 	@RequestMapping(value = "/delImg", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-details", value = "图片删除", notes = "图片删除")
 	public BaseResponse<?> RemonveImage(@ApiParam(value = "输入") @RequestBody baseRequest<RemoveImgRequest> request) {
-		BaseResponse<?> response=userBusiness.RemonveImageByImageId(request);
-		//删除磁盘
+		BaseResponse<?> response = userBusiness.RemonveImageByImageId(request);
+		// 删除磁盘
 		fileBusiness.RemoveFile(request.getbody().getImgUrl());
 		return response;
 	}

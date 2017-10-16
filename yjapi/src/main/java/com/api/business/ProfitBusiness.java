@@ -60,7 +60,7 @@ public class ProfitBusiness {
 		if (userData != null && !StringUtils.isEmpty(userData.getPhone())) {
 			UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(userData.getPhone());
 			if (userCode == null || !userCode.getVerifyCode().equals(accountRequestModel.getVerifyCode())) {
-				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setCode(ResultEnum.VerificationCode);
 				response.setMsg("手机验证码不正确");
 				return response;
 			}
@@ -173,7 +173,7 @@ public class ProfitBusiness {
 		if (userData != null && !StringUtils.isEmpty(userData.getPhone())) {
 			UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(userData.getPhone());
 			if (userCode == null || !userCode.getVerifyCode().equals(body.getVerifyCode())) {
-				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setCode(ResultEnum.VerificationCode);
 				response.setMsg("手机验证码不正确");
 				return response;
 			}
@@ -200,7 +200,7 @@ public class ProfitBusiness {
 			userFinancialDetailServiceImpl.insertFinancialDetail(entityDetail);
 
 		} else {
-			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("提现金额不符");
 		}
 		response.setMsg("提现申请已提交，请3-5工作日注意支付宝账号");

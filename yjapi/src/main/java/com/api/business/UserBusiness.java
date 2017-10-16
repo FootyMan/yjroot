@@ -185,7 +185,7 @@ public class UserBusiness {
 		}
 		UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(model.getPhone());
 		if (userCode == null || !userCode.getVerifyCode().equals(model.getVerifyCode())) {
-			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("手机验证码不正确");
 			return response;
 		}
@@ -226,13 +226,13 @@ public class UserBusiness {
 		BaseResponse response = new BaseResponse();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
-			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("手机号已存在！请注册");
 			return response;
 		}
 		UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(model.getPhone());
 		if (userCode == null || !userCode.getVerifyCode().equals(model.getVerifyCode())) {
-			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("手机验证码不正确");
 			return response;
 		}
@@ -267,7 +267,7 @@ public class UserBusiness {
 		userEntity.setPassWord(Md5Util.stringByMD5(model.getPassWord()));
 		User resultUser = userServiceImpl.userLogin(userEntity);
 		if (resultUser == null) {
-			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("用户名或密码错误");
 			return response;
 		}
@@ -442,7 +442,7 @@ public class UserBusiness {
 		}
 		// 图片
 
-		details.setImgs(GetImgListByUserId(body.getDetailId()));
+		details.setImgs(businessUtils.GetImgListByUserId(body.getDetailId()));
 		// 标签
 		UserLableMapping mapping = new UserLableMapping();
 		mapping.setUserId(body.getDetailId());
@@ -450,6 +450,7 @@ public class UserBusiness {
 		for (UserLableMapping userLableMapping : userLableData) {
 			DetailsLableResponse lable = new DetailsLableResponse();
 			lable.setLableName(userLableMapping.getLabletTypes().getLableName());
+			lable.setLabelId(userLableMapping.getLableId());
 			details.getLables().add(lable);
 		}
 		// 是否喜欢
@@ -476,7 +477,7 @@ public class UserBusiness {
 	public BaseResponse<MyImageResponse> GetUserImage(baseRequest<?> request) {
 		BaseResponse<MyImageResponse> response = new BaseResponse<MyImageResponse>();
 		MyImageResponse myImg = new MyImageResponse();
-		myImg.setImgList(GetImgListByUserId(request.getUserId()));
+		myImg.setImgList(businessUtils.GetImgListByUserId(request.getUserId()));
 		response.setData(myImg);
 		return response;
 	}
@@ -496,26 +497,6 @@ public class UserBusiness {
 			response.setMsg("删除图片失败");
 		}
 		return response;
-	}
-
-	/**
-	 * 根据userId获取图片
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	public List<UserImgResponse> GetImgListByUserId(int userId) {
-		List<UserImgResponse> imgList = new ArrayList<UserImgResponse>();
-		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(userId);
-		if (userImgs != null && userImgs.size() > 0) {
-			for (UserImg userImg : userImgs) {
-				UserImgResponse img = new UserImgResponse();
-				img.setImg(SystemConfig.ImgurlPrefix + userImg.getImagePath());
-				img.setImgId(userImg.getImgId());
-				imgList.add(img);
-			}
-		}
-		return imgList;
 	}
 
 	/**
@@ -541,7 +522,7 @@ public class UserBusiness {
 				result = userlikeServiceImpl.insertUserlike(like);
 				responseData.setType(1);
 			} else {
-				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setCode(ResultEnum.VerificationCode);
 				response.setMsg("此用户您已经喜欢、请勿重复喜欢");
 				return response;
 			}

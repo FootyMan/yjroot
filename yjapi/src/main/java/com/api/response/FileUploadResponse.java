@@ -13,17 +13,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class FileUploadResponse {
 	public FileUploadResponse()
 	{
-		imgList=new ArrayList<String>();
+		imgList=new ArrayList<UserImgResponse>();
 	}
 
 	@ApiModelProperty(value = "图片地址")
-	private List<String>imgList;
+	private List<UserImgResponse>imgList;
 
-	public List<String> getImgList() {
+	public List<UserImgResponse> getImgList() {
 		return imgList;
 	}
 
-	public void setImgList(List<String> imgList) {
+	public void setImgList(List<UserImgResponse> imgList) {
 		this.imgList = imgList;
 	}
 }

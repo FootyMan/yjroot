@@ -1,5 +1,6 @@
 package com.api.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,24 @@ import com.api.request.baseRequest;
 import com.api.response.HomeResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
+import com.api.response.UserImgResponse;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.myErp.manager.bean.LabletType;
 import com.myErp.manager.bean.User;
+import com.myErp.manager.bean.UserImg;
 import com.myErp.manager.bean.UserPosition;
 import com.myErp.utils.SystemConfig;
+import com.myErp.impl.UserImgServiceImpl;
 import com.myErp.impl.UserPositionServiceImpl;
+
 @Service("BusinessUtils")
 public class BusinessUtils {
 
 	@Autowired
 	private UserPositionServiceImpl userPositionService;
+	@Autowired
+	private UserImgServiceImpl userImgServiceImpl;
 
 	/**
 	 * 开启线程去添加用户坐标
@@ -48,7 +55,7 @@ public class BusinessUtils {
 		});
 		t.start();
 	}
-	
+
 	/**
 	 * 实体对象转换model
 	 * 
@@ -70,6 +77,7 @@ public class BusinessUtils {
 		}
 		return model;
 	}
+
 	/**
 	 * 对象转换Model
 	 * 
@@ -109,5 +117,25 @@ public class BusinessUtils {
 			}
 		}
 		return appData;
+	}
+
+	/**
+	 * 根据userId获取图片
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<UserImgResponse> GetImgListByUserId(int userId) {
+		List<UserImgResponse> imgList = new ArrayList<UserImgResponse>();
+		List<UserImg> userImgs = userImgServiceImpl.selectImgtByUserId(userId);
+		if (userImgs != null && userImgs.size() > 0) {
+			for (UserImg userImg : userImgs) {
+				UserImgResponse img = new UserImgResponse();
+				img.setImg(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+				img.setImgId(userImg.getImgId());
+				imgList.add(img);
+			}
+		}
+		return imgList;
 	}
 }
