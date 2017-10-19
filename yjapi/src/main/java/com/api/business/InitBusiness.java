@@ -15,20 +15,20 @@ import com.api.response.UserInfoResponse;
 import com.api.response.VersionResponse;
 import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
-import com.myErp.impl.AppversionServiceImpl;
-import com.myErp.impl.LabletTypeServiceImpl;
-import com.myErp.impl.ProvinceServiceImpl;
-import com.myErp.impl.UserPositionServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.manager.bean.Appversion;
-import com.myErp.manager.bean.LabletType;
-import com.myErp.manager.bean.Province;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserDatum;
-import com.myErp.manager.bean.UserPosition;
-import com.myErp.redis.CityRedisManager;
-import com.myErp.utils.ResultModel;
-import com.myErp.utils.SystemConfig;
+import com.service.api.impl.AppversionServiceImpl;
+import com.service.api.impl.LabletTypeServiceImpl;
+import com.service.api.impl.ProvinceServiceImpl;
+import com.service.api.impl.UserPositionServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.bean.Appversion;
+import com.service.bean.LabletType;
+import com.service.bean.Province;
+import com.service.bean.User;
+import com.service.bean.UserDatum;
+import com.service.bean.UserPosition;
+import com.service.redis.CityRedisManager;
+import com.service.utils.ResultModel;
+import com.service.utils.SystemConfig;
 
 @Service("InitBusiness")
 public class InitBusiness {
@@ -81,7 +81,7 @@ public class InitBusiness {
 	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
 		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
 		InitResponseAppData appData = new InitResponseAppData();
-		List<LabletType> labletTypes = GetLableTypeAll();
+		//List<LabletType> labletTypes = GetLableTypeAll();
 //		LablesResponse lables = businessUtils.LableEntityToModel(labletTypes);
 //		appData.setLables(lables);
 		// // 获取城市

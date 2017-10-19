@@ -17,20 +17,20 @@ import com.api.response.ProfitRecordResponse;
 import com.api.response.ProfitWithDrawResponse;
 import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
-import com.myErp.enums.FinancialOperateStatus;
-import com.myErp.enums.FinancialType;
-import com.myErp.impl.UserFinancialDetailServiceImpl;
-import com.myErp.impl.UserFinancialServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.impl.UserVerifyCodeServiceImpl;
-import com.myErp.manager.bean.MyProfitRecord;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserFinancial;
-import com.myErp.manager.bean.UserFinancialDetail;
-import com.myErp.manager.bean.UserVerifyCode;
-import com.myErp.utils.DateStyle;
-import com.myErp.utils.DateUtil;
-import com.myErp.utils.StringUtils;
+import com.service.api.impl.UserFinancialDetailServiceImpl;
+import com.service.api.impl.UserFinancialServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.api.impl.UserVerifyCodeServiceImpl;
+import com.service.bean.MyProfitRecord;
+import com.service.bean.User;
+import com.service.bean.UserFinancial;
+import com.service.bean.UserFinancialDetail;
+import com.service.bean.UserVerifyCode;
+import com.service.enums.FinancialOperateStatus;
+import com.service.enums.FinancialType;
+import com.service.utils.DateStyle;
+import com.service.utils.DateUtil;
+import com.service.utils.StringUtils;
 
 @Service("ProfitBusiness")
 public class ProfitBusiness {

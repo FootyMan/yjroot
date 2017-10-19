@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserLableMappingMapper">
+	<resultMap id="labletMappingResultMap" type="com.service.bean.UserLableMapping">
+		<id column="mappingId" property="mappingId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="lableId" property="lableId" jdbcType="INTEGER" />
+		<result column="lableType" property="lableType" jdbcType="INTEGER" />
+		<!-- 映射标签库 一对一 -->
+		<association property="labletTypes" javaType="com.service.bean.LabletType">
+			<id column="lableId" property="lableId" jdbcType="INTEGER" />
+			<result column="lableName" property="lableName" jdbcType="VARCHAR" />
+			<result column="lableType" property="lableType" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		mappingId,userId,lableId,lableType
+	</sql>
+
+	<insert id="insertlabletMapping" parameterType="java.util.List"
+		>
+<!-- 		<selectKey resultType="long" keyProperty="mappingId" order="AFTER"> useGeneratedKeys="true"-->
+<!-- 			SELECT -->
+<!-- 			LAST_INSERT_ID() -->
+<!-- 		</selectKey> -->
+
+		insert into userlablemapping (userId,lableId,lableType)
+		values 
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.userId},#{item.lableId},#{item.lableType})
+		</foreach>
+
+	</insert>
+
+	<select id="selectlabletByUserId" resultMap="labletMappingResultMap"
+		parameterType="com.service.bean.UserLableMapping">
+		select
+		a.mappingId,a.userId,a.lableId,a.lableType,b.lableId,b.lableName,b.lableType
+		from
+		userlablemapping a inner join labletype b
+		on a.lableId=b.lableId
+		where
+		a.userId=#{userId}
+		<if test="lableType!=null and lableType>0">
+			and a.lableType=#{lableType}
+		</if>
+	</select>
+</mapper>

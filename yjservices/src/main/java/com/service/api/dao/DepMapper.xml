@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.DepMapper">
+	<resultMap id="depResultMap" type="com.service.bean.Dept">
+		<id column="deptId" property="deptId" jdbcType="INTEGER" />
+		<result column="deptName" property="deptName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertDep" parameterType="com.service.bean.Dept">
+		insert into dept (deptName)
+		values (#{deptName})
+	</insert>
+
+	<select id="selectDepListByPage" resultMap="depResultMap"
+		parameterType="com.service.bean.Dept">
+		select deptId,deptName
+		from dept order by deptId
+	</select>
+	<select id="getdepAll" resultMap="depResultMap"
+		parameterType="com.service.bean.Dept">
+		select deptId,deptName
+		from dept order by deptId
+	</select>
+</mapper>

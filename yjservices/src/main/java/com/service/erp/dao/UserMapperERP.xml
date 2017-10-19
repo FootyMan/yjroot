@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhzy.erp.dao.UserMapperERP">
+	<resultMap id="userResultList" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="userResult" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+		<!-- 映射用户资料表 一对一 -->
+		<association property="datum" javaType="com.service.bean.UserDatum">
+			<id column="datumId" property="datumId" jdbcType="INTEGER" />
+			<result column="userId" property="userId" jdbcType="INTEGER" />
+			<result column="age" property="age" jdbcType="INTEGER" />
+			<result column="gender" property="gender" jdbcType="INTEGER" />
+			<result column="cityId" property="cityId" jdbcType="INTEGER" />
+			<result column="weight" property="weight" jdbcType="VARCHAR" />
+			<result column="height" property="height" jdbcType="VARCHAR" />
+			<result column="shape" property="shape" jdbcType="VARCHAR" />
+			<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
+			<result column="sign" property="sign" jdbcType="VARCHAR" />
+			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		userId,Id,phone,deviceType,deviceToken,headImage,
+		registerTime,
+		userLevel, nickName, isDisable, isEasemob, userSource,
+		inviteCode,passWord
+	</sql>
+	<!-- 后台用户列表 -->
+	<select id="ErpUserList" resultMap="userResult" parameterType="com.service.bean.User">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		<!-- <if test="gender>0"> -->
+		<!-- and b.gender=#{gender} -->
+		<!-- </if> -->
+		<!-- order by a.browseNumber desc -->
+		<!-- LIMIT #{pageIndex},#{pageSize} -->
+	</select>
+
+	<!-- 首页用户 -->
+	<select id="HomeUserList" resultMap="userResult"
+		parameterType="com.service.bean.User">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join homeuser c
+		on
+		c.userId=a.userId
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

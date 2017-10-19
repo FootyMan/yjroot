@@ -6,7 +6,7 @@
 		<setting name="cacheEnabled" value="true" />
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="REUSE" />
-		<setting name="logImpl" value="STDOUT_LOGGING" />
+<!-- 		<setting name="logImpl" value="STDOUT_LOGGING" /> -->
 		<setting name="lazyLoadingEnabled" value="false" />
 		<setting name="aggressiveLazyLoading" value="true" />
 	</settings>
@@ -16,7 +16,7 @@
 	</typeAliases>
 
 	<plugins>
-		<plugin interceptor="com.myErp.utils.PagePlugin">
+		<plugin interceptor="com.service.utils.PagePlugin">
 			<property name="dialect" value="mysql" />
 			<property name="pageSqlId" value="(ByPage)|(ForPage)" />
 		</plugin>
@@ -35,14 +35,14 @@
 	<!-- </environment> -->
 	<!-- </environments> -->
 	<mappers>
-		<mapper resource="com/myErp/dao/EmployeeMapper.xml" />
-		<mapper resource="com/myErp/dao/RoleMapper.xml" />
-		<mapper resource="com/myErp/dao/DepMapper.xml" />
-		<mapper resource="com/myErp/dao/UserMapper.xml" />
-		<mapper resource="com/myErp/dao/UserPositionMapper.xml" />
-		<mapper resource="com/myErp/dao/UserVerifyCodeMapper.xml" />
-		<mapper resource="com/myErp/dao/AppversionMapper.xml" />
-		<mapper resource="com/myErp/dao/ProvinceMapper.xml" />
+		<mapper resource="com/service/api/dao/EmployeeMapper.xml" />
+		<mapper resource="com/service/api/dao/RoleMapper.xml" />
+		<mapper resource="com/service/api/dao/DepMapper.xml" />
+		<mapper resource="com/service/api/dao/UserMapper.xml" />
+		<mapper resource="com/service/api/dao/UserPositionMapper.xml" />
+		<mapper resource="com/service/api/dao/UserVerifyCodeMapper.xml" />
+		<mapper resource="com/service/api/dao/AppversionMapper.xml" />
+		<mapper resource="com/service/api/dao/ProvinceMapper.xml" />
 	</mappers>
 
 

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.api.response.BaseResponse;
-import com.myErp.utils.CommonMethod;
+import com.service.utils.CommonMethod;
 
 public class ExceptionHandler implements HandlerExceptionResolver {
 

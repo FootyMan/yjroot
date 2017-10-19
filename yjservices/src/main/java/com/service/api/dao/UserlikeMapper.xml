@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserlikeMapper">
+	<resultMap id="likeMappingResultMap" type="com.service.bean.Userlike">
+		<id column="likeId" property="likeId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="likeUserId" property="likeUserId" jdbcType="INTEGER" />
+		<result column="likeDate" property="likeDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		likeId,userId,likeUserId,likeDate
+	</sql>
+
+	<insert id="insertUserlike" parameterType="com.service.bean.Userlike">
+		insert into
+		userlike
+		(userId,likeUserId,likeDate)
+		values
+		(#{userId},#{likeUserId},now())
+
+	</insert>
+
+	<select id="selectUserLikeById" parameterType="com.service.bean.Userlike"
+		resultType="com.service.bean.Userlike">
+		select
+		<include refid="Base_Column_List" />
+		from userlike where userId=#{userId} and likeUserId=#{likeUserId}
+	</select>
+
+	<delete id="deleteUserlike" parameterType="com.service.bean.Userlike">
+		delete from userlike
+		where userId=#{userId} and likeUserId=#{likeUserId}
+	</delete>
+
+</mapper>

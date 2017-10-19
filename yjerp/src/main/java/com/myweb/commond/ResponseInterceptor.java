@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myErp.utils.CookieUtil;
+import com.service.utils.CookieUtil;
 
 public class ResponseInterceptor implements HandlerInterceptor {
 	// @Autowired

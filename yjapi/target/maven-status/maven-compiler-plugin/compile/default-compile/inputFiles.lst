@@ -31,6 +31,7 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\UserController.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\RemoveImgRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\config\SwaggerWebMvcConfigurerAdapter.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\utils\PageParameter.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\LableTypeResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\HomeRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\LableResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\WxResponse.java
@@ -85,7 +86,6 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\business\BusinessUtils.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\LableResponseData.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\ProfitController.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\config\MySwaggerConfig.java
-D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\LablesResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\controller\HomeController.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\alipay\sdk\AlipayConfig.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\alipay\sdk\AlipayPayManager.java

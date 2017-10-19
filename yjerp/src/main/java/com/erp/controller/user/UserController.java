@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.erp.model.UserModel;
-import com.myErp.enums.DeviceType;
-import com.myErp.enums.UserLevel;
-import com.myErp.impl.ProvinceServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.manager.bean.Employee;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserDatum;
-import com.myErp.utils.Pagination;
-import com.zhzy.erp.impl.UserServiceImplERP;
+import com.service.api.impl.ProvinceServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.bean.Employee;
+import com.service.bean.User;
+import com.service.bean.UserDatum;
+import com.service.enums.DeviceType;
+import com.service.enums.UserLevel;
+import com.service.erp.impl.UserServiceImplERP;
+import com.service.utils.Pagination;
 
 @Controller
 @RequestMapping("/user")

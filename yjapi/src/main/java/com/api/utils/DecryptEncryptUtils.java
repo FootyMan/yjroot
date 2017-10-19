@@ -1,6 +1,6 @@
 package com.api.utils;
 
-import com.myErp.utils.SystemConfig;
+import com.service.utils.SystemConfig;
 
 public class DecryptEncryptUtils {
 

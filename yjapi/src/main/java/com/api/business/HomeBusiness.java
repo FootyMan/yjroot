@@ -17,13 +17,13 @@ import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.manager.bean.AppHomePagePaging;
-import com.myErp.manager.bean.RangeParameter;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserDatum;
-import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
+import com.service.api.impl.UserServiceImpl;
+import com.service.bean.AppHomePagePaging;
+import com.service.bean.RangeParameter;
+import com.service.bean.User;
+import com.service.bean.UserDatum;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 @Service("HomeBusiness")
 public class HomeBusiness {

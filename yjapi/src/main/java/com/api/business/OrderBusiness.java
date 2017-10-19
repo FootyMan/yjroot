@@ -14,11 +14,11 @@ import com.api.response.WxResponse;
 import com.api.response.BaseResponse;
 import com.api.response.ProductDetailResponse;
 import com.api.response.ProductsResponse;
-import com.myErp.impl.OrderServiceImpl;
-import com.myErp.impl.ProductServiceImpl;
-import com.myErp.manager.bean.Order;
-import com.myErp.manager.bean.Product;
-import com.myErp.utils.StringUtils;
+import com.service.api.impl.OrderServiceImpl;
+import com.service.api.impl.ProductServiceImpl;
+import com.service.bean.Order;
+import com.service.bean.Product;
+import com.service.utils.StringUtils;
 
 @Service("OrderBusiness")
 public class OrderBusiness {

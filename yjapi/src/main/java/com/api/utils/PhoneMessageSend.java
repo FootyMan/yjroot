@@ -3,7 +3,7 @@ package com.api.utils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.myErp.utils.MandDaoClient;
+import com.service.utils.MandDaoClient;
 
 public class PhoneMessageSend {
 

@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 识别注解 -->
-	<context:component-scan base-package="com.myErp.impl" />
+	<context:component-scan base-package="com.service.api.impl" />
 	<context:component-scan base-package="com.api" />
 
 	<!--重写 Request和Response 用于加密和解密Request和Response参数 -->

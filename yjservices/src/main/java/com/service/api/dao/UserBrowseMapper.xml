@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserBrowseMapper">
+	<resultMap id="browseResultMap" type="com.service.bean.UserBrowse">
+		<id column="Id" property="Id" jdbcType="INTEGER" />
+		<result column="browseId" property="browseId" jdbcType="INTEGER" />
+		<result column="toUserId" property="toUserId" jdbcType="INTEGER" />
+		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+		<result column="isBrowse" property="isBrowse" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		Id,browseId,toUserId,browseDate,isBrowse
+	</sql>
+
+	<insert id="insertBrowse" parameterType="com.service.bean.UserBrowse">
+		insert into
+		userbrowse
+		(browseId,toUserId,browseDate)
+		values
+		(#{browseId},#{toUserId},now())
+
+	</insert>
+
+	<select id="selectBrowseByNumber" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(1)
+		from userbrowse where toUserId=#{toUserId}
+		and isBrowse=0
+	</select>
+
+</mapper>

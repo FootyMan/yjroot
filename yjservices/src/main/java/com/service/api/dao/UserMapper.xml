@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserMapper">
+	<resultMap id="positionResultMap" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="appUserResult" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+		<!-- 映射用户资料表 一对一 -->
+		<association property="datum" javaType="com.service.bean.UserDatum">
+			<id column="datumId" property="datumId" jdbcType="INTEGER" />
+			<result column="userId" property="userId" jdbcType="INTEGER" />
+			<result column="age" property="age" jdbcType="INTEGER" />
+			<result column="gender" property="gender" jdbcType="INTEGER" />
+			<result column="cityId" property="cityId" jdbcType="INTEGER" />
+			<result column="weight" property="weight" jdbcType="VARCHAR" />
+			<result column="height" property="height" jdbcType="VARCHAR" />
+			<result column="shape" property="shape" jdbcType="VARCHAR" />
+			<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
+			<result column="sign" property="sign" jdbcType="VARCHAR" />
+			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		userId,Id,phone,deviceType,deviceToken,headImage,
+		registerTime,
+		userLevel, nickName, isDisable, isEasemob, userSource,
+		inviteCode,passWord
+	</sql>
+	<insert id="insertUser" parameterType="com.service.bean.User"
+		keyProperty="userId">
+		insert into
+		user(id,phone,deviceType,deviceToken,registerTime,userLevel,isDisable,isEasemob,userSource,inviteCode,passWord)
+		select
+		max(id)+1,#{phone},#{deviceType},#{deviceToken},NOW(),1,1,0,#{userSource},#{inviteCode},#{passWord}
+		from user
+	</insert>
+
+	<update id="updateUser" parameterType="com.service.bean.User">
+		update user
+		<set>
+			<if test="userLevel!='' and userLevel>0">
+				userLevel=#{userLevel},
+			</if>
+			<if test="isDisable!='' and isDisable>0">
+				isDisable=#{isDisable},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="headImage!='' and headImage!=null">
+				headImage=#{headImage},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				passWord=#{passWord},
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				nickName=#{nickName},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	<select id="selectUserByUserId" resultMap="positionResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user where userId=#{userId}
+	</select>
+	<select id="selectUserByInviteCode" resultMap="positionResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"></include>
+		from user where inviteCode=#{inviteCode}
+	</select>
+	<select id="selectUserByphone" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(1)
+		from user where phone=#{phone}
+	</select>
+	<select id="userLogin" resultType="com.service.bean.User"
+		parameterType="com.service.bean.User">
+		select
+		<include refid="Base_Column_List" />
+		from user where phone=#{phone} and passWord=#{passWord}
+	</select>
+	<!-- 首页列表 -->
+	<select id="HomeUserList" resultMap="appUserResult"
+		parameterType="com.service.bean.AppHomePagePaging">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId where
+		1=1
+		<if test="gender>0">
+			and b.gender=#{gender}
+		</if>
+		order by a.browseNumber desc
+		LIMIT #{pageIndex},#{pageSize}
+	</select>
+	<!-- 首页列表count -->
+	<select id="HomeUserListCount" resultType="java.lang.Integer"
+		parameterType="com.service.bean.AppHomePagePaging">
+		SELECT
+		count(1)
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		where
+		1=1
+		<if test="gender>0">
+			and b.gender=#{gender}
+		</if>
+	</select>
+
+	<!-- 首页推荐 -->
+	<select id="HomeUserRecommend" resultMap="appUserResult">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
+		FROM user a inner join userdatum b
+		on a.userId=b.userId
+		inner join
+		homeuser c
+		on a.userId=c.userId
+		where c.homeType=1
+		order by c.sortColumn
+		desc
+	</select>
+
+	<!-- 附近的人 -->
+	<select id="RangeUserList" resultMap="appUserResult"
+		parameterType="com.service.bean.RangeParameter">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
+		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
+		rangeM,b.sign,b.sexuat
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId inner join
+		userposition c
+		on a.userId=c.userId
+		where
+		a.userId!=#{userId}
+		<include refid="Range_Column_Where"></include>
+		ORDER BY
+		rangeM ASC
+		LIMIT
+		#{pageIndex},#{pageSize}
+	</select>
+	<!-- 附近的人总数量 -->
+	<select id="RangelistCount" resultType="java.lang.Integer"
+		parameterType="com.service.bean.RangeParameter">
+		SELECT
+		count(1)
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join
+		userposition c
+		on a.userId=c.userId
+		where
+		a.userId!=#{userId}
+		<include refid="Range_Column_Where"></include>
+	</select>
+
+	<!-- 个人详情主页 -->
+	<select id="getUserDetails" resultMap="appUserResult"
+		parameterType="com.service.bean.RangeParameter">
+		SELECT
+		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
+		rangeM,a.userLevel
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId inner join userposition c
+		on a.userId=c.userId
+		where
+		a.userId=#{userId};
+	</select>
+
+
+	<!-- 个人用户所有信息用于初始化客户端 -->
+	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
+		SELECT
+		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.userLevel,a.inviteCode
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		where
+		a.userId=#{userId};
+	</select>
+
+	<!-- 更新浏览次数 -->
+	<update id="updateBrowseNumber" parameterType="java.lang.Integer">
+		update user set
+		browseNumber=browseNumber+1 where userId=#{userId};
+	</update>
+
+
+	<!-- 用户喜欢列表 -->
+	<select id="userLikeList" resultMap="appUserResult"
+		parameterType="java.lang.Integer">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join userlike as c
+		on a.userId=c.likeUserId
+		where
+		c.userId=#{userId}
+		order by c.likeDate desc
+	</select>
+
+	<!-- 最近访客列表 只取一年的数据 -->
+	<select id="userBrowseList" resultMap="appUserResult"
+		parameterType="com.service.bean.RangeParameter">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		b.age,b.gender,b.sign,c.browseDate
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join userbrowse as c
+		on a.userId=c.browseId
+		where
+		c.toUserId=#{userId} and DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+		&lt;c.browseDate
+		order by c.browseDate desc
+		LIMIT
+		#{pageIndex},#{pageSize}
+
+	</select>
+	<!-- 用户资料页面 -->
+	<select id="selectDatumByUserId" resultMap="appUserResult"
+		parameterType="java.lang.Integer">
+		select
+		b.datumId,b.userId,b.age,b.gender,b.cityId,b.weight,b.height,b.shape,b.sexuat,b.sign,
+		a.nickName,headImage
+		from user a inner join
+		userdatum b
+		on
+		a.userId=b.userId
+		where
+		b.userId=#{userId}
+	</select>
+	<sql id="Range_Column_Where">
+		<if test="showId>0">
+			AND a.Id=#{showId}
+		</if>
+		<if test="sex>0">
+			AND b.gender=#{sex}
+		</if>
+		<if test="cityId != null and cityId >0">
+			AND b.cityId=#{cityId}
+		</if>
+		<if test="beginAge>0 and endAge >0">
+			AND b.age between #{beginAge} and #{endAge}
+		</if>
+	</sql>
+</mapper>

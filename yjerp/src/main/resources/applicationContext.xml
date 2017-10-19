@@ -47,7 +47,7 @@
 	<!--多数据源配置end -->
 
 	<!--可选，动态数据源配置 -->
-	<bean id="dynamicDataSource" class="com.myErp.utils.DynamicDataSource">
+	<bean id="dynamicDataSource" class="com.service.utils.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<entry value-ref="siteWrite" key="siteWrite"></entry>
@@ -64,7 +64,7 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.myErp.dao" />
+		<property name="basePackage" value="com.service.api.dao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	<!-- <bean id="sqlSessionFactoryErp" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
@@ -72,7 +72,7 @@
 	<!-- <property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
 	<!-- </bean> -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zhzy.erp.dao" />
+		<property name="basePackage" value="com.service.erp.dao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 

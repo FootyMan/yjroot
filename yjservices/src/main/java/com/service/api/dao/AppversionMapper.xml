@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.AppversionMapper">
+	<resultMap id="appversionResultMap" type="com.service.bean.Appversion">
+		<id column="versionId" property="versionId" jdbcType="INTEGER" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="versionName" property="versionName" jdbcType="VARCHAR" />
+		<result column="versionCode" property="versionCode" jdbcType="INTEGER" />
+		<result column="versionDate" property="versionDate" jdbcType="DATE" />
+		<result column="updateDescription" property="updateDescription"
+			jdbcType="VARCHAR" />
+		<result column="downloadUrl" property="downloadUrl" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		versionId,deviceType,versionName,versionCode,versionDate,updateDescription,downloadUrl
+	</sql>
+
+	<insert id="insertAppversion" parameterType="com.service.bean.Appversion"
+		keyProperty="versionId">
+		insert into appversion (deviceType,
+		versionName,versionCode,versionDate,updateDescription,downloadUrl)
+		values
+		(#{deviceType},
+		#{versionName},#{versionCode},now(),#{updateDescription},#{downloadUrl})
+	</insert>
+
+	<select id="selectVersionByDevice" resultType="com.service.bean.Appversion"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from appversion where versionId=(
+		select MAX(versionId) from
+		appversion
+		where deviceType=#{deviceType}
+		group by deviceType)
+	</select>
+</mapper>

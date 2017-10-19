@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myErp.impl.DepServiceImpl;
-import com.myErp.manager.bean.Dept;
-import com.myErp.utils.Pagination;
+import com.service.api.impl.DepServiceImpl;
+import com.service.bean.Dept;
+import com.service.utils.Pagination;
 
 
 @Controller

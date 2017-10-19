@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.InvitationCodeMapper">
+	<resultMap id="codeResultMap" type="com.service.bean.InvitationCode">
+		<id column="code" property="code" jdbcType="INTEGER" />
+		<result column="isValid" property="isValid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column">
+		code,isValid
+	</sql>
+	<insert id="insertCode" parameterType="com.service.bean.InvitationCode">
+		insert into invitationcode
+		(code,isValid)
+		values (#{code},#{isValid})
+	</insert>
+
+	<select id="selectCode" resultType="com.service.bean.InvitationCode"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column"></include>
+		from invitationcode where code=#{code}
+	</select>
+
+	<!--rand()随机取 -->
+	<select id="selectCodeByvalid" resultType="com.service.bean.InvitationCode">
+		SELECT
+		<include refid="Base_Column"></include>
+		FROM myschema.invitationcode where isValid=1 order by rand() LIMIT 1;
+	</select>
+
+	<update id="updateCode" parameterType="java.lang.String">
+
+		update invitationcode set
+		isValid=0 where code=#{code}
+	</update>
+</mapper>

@@ -3,7 +3,7 @@ package com.erp.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.myErp.utils.Pagination;
+import com.service.utils.Pagination;
 
 public class UserModel implements Serializable  { 
 

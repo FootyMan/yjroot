@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserPositionMapper">
+	<resultMap id="positionResultMap" type="com.service.bean.UserPosition">
+		<id column="positionId" property="positionId" jdbcType="INTEGER" />
+		<result column="isPosition" property="isPosition" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="longitude" property="longitude" jdbcType="DECIMAL" />
+		<result column="latitude" property="latitude" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<insert id="insertPosition" parameterType="com.service.bean.UserPosition"
+		keyProperty="positionId">
+		insert into userposition (isPosition,
+		userId,longitude,latitude)
+		values (#{isPosition},
+		#{userId},#{longitude},#{latitude})
+	</insert>
+
+	<update id="updatePosition" parameterType="com.service.bean.UserPosition">
+		update userposition
+		<set>
+			<if test="isPosition>=0">
+				isPosition=#{isPosition},
+			</if>
+			<if test="longitude>0">
+				longitude=#{longitude},
+			</if>
+			<if test="latitude>0">
+				latitude=#{latitude},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	<select id="selectCountByUserId" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select count(1) from userposition
+		where userId=#{userId}
+	</select>
+</mapper>

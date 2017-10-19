@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.myErp.impl.EmployeeServiceImpl;
-import com.myErp.manager.bean.Employee;
-import com.myErp.utils.GlobalsConstant;
+
+import com.service.api.impl.EmployeeServiceImpl;
+import com.service.bean.Employee;
+import com.service.utils.GlobalsConstant;
 
 @Controller
 public class AccountsController {

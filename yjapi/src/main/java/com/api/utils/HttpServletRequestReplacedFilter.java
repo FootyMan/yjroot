@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 
 import com.api.request.baseRequest;
 import com.api.response.BaseResponse;
-import com.myErp.utils.CommonMethod;
-import com.myErp.utils.SystemConfig;
+import com.service.utils.CommonMethod;
+import com.service.utils.SystemConfig;
 
 import javassist.runtime.Desc;
 

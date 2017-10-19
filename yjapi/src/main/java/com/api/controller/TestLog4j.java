@@ -39,20 +39,21 @@ import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.myErp.easemob.EaseMobBusiness;
-import com.myErp.enums.ProductLevel;
-import com.myErp.impl.InvitationCodeServiceImpl;
-import com.myErp.manager.bean.InvitationCode;
-import com.myErp.manager.bean.Province;
-import com.myErp.manager.bean.UserFinancial;
-import com.myErp.redis.CityRedisManager;
-import com.myErp.utils.CommonMethod;
-import com.myErp.utils.DateStyle;
-import com.myErp.utils.DateUtil;
-import com.myErp.utils.Md5Util;
-import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
 import com.mysql.fabric.xmlrpc.base.Data;
+import com.service.api.impl.InvitationCodeServiceImpl;
+import com.service.bean.InvitationCode;
+import com.service.bean.Province;
+import com.service.bean.UserFinancial;
+import com.service.easemob.EaseMobBusiness;
+import com.service.enums.LableType;
+import com.service.enums.ProductLevel;
+import com.service.redis.CityRedisManager;
+import com.service.utils.CommonMethod;
+import com.service.utils.DateStyle;
+import com.service.utils.DateUtil;
+import com.service.utils.Md5Util;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 public class TestLog4j {
 
@@ -62,35 +63,39 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-//		
-//		List<String> strings=new ArrayList<String>();
-//		strings.add("1");
-//		strings.add("2");
-//		List<String> str=new ArrayList<String>();
-//		str.add("1");
-//		str.add("2");
-//		str.add("3");
-//		str.add("4");
-//		for (String x : str) {
-//			if (strings.contains(x)) {
-//				str.remove(x);
-//			}
-//		}
-//		for (String c : str) {
-//			System.out.println(c);
-//		}
+		LableType[] la = LableType.values();
+		for (LableType lableType : la) {
+			System.out.println(lableType.getStateCode());
+		}
+		//
+		// List<String> strings=new ArrayList<String>();
+		// strings.add("1");
+		// strings.add("2");
+		// List<String> str=new ArrayList<String>();
+		// str.add("1");
+		// str.add("2");
+		// str.add("3");
+		// str.add("4");
+		// for (String x : str) {
+		// if (strings.contains(x)) {
+		// str.remove(x);
+		// }
+		// }
+		// for (String c : str) {
+		// System.out.println(c);
+		// }
 		CityRedisManager redis = new CityRedisManager();
 		List<Province> provinces = new ArrayList<Province>();
 
-//		Province province = new Province();
-//		for (int i = 0; i < 2; i++) {
-//			province.setProvinceId(i);
-//			province.setParentId(i);
-//			province.setName("北京");
-//			provinces.add(province);
-//			// 添加
-//			redis.SetCity(provinces);
-//		}
+		// Province province = new Province();
+		// for (int i = 0; i < 2; i++) {
+		// province.setProvinceId(i);
+		// province.setParentId(i);
+		// province.setName("北京");
+		// provinces.add(province);
+		// // 添加
+		// redis.SetCity(provinces);
+		// }
 		// 获取
 		List<Province> listp = redis.GetCityAll();
 		for (Province x : listp) {

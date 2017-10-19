@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserFinancialMapper">
+	<resultMap id="financialResultMap" type="com.service.bean.UserFinancial">
+		<id column="financialId" property="financialId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="payRealName" property="payRealName" jdbcType="VARCHAR" />
+		<result column="payAccount" property="payAccount" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="totalMoney" property="totalMoney" jdbcType="DECIMAL" />
+		<result column="totalRevenue" property="totalRevenue" jdbcType="DECIMAL" />
+		<result column="totalWithDraw" property="totalWithDraw"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		financialId,userId,payRealName,payAccount,phone,totalMoney,
+		totalRevenue,totalWithDraw
+	</sql>
+	<insert id="insertFinancial" parameterType="com.service.bean.UserFinancial"
+		keyProperty="financialId">
+		insert into
+		userfinancial(userId,payRealName,payAccount,phone,totalMoney,totalRevenue,totalWithDraw)
+		values(#{userId},#{payRealName},#{payAccount},#{phone},#{totalMoney},#{totalRevenue},#{totalWithDraw})
+	</insert>
+
+	<update id="updateFinancial" parameterType="com.service.bean.UserFinancial">
+		update userfinancial
+		<set>
+			<if test="payRealName!=null and payRealName!=''">
+				payRealName=#{payRealName},
+			</if>
+			<if test="payAccount!=null and payAccount!=''">
+				payAccount=#{payAccount},
+			</if>
+			<if test="phone!=null and phone!=''">
+				phone=#{phone},
+			</if>
+			<if test="totalMoney!=null and totalMoney>0">
+				totalMoney=#{totalMoney},
+			</if>
+			<if test="totalRevenue!=null and totalRevenue>0">
+				totalRevenue=#{totalRevenue},
+			</if>
+			<if test="totalWithDraw!=null and totalWithDraw>0">
+				totalWithDraw=#{totalWithDraw},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	<select id="selectFinancial" resultType="com.service.bean.UserFinancial"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from userfinancial where userId=#{userId}
+	</select>
+
+</mapper>

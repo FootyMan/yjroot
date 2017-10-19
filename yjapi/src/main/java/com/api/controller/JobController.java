@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.api.utils.ExceptionHandler;
-import com.myErp.enums.UserLevel;
-import com.myErp.impl.UserRechargeServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserRecharge;
+import com.service.api.impl.UserRechargeServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.bean.User;
+import com.service.bean.UserRecharge;
+import com.service.enums.UserLevel;
 
 import io.swagger.annotations.ApiOperation;
 

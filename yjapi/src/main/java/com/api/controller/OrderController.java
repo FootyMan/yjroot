@@ -12,7 +12,7 @@ import com.api.request.baseRequest;
 import com.api.response.BaseResponse;
 import com.api.response.ProductsResponse;
 import com.api.utils.decrypt.ResponseEncryptBody;
-import com.myErp.impl.ProductServiceImpl;
+import com.service.api.impl.ProductServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

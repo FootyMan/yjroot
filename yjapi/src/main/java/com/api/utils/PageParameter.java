@@ -1,7 +1,7 @@
 package com.api.utils;
 
-import com.myErp.manager.bean.AppHomePagePaging;
-import com.myErp.manager.bean.RangeParameter;
+import com.service.bean.AppHomePagePaging;
+import com.service.bean.RangeParameter;
 
 public class PageParameter {
 

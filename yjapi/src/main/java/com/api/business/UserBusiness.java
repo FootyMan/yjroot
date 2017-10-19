@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+import javax.security.auth.x500.X500Principal;
+import javax.validation.constraints.Null;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +43,30 @@ import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
-import com.myErp.enums.LableType;
-import com.myErp.impl.InvitationCodeServiceImpl;
-import com.myErp.impl.UserBrowseServiceImpl;
-import com.myErp.impl.UserDatumServiceImpl;
-import com.myErp.impl.UserImgServiceImpl;
-import com.myErp.impl.UserInviteServiceImpl;
-import com.myErp.impl.UserLableMappingServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.impl.UserVerifyCodeServiceImpl;
-import com.myErp.impl.UserlikeServiceImpl;
-import com.myErp.manager.bean.InvitationCode;
-import com.myErp.manager.bean.LabletType;
-import com.myErp.manager.bean.RangeParameter;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserBrowse;
-import com.myErp.manager.bean.UserDatum;
-import com.myErp.manager.bean.UserImg;
-import com.myErp.manager.bean.UserInvite;
-import com.myErp.manager.bean.UserLableMapping;
-import com.myErp.manager.bean.UserVerifyCode;
-import com.myErp.manager.bean.Userlike;
-import com.myErp.utils.Md5Util;
-import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
+import com.service.api.impl.InvitationCodeServiceImpl;
+import com.service.api.impl.UserBrowseServiceImpl;
+import com.service.api.impl.UserDatumServiceImpl;
+import com.service.api.impl.UserImgServiceImpl;
+import com.service.api.impl.UserInviteServiceImpl;
+import com.service.api.impl.UserLableMappingServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.api.impl.UserVerifyCodeServiceImpl;
+import com.service.api.impl.UserlikeServiceImpl;
+import com.service.bean.InvitationCode;
+import com.service.bean.LabletType;
+import com.service.bean.RangeParameter;
+import com.service.bean.User;
+import com.service.bean.UserBrowse;
+import com.service.bean.UserDatum;
+import com.service.bean.UserImg;
+import com.service.bean.UserInvite;
+import com.service.bean.UserLableMapping;
+import com.service.bean.UserVerifyCode;
+import com.service.bean.Userlike;
+import com.service.enums.LableType;
+import com.service.utils.Md5Util;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 @Service("UserBusiness")
 public class UserBusiness {
@@ -149,40 +154,44 @@ public class UserBusiness {
 	 */
 	public BaseResponse<MyLableResponse> GetUserLableByUserID(baseRequest<?> request) {
 		BaseResponse<MyLableResponse> response = new BaseResponse<MyLableResponse>();
-		
-		MyLableResponse myLableResponse=new MyLableResponse();
-		LableTypeResponse las=new LableTypeResponse();
+
+		MyLableResponse myLableResponse = new MyLableResponse();
 		// 获取用户已选择的标签
-		
-		UserLableMapping  mapping=new UserLableMapping();
+
+		UserLableMapping mapping = new UserLableMapping();
 		mapping.setUserId(request.getUserId());
 		List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(mapping);
 		// 获取所有标签
+
 		List<LabletType> labletTypes = initBusiness.GetLableTypeAll();
-		for (LabletType labletType : labletTypes) {
-			 
-			LableResponse la = new LableResponse();
-			la.setLableId(labletType.getLableId());
-			la.setLableName(labletType.getLableName());
-			la.setLableType(labletType.getLableType());
-			
-			if (userLableData != null && userLableData.size() > 0 && userLableData.contains(labletType)) {
-				la.setMyLable(true);
-			} else {
-				la.setMyLable(false);
-			}
-			
-			if (labletType.getLableType()==1) {
-				las.setLabelTypeName(LableType.getLableTypeByCode(labletType.getLableType()).getDesc());
-				//las.getGexing().add(la);
-			}
-			else if(labletType.getLableType()==2)
-			{
-				las.setLabelTypeName(LableType.getLableTypeByCode(labletType.getLableType()).getDesc());
-				//las.getPianHao().add(la);
-			}
+		LableType[] laEnum = LableType.values();
+		for (LableType el : laEnum) {
+
+			LableTypeResponse typeResponse = new LableTypeResponse();
+			List<LableResponse> lableRespose = new ArrayList<LableResponse>();
+			typeResponse.setLabelTypeName(el.getDesc());
+			Predicate<LabletType> contain = n -> n.getLableType() == el.getStateCode();
+			labletTypes.stream().filter(contain).forEach(P -> {
+				LableResponse lableResponse = new LableResponse();
+				lableResponse.setLableId(P.getLableId());
+				lableResponse.setLableName(P.getLableName());
+				lableResponse.setLableType(P.getLableType());
+				lableResponse.setMyLable(false);
+
+				if (userLableData != null) {
+					Optional<UserLableMapping> mp = userLableData.stream().filter(o -> o.getLableId() == P.getLableId())
+							.findFirst();
+
+					if (mp.isPresent()) {
+						lableResponse.setMyLable(true);
+					}
+
+				}
+				lableRespose.add(lableResponse);
+			});
+			typeResponse.setLableTypes(lableRespose);
+			myLableResponse.getLables().add(typeResponse);
 		}
-		//myLableResponse.setLables(las);
 		response.setData(myLableResponse);
 		return response;
 	}

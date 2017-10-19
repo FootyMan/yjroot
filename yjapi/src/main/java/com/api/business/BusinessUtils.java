@@ -14,13 +14,13 @@ import com.api.response.LableTypeResponse;
 import com.api.response.UserImgResponse;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
-import com.myErp.manager.bean.LabletType;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserImg;
-import com.myErp.manager.bean.UserPosition;
-import com.myErp.utils.SystemConfig;
-import com.myErp.impl.UserImgServiceImpl;
-import com.myErp.impl.UserPositionServiceImpl;
+import com.service.api.impl.UserImgServiceImpl;
+import com.service.api.impl.UserPositionServiceImpl;
+import com.service.bean.LabletType;
+import com.service.bean.User;
+import com.service.bean.UserImg;
+import com.service.bean.UserPosition;
+import com.service.utils.SystemConfig;
 
 @Service("BusinessUtils")
 public class BusinessUtils {

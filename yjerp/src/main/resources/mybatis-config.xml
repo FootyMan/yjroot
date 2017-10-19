@@ -20,7 +20,7 @@
 	</typeAliases>
 	
 	<plugins>
-		<plugin interceptor="com.myErp.utils.PagePlugin">
+		<plugin interceptor="com.service.utils.PagePlugin">
 			<property name="dialect" value="mysql"/>
 			<property name="pageSqlId" value="(ByPage)|(ForPage)"/>
 		</plugin>
@@ -38,10 +38,10 @@
 <!-- 		</environment> -->
 <!-- 	</environments> -->
 	<mappers>
-		<mapper resource="com/myErp/dao/EmployeeMapper.xml" />
-		<mapper resource="com/myErp/dao/RoleMapper.xml" />
-		<mapper resource="com/myErp/dao/DepMapper.xml" />
-		<mapper resource="com/zhzy/erp/dao/UserMapperERP.xml" />
+		<mapper resource="com/service/api/dao/EmployeeMapper.xml" />
+		<mapper resource="com/service/api/dao/RoleMapper.xml" />
+		<mapper resource="com/service/api/dao/DepMapper.xml" />
+		<mapper resource="com/service/erp/dao/UserMapperERP.xml" />
 	</mappers>
 
 

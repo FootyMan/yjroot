@@ -1,6 +1,6 @@
 package com.api.alipay.sdk;
 
-import com.myErp.utils.SystemConfig;
+import com.service.utils.SystemConfig;
 
 public class AlipayConfig {
 

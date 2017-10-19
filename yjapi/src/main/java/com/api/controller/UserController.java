@@ -18,10 +18,11 @@ import com.api.request.*;
 import com.api.utils.PhoneMessageSend;
 import com.api.utils.ResultEnum;
 import com.api.utils.decrypt.ResponseEncryptBody;
-import com.myErp.manager.bean.UserVerifyCode;
-import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
-import com.myErp.utils.ValidateUtil;
+import com.service.bean.UserVerifyCode;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
+import com.service.utils.ValidateUtil;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

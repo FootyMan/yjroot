@@ -40,6 +40,7 @@ com\api\request\ProfitWithDrawRequest.class
 com\api\utils\DES.class
 com\api\request\RangeRequest.class
 com\api\business\ProfitBusiness.class
+com\api\response\LableTypeResponse.class
 com\api\request\OrderRequest.class
 com\api\utils\decrypt\ResponseEncryptBody.class
 com\api\utils\ExceptionHandler.class
@@ -67,7 +68,6 @@ com\api\request\DetailsRequest.class
 com\api\response\UserImgResponse.class
 com\api\business\UserBusiness$3.class
 com\api\request\UserDatumRequest.class
-com\api\response\LablesResponse.class
 com\api\response\MyLableResponse.class
 com\api\response\DetailsUserResponse.class
 com\api\wxpay\sdk\WXPayReport$ReportInfo.class

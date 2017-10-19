@@ -22,12 +22,12 @@ import com.api.response.FileUploadResponse;
 import com.api.response.UserImgResponse;
 import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
-import com.myErp.impl.UserImgServiceImpl;
-import com.myErp.impl.UserServiceImpl;
-import com.myErp.manager.bean.User;
-import com.myErp.manager.bean.UserImg;
-import com.myErp.utils.StringUtils;
-import com.myErp.utils.SystemConfig;
+import com.service.api.impl.UserImgServiceImpl;
+import com.service.api.impl.UserServiceImpl;
+import com.service.bean.User;
+import com.service.bean.UserImg;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 import net.coobird.thumbnailator.Thumbnails;
 

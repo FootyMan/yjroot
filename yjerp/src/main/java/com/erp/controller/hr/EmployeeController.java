@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myErp.impl.DepServiceImpl;
-import com.myErp.impl.EmployeeServiceImpl;
-import com.myErp.impl.RoleServiceImpl;
-import com.myErp.manager.bean.Employee;
-import com.myErp.manager.bean.Role;
-import com.myErp.utils.GlobalsConstant;
-import com.myErp.utils.Pagination;
-import com.myErp.utils.RequestUtils;
+import com.service.api.impl.DepServiceImpl;
+import com.service.api.impl.EmployeeServiceImpl;
+import com.service.api.impl.RoleServiceImpl;
+import com.service.bean.Employee;
+import com.service.bean.Role;
+import com.service.utils.GlobalsConstant;
+import com.service.utils.Pagination;
+import com.service.utils.RequestUtils;
 
 @Controller
 @RequestMapping("/hr/employee")
