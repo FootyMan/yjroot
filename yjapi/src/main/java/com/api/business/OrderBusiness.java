@@ -1,5 +1,8 @@
 package com.api.business;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,8 @@ import com.api.request.baseRequest;
 import com.api.response.AlipayResponse;
 import com.api.response.WxResponse;
 import com.api.response.BaseResponse;
+import com.api.response.ProductDetailResponse;
+import com.api.response.ProductsResponse;
 import com.myErp.impl.OrderServiceImpl;
 import com.myErp.impl.ProductServiceImpl;
 import com.myErp.manager.bean.Order;
@@ -22,16 +27,15 @@ public class OrderBusiness {
 	private ProductServiceImpl productServiceImpl;
 	@Autowired
 	private OrderServiceImpl orderServiceImpl;
-	
-	
+
 	/**
 	 * 订单支付获取支付信息
+	 * 
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<?> PayOrder(baseRequest<OrderRequest> request)
-	{
-		
+	public BaseResponse<?> PayOrder(baseRequest<OrderRequest> request) {
+
 		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
 		if (product != null && product.getProductId() > 0) {
@@ -75,5 +79,30 @@ public class OrderBusiness {
 			return aliPayResponse;
 		}
 		return null;
+	}
+
+	/**
+	 * 获取购买产品
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public BaseResponse<ProductsResponse> GetProducts(baseRequest<?> request) {
+		List<Product> products = productServiceImpl.selectProductlist();
+
+		BaseResponse<ProductsResponse> response = new BaseResponse<ProductsResponse>();
+		ProductsResponse ps = new ProductsResponse();
+		List<ProductDetailResponse> listProduct = new ArrayList<ProductDetailResponse>();
+		for (Product product : products) {
+			ProductDetailResponse x = new ProductDetailResponse();
+			x.setPrice(product.getPrice());
+			x.setProductId(product.getProductId());
+			x.setDesc(product.getProductDesc());
+			x.setTitle(product.getTitle());
+			listProduct.add(x);
+		}
+		ps.setProducts(listProduct);
+		response.setData(ps);
+		return response;
 	}
 }

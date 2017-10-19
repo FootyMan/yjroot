@@ -73,6 +73,22 @@
 		<!-- LIMIT #{pageIndex},#{pageSize} -->
 	</select>
 
+	<!-- 首页用户 -->
+	<select id="HomeUserList" resultMap="userResult"
+		parameterType="com.myErp.manager.bean.User">
+		SELECT
+		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join homeuser c
+		on
+		c.userId=a.userId
+	</select>
+
 
 
 

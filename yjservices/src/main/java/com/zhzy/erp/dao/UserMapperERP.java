@@ -12,4 +12,11 @@ public abstract interface UserMapperERP {
 	 * @return
 	 */
 	public abstract List<User> ErpUserList(User user);
+	
+	/**
+	 * 首页用户列表
+	 * @param user
+	 * @return
+	 */
+	public abstract List<User> HomeUserList(User user);
 }

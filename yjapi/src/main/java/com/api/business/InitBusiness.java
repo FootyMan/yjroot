@@ -9,6 +9,7 @@ import com.api.request.InitRedisRequest;
 import com.api.request.baseRequest;
 import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
+import com.api.response.LableTypeResponse;
 import com.api.response.PageTwoResponse;
 import com.api.response.UserInfoResponse;
 import com.api.response.VersionResponse;
@@ -41,9 +42,10 @@ public class InitBusiness {
 	@Autowired
 	private AppversionServiceImpl appversionServiceImpl;
 	@Autowired
-	private BusinessUtils  businessUtils;
+	private BusinessUtils businessUtils;
 	@Autowired
 	private ProvinceServiceImpl provinceServiceImpl;
+
 	/**
 	 * 初始化用户
 	 * 
@@ -78,8 +80,10 @@ public class InitBusiness {
 
 	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
 		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
-		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
-		InitResponseAppData appData =businessUtils.LableEntityToModel(labletTypes);
+		InitResponseAppData appData = new InitResponseAppData();
+		List<LabletType> labletTypes = GetLableTypeAll();
+//		LablesResponse lables = businessUtils.LableEntityToModel(labletTypes);
+//		appData.setLables(lables);
 		// // 获取城市
 		// List<Province> listCity = provinceServiceImpl.selectProvinces();
 		// Predicate<Province> contain1 = n -> n.getParentId() == 0;
@@ -117,7 +121,17 @@ public class InitBusiness {
 		return response;
 
 	}
-	
+
+	/**
+	 * 获取所有标签
+	 * 
+	 * @return
+	 */
+	public List<LabletType> GetLableTypeAll() {
+		List<LabletType> labletTypes = labletTypeServiceImpl.selectlabletTypeAll();
+		return labletTypes;
+	}
+
 	/**
 	 * 获取版本信息用于提示更新
 	 * 
@@ -139,6 +153,7 @@ public class InitBusiness {
 		}
 		return versionModel;
 	}
+
 	/**
 	 * 获取二次启动页
 	 * 
@@ -149,6 +164,7 @@ public class InitBusiness {
 		pageTwoModel.setImgUrl(SystemConfig.pageTwo);
 		return pageTwoModel;
 	}
+
 	/**
 	 * 初始化用户信息
 	 * 
@@ -196,9 +212,8 @@ public class InitBusiness {
 		initUser.setUser(info);
 		return initUser;
 	}
-	
-	public BaseResponse<?> InitRedis(baseRequest<InitRedisRequest> request)
-	{
+
+	public BaseResponse<?> InitRedis(baseRequest<InitRedisRequest> request) {
 		BaseResponse<?> response = new BaseResponse<Object>();
 		InitRedisRequest body = request.getbody();
 		if (body.getCatchType() == 1) {
@@ -208,13 +223,12 @@ public class InitBusiness {
 			ResultModel result = manager.SetCity(listCity);
 			if (result.isSuccess()) {
 				response.setMsg("城市初始化成功");
-			}
-			else {
+			} else {
 				response.setMsg(result.getMsg());
 			}
-//			for (Province province : manager.GetCityAll()) {
-//				System.out.println(province.getName());
-//			}
+			// for (Province province : manager.GetCityAll()) {
+			// System.out.println(province.getName());
+			// }
 			response.setMsg(manager.GetCitySingle(400).getName());
 		}
 		return response;

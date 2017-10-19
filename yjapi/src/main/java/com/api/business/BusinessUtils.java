@@ -10,6 +10,7 @@ import com.api.request.baseRequest;
 import com.api.response.HomeResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
+import com.api.response.LableTypeResponse;
 import com.api.response.UserImgResponse;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -84,40 +85,28 @@ public class BusinessUtils {
 	 * @param labletTypes
 	 * @return
 	 */
-	public InitResponseAppData LableEntityToModel(List<LabletType> labletTypes) {
-		InitResponseAppData appData = new InitResponseAppData();
-		for (LabletType labletType : labletTypes) {
-			LableResponse lableModel = new LableResponse();
-			lableModel.setLableId(labletType.getLableId());
-			lableModel.setLableName(labletType.getLableName());
-			// 1个性类
-			if (labletType.getLableType() == 1) {
-				lableModel.setLableType(labletType.getLableType());
-				appData.getPersonality().add(lableModel);
-			}
-			// 2运动类
-			if (labletType.getLableType() == 2) {
-				lableModel.setLableType(labletType.getLableType());
-				appData.getSports().add(lableModel);
-			}
-			// 3音乐类
-			if (labletType.getLableType() == 3) {
-				lableModel.setLableType(labletType.getLableType());
-				appData.getMusic().add(lableModel);
-			}
-			// 4美食类
-			if (labletType.getLableType() == 4) {
-				lableModel.setLableType(labletType.getLableType());
-				appData.getCate().add(lableModel);
-			}
-			// 5旅游类
-			if (labletType.getLableType() == 5) {
-				lableModel.setLableType(labletType.getLableType());
-				appData.getTour().add(lableModel);
-			}
-		}
-		return appData;
-	}
+//	public LablesResponse LableEntityToModel(List<LabletType> labletTypes) {
+//		LablesResponse lables=new LablesResponse();
+//		
+////		InitResponseAppData appData = new InitResponseAppData();
+//		for (LabletType labletType : labletTypes) {
+//			LableResponse lableModel = new LableResponse();
+//			lableModel.setLableId(labletType.getLableId());
+//			lableModel.setLableName(labletType.getLableName());
+//			// 1个性类
+//			if (labletType.getLableType() == 1) {
+//				lableModel.setLableType(labletType.getLableType());
+//				lables.getPersonality().add(lableModel);
+//			}
+//			// 2运动类
+//			if (labletType.getLableType() == 2) {
+//				lableModel.setLableType(labletType.getLableType());
+//				lables.getSports().add(lableModel);
+//			}
+//		}
+////		appData.setLables(lables);
+//		return lables;
+//	}
 
 	/**
 	 * 根据userId获取图片

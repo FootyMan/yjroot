@@ -25,7 +25,7 @@
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="200" />
+		<property name="maxActive" value="10" />
 		<!--initialSize: 初始化连接 -->
 		<property name="initialSize" value="5" />
 	</bean>
@@ -38,7 +38,7 @@
 		<!-- druid 连接池的 -->
 		<property name="filters" value="stat" />
 		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="200" />
+		<property name="maxActive" value="10" />
 		<!--initialSize: 初始化连接 -->
 		<property name="initialSize" value="5" />
 	</bean>

@@ -62,6 +62,23 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
+//		
+//		List<String> strings=new ArrayList<String>();
+//		strings.add("1");
+//		strings.add("2");
+//		List<String> str=new ArrayList<String>();
+//		str.add("1");
+//		str.add("2");
+//		str.add("3");
+//		str.add("4");
+//		for (String x : str) {
+//			if (strings.contains(x)) {
+//				str.remove(x);
+//			}
+//		}
+//		for (String c : str) {
+//			System.out.println(c);
+//		}
 		CityRedisManager redis = new CityRedisManager();
 		List<Province> provinces = new ArrayList<Province>();
 

@@ -1,14 +1,16 @@
 package com.erp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.myErp.utils.Pagination;
 
-public class UserModel {
+public class UserModel implements Serializable  { 
+
 	private Pagination page;
 
 	private int userId;
-	private int id;
+	private String userNo;
 	/**
 	 * 手机号
 	 */
@@ -91,12 +93,12 @@ public class UserModel {
 		this.userId = userId;
 	}
 
-	public int getId() {
-		return id;
+	public String getUserNo() {
+		return userNo;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 
 	public String getPhone() {

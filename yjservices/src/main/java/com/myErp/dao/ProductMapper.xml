@@ -8,10 +8,12 @@
 		<result column="day" property="day" jdbcType="INTEGER" />
 		<result column="productType" property="productType" jdbcType="INTEGER" />
 		<result column="productDesc" property="productDesc" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		
 	</resultMap>
 
 	<sql id="Base_Column">
-		productId,price,day,productType,productDesc
+		productId,price,day,productType,productDesc,title
 	</sql>
 	 
 	<select id="selectProductlist" resultMap="productResultMap">

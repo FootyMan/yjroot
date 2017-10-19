@@ -91,6 +91,11 @@
 			<systemPath>${project.basedir}/src/main/lib/alipay-sdk-java-20170829142630.jar</systemPath>
 		</dependency>
 
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>

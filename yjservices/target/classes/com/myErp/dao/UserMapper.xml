@@ -199,7 +199,16 @@
 	<!-- 个人详情主页 -->
 	<select id="getUserDetails" resultMap="appUserResult"
 		parameterType="com.myErp.manager.bean.RangeParameter">
-		call Proc_GetUserDetails(#{lat},#{lon},#{userId})
+		SELECT
+		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
+		rangeM,a.userLevel
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId inner join userposition c
+		on a.userId=c.userId
+		where
+		a.userId=#{userId};
 	</select>
 
 

@@ -14,6 +14,7 @@ com\myErp\dao\ProvinceMapper.class
 com\myErp\manager\bean\UserImg.class
 com\myErp\manager\bean\UserLableMapping.class
 com\myErp\impl\OrderServiceImpl.class
+com\myErp\enums\LableType.class
 com\myErp\manager\bean\UserFinancial.class
 com\myErp\impl\UserRechargeServiceImpl.class
 com\myErp\enums\ProductLevel.class

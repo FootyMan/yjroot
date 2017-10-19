@@ -192,7 +192,7 @@ public class UserController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/getUserlable", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addLable", value = "根据用户ID获取他的所有标签", notes = "根据用户ID获取他的所有标签")
-	public BaseResponse<InitResponseAppData> GetUserLableByUserID(
+	public BaseResponse<MyLableResponse> GetUserLableByUserID(
 			@ApiParam(value = "输入") @RequestBody baseRequest<?> request) throws Exception {
 		return userBusiness.GetUserLableByUserID(request);
 	}

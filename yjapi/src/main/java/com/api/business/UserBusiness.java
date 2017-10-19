@@ -28,7 +28,9 @@ import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
 import com.api.response.LableResponseData;
+import com.api.response.LableTypeResponse;
 import com.api.response.MyImageResponse;
+import com.api.response.MyLableResponse;
 import com.api.response.DetailsUserResponse;
 import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
@@ -36,6 +38,7 @@ import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
+import com.myErp.enums.LableType;
 import com.myErp.impl.InvitationCodeServiceImpl;
 import com.myErp.impl.UserBrowseServiceImpl;
 import com.myErp.impl.UserDatumServiceImpl;
@@ -144,18 +147,43 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<InitResponseAppData> GetUserLableByUserID(baseRequest<?> request) {
-		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
-		UserLableMapping mapping = new UserLableMapping();
+	public BaseResponse<MyLableResponse> GetUserLableByUserID(baseRequest<?> request) {
+		BaseResponse<MyLableResponse> response = new BaseResponse<MyLableResponse>();
+		
+		MyLableResponse myLableResponse=new MyLableResponse();
+		LableTypeResponse las=new LableTypeResponse();
+		// 获取用户已选择的标签
+		
+		UserLableMapping  mapping=new UserLableMapping();
 		mapping.setUserId(request.getUserId());
 		List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(mapping);
-		if (userLableData != null && userLableData.size() > 0) {
-			List<LabletType> types = new ArrayList<LabletType>();
-			for (UserLableMapping userLableMapping : userLableData) {
-				types.add(userLableMapping.getLabletTypes());
+		// 获取所有标签
+		List<LabletType> labletTypes = initBusiness.GetLableTypeAll();
+		for (LabletType labletType : labletTypes) {
+			 
+			LableResponse la = new LableResponse();
+			la.setLableId(labletType.getLableId());
+			la.setLableName(labletType.getLableName());
+			la.setLableType(labletType.getLableType());
+			
+			if (userLableData != null && userLableData.size() > 0 && userLableData.contains(labletType)) {
+				la.setMyLable(true);
+			} else {
+				la.setMyLable(false);
 			}
-			response.setData(businessUtils.LableEntityToModel(types));
+			
+			if (labletType.getLableType()==1) {
+				las.setLabelTypeName(LableType.getLableTypeByCode(labletType.getLableType()).getDesc());
+				//las.getGexing().add(la);
+			}
+			else if(labletType.getLableType()==2)
+			{
+				las.setLabelTypeName(LableType.getLableTypeByCode(labletType.getLableType()).getDesc());
+				//las.getPianHao().add(la);
+			}
 		}
+		//myLableResponse.setLables(las);
+		response.setData(myLableResponse);
 		return response;
 	}
 

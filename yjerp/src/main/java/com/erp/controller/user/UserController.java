@@ -48,7 +48,7 @@ public class UserController {
 			UserModel m = new UserModel();
 			UserDatum datm = x.getDatum();
 			m.setUserId(x.getUserId());
-			m.setId(x.getUserId());
+			m.setUserNo(String.valueOf(x.getUserId()));
 			m.setPhone(x.getPhone());
 			m.setDeviceType(DeviceType.getDeviceTypeByCode(x.getDeviceType()).getDesc());
 			m.setNickName(x.getNickName());
@@ -74,5 +74,46 @@ public class UserController {
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("page", Pagination.threadLocal.get());
 		return new ModelAndView("/user/list");
+	}
+	
+	/**
+	 * 首页用户列表
+	 * @param userModel
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/home", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView Home(UserModel userModel, Model model) {// Employee
+																// employee,
+		Pagination pagination = userModel.getPage();
+		if (pagination == null) {
+			pagination = new Pagination();
+		}
+		Pagination.threadLocal.set(pagination);
+		User user = new User();
+		List<User> empReslist = userServiceImplERP.GetHomeUserList(user);
+		List<UserModel> listUser = new ArrayList<UserModel>();
+		for (User x : empReslist) {
+			UserModel m = new UserModel();
+			UserDatum datm = x.getDatum();
+			m.setUserId(x.getUserId());
+			m.setUserNo(String.valueOf(x.getUserId()));
+			m.setPhone(x.getPhone());
+			m.setDeviceType(DeviceType.getDeviceTypeByCode(x.getDeviceType()).getDesc());
+			m.setNickName(x.getNickName());
+			m.setRegisterTime(x.getRegisterTime());
+			m.setUserLevel(UserLevel.getOrderStateByCode(x.getUserLevel()).getDesc());
+			m.setIsDisable(x.getIsDisable() == 1 ? "启用" : "禁用");
+			m.setInviteCode(x.getInviteCode());
+			m.setAge(datm.getAge());
+			m.setSex(datm.getGender() == 1 ? "男" : "女");
+			m.setCityName(provinceServiceImpl.SelectProvincesById(datm.getCityId()).getName());
+			m.setSexuat(datm.getSexuat());
+			listUser.add(m);
+		}
+
+		model.addAttribute("listUser", listUser);
+		model.addAttribute("page", Pagination.threadLocal.get());
+		return new ModelAndView("/user/home");
 	}
 }

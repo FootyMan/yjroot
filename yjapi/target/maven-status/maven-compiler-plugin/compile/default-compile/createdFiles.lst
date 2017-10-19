@@ -20,6 +20,7 @@ com\api\business\BusinessUtils$1.class
 com\api\utils\DecryptEncryptUtils.class
 com\api\response\InitWithdrawalsResponse.class
 com\api\response\UserInfoResponse.class
+com\api\response\ProductsResponse.class
 com\api\response\WxResponse.class
 com\api\wxpay\sdk\WXPayConstants.class
 com\api\controller\OrderController.class
@@ -29,6 +30,7 @@ com\api\wxpay\sdk\WXPayReport$3.class
 com\api\request\LableRequest.class
 com\api\response\FileUploadResponse.class
 com\api\request\CityResponseChild.class
+com\api\response\ProductDetailResponse.class
 com\api\response\BaseResponse.class
 com\api\controller\ProfitController.class
 com\api\response\LableResponse.class
@@ -65,6 +67,8 @@ com\api\request\DetailsRequest.class
 com\api\response\UserImgResponse.class
 com\api\business\UserBusiness$3.class
 com\api\request\UserDatumRequest.class
+com\api\response\LablesResponse.class
+com\api\response\MyLableResponse.class
 com\api\response\DetailsUserResponse.class
 com\api\wxpay\sdk\WXPayReport$ReportInfo.class
 com\api\utils\BodyReaderHttpServletRequestWrapper$1.class

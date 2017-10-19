@@ -12,6 +12,16 @@ public class Product {
 	private int productType;
 	//产品描述
 	private String productDesc;
+	/**
+	 * 会员标题
+	 */
+	private String title;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getProductId() {
 		return productId;
 	}

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ import com.myErp.manager.bean.User;
 import com.myErp.manager.bean.UserImg;
 import com.myErp.utils.StringUtils;
 import com.myErp.utils.SystemConfig;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service("FileBusiness")
 public class FileBusiness {
@@ -98,7 +101,7 @@ public class FileBusiness {
 			if (fileName != null) {
 				SimpleDateFormat timeFile = new SimpleDateFormat("YYYYMMddHHmmssSSS");
 				Date Timedate = new Date();
-				String newFileName = timeFile.format(Timedate) + ".jpg";
+				String newFileName = userId + timeFile.format(Timedate) + ".jpg";
 
 				// File fullFile = new File(new String(fi.getName().getBytes(),
 				// "utf-8")); // 解决文件名乱码问题
@@ -106,7 +109,11 @@ public class FileBusiness {
 				File savedFile = new File(uploadPath, newFileName);
 				fi.write(savedFile);
 				imageStr.add(newFileName);
-				imgStr.add(currentDate + "/" + newFileName);
+
+				// 压缩后的图片
+				String thumbnailName =userId + timeFile.format(Timedate) + "thuma.jpg";
+				Thumbnails.of(uploadPath+"/"+newFileName).scale(1f).outputFormat("jpg").toFile( uploadPath + "/"+thumbnailName);
+				imgStr.add(currentDate + "/" + thumbnailName);
 			}
 		}
 
@@ -136,7 +143,13 @@ public class FileBusiness {
 			}
 			int insertResult = userImgServiceImpl.insertUserImg(imgs);
 			if (insertResult > 0) {
-				imgResponse = businessUtils.GetImgListByUserId(userId);
+				List<UserImgResponse> dataImg = businessUtils.GetImgListByUserId(userId);
+				// 返回这次请求的图片数据
+				for (UserImgResponse userImg : dataImg) {
+					if (imgStr.contains(userImg.getImg().replace(SystemConfig.ImgurlPrefix, ""))) {
+						imgResponse.add(userImg);
+					}
+				}
 			}
 			// 入库成功查询用户一遍 用于返回imgId 供客户端删除用
 

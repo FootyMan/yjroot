@@ -8,8 +8,16 @@ public class LableResponse {
 	private int lableId;
 	@ApiModelProperty(value = "标签名称")
 	private String lableName;
-	@ApiModelProperty(value = "标签类型1个性类 2运动类 3音乐类 4美食类 5旅游类")
+	@ApiModelProperty(value = "标签类型1个性类 2偏好设置")
 	private int lableType;
+	public boolean isMyLable() {
+		return isMyLable;
+	}
+	public void setMyLable(boolean isMyLable) {
+		this.isMyLable = isMyLable;
+	}
+	@ApiModelProperty(value = "是否是我的标签")
+	private boolean isMyLable;
 	public String getLableName() {
 		return lableName;
 	}

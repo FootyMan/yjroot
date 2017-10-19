@@ -10,11 +10,11 @@
 <jsp:include page="/inc/web/header.jsp" />
 <div class="container-fluid">
 
-	<form action="../user/list" method="get">
+	<form action="../user/home" method="get">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<div class="row">
-					<h3>用户管理></h3>
+					<h3>首页管理></h3>
 				</div>
 				<div class="row">
 					<div class="form-group">
@@ -38,10 +38,6 @@
 
 						<div class="col-sm-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
-						</div>
-						<div class="ibox-tools">
-							<a href="<%=path%>/hr/employee/add"
-								class="btn btn-sm btn-primary">新增用户</a>
 						</div>
 					</div>
 				</div>
@@ -75,11 +71,6 @@
 								<td>${emp.sexuat}</td>
 								<td>${emp.deviceType}</td>
 								<td>${emp.isDisable}</td>
-								<td><a class="btn btn-white btn-sm"
-									href="<%=path%>/hr/employee//list.detail?id=${emp.userId}"><i
-										class="fa fa-pencil"></i> 详情 </a> <a class="btn btn-white btn-sm"
-									href="/hr/employee/update?id=${emp.userId}"><i
-										class="fa fa-pencil"></i> 编辑 </a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
