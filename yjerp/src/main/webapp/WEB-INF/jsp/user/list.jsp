@@ -40,7 +40,7 @@
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
 						</div>
 						<div class="ibox-tools">
-							<a href="<%=path%>/hr/employee/add"
+							<a href="../user/add"
 								class="btn btn-sm btn-primary">新增用户</a>
 						</div>
 					</div>
@@ -79,7 +79,7 @@
 									href="<%=path%>/hr/employee//list.detail?id=${emp.userId}"><i
 										class="fa fa-pencil"></i> 详情 </a> <a class="btn btn-white btn-sm"
 									href="/hr/employee/update?id=${emp.userId}"><i
-										class="fa fa-pencil"></i> 编辑 </a></td>
+										class="fa fa-pencil"></i> 设到首页 </a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

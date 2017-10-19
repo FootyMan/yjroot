@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhzy.erp.dao.UserMapperERP">
+<mapper namespace="com.service.erp.dao.UserMapperERP">
 	<resultMap id="userResultList" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
 		<result column="Id" property="Id" jdbcType="VARCHAR" />
