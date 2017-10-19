@@ -80,7 +80,7 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="./user/list">会员管理</a></li>
 							<li><a class="J_menuItem" href="./user/home">首页用户</a>
-							<li><a class="J_menuItem" href="./hr/dep/list">订单管理</a>
+							<li><a class="J_menuItem" href="./user/add">订单管理</a>
 							<li><a class="J_menuItem" href="/sys/roleFunc/list">用户提现</a></li>
 <!-- 							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li> -->
 <!-- 							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li> -->

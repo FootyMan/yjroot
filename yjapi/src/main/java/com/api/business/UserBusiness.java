@@ -171,6 +171,7 @@ public class UserBusiness {
 			List<LableResponse> lableRespose = new ArrayList<LableResponse>();
 			typeResponse.setLabelTypeName(el.getDesc());
 			Predicate<LabletType> contain = n -> n.getLableType() == el.getStateCode();
+
 			labletTypes.stream().filter(contain).forEach(P -> {
 				LableResponse lableResponse = new LableResponse();
 				lableResponse.setLableId(P.getLableId());
@@ -184,6 +185,13 @@ public class UserBusiness {
 
 					if (mp.isPresent()) {
 						lableResponse.setMyLable(true);
+						if (!StringUtils.isEmpty(typeResponse.getDisplayLable())) {
+							typeResponse.setDisplayLable(
+									typeResponse.getDisplayLable() + "," + lableResponse.getLableName());
+						} else {
+							typeResponse.setDisplayLable(lableResponse.getLableName());
+						}
+
 					}
 
 				}

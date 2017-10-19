@@ -41,7 +41,6 @@ public class AlipayPayManager {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());// 就是orderString
 		}
-
 		return "";
 	}
 }

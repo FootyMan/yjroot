@@ -19,8 +19,10 @@
 	<select id="selectCodeByphone" resultType="com.service.bean.UserVerifyCode"
 		parameterType="java.lang.String">
 		select * from userverifycode where Id=(
-		select MAX(Id) from userverifycode
-		where phone=#{phone}
+		select MAX(Id)
+		from userverifycode
+		where phone=#{phone} and createTime>=
+		CURRENT_TIMESTAMP - INTERVAL 10 MINUTE
 		group by phone)
 	</select>
 </mapper>

@@ -76,6 +76,15 @@ public class UserController {
 		return new ModelAndView("/user/list");
 	}
 	
+	
+	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView add(Model model) {// Employee
+																// employee,
+		 
+		return new ModelAndView("/user/add");
+	}
+	
+	
 	/**
 	 * 首页用户列表
 	 * @param userModel

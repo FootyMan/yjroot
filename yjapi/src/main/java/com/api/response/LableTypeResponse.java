@@ -21,6 +21,16 @@ public class LableTypeResponse {
 
 	@ApiModelProperty(value = "标签类型名")
 	private String labelTypeName;
+	@ApiModelProperty(value = "显示的标签")
+	private String displayLable;
+
+	public String getDisplayLable() {
+		return displayLable;
+	}
+
+	public void setDisplayLable(String displayLable) {
+		this.displayLable = displayLable;
+	}
 
 	public List<LableResponse> getLableTypes() {
 		return lableTypes;
@@ -37,5 +47,6 @@ public class LableTypeResponse {
 	public void setLabelTypeName(String labelTypeName) {
 		this.labelTypeName = labelTypeName;
 	}
+	
 
 }
