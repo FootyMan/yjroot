@@ -34,6 +34,18 @@ public class UserLableMappingServiceImpl {
 	public List<UserLableMapping> selectlabletByUserId(UserLableMapping userLableMapping) {
 		DBContextHolder.setDBType("siteRead");
 		return userLableMappingMapper.selectlabletByUserId(userLableMapping);
-		
+
+	}
+
+	/**
+	 * 删除
+	 * 
+	 * @param userLableMappingMapper
+	 * @return
+	 */
+	public int deleteLableByUserId(int userId) {
+		DBContextHolder.setDBType("siteRead");
+		return userLableMappingMapper.deleteLableByUserId(userId);
+
 	}
 }

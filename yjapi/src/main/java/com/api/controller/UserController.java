@@ -179,7 +179,7 @@ public class UserController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/addLable", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-addLable", value = "添加用户标签 添加成功立即返回添加后的数据", notes = "添加用户标签")
-	public BaseResponse<LableResponseData> AddUserLable(
+	public BaseResponse<MyLableResponse> AddUserLable(
 			@ApiParam(value = "输入") @RequestBody baseRequest<LableRequestData> request) {
 		return userBusiness.AddUserLable(request);
 	}

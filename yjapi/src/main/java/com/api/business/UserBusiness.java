@@ -7,9 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javax.security.auth.x500.X500Principal;
-import javax.validation.constraints.Null;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +22,11 @@ import com.api.request.UserLikeRequest;
 import com.api.request.baseRequest;
 import com.api.request.userModel;
 import com.api.response.BrowseNumberResponse;
-import com.api.response.UserImgResponse;
 import com.api.response.DetailsLableResponse;
 import com.api.response.DetailsResponse;
 import com.api.response.HomeResponse;
 import com.api.response.InitResponse;
-import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
-import com.api.response.LableResponseData;
 import com.api.response.LableTypeResponse;
 import com.api.response.MyImageResponse;
 import com.api.response.MyLableResponse;
@@ -109,38 +103,38 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<LableResponseData> AddUserLable(baseRequest<LableRequestData> request) {
-		BaseResponse<LableResponseData> response = new BaseResponse<LableResponseData>();
+	public BaseResponse<MyLableResponse> AddUserLable(baseRequest<LableRequestData> request) {
+		BaseResponse<MyLableResponse> response = new BaseResponse<MyLableResponse>();
 
-		int labeTypeId = 0;
 		List<LableRequest> lableRequestDatas = request.getbody().getList();
-		if (lableRequestDatas != null && lableRequestDatas.size() > 0) {
+		// 先删除后添加
+		List<LableRequest> addList = new ArrayList<LableRequest>();
+		// 取出传过来isMyLable为true的标签
+		Predicate<LableRequest> con = n -> n.isMyLable() == true;
+		lableRequestDatas.stream().filter(con).forEach(p -> {
+			addList.add(p);
+		});
+
+		if (addList == null || addList.size() <= 0) {
+			response.setCode(ResultEnum.VerificationCode);
+			response.setMsg("标签不能为空");
+			return response;
+		}
+		// 删除
+		userLableMappingServiceImpl.deleteLableByUserId(request.getUserId());
+		if (addList != null && addList.size() > 0) {
 			// 添加
 			List<UserLableMapping> entitys = new ArrayList<UserLableMapping>();
-			for (LableRequest item : lableRequestDatas) {
+			for (LableRequest item : addList) {
 				UserLableMapping mapping = new UserLableMapping();
 				mapping.setUserId(request.getUserId());
 				mapping.setLableId(item.getLableId());
 				mapping.setLableType(item.getLableType());
-				labeTypeId = item.getLableType();
 				entitys.add(mapping);
 			}
 			int result = userLableMappingServiceImpl.insertlabletMapping(entitys);
 			if (result > 0) {
-				LableResponseData lables = new LableResponseData();
-				// 添加成功 查询根据用户
-				UserLableMapping selectLable = new UserLableMapping();
-				selectLable.setUserId(request.getUserId());
-				selectLable.setLableType(labeTypeId);
-				List<UserLableMapping> userLableData = userLableMappingServiceImpl.selectlabletByUserId(selectLable);
-				for (UserLableMapping c : userLableData) {
-					LableResponse model = new LableResponse();
-					model.setLableId(c.getLableId());
-					model.setLableType(c.getLableType());
-					model.setLableName(c.getLabletTypes().getLableName());
-					lables.getList().add(model);
-				}
-				response.setData(lables);
+				response = GetUserLableByUserID(request);
 			}
 		}
 		return response;

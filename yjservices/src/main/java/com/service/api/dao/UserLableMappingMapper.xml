@@ -19,15 +19,15 @@
 		mappingId,userId,lableId,lableType
 	</sql>
 
-	<insert id="insertlabletMapping" parameterType="java.util.List"
-		>
-<!-- 		<selectKey resultType="long" keyProperty="mappingId" order="AFTER"> useGeneratedKeys="true"-->
-<!-- 			SELECT -->
-<!-- 			LAST_INSERT_ID() -->
-<!-- 		</selectKey> -->
+	<insert id="insertlabletMapping" parameterType="java.util.List">
+		<!-- <selectKey resultType="long" keyProperty="mappingId" order="AFTER"> 
+			useGeneratedKeys="true" -->
+		<!-- SELECT -->
+		<!-- LAST_INSERT_ID() -->
+		<!-- </selectKey> -->
 
 		insert into userlablemapping (userId,lableId,lableType)
-		values 
+		values
 		<foreach collection="list" item="item" index="index"
 			separator=",">
 			(#{item.userId},#{item.lableId},#{item.lableType})
@@ -48,4 +48,8 @@
 			and a.lableType=#{lableType}
 		</if>
 	</select>
+
+	<delete id="deleteLableByUserId" parameterType="java.lang.Integer">
+		delete from userlablemapping where userId=#{userId}
+	</delete>
 </mapper>

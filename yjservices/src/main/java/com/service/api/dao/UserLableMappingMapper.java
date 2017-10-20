@@ -18,5 +18,11 @@ public abstract interface UserLableMappingMapper {
 	 * @return
 	 */
 	public abstract List<UserLableMapping> selectlabletByUserId(UserLableMapping userLableMapping);
-
+	/**
+	 * 删除
+	 * @param userLableMappingMapper
+	 * @return
+	 */
+	public abstract int deleteLableByUserId(int userId);
+	
 }
