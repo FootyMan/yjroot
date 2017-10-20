@@ -3,7 +3,7 @@ package com.service.enums;
 public enum LableType {
 
 	
-	geXing(1, "个性"), PianHao(2, "偏好");
+	geXing(1, "个性");
 	private int StateCode;
 	private String desc;
 	public int getStateCode() {

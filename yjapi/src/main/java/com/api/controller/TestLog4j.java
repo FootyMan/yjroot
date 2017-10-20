@@ -63,10 +63,6 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		LableType[] la = LableType.values();
-		for (LableType lableType : la) {
-			System.out.println(lableType.getStateCode());
-		}
 		//
 		// List<String> strings=new ArrayList<String>();
 		// strings.add("1");
@@ -84,8 +80,6 @@ public class TestLog4j {
 		// for (String c : str) {
 		// System.out.println(c);
 		// }
-		CityRedisManager redis = new CityRedisManager();
-		List<Province> provinces = new ArrayList<Province>();
 
 		// Province province = new Province();
 		// for (int i = 0; i < 2; i++) {
@@ -96,39 +90,26 @@ public class TestLog4j {
 		// // 添加
 		// redis.SetCity(provinces);
 		// }
-		// 获取
-		List<Province> listp = redis.GetCityAll();
-		for (Province x : listp) {
-			System.out.println(x.getProvinceId());
-			System.out.println(x.getParentId());
-			System.out.println(x.getName());
-		}
-		// 获取单个
-		Province sign = redis.GetCitySingle(1);
-		System.out.println(sign.getName());
-		// 删除单个
-		redis.RemoveCityById(1);
-		// 再获取
-		listp = redis.GetCityAll();
-		System.out.println(listp.size());
 
-		// 删除所有
-		redis.RemoveCityAll();
-		// 再获取
-		listp = redis.GetCityAll();
-		System.out.println(listp.size());
+		// String orderNumber = StringUtils.GetOrderNumber(1, 1);
+		// AlipayPayManager manager = new AlipayPayManager();
+		// String orderString = manager.GetOrderString(orderNumber, "月度会员",
+		// "0.01");
+		// System.out.println(orderString);
 
-		String orderNumber = StringUtils.GetOrderNumber(1, 1);
-		AlipayPayManager manager = new AlipayPayManager();
-		String orderString = manager.GetOrderString(orderNumber, "月度会员", "0.01");
-		System.out.println(orderString);
-
-		// // 获取token
+		// 获取token
 		// String toket = EaseMobBusiness.QueryToken();
-		// // 创建用户
-		// EaseMobBusiness.AccountCreate(userName);
-		// // 删除用户
-		// EaseMobBusiness.AccountDel(userName);
+		// 创建用户
+		String st = EaseMobBusiness.AccountCreate("1qa");
+		// 删除用户
+		st = EaseMobBusiness.AccountDel("1qa");
+
+		Map map = (Map) JSON.parse(st);
+		if (map != null && !map.containsKey("error")) {
+
+		}
+
+		System.out.println(map.get("uri"));
 		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Date date = sdf.parse("2017-09-26 10:42:11");
 		// Calendar c1 = Calendar.getInstance();
@@ -210,6 +191,32 @@ public class TestLog4j {
 		ObjectMapper mapper = new ObjectMapper();
 		// mapper.writeValue(out, value);
 		// CommonMethod.ConvertJsonToObj(objJSON, obj)
+	}
+
+	private static void redis() {
+		CityRedisManager redis = new CityRedisManager();
+		List<Province> provinces = new ArrayList<Province>();
+		// 获取
+		List<Province> listp = redis.GetCityAll();
+		for (Province x : listp) {
+			System.out.println(x.getProvinceId());
+			System.out.println(x.getParentId());
+			System.out.println(x.getName());
+		}
+		// 获取单个
+		Province sign = redis.GetCitySingle(1);
+		System.out.println(sign.getName());
+		// 删除单个
+		redis.RemoveCityById(1);
+		// 再获取
+		listp = redis.GetCityAll();
+		System.out.println(listp.size());
+
+		// 删除所有
+		redis.RemoveCityAll();
+		// 再获取
+		listp = redis.GetCityAll();
+		System.out.println(listp.size());
 	}
 
 	public static class testDate {

@@ -54,10 +54,6 @@ public class UserController {
 	public BaseResponse<InitResponse> userRegister(@ApiParam(value = "输入") @RequestBody baseRequest<userModel> request)
 			throws Exception {
 		BaseResponse<InitResponse> response = userBusiness.userRegister(request);
-		if (response.getData() != null && response.getData().getUser().getUserId() > 0) {
-			businessUtils.AddUserPoint(request, response.getData().getUser().getUserId());
-		}
-
 		return response;
 	}
 
@@ -107,14 +103,14 @@ public class UserController {
 		BaseResponse<?> output = new BaseResponse<Object>();
 		// 验证码 如果是测试默认1234
 		String code = "1234";
-		if (!SystemConfig.isQAplatform) {
+		if (!"qa".equals(SystemConfig.EnvIdentity)) {
 			code = ValidateUtil.GetRandom();
 		}
 		PhoneMessageSend send = new PhoneMessageSend();
 		boolean isflag = false;// 发送是否成功
 
 		Map<String, String> map = userBusiness.GetMessage(request, output, code);
-		if (map != null && !SystemConfig.isQAplatform) {
+		if (map != null && !"qa".equals(SystemConfig.EnvIdentity)) {
 			isflag = send.SendPhooneMsg(map.get("phone"), map.get("msg"));
 			if (!isflag) {
 

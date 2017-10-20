@@ -34,6 +34,8 @@
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
 		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
 		<!-- 映射用户资料表 一对一 -->
 		<association property="datum" javaType="com.service.bean.UserDatum">
 			<id column="datumId" property="datumId" jdbcType="INTEGER" />
@@ -88,6 +90,12 @@
 			</if>
 			<if test="nickName!=null and nickName!=''">
 				nickName=#{nickName},
+			</if>
+			<if test="easemobId!=null and easemobId!=''">
+				easemobId=#{easemobId},
+			</if>
+			<if test="getuiId!=null and getuiId!=''">
+				getuiId=#{getuiId},
 			</if>
 		</set>
 		where userId=#{userId}

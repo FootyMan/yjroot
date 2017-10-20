@@ -81,9 +81,10 @@ public class InitBusiness {
 	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
 		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
 		InitResponseAppData appData = new InitResponseAppData();
-		//List<LabletType> labletTypes = GetLableTypeAll();
-//		LablesResponse lables = businessUtils.LableEntityToModel(labletTypes);
-//		appData.setLables(lables);
+		// List<LabletType> labletTypes = GetLableTypeAll();
+		// LablesResponse lables =
+		// businessUtils.LableEntityToModel(labletTypes);
+		// appData.setLables(lables);
 		// // 获取城市
 		// List<Province> listCity = provinceServiceImpl.selectProvinces();
 		// Predicate<Province> contain1 = n -> n.getParentId() == 0;
@@ -199,6 +200,7 @@ public class InitBusiness {
 			info.setVip(user.getUserLevel());
 			info.setInviteCode(user.getInviteCode());
 			info.setFull(true);
+			info.setEaseId(user.getUserId() + SystemConfig.EnvIdentity);
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
 			if (user != null) {
@@ -207,6 +209,7 @@ public class InitBusiness {
 				info.setNickName(user.getNickName());
 				info.setVip(user.getUserLevel());
 				info.setFull(false);
+				info.setEaseId(user.getUserId() + SystemConfig.EnvIdentity);
 			}
 		}
 		initUser.setUser(info);

@@ -149,12 +149,16 @@ public class UserInfoResponse {
 	private String height;
 	@ApiModelProperty(value = "体型")
 	private String shape;
+
 	@ApiModelProperty(value = "性取向")
 	private String sexuat;
 	@ApiModelProperty(value = "个性签名")
 	private String sign;
 	@ApiModelProperty(value = "资料是否完善")
 	private boolean isFull;
+
+	@ApiModelProperty(value = "环信Id")
+	private String easeId;
 
 	public boolean isFull() {
 		return isFull;
@@ -170,5 +174,13 @@ public class UserInfoResponse {
 
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
+	}
+
+	public String getEaseId() {
+		return easeId;
+	}
+
+	public void setEaseId(String easeId) {
+		this.easeId = easeId;
 	}
 }

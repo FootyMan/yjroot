@@ -32,23 +32,24 @@ public class SystemConfig {
 	/**
 	 * 奖励百分比
 	 */
-	public static double percentage=Double.parseDouble(PropertiesUtils.ReadProperties(fileName, "reward.percentage"));
-	
+	public static double percentage = Double.parseDouble(PropertiesUtils.ReadProperties(fileName, "reward.percentage"));
+
 	/**
-	 * 是否测试环境平台
+	 * 
+	 * 环境标识-测试环境 dev,qa,production线上环境用
 	 */
-	public static boolean isQAplatform = Boolean.parseBoolean(PropertiesUtils.ReadProperties(fileName, "isqa_platform"));
-	
+	public static String EnvIdentity = PropertiesUtils.ReadProperties(fileName, "EnvIdentity");
+
 	/**
 	 * 支付宝回调地址
 	 */
 	public static String AlipayNotifyurl = PropertiesUtils.ReadProperties(fileName, "alipay_notify_url");
-	
+
 	/**
 	 * 是否从缓存读取数据
 	 */
 	public static boolean IsReadRedis = Boolean.parseBoolean(PropertiesUtils.ReadProperties(fileName, "isread_redis"));
-	
+
 	/**
 	 * 图片前缀
 	 */

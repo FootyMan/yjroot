@@ -72,6 +72,15 @@ public class User {
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date browseDate;
+	
+	/**
+	 * 环信Id
+	 */
+	private String easemobId;
+	/**
+	 * 个推id
+	 */
+	private String getuiId;
 	public Date getBrowseDate() {
 		return browseDate;
 	}
@@ -173,6 +182,18 @@ public class User {
 	}
 	public void setInviteCode(String inviteCode) {
 		this.inviteCode = inviteCode;
+	}
+	public String getEasemobId() {
+		return easemobId;
+	}
+	public void setEasemobId(String easemobId) {
+		this.easemobId = easemobId;
+	}
+	public String getGetuiId() {
+		return getuiId;
+	}
+	public void setGetuiId(String getuiId) {
+		this.getuiId = getuiId;
 	}
 
 }

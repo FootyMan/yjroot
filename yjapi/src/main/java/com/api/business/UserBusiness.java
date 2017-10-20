@@ -8,9 +8,11 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.apache.log4j.Logger;
+import org.apache.taglibs.standard.lang.jstl.NullLiteral;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
 import com.api.request.LableRequest;
@@ -57,6 +59,7 @@ import com.service.bean.UserInvite;
 import com.service.bean.UserLableMapping;
 import com.service.bean.UserVerifyCode;
 import com.service.bean.Userlike;
+import com.service.easemob.EaseMobBusiness;
 import com.service.enums.LableType;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
@@ -201,14 +204,14 @@ public class UserBusiness {
 	/**
 	 * 用户注册
 	 * 
-	 * @param user
+	 * @param request
 	 * @return
 	 */
-	public BaseResponse<InitResponse> userRegister(baseRequest<userModel> user) {
+	public BaseResponse<InitResponse> userRegister(baseRequest<userModel> request) {
 		// 检查手机号是否重复
 		// 检查邀请码是否正确
 		// 检查短信验证码
-		userModel model = user.getbody();
+		userModel model = request.getbody();
 		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
 		if (isExistPhone > 0) {
@@ -231,8 +234,8 @@ public class UserBusiness {
 		// 注册
 		User userEntity = new User();
 		userEntity.setPhone(model.getPhone());
-		userEntity.setDeviceType(user.getDeviceType());
-		userEntity.setDeviceToken(user.getDeviceToken());
+		userEntity.setDeviceType(request.getDeviceType());
+		userEntity.setDeviceToken(request.getDeviceToken());
 		userEntity.setUserSource(1);// 默认全部是APP
 		userEntity.setPassWord(Md5Util.stringByMD5(model.getPassWord()));
 		// 获取邀请码
@@ -246,7 +249,7 @@ public class UserBusiness {
 		}
 		InitResponse initUser = initBusiness.InitUserData(userEntity.getUserId());
 		response.setData(initUser);
-		AddUserInvite(userInviteServiceImpl, codeData, userEntity.getUserId());
+		AddUserInvite(request, codeData, userEntity.getUserId());
 		return response;
 
 	}
@@ -325,14 +328,31 @@ public class UserBusiness {
 	 * @param registerId
 	 *            注册用户ID
 	 */
-	public void AddUserInvite(UserInviteServiceImpl userInviteServiceImpl, User invitation, int registerId) {
+	public void AddUserInvite(baseRequest<?> request, User invitation, int registerId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
+				// 添加邀请
 				UserInvite invite = new UserInvite();
 				invite.setInviteUserId(invitation.getUserId());
 				invite.setInviteCode(invitation.getInviteCode());
 				invite.setRegisterUserId(registerId);
 				userInviteServiceImpl.insertInvite(invite);
+				// 添加经纬度
+				businessUtils.AddUserPoint(request, registerId);
+				// 注册环信
+				String easemobId = registerId + SystemConfig.EnvIdentity;
+				String result = EaseMobBusiness.AccountCreate(easemobId);
+				Map map = (Map) JSON.parse(result);
+				if (map != null && !map.containsKey("error")) {
+					// 更新用户
+					User upUser = new User();
+					upUser.setUserId(registerId);
+					upUser.setEasemobId(easemobId);
+					upUser.setIsEasemob(1);
+					userServiceImpl.updateUser(upUser);
+
+				}
+
 			}
 		});
 		t.start();
