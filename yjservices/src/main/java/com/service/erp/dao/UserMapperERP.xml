@@ -74,8 +74,7 @@
 	</select>
 
 	<!-- 首页用户 -->
-	<select id="HomeUserList" resultMap="userResult"
-		parameterType="com.service.bean.User">
+	<select id="HomeUserList" resultMap="userResult" parameterType="com.service.bean.User">
 		SELECT
 		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
 		a.userLevel,a.isDisable,b.sexuat,b.cityId,
@@ -88,6 +87,15 @@
 		on
 		c.userId=a.userId
 	</select>
+
+	<insert id="InsertUserErp" parameterType="com.service.bean.User" keyProperty="userId">
+		insert into user
+		(Id,phone,deviceType,headImage,registerTime,userLevel,nickName,isDisable,
+		isEasemob,userSource,inviteCode,passWord)
+		select
+		max(id)+1,#{phone},#{deviceType},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
+		#{passWord} from user
+	</insert>
 
 
 

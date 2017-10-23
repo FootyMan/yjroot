@@ -502,10 +502,10 @@ function uploadFileFunHead() {
 				fileElementId : 'uploadFileInputHead', // 文件选择框的id属性
 				dataType : 'text', // 服务器返回的格式，可以是json
 				success : function(data, status) {// 相当于java中try语句块的用法
-					alert("1123213");
 					var imgSrc = data;// eval('('+data+')');
 					$("#addImgDefHead").attr("src",imgSrc);
 					var imgSort = $("#uploadFileInputHead").attr('isUpdate');
+					$("#headImage").attr("value",imgSrc);
 //					if (imgSort != "-1") {// 图片新增
 //						$("[updateImgTag='img_src_" + imgSort + "']").attr('src', imgSrc);
 //						$("[updateImgTag='img_src_input_" + imgSort + "']").val(imgSrc);

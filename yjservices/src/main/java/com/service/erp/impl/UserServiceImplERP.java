@@ -34,4 +34,14 @@ public class UserServiceImplERP {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.HomeUserList(user);
 	}
+	/**
+	 * 后台添加用户
+	 * @param user
+	 * @return
+	 */
+	public int InsertUserErp(User user)
+	{
+		DBContextHolder.setDBType("siteRead");
+		return userMapperERP.InsertUserErp(user);
+	}
 }

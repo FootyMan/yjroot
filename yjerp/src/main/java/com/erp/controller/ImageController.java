@@ -82,7 +82,7 @@ public class ImageController {
 			String thumbnailName = new Date().getTime() + new Random().nextInt(99999)
 					+ fileName.substring(fileName.lastIndexOf("."), fileName.length());
 			Thumbnails.of(realFileName).scale(1f).outputFormat("jpg").toFile(uploadPath + "/" + thumbnailName);
-			return "http://localhost:806" + "/" + currData + "/" + thumbnailName;
+			return SystemConfig.ImgurlPrefix + "/" + currData + "/" + thumbnailName;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

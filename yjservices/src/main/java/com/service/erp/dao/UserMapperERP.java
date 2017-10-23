@@ -19,4 +19,11 @@ public abstract interface UserMapperERP {
 	 * @return
 	 */
 	public abstract List<User> HomeUserList(User user);
+	
+	/**
+	 * 后台添加用户
+	 * @param user
+	 * @return
+	 */
+	public abstract int InsertUserErp(User user);
 }

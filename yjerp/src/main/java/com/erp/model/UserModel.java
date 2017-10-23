@@ -19,7 +19,7 @@ public class UserModel implements Serializable  {
 	/**
 	 * 设备类型1 ios 2andriond
 	 */
-	private String deviceType;
+	private int deviceType;
 
 	/**
 	 * 用户默认头像
@@ -54,7 +54,8 @@ public class UserModel implements Serializable  {
 	/**
 	 * 1男 2女
 	 */
-	private String sex;
+	private int sex;
+	private String sexName;
 	/**
 	 * 城市
 	 */
@@ -85,7 +86,18 @@ public class UserModel implements Serializable  {
 	 * 行取向
 	 */
 	private String sexuat;
+	/**
+	 * 设备名称
+	 */
+	private String deviceTypeName;
 	
+	/**
+	 * 个性签名
+	 */
+	private String sign;
+	/**
+	 * 图片库
+	 */
 	private List<UserImageModel> imgList;
 
 	public List<UserImageModel> getImgList() {
@@ -120,11 +132,11 @@ public class UserModel implements Serializable  {
 		this.phone = phone;
 	}
 
-	public String getDeviceType() {
+	public int getDeviceType() {
 		return deviceType;
 	}
 
-	public void setDeviceType(String deviceType) {
+	public void setDeviceType(int deviceType) {
 		this.deviceType = deviceType;
 	}
 
@@ -184,11 +196,11 @@ public class UserModel implements Serializable  {
 		this.age = age;
 	}
 
-	public String getSex() {
+	public int getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 
@@ -238,6 +250,30 @@ public class UserModel implements Serializable  {
 
 	public void setPage(Pagination page) {
 		this.page = page;
+	}
+
+	public String getDeviceTypeName() {
+		return deviceTypeName;
+	}
+
+	public void setDeviceTypeName(String deviceTypeName) {
+		this.deviceTypeName = deviceTypeName;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	public String getSexName() {
+		return sexName;
+	}
+
+	public void setSexName(String sexName) {
+		this.sexName = sexName;
 	}
 
 }

@@ -29,7 +29,7 @@
 		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from userimg where userId=#{userId} where imgStatus=1 order by
+		from userimg where userId=#{userId} and imgStatus=1 order by
 		imageSort
 	</select>
 

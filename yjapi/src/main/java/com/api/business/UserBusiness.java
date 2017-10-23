@@ -237,7 +237,7 @@ public class UserBusiness {
 		userEntity.setPhone(model.getPhone());
 		userEntity.setDeviceType(request.getDeviceType());
 		userEntity.setDeviceToken(request.getDeviceToken());
-		userEntity.setUserSource(1);// 默认全部是APP
+		userEntity.setUserSource(request.getDeviceType());// 默认全部是APP
 		userEntity.setPassWord(Md5Util.stringByMD5(model.getPassWord()));
 		// 获取邀请码
 		InvitationCode inCode = invitationCodeServiceImpl.selectCodeByvalid();
@@ -494,7 +494,7 @@ public class UserBusiness {
 			userBase.setShape(datum.getShape());
 			userBase.setSexuat(datum.getSexuat());
 			userBase.setVip(userData.getUserLevel());
-			userBase.setEaseId(userData.getUserId() + SystemConfig.EnvIdentity);
+			userBase.setEaseId(body.getDetailId() + SystemConfig.EnvIdentity);
 		}
 		// 图片
 
