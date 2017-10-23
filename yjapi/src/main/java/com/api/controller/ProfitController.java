@@ -74,9 +74,7 @@ public class ProfitController {
 	 */
 	@ResponseEncryptBody
 	@RequestMapping(value = "/record", method = RequestMethod.POST)
-	@ApiOperation(nickname = "swagger-registe", value = "收益和提现记录 注意返回的data里是集合 字段类型全部String"
-			+ "收益记录返回date=日期	user=用户	type=会员类型	money=佣金"
-			+ "		提现记录date=日期	money=提现金额		state=结算状态", notes = "收益和提现记录")
+	@ApiOperation(nickname = "swagger-registe", value = "收益和提现记录", notes = "收益和提现记录")
 	public BaseResponse<?> ProfitRecord(@ApiParam(value = "输入") @RequestBody baseRequest<ProfitRecordRequest> request)
 			throws Exception {
 

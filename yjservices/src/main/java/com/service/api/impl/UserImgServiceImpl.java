@@ -43,8 +43,8 @@ public class UserImgServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public int DeleteImageByImgId(int imgId) {
+	public int UpdateImageByImgId(int imgId) {
 		DBContextHolder.setDBType("siteRead");
-		return userImgMapper.deleteImageByImgId(imgId);
+		return userImgMapper.UpdateImageByImgId(imgId);
 	}
 }

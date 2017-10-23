@@ -28,5 +28,5 @@ public abstract interface UserImgMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract int deleteImageByImgId(int imgId);
+	public abstract int UpdateImageByImgId(int imgId);
 }

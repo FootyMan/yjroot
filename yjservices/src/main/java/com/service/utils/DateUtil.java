@@ -336,6 +336,10 @@ public class DateUtil {
 	public static String getNowDate() {
 		return DateToString(new Date(), DateStyle.YYYYMMDD);
 	}
+	public static String getNowDateExt() {
+		return DateToString(new Date(), DateStyle.YYYY_MM_DD);
+	}
+
 
 	public static String getDate(Date date) {
 		return DateToString(date, DateStyle.YYYY_MM_DD);

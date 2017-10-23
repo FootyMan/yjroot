@@ -21,7 +21,12 @@ public class UserImg {
 	/**
 	 * 排序
 	 */
+	
 	private int imageSort=0;
+	/**
+	 * 1有效 0无效
+	 */
+	private int imgStatus;
 	public int getImgId() {
 		return imgId;
 	}
@@ -51,6 +56,12 @@ public class UserImg {
 	}
 	public void setImageSort(int imageSort) {
 		this.imageSort = imageSort;
+	}
+	public int getImgStatus() {
+		return imgStatus;
+	}
+	public void setImgStatus(int imgStatus) {
+		this.imgStatus = imgStatus;
 	}
 	
 }

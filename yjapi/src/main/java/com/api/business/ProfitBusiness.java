@@ -13,8 +13,10 @@ import com.api.request.ProfitRecordRequest;
 import com.api.request.ProfitWithDrawRequest;
 import com.api.request.baseRequest;
 import com.api.response.ProfitMyResponse;
-import com.api.response.ProfitRecordResponse;
-import com.api.response.ProfitWithDrawResponse;
+import com.api.response.ProfitRecordDetails;
+import com.api.response.ProfitRecordList;
+import com.api.response.ProfitWithDrawDetails;
+import com.api.response.ProfitWithDrawList;
 import com.api.response.BaseResponse;
 import com.api.utils.ResultEnum;
 import com.service.api.impl.UserFinancialDetailServiceImpl;
@@ -115,40 +117,53 @@ public class ProfitBusiness {
 		ProfitRecordRequest recordRequest = request.getbody();
 		if (recordRequest != null && recordRequest.getType() > 0) {
 
+			// 主表
+			UserFinancial financial = userFinancialServiceImpl.selectFinancial(request.getUserId());
 			// 收益记录
 			if (recordRequest.getType() == 1) {
 
-				List<ProfitRecordResponse> recordResponses = new ArrayList<ProfitRecordResponse>();
+				ProfitRecordList recordResponses = new ProfitRecordList();
+				List<ProfitRecordDetails> listDetails = new ArrayList<ProfitRecordDetails>();
 				List<MyProfitRecord> profitRecords = userFinancialDetailServiceImpl.selectMyProfit(request.getUserId());
 				for (MyProfitRecord myProfitRecord : profitRecords) {
-					ProfitRecordResponse item = new ProfitRecordResponse();
+					ProfitRecordDetails item = new ProfitRecordDetails();
 					item.setDate(DateUtil.DateToString(myProfitRecord.getOperateDate(), DateStyle.YYYY_MM_DD_HH_MM));
 					item.setUser(myProfitRecord.getNickName());
-					item.setType(myProfitRecord.getProductDesc());
-					item.setVip(myProfitRecord.getUserLevel());
+					item.setDesc("¥" + myProfitRecord.getPrice() + "/" + myProfitRecord.getTitle());
 					item.setMoney("¥" + myProfitRecord.getFinancialMoney());
-					recordResponses.add(item);
+					listDetails.add(item);
 				}
+				if (financial != null) {
+					recordResponses.setTotalRevenue(financial.getTotalRevenue());
+				}
+
+				recordResponses.setList(listDetails);
 				response.setData(recordResponses);
 			}
 			// 支出记录
 			else {
-				List<ProfitWithDrawResponse> WithDrawResponses = new ArrayList<ProfitWithDrawResponse>();
+				ProfitWithDrawList WithDrawResponses = new ProfitWithDrawList();
+				List<ProfitWithDrawDetails> listDetails = new ArrayList<ProfitWithDrawDetails>();
 				UserFinancialDetail entitydetail = new UserFinancialDetail();
 				entitydetail.setUserId(request.getUserId());
 				entitydetail.setFinancialType(2);
 				List<UserFinancialDetail> financialDetails = userFinancialDetailServiceImpl
 						.selectFinancialDetail(entitydetail);
 				for (UserFinancialDetail userFinancialDetail : financialDetails) {
-					ProfitWithDrawResponse item = new ProfitWithDrawResponse();
+					ProfitWithDrawDetails item = new ProfitWithDrawDetails();
 					item.setDate(
 							DateUtil.DateToString(userFinancialDetail.getOperateDate(), DateStyle.YYYY_MM_DD_HH_MM));
 					item.setMoeny("¥" + userFinancialDetail.getFinancialMoney());
 					item.setState(FinancialOperateStatus
 							.getFinancialOperateStatusByCode(userFinancialDetail.getOperateStatus()).getDesc());
 					item.setStateId(userFinancialDetail.getOperateStatus());
-					WithDrawResponses.add(item);
+					listDetails.add(item);
 				}
+				if (financial != null) {
+					WithDrawResponses.setTotalWithDraw(financial.getTotalWithDraw());
+				}
+
+				WithDrawResponses.setList(listDetails);
 				response.setData(WithDrawResponses);
 			}
 		} else {

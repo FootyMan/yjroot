@@ -1,4 +1,4 @@
-package com.myweb.commond;
+package com.erp.commond;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

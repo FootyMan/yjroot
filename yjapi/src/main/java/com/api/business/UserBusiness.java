@@ -36,6 +36,7 @@ import com.api.response.DetailsUserResponse;
 import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.BaseResponse;
+import com.api.response.BrowesList;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -266,21 +267,16 @@ public class UserBusiness {
 		// 检查短信验证码
 		UserPwdResponse model = user.getbody();
 		BaseResponse response = new BaseResponse();
-		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
-		if (isExistPhone > 0) {
-			response.setCode(ResultEnum.VerificationCode);
-			response.setMsg("手机号已存在！请注册");
-			return response;
-		}
 		UserVerifyCode userCode = userVerifyCodeServiceImpl.selectCodeByphone(model.getPhone());
 		if (userCode == null || !userCode.getVerifyCode().equals(model.getVerifyCode())) {
 			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("手机验证码不正确");
 			return response;
 		}
-		// 注册
+		// 修改密码
 		User userEntity = new User();
 		userEntity.setPassWord(Md5Util.stringByMD5(model.getPassWord()));
+		userEntity.setUserId(user.getUserId());
 		int userId = userServiceImpl.updateUser(userEntity);
 		if (userId <= 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
@@ -498,6 +494,7 @@ public class UserBusiness {
 			userBase.setShape(datum.getShape());
 			userBase.setSexuat(datum.getSexuat());
 			userBase.setVip(userData.getUserLevel());
+			userBase.setEaseId(userData.getUserId() + SystemConfig.EnvIdentity);
 		}
 		// 图片
 
@@ -550,7 +547,7 @@ public class UserBusiness {
 	public BaseResponse<?> RemonveImageByImageId(baseRequest<RemoveImgRequest> request) {
 		BaseResponse<?> response = new BaseResponse<Object>();
 
-		int result = userImgServiceImpl.DeleteImageByImgId(request.getbody().getImgId());
+		int result = userImgServiceImpl.UpdateImageByImgId(request.getbody().getImgId());
 		if (result <= 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
 			response.setMsg("删除图片失败");
@@ -635,6 +632,7 @@ public class UserBusiness {
 			numberData.setBrowseNumber(number);
 			response.setData(numberData);
 		} else if (body.getType() == 2) {
+			BrowesList list = new BrowesList();
 			List<HomeResponse> browesResponse = new ArrayList<HomeResponse>();
 			RangeParameter rangeParameter = PageParameter.GetRangePage(body.getPageIndex(), request.getUserId());
 			// 数据
@@ -642,46 +640,42 @@ public class UserBusiness {
 			for (User user : browesData) {
 				browesResponse.add(businessUtils.EntityToModel(user));
 			}
-			response.setData(browesResponse);
+			list.setList(browesResponse);
+			response.setData(list);
 		}
 		return response;
 	}
 
 	public Map<String, String> GetMessage(baseRequest<PhoneMsgRequest> request, BaseResponse<?> output, String code) {
 		Map<String, String> map = new HashMap<String, String>();
-		String phone = "";// 手机号
+		String phone = request.getbody().getPhone();// 手机号
 		String msg = "";// 消息
 		PhoneMsgRequest body = request.getbody();
 		// 注册
-		if (body.getType() == 1) {
-
-			if (!StringUtils.isEmpty(request.getbody().getPhone())) {
-				phone = request.getbody().getPhone();
-				msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
-
-			} else {
-				output.setCode(ResultEnum.ColmunErrorCode);
-				output.setMsg("手机号为空");
-				return null;
-			}
+		if (body.getType() == 1)
+		{
+			msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
 		}
 		// 2绑定支付宝账号
 		// 3提现
-		else if ((body.getType() == 2 || body.getType() == 3) && request.getUserId() > 0) {
-			// 根据用户ID获取用户手机号
-			User userData = userServiceImpl.selectUserByUserId(request.getUserId());
-			if (userData != null && userData.getUserId() > 0) {
-				phone = userData.getPhone();
-				if (body.getType() == 2) {
-					msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
-				}
-				// 3提现
-				else {
-					msg = "您在平台提现验证码为" + code + "，一分钟内有效";
-				}
+		else if (body.getType() == 2) 
+		{
+			msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
+		} 
+		else if (body.getType() == 3) // 3提现
+		{
+			msg = "您在平台提现验证码为" + code + "，一分钟内有效";
+		}
+		else if (body.getType() == 4) // 修改密码
+		{
+			msg = "您修改密码验证码为" + code + "，一分钟内有效";
+		}
+		else if (body.getType() == 5) // 忘记密码
+		{
+			msg = "您忘记密码验证码为" + code + "，一分钟内有效";
+		}
 
-			}
-		} else {
+		else {
 			return null;
 		}
 		map.put("phone", phone);

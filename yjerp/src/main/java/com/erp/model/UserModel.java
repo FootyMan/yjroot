@@ -2,6 +2,7 @@ package com.erp.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.service.utils.Pagination;
 
@@ -84,6 +85,16 @@ public class UserModel implements Serializable  {
 	 * 行取向
 	 */
 	private String sexuat;
+	
+	private List<UserImageModel> imgList;
+
+	public List<UserImageModel> getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(List<UserImageModel> imgList) {
+		this.imgList = imgList;
+	}
 
 	public int getUserId() {
 		return userId;

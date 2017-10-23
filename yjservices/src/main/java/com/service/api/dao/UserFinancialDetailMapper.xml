@@ -18,9 +18,10 @@
 	<resultMap id="myProfitResultMap" type="com.service.bean.MyProfitRecord">
 		<result column="operateDate" property="operateDate" jdbcType="TIMESTAMP" />
 		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
-		<result column="productDesc" property="productDesc" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="financialMoney" property="financialMoney"
 			jdbcType="DECIMAL" />
+		<result column="price" property="price" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -69,7 +70,7 @@
 		<!-- financialType=1 -->
 
 		select
-		a.operateDate,c.nickName,d.productDesc,a.financialMoney,c.userLevel
+		a.operateDate,c.nickName,d.title,d.price,a.financialMoney,c.userLevel
 		from userfinancialdetail as a
 		inner join t_order as b on
 		a.sourceNumber=b.orderNumber

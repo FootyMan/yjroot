@@ -4,11 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 提现记录
- * 
  * @author HCY
  *
  */
-public class ProfitWithDrawResponse {
+public class ProfitWithDrawDetails {
 
 	@ApiModelProperty(value = "日期")
 	private String date;

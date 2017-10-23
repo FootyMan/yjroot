@@ -200,7 +200,7 @@ public class InitBusiness {
 			info.setVip(user.getUserLevel());
 			info.setInviteCode(user.getInviteCode());
 			info.setFull(true);
-			info.setEaseId(user.getUserId() + SystemConfig.EnvIdentity);
+			info.setEaseId(userId + SystemConfig.EnvIdentity);
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
 			if (user != null) {
@@ -209,7 +209,7 @@ public class InitBusiness {
 				info.setNickName(user.getNickName());
 				info.setVip(user.getUserLevel());
 				info.setFull(false);
-				info.setEaseId(user.getUserId() + SystemConfig.EnvIdentity);
+				info.setEaseId(userId + SystemConfig.EnvIdentity);
 			}
 		}
 		initUser.setUser(info);

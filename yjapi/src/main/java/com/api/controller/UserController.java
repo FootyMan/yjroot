@@ -16,8 +16,10 @@ import com.api.business.FileBusiness;
 import com.api.business.UserBusiness;
 import com.api.request.*;
 import com.api.utils.PhoneMessageSend;
+import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.api.utils.decrypt.ResponseEncryptBody;
+import com.service.bean.User;
 import com.service.bean.UserVerifyCode;
 import com.service.utils.StringUtils;
 import com.service.utils.SystemConfig;
@@ -36,8 +38,6 @@ import com.api.response.*;
 public class UserController {
 	@Autowired
 	private UserBusiness userBusiness;
-	@Autowired
-	private BusinessUtils businessUtils;
 	@Autowired
 	private FileBusiness fileBusiness;
 
@@ -100,7 +100,17 @@ public class UserController {
 	@ApiOperation(nickname = "swagger-getMsgCode", value = "获取短信验证码", notes = "获取短信验证码")
 	public BaseResponse<?> getMsgCode(@ApiParam(value = "输入") @RequestBody baseRequest<PhoneMsgRequest> request)
 			throws Exception {
-		BaseResponse<?> output = new BaseResponse<Object>();
+		BaseResponse<?> response = new BaseResponse<Object>();
+		
+		
+		//User userData = userServiceImpl.selectUserByUserId(request.getUserId());
+		PhoneMsgRequest body=request.getbody();
+		if (body==null || StringUtils.isEmpty(body.getPhone())) {
+			response.setCode(ResultEnum.ColmunErrorCode);
+			response.setMsg("手机号为空");
+			return response;
+		}
+		
 		// 验证码 如果是测试默认1234
 		String code = "1234";
 		if (!"qa".equals(SystemConfig.EnvIdentity)) {
@@ -109,30 +119,30 @@ public class UserController {
 		PhoneMessageSend send = new PhoneMessageSend();
 		boolean isflag = false;// 发送是否成功
 
-		Map<String, String> map = userBusiness.GetMessage(request, output, code);
+		Map<String, String> map = userBusiness.GetMessage(request, response, code);
 		if (map != null && !"qa".equals(SystemConfig.EnvIdentity)) {
 			isflag = send.SendPhooneMsg(map.get("phone"), map.get("msg"));
 			if (!isflag) {
 
-				output.setCode(ResultEnum.ServiceErrorCode);
-				output.setMsg("短信通道失败");
-				return output;
+				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setMsg("短信通道失败");
+				return response;
 			}
 		} else {
-			if (!StringUtils.isEmpty(output.getMsg())) {
+			if (!StringUtils.isEmpty(response.getMsg())) {
 
-				return output;
+				return response;
 			} else if (map == null) {
-				output.setCode(ResultEnum.ServiceErrorCode);
-				output.setMsg("参数不符");
-				return output;
+				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setMsg("参数不符");
+				return response;
 			}
 		}
 		UserVerifyCode verifyCode = new UserVerifyCode();
 		verifyCode.setPhone(request.getbody().getPhone());
 		verifyCode.setVerifyCode(code);
 		userBusiness.AddUserVerifyCode(verifyCode);
-		return output;
+		return response;
 	}
 
 	/**
@@ -280,7 +290,7 @@ public class UserController {
 	public BaseResponse<?> RemonveImage(@ApiParam(value = "输入") @RequestBody baseRequest<RemoveImgRequest> request) {
 		BaseResponse<?> response = userBusiness.RemonveImageByImageId(request);
 		// 删除磁盘
-		fileBusiness.RemoveFile(request.getbody().getImgUrl());
+		//fileBusiness.RemoveFile(request.getbody().getImgUrl());
 		return response;
 	}
 

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProfitRecordRequest {
 
-	@ApiModelProperty(value = "1收益记录 1提现明细")
+	@ApiModelProperty(value = "1收益记录 2提现明细")
 	private int type;
 
 	public int getType() {

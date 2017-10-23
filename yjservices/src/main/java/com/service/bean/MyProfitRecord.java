@@ -15,7 +15,11 @@ public class MyProfitRecord {
 	//昵称
 	private String nickName;
 	//产品描述
-	private String productDesc;
+	private String title;
+	/**
+	 *价格
+	 */
+	private int price; 
 	//收益金额
 	private double financialMoney;
 	//"用户级别 1普通用户 2包月会员 3半年会员 4年费会员"
@@ -39,16 +43,23 @@ public class MyProfitRecord {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getProductDesc() {
-		return productDesc;
-	}
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
-	}
+	 
 	public double getFinancialMoney() {
 		return financialMoney;
 	}
 	public void setFinancialMoney(double financialMoney) {
 		this.financialMoney = financialMoney;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.erp.model.UserImageModel;
 import com.erp.model.UserModel;
 import com.service.api.impl.ProvinceServiceImpl;
 import com.service.api.impl.UserServiceImpl;
@@ -75,18 +78,22 @@ public class UserController {
 		model.addAttribute("page", Pagination.threadLocal.get());
 		return new ModelAndView("/user/list");
 	}
-	
-	
+
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView add(Model model) {// Employee
-																// employee,
-		 
+	public ModelAndView add(UserModel userModel, Model model) {// Employee
+		// employee,
 		return new ModelAndView("/user/add");
 	}
-	
-	
+	@RequestMapping(value = "/add.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView adddo(UserModel userModel, Model model, HttpServletRequest request) {// Employee
+		// employee,
+		List<UserImageModel> imgList = userModel.getImgList();
+		return new ModelAndView("/user/list");
+	}
+
 	/**
 	 * 首页用户列表
+	 * 
 	 * @param userModel
 	 * @param model
 	 * @return

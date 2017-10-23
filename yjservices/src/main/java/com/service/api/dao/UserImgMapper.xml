@@ -8,10 +8,11 @@
 		<result column="imageType" property="imageType" jdbcType="INTEGER" />
 		<result column="imagePath" property="imagePath" jdbcType="VARCHAR" />
 		<result column="imageSort" property="imageSort" jdbcType="INTEGER" />
+		<result column="imgStatus" property="imgStatus" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		imgId,userId,imageType,imagePath,imageSort
+		imgId,userId,imageType,imagePath,imageSort,imgStatus
 	</sql>
 
 	<insert id="insertUserImg" parameterType="java.util.List">
@@ -28,11 +29,13 @@
 		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from userimg where userId=#{userId} order by imageSort
+		from userimg where userId=#{userId} where imgStatus=1 order by
+		imageSort
 	</select>
 
 
-	<delete id="deleteImageByImgId" parameterType="java.lang.Integer">
-		delete from userimg where imgId=#{imgId}
-	</delete>
+
+	<update id="UpdateImageByImgId" parameterType="java.lang.Integer">
+		update userimg set imgStatus=0 where imgId=#{imgId}
+	</update>
 </mapper>
