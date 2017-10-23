@@ -46,7 +46,7 @@ import com.service.bean.Province;
 import com.service.bean.UserFinancial;
 import com.service.easemob.EaseMobBusiness;
 import com.service.enums.LableType;
-import com.service.enums.ProductLevel;
+import com.service.enums.OrderState;
 import com.service.redis.CityRedisManager;
 import com.service.utils.CommonMethod;
 import com.service.utils.DateStyle;
@@ -63,6 +63,8 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
+		double reward = 1 * SystemConfig.percentage;
+		System.out.println(reward);
 		//
 		// List<String> strings=new ArrayList<String>();
 		// strings.add("1");
@@ -100,16 +102,16 @@ public class TestLog4j {
 		// 获取token
 		// String toket = EaseMobBusiness.QueryToken();
 		// 创建用户
-		String st = EaseMobBusiness.AccountCreate("1qa");
-		// 删除用户
-		st = EaseMobBusiness.AccountDel("1qa");
-
-		Map map = (Map) JSON.parse(st);
-		if (map != null && !map.containsKey("error")) {
-
-		}
-
-		System.out.println(map.get("uri"));
+//		String st = EaseMobBusiness.AccountCreate("1qa");
+//		// 删除用户
+//		st = EaseMobBusiness.AccountDel("1qa");
+//
+//		Map map = (Map) JSON.parse(st);
+//		if (map != null && !map.containsKey("error")) {
+//
+//		}
+//
+//		System.out.println(map.get("uri"));
 		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Date date = sdf.parse("2017-09-26 10:42:11");
 		// Calendar c1 = Calendar.getInstance();

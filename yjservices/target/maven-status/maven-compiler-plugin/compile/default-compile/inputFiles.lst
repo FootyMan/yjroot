@@ -7,10 +7,10 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserlikeServ
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\LabletTypeServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\EmployeeMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\HttpClientUtil.java
-D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\enums\ProductLevel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\ResultModel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\redis\RedisUtil.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserDatumMapper.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\getui\GetuiManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserFinancialDetailServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\erp\impl\package-info.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\RequestUtils.java
@@ -29,6 +29,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\ProductMapper
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\SystemConfig.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\ReflectHelper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\Province.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\getui\IosGetuiManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\ProductServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\AppversionMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\EncodingTool.java
@@ -41,6 +42,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserBrowseSe
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\redis\RedisManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserFinancialMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserLableMappingMapper.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\getui\AndroidGetuiManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\InvitationCodeServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\enums\FinancialType.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\PagePlugin.java

@@ -39,10 +39,12 @@ public class OrderBusiness {
 
 		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
+		//订单号
+		String orderNumber=StringUtils.GetOrderNumber(request.getUserId(), product.getProductId());
 		if (product != null && product.getProductId() > 0) {
 			// 生成订单
 			Order order = new Order();
-			order.setOrderNumber(StringUtils.GetOrderNumber(request.getUserId(), product.getProductId()));
+			order.setOrderNumber(orderNumber);
 			order.setUserId(request.getUserId());
 			order.setProductId(product.getProductId());
 			order.setOrderSource(1);
@@ -70,8 +72,6 @@ public class OrderBusiness {
 
 			AlipayResponse alipayResponseModel = new AlipayResponse();
 			AlipayPayManager alipayManager = new AlipayPayManager();
-			// 获取订单号
-			String orderNumber = StringUtils.GetOrderNumber(request.getUserId(), orderModel.getProductId());
 			// 获取支付宝订单字符串
 			String orderString = alipayManager.GetOrderString(orderNumber, product.getProductDesc(),
 					String.valueOf(product.getPrice()));

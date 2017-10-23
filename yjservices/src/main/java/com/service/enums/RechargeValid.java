@@ -2,8 +2,8 @@ package com.service.enums;
 
 public enum RechargeValid {
 
-	Effective(1,"有效",2),
-	Invalid(2,"无效",3);
+	Effective(1,"有效",1),
+	Invalid(2,"无效",2);
 	private int code;
 	private String desc;
 	private int validCode;

@@ -20,6 +20,12 @@
 		values
 		(#{inviteUserId},#{inviteCode},#{registerUserId})
 	</insert>
-
+	<!-- 根据注册人 找到邀请人 -->
+	<select id="selectInviteByregisterId" resultType="com.service.bean.UserInvite"
+		parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM userinvite WHERE registerUserId=#{registerUserId}
+	</select>
 
 </mapper>

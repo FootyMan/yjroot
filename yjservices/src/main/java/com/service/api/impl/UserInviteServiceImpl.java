@@ -24,4 +24,15 @@ public class UserInviteServiceImpl {
 		return userInviteMapper.insertInvite(userInvite);
 	}
 
+	/**
+	 * 根据注册人 找到邀请人
+	 * 
+	 * @param userInvite
+	 * @return
+	 */
+	public UserInvite selectInviteByregisterId(int registerUserId) {
+		DBContextHolder.setDBType("siteRead");
+		return userInviteMapper.selectInviteByregisterId(registerUserId);
+	}
+
 }

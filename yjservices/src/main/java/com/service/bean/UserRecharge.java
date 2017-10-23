@@ -13,7 +13,6 @@ public class UserRecharge {
 	private int rechargeId;
 	private int userId;
 	private double totalMoney;
-	private String orderNumber;
 	private Date createTime;
 	private Date beginTime;
 	private Date endTime;
@@ -36,12 +35,6 @@ public class UserRecharge {
 	}
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
-	}
-	public String getOrderNumber() {
-		return orderNumber;
-	}
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
 	}
 	public Date getCreateTime() {
 		return createTime;

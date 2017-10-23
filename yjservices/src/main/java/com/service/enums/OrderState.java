@@ -8,7 +8,7 @@ package com.service.enums;
  */
 public enum OrderState {
 	// 索引、描述、状态码
-	Unpaid(1, "待付款", 1), Paid(2, "已付款", 10);
+	Unpaid(0, "待付款", 0), Paid(2, "已付款", 10);
 
 	private int code;
 	private int orderState;

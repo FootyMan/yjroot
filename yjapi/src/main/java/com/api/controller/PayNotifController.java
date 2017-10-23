@@ -21,19 +21,22 @@ import com.api.response.BaseResponse;
 import com.api.utils.ExceptionHandler;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.service.api.impl.OrderServiceImpl;
+import com.service.api.impl.ProductServiceImpl;
 import com.service.api.impl.UserFinancialDetailServiceImpl;
 import com.service.api.impl.UserFinancialServiceImpl;
+import com.service.api.impl.UserInviteServiceImpl;
 import com.service.api.impl.UserRechargeServiceImpl;
 import com.service.api.impl.UserServiceImpl;
 import com.service.bean.Order;
+import com.service.bean.Product;
 import com.service.bean.User;
 import com.service.bean.UserFinancial;
 import com.service.bean.UserFinancialDetail;
+import com.service.bean.UserInvite;
 import com.service.bean.UserRecharge;
 import com.service.enums.FinancialOperateStatus;
 import com.service.enums.FinancialType;
 import com.service.enums.OrderState;
-import com.service.enums.ProductLevel;
 import com.service.enums.RechargeValid;
 import com.service.utils.DateUtil;
 import com.service.utils.SystemConfig;
@@ -58,6 +61,10 @@ public class PayNotifController {
 	private UserFinancialServiceImpl userFinancialServiceImpl;
 	@Autowired
 	private UserFinancialDetailServiceImpl userFinancialDetailServiceImpl;
+	@Autowired
+	private UserInviteServiceImpl userInviteServiceImpl;
+	@Autowired
+	private ProductServiceImpl productServiceImpl;
 
 	/**
 	 * 微信支付后台通知
@@ -155,7 +162,7 @@ public class PayNotifController {
 	public void Pay(String orderNumber) {
 		try {
 			Order orderData = orderServiceImpl.selectOrderByNumber(orderNumber);
-			if (orderData != null && orderData.getOrderState() == OrderState.getOrderStateByCode(1).getOrderState()) {
+			if (orderData != null && orderData.getOrderState() == OrderState.getOrderStateByCode(0).getOrderState()) {
 
 				Order entityOrder = new Order();
 				entityOrder.setOrderNumber(orderNumber);
@@ -163,27 +170,41 @@ public class PayNotifController {
 				// 更新订单状态
 				orderServiceImpl.updateOrder(entityOrder);
 				// 获取产品详情
-				ProductLevel product = ProductLevel.getProductById(orderData.getProductId());
+				Product product = productServiceImpl.selectProductById(orderData.getProductId());
 				// 更新用户级别
 				User entityUser = new User();
 				entityUser.setUserId(orderData.getUserId());
-				entityUser.setUserLevel(ProductLevel.getProductById(orderData.getProductId()).getTypeId());
+				entityUser.setUserLevel(product.getProductType());
 				userServiceImpl.updateUser(entityUser);
 				// 增加用户充值记录
 				UserRecharge rechargeData = userRechargeServiceImpl.selectRechargeByuserId(orderData.getUserId());
 				UserRecharge entityRecharge = new UserRecharge();
 				entityRecharge.setUserId(orderData.getUserId());
-				entityRecharge.setIsValid(RechargeValid.getRechargeByCode(1).getValidCode());
 				if (rechargeData != null && rechargeData.getRechargeId() > 0) {
-					// 往上累加
 					entityRecharge.setRechargeId(rechargeData.getRechargeId());
-					entityRecharge.setTotalMoney(rechargeData.getTotalMoney() + product.getPrice());
-					entityRecharge.setEndTime(DateUtil.addDay(rechargeData.getEndTime(), product.getDay()));
-					entityRecharge.setValidDays(rechargeData.getValidDays() + product.getDay());
+					if (rechargeData.getIsValid() == 1) // 如果有效 结束时间往上累加
+					{
+						Date d = DateUtil.addDay(rechargeData.getEndTime(), product.getDay());
+						entityRecharge.setTotalMoney(rechargeData.getTotalMoney() + product.getPrice());
+						entityRecharge.setEndTime(d);
+						entityRecharge.setValidDays(rechargeData.getValidDays() + product.getDay());
+
+					} else {
+						/**
+						 * 如果无效了从新开始-- 要更新 开始时期为当天
+						 */
+						entityRecharge.setIsValid(RechargeValid.getRechargeByCode(1).getValidCode());
+						entityRecharge.setBeginTime(new Date());
+						entityRecharge.setTotalMoney(product.getPrice());
+						entityRecharge.setEndTime(DateUtil.addDay(new Date(), product.getDay()));
+						entityRecharge.setValidDays(product.getDay());
+					}
 					userRechargeServiceImpl.updateRecharge(entityRecharge);
 
 				} else {
+
 					// 直接插入
+					entityRecharge.setIsValid(RechargeValid.getRechargeByCode(1).getValidCode());
 					entityRecharge.setTotalMoney(product.getPrice());
 					entityRecharge.setEndTime(DateUtil.addDay(new Date(), product.getDay()));
 					entityRecharge.setValidDays(product.getDay());
@@ -191,33 +212,39 @@ public class PayNotifController {
 				}
 				// 更新用户账户给邀请人返还20%钱 用于提现
 				double reward = product.getPrice() * SystemConfig.percentage;
-				UserFinancial financial = userFinancialServiceImpl.selectFinancial(orderData.getUserId());
-				UserFinancial userFinacial = new UserFinancial();
-				userFinacial.setUserId(orderData.getUserId());
-				if (financial != null && financial.getFinancialId() > 0) {
-					// 更新
-					userFinacial.setTotalMoney(financial.getTotalMoney() + reward);
-					userFinacial.setTotalRevenue(financial.getTotalRevenue() + reward);
-					userFinancialServiceImpl.updateFinancial(userFinacial);
 
-				} else {
-					// 插入一条
-					userFinacial.setTotalMoney(reward);
-					userFinacial.setTotalRevenue(reward);
-					userFinacial.setPayAccount("");
-					userFinacial.setPayRealName("");
-					userFinacial.setPhone("");
-					userFinancialServiceImpl.insertFinancial(userFinacial);
+				// 找到邀请人
+				UserInvite invite = userInviteServiceImpl.selectInviteByregisterId(orderData.getUserId());
+				if (invite != null) {
+					UserFinancial financial = userFinancialServiceImpl.selectFinancial(invite.getInviteUserId());
+					UserFinancial userFinacial = new UserFinancial();
+					userFinacial.setUserId(invite.getInviteUserId());
+					if (financial != null && financial.getFinancialId() > 0) {
+						// 更新
+						userFinacial.setTotalMoney(financial.getTotalMoney() + reward);
+						userFinacial.setTotalRevenue(financial.getTotalRevenue() + reward);
+						userFinancialServiceImpl.updateFinancial(userFinacial);
+
+					} else {
+						// 插入一条
+						userFinacial.setTotalMoney(reward);
+						userFinacial.setTotalRevenue(reward);
+						userFinacial.setPayAccount("");
+						userFinacial.setPayRealName("");
+						userFinacial.setPhone("");
+						userFinancialServiceImpl.insertFinancial(userFinacial);
+					}
+					// 插入明细
+					UserFinancialDetail detail = new UserFinancialDetail();
+					detail.setUserId(invite.getInviteUserId());
+					detail.setFinancialType(FinancialType.getFinancialTypeByCode(1).getTypeId());
+					detail.setFinancialMoney(reward);
+					detail.setOperateDate(new Date());
+					detail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(10).getStateCode());
+					detail.setSourceNumber(orderNumber);
+					userFinancialDetailServiceImpl.insertFinancialDetail(detail);
 				}
-				// 插入明细
-				UserFinancialDetail detail = new UserFinancialDetail();
-				detail.setUserId(orderData.getUserId());
-				detail.setFinancialType(FinancialType.getFinancialTypeByCode(1).getTypeId());
-				detail.setFinancialMoney(reward);
-				detail.setOperateDate(new Date());
-				detail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(3).getStateCode());
-				detail.setSourceNumber(orderNumber);
-				userFinancialDetailServiceImpl.insertFinancialDetail(detail);
+
 				// orderData.getProductId()
 			}
 

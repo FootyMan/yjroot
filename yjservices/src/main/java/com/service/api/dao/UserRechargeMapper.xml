@@ -31,7 +31,10 @@
 			<if test="totalMoney>0">
 				totalMoney=#{totalMoney},
 			</if>
-			<if test="endTime!=null and endTime!=''">
+			<if test="beginTime!=null">
+				beginTime=#{beginTime},
+			</if>
+			<if test="endTime!=null">
 				endTime=#{endTime},
 			</if>
 			<if test="validDays>0">

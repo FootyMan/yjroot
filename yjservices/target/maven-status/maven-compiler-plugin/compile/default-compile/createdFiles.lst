@@ -12,12 +12,12 @@ com\service\bean\UserImg.class
 com\service\bean\UserInvite.class
 com\service\api\dao\UserFinancialMapper.class
 com\service\bean\Appversion.class
+com\service\getui\GetuiManager.class
 com\service\api\impl\UserFinancialDetailServiceImpl.class
 com\service\api\impl\UserPositionServiceImpl.class
 com\service\utils\PropertiesUtils.class
 com\service\enums\DeviceType.class
 com\service\bean\SexuaType.class
-com\service\enums\ProductLevel.class
 com\service\utils\ReflectHelper.class
 com\service\api\impl\InvitationCodeServiceImpl$1.class
 com\service\api\impl\ProvinceServiceImpl.class
@@ -76,6 +76,7 @@ com\service\api\impl\AppversionServiceImpl.class
 com\service\bean\MyProfitRecord.class
 com\service\enums\RechargeValid.class
 com\service\api\dao\ProvinceMapper.class
+com\service\getui\AndroidGetuiManager.class
 com\service\api\impl\OrderServiceImpl.class
 com\service\api\dao\UserBrowseMapper.class
 com\service\bean\AppHomePagePaging.class
@@ -94,6 +95,7 @@ com\service\utils\CookieUtil.class
 com\service\bean\UserShape.class
 com\service\enums\UserLevel.class
 com\service\bean\Province.class
+com\service\getui\IosGetuiManager.class
 com\service\utils\HttpClientUtil.class
 com\service\api\dao\RoleMapper.class
 com\service\easemob\EaseMobBusiness.class
