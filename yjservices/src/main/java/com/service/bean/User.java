@@ -1,10 +1,13 @@
 package com.service.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class User {
+import com.service.utils.Pagination;
+
+public class User implements Serializable{
 
 	/**
 	 * 用户ID
@@ -81,7 +84,16 @@ public class User {
 	 * 最近访客
 	 */
 	private UserBrowse browse;
-	 
+	/**
+	 * 分页
+	 */
+	private Pagination page;
+	public Pagination getPage() {
+		return page;
+	}
+	public void setPage(Pagination page) {
+		this.page = page;
+	}
 	public int getBrowseNumber() {
 		return browseNumber;
 	}

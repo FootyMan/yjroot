@@ -11,7 +11,7 @@ public abstract interface UserMapperERP {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> ErpUserList(User user);
+	public abstract List<User> ErpUserListByPage(User user);
 	
 	/**
 	 * 首页用户列表

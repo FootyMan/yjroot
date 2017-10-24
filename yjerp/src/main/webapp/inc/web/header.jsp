@@ -11,7 +11,7 @@
     <title>我的erp</title>
     <meta name="keywords" content="屹品文汇">
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<%=path%>/css/font-awesome.min.css" rel="stylesheet">
     <link href="<%=path%>/css/animate.css"  rel="stylesheet">
     <link href="<%=path%>/css/style.css"  rel="stylesheet">
  

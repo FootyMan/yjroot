@@ -65,7 +65,7 @@
 					<tbody>
 						<c:forEach var="emp" items="${listUser}">
 							<tr>
-								<td>${emp.userNo}</td>
+								<td>${emp.userId}</td>
 								<td>${emp.nickName}</td>
 								<td>${emp.phone}</td>
 								<td>${emp.userLevel}</td>
@@ -76,8 +76,8 @@
 								<td>${emp.deviceType}</td>
 								<td>${emp.isDisable}</td>
 								<td><a class="btn btn-white btn-sm"
-									href="<%=path%>/hr/employee//list.detail?id=${emp.userId}"><i
-										class="fa fa-pencil"></i> 详情 </a> <a class="btn btn-white btn-sm"
+									href="../user/add?userId=${emp.userId}"><i
+										class="fa fa-pencil"></i> 编辑 </a> <a class="btn btn-white btn-sm"
 									href="/hr/employee/update?id=${emp.userId}"><i
 										class="fa fa-pencil"></i> 设到首页 </a></td>
 							</tr>

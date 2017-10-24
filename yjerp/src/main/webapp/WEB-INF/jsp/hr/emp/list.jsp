@@ -26,14 +26,14 @@
 							<input type="text" name="empName" id="empName"
 								class="form-control" maxlength="20" placeholder="姓名">
 						</div>
-						<div class="col-sm-2">
-							<select name="roleId" id="roleId" class="form-control">
-								<option value="">请选择角色</option>
-								<c:forEach var="item" items="${roleMap}">
-									<option value="${item.key}">${item.value}</option>
-								</c:forEach>
-							</select>
-						</div>
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<select name="roleId" id="roleId" class="form-control"> -->
+<!-- 								<option value="">请选择角色</option> -->
+<%-- 								<c:forEach var="item" items="${roleMap}"> --%>
+<%-- 									<option value="${item.key}">${item.value}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 							</select> -->
+<!-- 						</div> -->
 
 						<div class="col-sm-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />

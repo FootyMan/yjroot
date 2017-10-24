@@ -45,11 +45,11 @@ public class EmployeeController {
 		}
 		Pagination.threadLocal.set(pagination);
 		List<Employee> empReslist = employeeService.selectEmployeeListByPage(employee);
-		Map<Integer, String> roleMap = roleService.getMapRoleById();
+//		Map<Integer, String> roleMap = roleService.getMapRoleById();
 		// System.out.println(roleMap.get(1));
 		// System.out.println(roleMap.get(2));
 
-		model.addAttribute("roleMap", roleMap);
+//		model.addAttribute("roleMap", roleMap);
 //		Map<Integer, String> map = new HashMap<Integer, String>();
 //		map.put(1, "1");
 //		map.put(2, "33");

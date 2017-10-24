@@ -19,10 +19,10 @@ public class UserServiceImplERP {
 	 * @param user
 	 * @return
 	 */
-	public List<User> GetUserList(User user)
+	public List<User> ErpUserListByPage(User user)
 	{
 		DBContextHolder.setDBType("siteRead");
-		return userMapperERP.ErpUserList(user);
+		return userMapperERP.ErpUserListByPage(user);
 	}
 	/**
 	 * 首页用户列表

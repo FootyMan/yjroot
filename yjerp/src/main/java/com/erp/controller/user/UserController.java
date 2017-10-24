@@ -21,7 +21,6 @@ import com.service.api.impl.ProvinceServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
 import com.service.api.impl.UserImgServiceImpl;
 import com.service.api.impl.UserServiceImpl;
-import com.service.bean.Employee;
 import com.service.bean.Province;
 import com.service.bean.User;
 import com.service.bean.UserDatum;
@@ -52,14 +51,16 @@ public class UserController {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
-																// employee,
+
+		User userParameter = new User();
 		Pagination pagination = userModel.getPage();
 		if (pagination == null) {
 			pagination = new Pagination();
 		}
+		userParameter.setPage(pagination);
 		Pagination.threadLocal.set(pagination);
-		User user = new User();
-		List<User> empReslist = userServiceImplERP.GetUserList(user);
+
+		List<User> empReslist = userServiceImplERP.ErpUserListByPage(userParameter);
 		List<UserModel> listUser = new ArrayList<UserModel>();
 		for (User x : empReslist) {
 			UserModel m = new UserModel();
@@ -88,6 +89,24 @@ public class UserController {
 	public ModelAndView add(UserModel userModel, Model model) {// Employee
 		// employee,
 
+		// 初始化用户信息
+		if (userModel.getUserId() > 0) {
+			User entity_User = userServiceImpl.selectUserByUserId(userModel.getUserId());
+			if (entity_User != null) {
+				userModel.setHeadImage(SystemConfig.ImgurlPrefix + entity_User.getHeadImage());
+
+				List<UserImageModel> imgS = new ArrayList<UserImageModel>();
+				List<UserImg> entity_Imgs = userImgServiceImpl.selectImgtByUserId(userModel.getUserId());
+				for (UserImg userImg : entity_Imgs) {
+					UserImageModel imgModel = new UserImageModel();
+					imgModel.setImageId(userImg.getImgId());
+					imgModel.setImgUrl(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+					imgS.add(imgModel);
+				}
+				userModel.setImgList(imgS);
+			}
+
+		}
 		// 初始化城市
 		List<ProvinceModel> listPro = new ArrayList<ProvinceModel>();
 		List<Province> proEntiys = provinceServiceImpl.selectProvinces();
@@ -97,6 +116,7 @@ public class UserController {
 			proModel.setName(pro.getName());
 			listPro.add(proModel);
 		}
+		model.addAttribute("obj", userModel);
 		model.addAttribute("listPro", listPro);
 		return new ModelAndView("/user/add");
 	}
@@ -111,7 +131,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView adddo(UserModel userModel, Model model, HttpServletRequest request) {// Employee
-		// employee,
+
 		List<UserImageModel> imgList = userModel.getImgList();
 		User entiyUser = new User();
 		entiyUser.setPhone(userModel.getPhone());
@@ -198,6 +218,7 @@ public class UserController {
 			m.setUserId(x.getUserId());
 			m.setUserNo(String.valueOf(x.getUserId()));
 			m.setPhone(x.getPhone());
+			//
 			// m.setDeviceType(DeviceType.getDeviceTypeByCode(x.getDeviceType()).getDesc());
 			m.setNickName(x.getNickName());
 			m.setRegisterTime(x.getRegisterTime());

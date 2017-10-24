@@ -57,15 +57,16 @@
 		inviteCode,passWord
 	</sql>
 	<!-- 后台用户列表 -->
-	<select id="ErpUserList" resultMap="userResult" parameterType="com.service.bean.User">
+	<select id="ErpUserListByPage" resultMap="userResult" parameterType="com.service.bean.User">
 		SELECT
 		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
 		a.userLevel,a.isDisable,b.sexuat,b.cityId,
 		b.age,b.gender,b.sign
-		FROM
+		FROM 
 		user a inner join userdatum b
 		on
 		a.userId=b.userId
+		 order by a.userId
 		<!-- <if test="gender>0"> -->
 		<!-- and b.gender=#{gender} -->
 		<!-- </if> -->

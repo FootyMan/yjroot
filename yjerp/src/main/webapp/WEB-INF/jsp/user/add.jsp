@@ -17,6 +17,7 @@
 	</div>
 	<form id="deptForm" action="../user/add.do" method="POST"
 		class="form-horizontal">
+		<input type="hidden" id="userId" name="userId" value="${obj.userId}" />
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<div class="row">
@@ -27,19 +28,12 @@
 			<div class="ibox-content" id="addImgDiv">
 				<input id="uploadFileInputHead" isUpdate="-1"
 					onchange="uploadFileFunHead()" multiple="true"
-					style="display: none;" type="file" name="uploadFileInputHead" /> <img
-					id="addImgDefHead" src="../img/add_img.png" width="100px"
-					height="100px"
-					onclick='javascript:$("#uploadFileInputHead").attr("isUpdate","-1");$("#uploadFileInputHead").click();return false;' />
-					<input type="hidden" id="headImage"   class="goodsImg" name="headImage" value="">
+					style="display: none;" type="file" name="uploadFileInputHead" /> 
+					<img id="addImgDefHead" src="../img/add_img.png" width="100px" height="100px"
+					onclick='javascript:$("#uploadFileInputHead").attr("isUpdate","-1");$("#uploadFileInputHead").click();return false;'/>
+				<input type="hidden" id="headImage" class="goodsImg"
+					name="headImage" value="${obj.headImage}">
 			</div>
-
-			<!-- 		<div class="ibox-content" id="addImgDiv"> -->
-			<!-- 			<input id="uploadFileInput" isUpdate="-1" onchange="uploadFileFun()" -->
-			<!-- 				multiple="true" name="uploadFileInput" style="display: none;" -->
-			<!-- 				type="file" /> <img id="addImgDef" src="../img/add_img.png" -->
-			<!-- 				onclick='javascript:$("#uploadFileInput").attr("isUpdate","-1");$("#uploadFileInput").click();return false;' /> -->
-			<!-- 		</div> -->
 		</div>
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
@@ -49,6 +43,13 @@
 			</div>
 
 			<div class="ibox-content" id="addImgDiv">
+				<c:forEach items="${obj.imgList }" var="img" varStatus="imgStatus">
+				<img updateImgTag="img_src_${imgStatus.index }" onclick="updateImg(${imgStatus.index })"
+						 width="100px" height="100px" src="${img.imgUrl }"/>
+					<input type="hidden"  name="imgList[${imgStatus.index }].id" value="${img.imageId }"/>
+					<input updateImgTag="img_src_input_${imgStatus.index }" type="hidden"  name="imgList[${imgStatus.index }].imgUrl" value="${img.imgUrl }"/>
+					<input type="hidden" class="goodsImg"  name="imgList[${imgStatus.index }].sortOrder" value="${img.imgUrl }"/>
+				</c:forEach>
 				<input id="uploadFileInput" isUpdate="-1" onchange="uploadFileFun()"
 					multiple="true" name="uploadFileInput" style="display: none;"
 					type="file" /> <img id="addImgDef" src="../img/add_img.png"
@@ -153,8 +154,8 @@
 				</div>
 				<label class="col-sm-2 control-label">邀请码：</label>
 				<div class="col-sm-4">
-					<input type="text" name="inviteCode" id="inviteCode" class="form-control"
-						required="">
+					<input type="text" name="inviteCode" id="inviteCode"
+						class="form-control" required="">
 				</div>
 			</div>
 		</div>
