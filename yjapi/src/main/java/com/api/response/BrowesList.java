@@ -5,16 +5,16 @@ import java.util.List;
 
 public class BrowesList {
 	public BrowesList() {
-		list = new ArrayList<HomeResponse>();
+		list = new ArrayList<BrowesResponse>();
 	}
 
-	public List<HomeResponse> getList() {
+	public List<BrowesResponse> getList() {
 		return list;
 	}
 
-	public void setList(List<HomeResponse> list) {
+	public void setList(List<BrowesResponse> list) {
 		this.list = list;
 	}
-	private List<HomeResponse> list;
+	private List<BrowesResponse> list;
 
 }

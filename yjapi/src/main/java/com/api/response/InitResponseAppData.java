@@ -33,6 +33,8 @@ public class InitResponseAppData {
 	private VersionResponse versionData;
 	@ApiModelProperty(value = "二次启动页数据")
 	private PageTwoResponse twoData;
+	@ApiModelProperty(value = "二维码下载路径")
+	private TwoCodeResponse twoCode;
 	// @ApiModelProperty(value = "城市")
 	// private List<CityResponseParent> cityData;
 
@@ -58,5 +60,13 @@ public class InitResponseAppData {
 
 	public void setTwoData(PageTwoResponse twoData) {
 		this.twoData = twoData;
+	}
+
+	public TwoCodeResponse getTwoCode() {
+		return twoCode;
+	}
+
+	public void setTwoCode(TwoCodeResponse twoCode) {
+		this.twoCode = twoCode;
 	}
 }

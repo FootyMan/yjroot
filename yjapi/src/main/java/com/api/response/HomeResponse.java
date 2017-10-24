@@ -18,14 +18,6 @@ public class HomeResponse {
 	private int sex;
 	@ApiModelProperty(value = "个性签名")
 	private String sign;
-	@ApiModelProperty(value = "访问时间 只有在最近访客里返回数据")
-	private String browseData;
-	public String getBrowseData() {
-		return browseData;
-	}
-	public void setBrowseData(String browseData) {
-		this.browseData = browseData;
-	}
 	public String getSign() {
 		return sign;
 	}

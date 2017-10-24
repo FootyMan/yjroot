@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.request.baseRequest;
+import com.api.response.BrowesResponse;
 import com.api.response.HomeResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
@@ -72,9 +73,27 @@ public class BusinessUtils {
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		model.setSign(user.getDatum().getSign());
+		return model;
+	}
+	/**
+	 * 最近访客实体对象转换model
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public BrowesResponse BrowesEntityToModel(User user) {
+		BrowesResponse model = new BrowesResponse();
+		model.setUserId(user.getUserId());
+		model.setNickName(user.getNickName());
+		model.setVip(user.getUserLevel());
+		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+		model.setSex(user.getDatum().getGender());
+		model.setAge(user.getDatum().getAge());
+		model.setSign(user.getDatum().getSign());
 		// 访问时间设置
-		if (user.getBrowseDate() != null) {
-			model.setBrowseData(ResponseUtils.GetBrowseTime(user.getBrowseDate()));
+		if (user.getBrowse() != null && user.getBrowse().getBrowseDate() != null) {
+			model.setBrowseData(ResponseUtils.GetBrowseTime(user.getBrowse().getBrowseDate()));
+			model.setBrowseId(user.getBrowse().getKeyId());
 		}
 		return model;
 	}
@@ -85,28 +104,28 @@ public class BusinessUtils {
 	 * @param labletTypes
 	 * @return
 	 */
-//	public LablesResponse LableEntityToModel(List<LabletType> labletTypes) {
-//		LablesResponse lables=new LablesResponse();
-//		
-////		InitResponseAppData appData = new InitResponseAppData();
-//		for (LabletType labletType : labletTypes) {
-//			LableResponse lableModel = new LableResponse();
-//			lableModel.setLableId(labletType.getLableId());
-//			lableModel.setLableName(labletType.getLableName());
-//			// 1个性类
-//			if (labletType.getLableType() == 1) {
-//				lableModel.setLableType(labletType.getLableType());
-//				lables.getPersonality().add(lableModel);
-//			}
-//			// 2运动类
-//			if (labletType.getLableType() == 2) {
-//				lableModel.setLableType(labletType.getLableType());
-//				lables.getSports().add(lableModel);
-//			}
-//		}
-////		appData.setLables(lables);
-//		return lables;
-//	}
+	// public LablesResponse LableEntityToModel(List<LabletType> labletTypes) {
+	// LablesResponse lables=new LablesResponse();
+	//
+	//// InitResponseAppData appData = new InitResponseAppData();
+	// for (LabletType labletType : labletTypes) {
+	// LableResponse lableModel = new LableResponse();
+	// lableModel.setLableId(labletType.getLableId());
+	// lableModel.setLableName(labletType.getLableName());
+	// // 1个性类
+	// if (labletType.getLableType() == 1) {
+	// lableModel.setLableType(labletType.getLableType());
+	// lables.getPersonality().add(lableModel);
+	// }
+	// // 2运动类
+	// if (labletType.getLableType() == 2) {
+	// lableModel.setLableType(labletType.getLableType());
+	// lables.getSports().add(lableModel);
+	// }
+	// }
+	//// appData.setLables(lables);
+	// return lables;
+	// }
 
 	/**
 	 * 根据userId获取图片

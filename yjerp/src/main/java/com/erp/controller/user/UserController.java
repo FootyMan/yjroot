@@ -79,15 +79,6 @@ public class UserController {
 			m.setSexuat(datm.getSexuat());
 			listUser.add(m);
 		}
-		// Map<Integer, String> roleMap = roleService.getMapRoleById();
-		// System.out.println(roleMap.get(1));
-		// System.out.println(roleMap.get(2));
-
-		// model.addAttribute("roleMap", roleMap);
-		// Map<Integer, String> map = new HashMap<Integer, String>();
-		// map.put(1, "1");
-		// map.put(2, "33");
-
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("page", Pagination.threadLocal.get());
 		return new ModelAndView("/user/list");

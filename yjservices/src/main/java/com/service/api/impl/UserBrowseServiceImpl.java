@@ -34,5 +34,15 @@ public class UserBrowseServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userVisitorMapper.selectBrowseByNumber(toUserId);
 	}
+	/**
+	 * 删除访客
+	 * 
+	 * @param order
+	 * @return
+	 */
+	public int deleteBrowsById(int Id) {
+		DBContextHolder.setDBType("siteRead");
+		return userVisitorMapper.deleteBrowsById(Id);
+	}
 
 }

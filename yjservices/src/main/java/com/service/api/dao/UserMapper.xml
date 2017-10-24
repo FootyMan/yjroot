@@ -33,7 +33,6 @@
 		<result column="userSource" property="userSource" jdbcType="INTEGER" />
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
-		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
 		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
 		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
 		<!-- 映射用户资料表 一对一 -->
@@ -49,6 +48,14 @@
 			<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
 			<result column="sign" property="sign" jdbcType="VARCHAR" />
 			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
+		</association>
+		<!-- 最近访客 -->
+		<association property="browse" javaType="com.service.bean.UserBrowse">
+			<id column="keyId" property="keyId" jdbcType="INTEGER" />
+			<result column="browseId" property="browseId" jdbcType="INTEGER" />
+			<result column="toUserId" property="toUserId" jdbcType="INTEGER" />
+			<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+			<result column="isBrowse" property="isBrowse" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
 
@@ -260,7 +267,7 @@
 		parameterType="com.service.bean.RangeParameter">
 		SELECT
 		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
-		b.age,b.gender,b.sign,c.browseDate
+		b.age,b.gender,b.sign,c.browseDate,c.Id as keyId
 		FROM user a inner join userdatum b
 		on
 		a.userId=b.userId

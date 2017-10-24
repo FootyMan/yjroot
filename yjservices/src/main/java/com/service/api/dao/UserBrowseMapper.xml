@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.service.api.dao.UserBrowseMapper">
 	<resultMap id="browseResultMap" type="com.service.bean.UserBrowse">
-		<id column="Id" property="Id" jdbcType="INTEGER" />
+		<id column="keyId" property="keyId" jdbcType="INTEGER" />
 		<result column="browseId" property="browseId" jdbcType="INTEGER" />
 		<result column="toUserId" property="toUserId" jdbcType="INTEGER" />
 		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		Id,browseId,toUserId,browseDate,isBrowse
+		Id as keyId,browseId,toUserId,browseDate,isBrowse
 	</sql>
 
 	<insert id="insertBrowse" parameterType="com.service.bean.UserBrowse">
@@ -30,4 +30,7 @@
 		and isBrowse=0
 	</select>
 
+	<delete id="deleteBrowsById" parameterType="java.lang.Integer">
+		delete from userbrowse where id=#{id}
+	</delete>
 </mapper>

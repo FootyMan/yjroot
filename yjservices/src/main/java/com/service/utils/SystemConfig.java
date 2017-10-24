@@ -54,4 +54,9 @@ public class SystemConfig {
 	 * 图片前缀
 	 */
 	public static String ImgurlPrefix = PropertiesUtils.ReadProperties(fileName, "img_url");
+	
+	/**
+	 * 二维码路径
+	 */
+	public static String TwoCodeUrl = PropertiesUtils.ReadProperties(fileName, "twoCode_url");
 }

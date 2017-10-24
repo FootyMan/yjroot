@@ -2,6 +2,8 @@ package com.service.bean;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 访客表
  * @author HCY
@@ -9,14 +11,14 @@ import java.util.Date;
  */
 public class UserBrowse {
 
-	private int Id;
+	private int keyId;
 	//访问者Id
 	private int browseId;
-	public int getId() {
-		return Id;
+	public int getKeyId() {
+		return keyId;
 	}
-	public void setId(int id) {
-		Id = id;
+	public void setKeyId(int keyId) {
+		this.keyId = keyId;
 	}
 	public int getBrowseId() {
 		return browseId;
@@ -45,6 +47,7 @@ public class UserBrowse {
 	//被访问者ID
 	private int toUserId;
 	//访问时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date browseDate;
 	//是否浏览 0没浏览 1浏览
 	private int isBrowse;

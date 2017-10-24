@@ -67,11 +67,6 @@ public class User {
 	 * 浏览次数
 	 */
 	private int browseNumber;
-	/**
-	 * 浏览时间
-	 */
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date browseDate;
 	
 	/**
 	 * 环信Id
@@ -81,12 +76,12 @@ public class User {
 	 * 个推id
 	 */
 	private String getuiId;
-	public Date getBrowseDate() {
-		return browseDate;
-	}
-	public void setBrowseDate(Date browseDate) {
-		this.browseDate = browseDate;
-	}
+	
+	/**
+	 * 最近访客
+	 */
+	private UserBrowse browse;
+	 
 	public int getBrowseNumber() {
 		return browseNumber;
 	}
@@ -194,6 +189,12 @@ public class User {
 	}
 	public void setGetuiId(String getuiId) {
 		this.getuiId = getuiId;
+	}
+	public UserBrowse getBrowse() {
+		return browse;
+	}
+	public void setBrowse(UserBrowse browse) {
+		this.browse = browse;
 	}
 
 }

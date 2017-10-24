@@ -11,6 +11,7 @@ import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableTypeResponse;
 import com.api.response.PageTwoResponse;
+import com.api.response.TwoCodeResponse;
 import com.api.response.UserInfoResponse;
 import com.api.response.VersionResponse;
 import com.api.response.BaseResponse;
@@ -117,6 +118,9 @@ public class InitBusiness {
 		appData.setVersionData(versionResponseModel);
 		appData.setTwoData(pageTwoModel);
 
+		//二维码
+		TwoCodeResponse twoCode=new TwoCodeResponse();
+		twoCode.setImgUrl(SystemConfig.TwoCodeUrl);
 		// appData.setCityData(citys);
 		response.setData(appData);
 		return response;

@@ -18,4 +18,10 @@ public abstract interface  UserBrowseMapper {
 	 * @return
 	 */
 	public abstract int selectBrowseByNumber(int toUserId);
+	/**
+	 * 喜欢ID
+	 * @param likeId
+	 * @return
+	 */
+	public abstract int deleteBrowsById(int Id);
 }

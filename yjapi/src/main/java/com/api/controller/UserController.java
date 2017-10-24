@@ -244,7 +244,7 @@ public class UserController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/likeList", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-details", value = "喜欢列表", notes = "喜欢列表")
-	public BaseResponse<List<HomeResponse>> UserLikeList(@ApiParam(value = "输入") @RequestBody baseRequest<?> request) {
+	public BaseResponse<LikeListResponse> UserLikeList(@ApiParam(value = "输入") @RequestBody baseRequest<?> request) {
 		return userBusiness.UserLikeList(request);
 	}
 
@@ -261,6 +261,19 @@ public class UserController {
 			+ "	如果传入type=1 获取数量 返回body里只有browseNumber	" + "	如果传入type=2获取访问列表 传入pageIndex 返回列表比首页多一个访问时间browseData")
 	public BaseResponse<?> GetUserBrowse(@ApiParam(value = "输入") @RequestBody baseRequest<BrowseRequest> request) {
 		return userBusiness.GetUserBrowse(request);
+	}
+	/**
+	 * 删除访客
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/rmBrowse", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-details", value = "删除访客", notes = " 删除成功不返回任何数据 客户端直接删除即可 ")
+	public BaseResponse<?> RemoveBrowse(@ApiParam(value = "输入") @RequestBody baseRequest<RemoveBrowseRequest> request) {
+		return userBusiness.RemoveBrowse(request);
 	}
 
 	/**

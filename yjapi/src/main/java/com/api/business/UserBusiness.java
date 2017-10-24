@@ -18,6 +18,7 @@ import com.api.request.DetailsRequest;
 import com.api.request.LableRequest;
 import com.api.request.LableRequestData;
 import com.api.request.PhoneMsgRequest;
+import com.api.request.RemoveBrowseRequest;
 import com.api.request.RemoveImgRequest;
 import com.api.request.UserDatumRequest;
 import com.api.request.UserLikeRequest;
@@ -30,6 +31,7 @@ import com.api.response.HomeResponse;
 import com.api.response.InitResponse;
 import com.api.response.LableResponse;
 import com.api.response.LableTypeResponse;
+import com.api.response.LikeListResponse;
 import com.api.response.MyImageResponse;
 import com.api.response.MyLableResponse;
 import com.api.response.DetailsUserResponse;
@@ -37,6 +39,7 @@ import com.api.response.UserLikeResponse;
 import com.api.response.UserPwdResponse;
 import com.api.response.BaseResponse;
 import com.api.response.BrowesList;
+import com.api.response.BrowesResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
@@ -604,14 +607,16 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<List<HomeResponse>> UserLikeList(baseRequest<?> request) {
-		BaseResponse<List<HomeResponse>> response = new BaseResponse<List<HomeResponse>>();
+	public BaseResponse<LikeListResponse> UserLikeList(baseRequest<?> request) {
+		BaseResponse<LikeListResponse> response = new BaseResponse<LikeListResponse>();
+		response.setData(new LikeListResponse());
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		List<User> userData = userServiceImpl.userLikeList(request.getUserId());
 		for (User user : userData) {
 			list.add(businessUtils.EntityToModel(user));
 		}
-		response.setData(list);
+		response.getData().setList(list);
+		//response.setData(list);
 		return response;
 	}
 
@@ -633,15 +638,36 @@ public class UserBusiness {
 			response.setData(numberData);
 		} else if (body.getType() == 2) {
 			BrowesList list = new BrowesList();
-			List<HomeResponse> browesResponse = new ArrayList<HomeResponse>();
+			List<BrowesResponse> browesResponse = new ArrayList<BrowesResponse>();
 			RangeParameter rangeParameter = PageParameter.GetRangePage(body.getPageIndex(), request.getUserId());
 			// 数据
 			List<User> browesData = userServiceImpl.userBrowseList(rangeParameter);
 			for (User user : browesData) {
-				browesResponse.add(businessUtils.EntityToModel(user));
+				browesResponse.add(businessUtils.BrowesEntityToModel(user));
 			}
 			list.setList(browesResponse);
 			response.setData(list);
+		}
+		return response;
+	}
+	/**
+	 * 删除访客
+	 * @param request
+	 * @return
+	 */
+	public BaseResponse<?> RemoveBrowse(baseRequest<RemoveBrowseRequest> request)
+	{
+		BaseResponse<?> response=new BaseResponse<Object>();
+		RemoveBrowseRequest body=request.getbody();
+		if (body.getBrowseId()<=0) {
+			response.setCode(ResultEnum.ColmunErrorCode);
+			response.setMsg("请求id为空");
+			return response;
+		}
+		int result=userBrowseServiceImpl.deleteBrowsById(body.getBrowseId());
+		if (result<=0) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("服务器请求失败");
 		}
 		return response;
 	}
