@@ -231,7 +231,7 @@
 	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
 		SELECT
 		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
-		a.userLevel,a.inviteCode
+		a.userLevel,a.inviteCode,a.phone
 		FROM user a inner join userdatum b
 		on
 		a.userId=b.userId

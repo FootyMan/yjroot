@@ -28,6 +28,7 @@ import com.service.bean.UserImg;
 import com.service.easemob.EaseMobBusiness;
 import com.service.enums.DeviceType;
 import com.service.enums.UserLevel;
+import com.service.erp.impl.UserImgServiceImplERP;
 import com.service.erp.impl.UserServiceImplERP;
 import com.service.utils.Md5Util;
 import com.service.utils.Pagination;
@@ -48,6 +49,8 @@ public class UserController {
 	private UserDatumServiceImpl userDatumServiceImpl;
 	@Autowired
 	private UserImgServiceImpl userImgServiceImpl;
+	@Autowired
+	private UserImgServiceImplERP userImgServiceImplERP;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
@@ -91,10 +94,24 @@ public class UserController {
 
 		// 初始化用户信息
 		if (userModel.getUserId() > 0) {
-			User entity_User = userServiceImpl.selectUserByUserId(userModel.getUserId());
-			if (entity_User != null) {
-				userModel.setHeadImage(SystemConfig.ImgurlPrefix + entity_User.getHeadImage());
-
+			List<User> entity_Users = userServiceImplERP.selectDetalsERP(userModel.getUserId());
+			if (entity_Users != null && entity_Users.size() > 0) {
+				User enUser = entity_Users.get(0);
+				userModel.setHeadImage(SystemConfig.ImgurlPrefix + enUser.getHeadImage());
+				userModel.setPhone(enUser.getPhone());
+				userModel.setDeviceType(enUser.getDeviceType());
+				userModel.setNickName(enUser.getNickName());
+				userModel.setInviteCode(enUser.getInviteCode());
+				// 查询用户资料
+				UserDatum enDatum = enUser.getDatum();
+				userModel.setAge(enDatum.getAge());
+				userModel.setSex(enDatum.getGender());
+				userModel.setCityId(enDatum.getCityId());
+				userModel.setWeight(enDatum.getWeight());
+				userModel.setHeight(enDatum.getHeight());
+				userModel.setShape(enDatum.getShape());
+				userModel.setSexuat(enDatum.getSexuat());
+				userModel.setSign(enDatum.getSign());
 				List<UserImageModel> imgS = new ArrayList<UserImageModel>();
 				List<UserImg> entity_Imgs = userImgServiceImpl.selectImgtByUserId(userModel.getUserId());
 				for (UserImg userImg : entity_Imgs) {
@@ -132,50 +149,43 @@ public class UserController {
 	@RequestMapping(value = "/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView adddo(UserModel userModel, Model model, HttpServletRequest request) {// Employee
 
+		if (userModel.getUserId() > 0) {
+			// 更新图片
+			List<UserImageModel> imgList = userModel.getImgList();
+			// 更新
+			User user = SetUserEntity(userModel, userModel.getUserId());
+			userServiceImpl.updateUser(user);
+			// 更新基本资料
+			UserDatum datum = SetUserDatum(userModel, userModel.getUserId());
+			userDatumServiceImpl.updateDatum(datum);
+
+			// 更新之前图片无效 从新添加
+			userImgServiceImplERP.updateUserImgStatus(userModel.getUserId());
+			AddUserImage(imgList, userModel.getUserId());
+
+		} else {
+			InsertUser(userModel);
+		}
+		return new ModelAndView("/user/list");
+	}
+
+	/**
+	 * 添加
+	 * 
+	 * @param userModel
+	 * @return
+	 */
+	private int InsertUser(UserModel userModel) {
 		List<UserImageModel> imgList = userModel.getImgList();
 		User entiyUser = new User();
-		entiyUser.setPhone(userModel.getPhone());
-		entiyUser.setDeviceType(userModel.getDeviceType());
-		entiyUser.setDeviceToken("");
-		String headImg = userModel.getHeadImage().replace(SystemConfig.ImgurlPrefix, "");
-		entiyUser.setHeadImage(headImg);
-		entiyUser.setNickName(userModel.getNickName());
-		entiyUser.setInviteCode(userModel.getInviteCode());
-		entiyUser.setPassWord(Md5Util.stringByMD5("000000"));
+		entiyUser = SetUserEntity(userModel, 0);
 		int userId = userServiceImplERP.InsertUserErp(entiyUser);
 		if (userId > 0) {
 			// 添加基本资料
-			UserDatum datum = new UserDatum();
-			datum.setUserId(userId);
-			datum.setAge(userModel.getAge());
-			datum.setGender(userModel.getSex());
-			datum.setCityId(userModel.getCityId());
-			datum.setWeight(userModel.getWeight());
-			datum.setHeight(userModel.getHeight());
-			datum.setShape(userModel.getShape());
-			datum.setSexuat(userModel.getSexuat());
-			datum.setSign(userModel.getSign());
+			UserDatum datum = SetUserDatum(userModel, userId);
 			int datumId = userDatumServiceImpl.insertDatum(datum);
 			if (datumId > 0) {
-				// 添加图片
-				if (imgList != null && imgList.size() > 0) {
-					List<UserImg> entiyImgs = new ArrayList<UserImg>();
-					for (int i = 0; i < imgList.size(); i++) {
-						UserImageModel m = imgList.get(i);
-						if (!StringUtils.isEmpty(m.getImgUrl())) {
-							UserImg img = new UserImg();
-							img.setUserId(userId);
-							img.setImageType(0);
-							String paht = m.getImgUrl().replace(SystemConfig.ImgurlPrefix, "");
-							img.setImagePath(paht);
-							img.setImageSort(i);
-							img.setImgStatus(1);
-							entiyImgs.add(img);
-						}
-
-					}
-					userImgServiceImpl.insertUserImg(entiyImgs);
-				}
+				AddUserImage(imgList, userId);
 				// 注册环信
 				String easemobId = userId + SystemConfig.EnvIdentity;
 				String result = EaseMobBusiness.AccountCreate(easemobId);
@@ -191,7 +201,88 @@ public class UserController {
 				}
 			}
 		}
-		return new ModelAndView("/user/list");
+		return userId;
+	}
+
+	/**
+	 * 更新和添加设置对象
+	 * 
+	 * @param userModel
+	 * @param userid
+	 * @return
+	 */
+	public User SetUserEntity(UserModel userModel, int userid) {
+		User entiyUser = new User();
+		if (userid > 0) {
+			// 更新
+			entiyUser.setUserId(userid);
+			String headImg = userModel.getHeadImage().replace(SystemConfig.ImgurlPrefix, "");
+			entiyUser.setHeadImage(headImg);
+			entiyUser.setNickName(userModel.getNickName());
+		} else {
+			// 添加
+			entiyUser.setPhone(userModel.getPhone());
+			entiyUser.setDeviceType(userModel.getDeviceType());
+			entiyUser.setDeviceToken("");
+			String headImg = userModel.getHeadImage().replace(SystemConfig.ImgurlPrefix, "");
+			entiyUser.setHeadImage(headImg);
+			entiyUser.setNickName(userModel.getNickName());
+			entiyUser.setInviteCode(userModel.getInviteCode());
+			entiyUser.setPassWord(Md5Util.stringByMD5("000000"));
+		}
+		return entiyUser;
+	}
+
+	/**
+	 * 基本资料
+	 * 
+	 * @param userModel
+	 * @param userId
+	 * @return
+	 */
+	public UserDatum SetUserDatum(UserModel userModel, int userId) {
+		UserDatum datum = new UserDatum();
+		datum.setUserId(userId);
+		datum.setAge(userModel.getAge());
+		datum.setGender(userModel.getSex());
+		datum.setCityId(userModel.getCityId());
+		datum.setWeight(userModel.getWeight());
+		datum.setHeight(userModel.getHeight());
+		datum.setShape(userModel.getShape());
+		datum.setSexuat(userModel.getSexuat());
+		datum.setSign(userModel.getSign());
+		return datum;
+	}
+
+	/**
+	 * 添加图片
+	 * 
+	 * @param imgList
+	 * @param userId
+	 * @return
+	 */
+	public int AddUserImage(List<UserImageModel> imgList, int userId) {
+		int result = 0;
+		// 添加图片
+		if (imgList != null && imgList.size() > 0) {
+			List<UserImg> entiyImgs = new ArrayList<UserImg>();
+			for (int i = 0; i < imgList.size(); i++) {
+				UserImageModel m = imgList.get(i);
+				if (!StringUtils.isEmpty(m.getImgUrl())) {
+					UserImg img = new UserImg();
+					img.setUserId(userId);
+					img.setImageType(0);
+					String paht = m.getImgUrl().replace(SystemConfig.ImgurlPrefix, "");
+					img.setImagePath(paht);
+					img.setImageSort(i);
+					img.setImgStatus(1);
+					entiyImgs.add(img);
+				}
+
+			}
+			result = userImgServiceImpl.insertUserImg(entiyImgs);
+		}
+		return result;
 	}
 
 	/**

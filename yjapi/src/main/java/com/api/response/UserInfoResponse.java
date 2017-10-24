@@ -159,6 +159,8 @@ public class UserInfoResponse {
 
 	@ApiModelProperty(value = "环信Id")
 	private String easeId;
+	@ApiModelProperty(value = "手机号")
+	private String phone;
 
 	public boolean isFull() {
 		return isFull;
@@ -182,5 +184,13 @@ public class UserInfoResponse {
 
 	public void setEaseId(String easeId) {
 		this.easeId = easeId;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

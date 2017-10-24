@@ -205,6 +205,7 @@ public class InitBusiness {
 			info.setInviteCode(user.getInviteCode());
 			info.setFull(true);
 			info.setEaseId(userId + SystemConfig.EnvIdentity);
+			info.setPhone(user.getPhone());
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
 			if (user != null) {
@@ -214,6 +215,7 @@ public class InitBusiness {
 				info.setVip(user.getUserLevel());
 				info.setFull(false);
 				info.setEaseId(userId + SystemConfig.EnvIdentity);
+				info.setPhone(user.getPhone());
 			}
 		}
 		initUser.setUser(info);

@@ -26,4 +26,11 @@ public abstract interface UserMapperERP {
 	 * @return
 	 */
 	public abstract int InsertUserErp(User user);
+	
+	/**
+	 * 详情
+	 * @param userId
+	 * @return
+	 */
+	public abstract List<User> selectDetalsERP(int userId);
 }
