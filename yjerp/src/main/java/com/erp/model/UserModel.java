@@ -100,6 +100,10 @@ public class UserModel implements Serializable  {
 	 */
 	private List<UserImageModel> imgList;
 
+	/**
+	 * 首页是否存在
+	 */
+	private int isHomeUser;
 	public List<UserImageModel> getImgList() {
 		return imgList;
 	}
@@ -274,6 +278,14 @@ public class UserModel implements Serializable  {
 
 	public void setSexName(String sexName) {
 		this.sexName = sexName;
+	}
+
+	public int getIsHomeUser() {
+		return isHomeUser;
+	}
+
+	public void setIsHomeUser(int isHomeUser) {
+		this.isHomeUser = isHomeUser;
 	}
 
 }

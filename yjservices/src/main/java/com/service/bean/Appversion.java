@@ -32,6 +32,11 @@ public class Appversion {
 	 * 下载地址
 	 */
 	private String downloadUrl;
+	
+	/**
+	 * 是否强制更新 0可以关闭 1不可关闭
+	 */
+	private int isMust;
 	public String getDownloadUrl() {
 		return downloadUrl;
 	}
@@ -73,6 +78,12 @@ public class Appversion {
 	}
 	public void setUpdateDescription(String updateDescription) {
 		this.updateDescription = updateDescription;
+	}
+	public int getIsMust() {
+		return isMust;
+	}
+	public void setIsMust(int isMust) {
+		this.isMust = isMust;
 	}
 
 }

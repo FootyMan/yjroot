@@ -21,6 +21,8 @@ public class VersionResponse {
 	private String updateDesc;
 	@ApiModelProperty(value = "下载地址")
 	private String downloadUrl;
+	@ApiModelProperty(value = "是否强制更新 0可以关闭 1不可以关闭")
+	private int isClose;
 	public String getVersionName() {
 		return versionName;
 	}
@@ -44,5 +46,11 @@ public class VersionResponse {
 	}
 	public void setDownloadUrl(String downloadUrl) {
 		this.downloadUrl = downloadUrl;
+	}
+	public int getIsClose() {
+		return isClose;
+	}
+	public void setIsClose(int isClose) {
+		this.isClose = isClose;
 	}
 }

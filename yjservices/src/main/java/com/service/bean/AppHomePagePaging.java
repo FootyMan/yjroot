@@ -5,6 +5,7 @@ public class AppHomePagePaging {
 	private int pageIndex;
 	private int pageSize;
 	private int gender;
+	private int userId;
 
 	public int getPageIndex() {
 		return pageIndex;
@@ -28,5 +29,13 @@ public class AppHomePagePaging {
 
 	public void setGender(int gender) {
 		this.gender = gender;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

@@ -162,11 +162,11 @@ public class PayNotifController {
 	public void Pay(String orderNumber) {
 		try {
 			Order orderData = orderServiceImpl.selectOrderByNumber(orderNumber);
-			if (orderData != null && orderData.getOrderState() == OrderState.getOrderStateByCode(0).getOrderState()) {
+			if (orderData != null && orderData.getOrderState() == 0) {
 
 				Order entityOrder = new Order();
 				entityOrder.setOrderNumber(orderNumber);
-				entityOrder.setOrderState(OrderState.getOrderStateByCode(2).getOrderState());
+				entityOrder.setOrderState(10);//10已付款
 				// 更新订单状态
 				orderServiceImpl.updateOrder(entityOrder);
 				// 获取产品详情

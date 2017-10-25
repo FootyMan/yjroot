@@ -33,6 +33,7 @@ import com.service.enums.FinancialType;
 import com.service.utils.DateStyle;
 import com.service.utils.DateUtil;
 import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 @Service("ProfitBusiness")
 public class ProfitBusiness {
@@ -153,7 +154,7 @@ public class ProfitBusiness {
 					ProfitWithDrawDetails item = new ProfitWithDrawDetails();
 					item.setDate(
 							DateUtil.DateToString(userFinancialDetail.getOperateDate(), DateStyle.YYYY_MM_DD_HH_MM));
-					item.setMoeny("¥" + userFinancialDetail.getFinancialMoney());
+					item.setMoney("¥" + userFinancialDetail.getFinancialMoney());
 					item.setState(FinancialOperateStatus
 							.getFinancialOperateStatusByCode(userFinancialDetail.getOperateStatus()).getDesc());
 					item.setStateId(userFinancialDetail.getOperateStatus());
@@ -195,28 +196,37 @@ public class ProfitBusiness {
 		}
 		// 获取收入主表信息 判断可提现金额和请求过来的金额是否匹配 可提现金额不能小于提现金额
 		UserFinancial financial = userFinancialServiceImpl.selectFinancial(request.getUserId());
-		if (financial != null && financial.getTotalMoney() <= body.getMoney()) {
-			// 更新主表提现金额 递减去
-			// 可提现金额=可提现金额-提现金额
-			// 累计支出金额=累计额支出金额+提现金额
-			UserFinancial entityFinancial = new UserFinancial();
-			entityFinancial.setUserId(request.getUserId());
-			entityFinancial.setTotalMoney(financial.getTotalMoney() - body.getMoney());
-			entityFinancial.setTotalWithDraw(financial.getTotalWithDraw() + body.getMoney());
-			userFinancialServiceImpl.updateFinancial(entityFinancial);
-			// 添加明细表状态1提现中
-			UserFinancialDetail entityDetail = new UserFinancialDetail();
-			entityDetail.setUserId(request.getUserId());
-			entityDetail.setFinancialType(FinancialType.getFinancialTypeByCode(2).getTypeId());// 提现
-			entityDetail.setFinancialMoney(-body.getMoney());
-			entityDetail.setOperateDate(new Date());
-			entityDetail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(1).getStateCode());
-			entityDetail.setSourceNumber(StringUtils.GetOrderNumberWithdrawals(request.getUserId()));
-			userFinancialDetailServiceImpl.insertFinancialDetail(entityDetail);
-
+		if (financial != null && body.getMoney()<=financial.getTotalMoney() ) {
+			//500才让提现
+			if (body.getMoney()>=SystemConfig.Min_Withdrawals) {
+				// 更新主表提现金额 递减去
+				// 可提现金额=可提现金额-提现金额
+				// 累计支出金额=累计额支出金额+提现金额
+				UserFinancial entityFinancial = new UserFinancial();
+				entityFinancial.setUserId(request.getUserId());
+				entityFinancial.setTotalMoney(financial.getTotalMoney() - body.getMoney());
+				entityFinancial.setTotalWithDraw(financial.getTotalWithDraw() + body.getMoney());
+				userFinancialServiceImpl.updateFinancial(entityFinancial);
+				// 添加明细表状态1提现中
+				UserFinancialDetail entityDetail = new UserFinancialDetail();
+				entityDetail.setUserId(request.getUserId());
+				entityDetail.setFinancialType(FinancialType.getFinancialTypeByCode(2).getTypeId());// 提现
+				entityDetail.setFinancialMoney(-body.getMoney());
+				entityDetail.setOperateDate(new Date());
+				entityDetail.setOperateStatus(FinancialOperateStatus.getFinancialOperateStatusByCode(1).getStateCode());
+				entityDetail.setSourceNumber(StringUtils.GetOrderNumberWithdrawals(request.getUserId()));
+				userFinancialDetailServiceImpl.insertFinancialDetail(entityDetail);
+			}
+			else
+			{
+				response.setCode(ResultEnum.VerificationCode);
+				response.setMsg("提现金额不能小于"+SystemConfig.Min_Withdrawals);
+				return response;
+			}
 		} else {
 			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("提现金额不符");
+			return response;
 		}
 		response.setMsg("提现申请已提交，请3-5工作日注意支付宝账号");
 		return response;

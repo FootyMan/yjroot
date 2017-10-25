@@ -4,7 +4,7 @@
 <mapper namespace="com.service.erp.dao.UserMapperERP">
 	<resultMap id="userResultList" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
-		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
 		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
 	</resultMap>
 	<resultMap id="userResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
-		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
 		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
@@ -51,7 +51,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		userId,Id,phone,deviceType,deviceToken,headImage,
+		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
 		inviteCode,passWord
@@ -60,14 +60,17 @@
 	<select id="ErpUserListByPage" resultMap="userResult"
 		parameterType="com.service.bean.User">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
 		a.userLevel,a.isDisable,b.sexuat,b.cityId,
 		b.age,b.gender,b.sign
 		FROM 
 		user a inner join userdatum b
 		on
 		a.userId=b.userId
-		order by a.userId 
+		
+		where 1=1
+		<include refid="ListWhere"></include>
+		order by a.userId
 		<!-- <if test="gender>0"> -->
 		<!-- and b.gender=#{gender} -->
 		<!-- </if> -->
@@ -78,10 +81,10 @@
 	<!-- 首页用户 -->
 	<select id="HomeUserList" resultMap="userResult" parameterType="com.service.bean.User">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
 		a.userLevel,a.isDisable,b.sexuat,b.cityId,
 		b.age,b.gender,b.sign
-		FROM
+		FROM 
 		user a inner join userdatum b
 		on
 		a.userId=b.userId
@@ -93,10 +96,10 @@
 	<insert id="InsertUserErp" parameterType="com.service.bean.User"
 		keyProperty="userId">
 		insert into user
-		(Id,phone,deviceType,headImage,registerTime,userLevel,nickName,isDisable,
+		(userNo,phone,deviceType,headImage,registerTime,userLevel,nickName,isDisable,
 		isEasemob,userSource,inviteCode,passWord)
 		select
-		max(id)+1,#{phone},#{deviceType},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
+		max(userNo)+1,#{phone},#{deviceType},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
 		#{passWord} from user
 	</insert>
 
@@ -104,8 +107,8 @@
 	<select id="selectDetalsERP" resultMap="userResult"
 		parameterType="java.lang.Integer">
 		SELECT
-		a.userId,a.Id,a.Phone,a.deviceType,
-		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.userId,a.userNo,a.Phone,a.deviceType,
+		a.headImage,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		a.userLevel,a.inviteCode
 		FROM user a inner join userdatum b
 		on
@@ -114,7 +117,17 @@
 		a.userId=#{userId};
 	</select>
 
-
+	<sql id="ListWhere">
+		<if test="userNo!=null and userNo!=''">
+			and userNo=#{userNo}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and phone=#{phone}
+		</if>
+		<if test="userLevel!=null and userLevel>0">
+			and userLevel=#{userLevel}
+		</if>
+	</sql>
 
 
 

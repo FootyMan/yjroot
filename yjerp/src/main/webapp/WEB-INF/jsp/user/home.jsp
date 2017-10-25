@@ -16,31 +16,31 @@
 				<div class="row">
 					<h3>首页管理></h3>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-sm-2">
-							<input type="text" name="userNo" id="userNo" class="form-control"
-								maxlength="20" placeholder="用户id">
-						</div>
-						<div class="col-sm-2">
-							<input type="text" name="phone" id="phone"
-								class="form-control" maxlength="20" placeholder="手机号">
-						</div>
-						<div class="col-sm-2">
-							<select name="userLevel" id="userLevel" class="form-control">
-								<option value="">全部</option>
-								<option value="1">普通会员</option>
-								<option value="2">月度会员</option>
-								<option value="3">半年会员</option>
-								<option value="4">年度会员</option>
-							</select>
-						</div>
+<!-- 				<div class="row"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<input type="text" name="userNo" id="userNo" class="form-control" -->
+<!-- 								maxlength="20" placeholder="用户id"> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<input type="text" name="phone" id="phone" class="form-control" -->
+<!-- 								maxlength="20" placeholder="手机号"> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<select name="userLevel" id="userLevel" class="form-control"> -->
+<!-- 								<option value="">全部</option> -->
+<!-- 								<option value="1">普通会员</option> -->
+<!-- 								<option value="2">月度会员</option> -->
+<!-- 								<option value="3">半年会员</option> -->
+<!-- 								<option value="4">年度会员</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
 
-						<div class="col-sm-2">
-							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
-						</div>
-					</div>
-				</div>
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" /> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 			<div class="ibox-content">
 				<table class="table table-striped">
@@ -54,8 +54,6 @@
 							<th>年龄</th>
 							<th>城市</th>
 							<th>性取向</th>
-							<th>设备类型</th>
-							<th>用户状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,8 +67,12 @@
 								<td>${emp.age}</td>
 								<td>${emp.cityName}</td>
 								<td>${emp.sexuat}</td>
-								<td>${emp.deviceType}</td>
-								<td>${emp.isDisable}</td>
+								<td><a class="btn btn-white btn-sm"
+									href="javascript:void(0)"
+									onclick="SetHomeUser(${emp.userId},2)"> <i
+										class="fa fa-pencil"></i> 移除
+								</a></td>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -82,3 +84,4 @@
 		</div>
 	</form>
 </div>
+<script src="../js/goods/goods.js"></script>

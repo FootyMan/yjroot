@@ -10,11 +10,11 @@
 <jsp:include page="/inc/web/header.jsp" />
 <div class="container-fluid">
 
-	<form action="../user/list" method="get">
+	<form action="../order/list" method="get">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<div class="row">
-					<h3>用户管理></h3>
+					<h3>订单管理></h3>
 				</div>
 				<div class="row">
 					<div class="form-group">
@@ -27,22 +27,17 @@
 								class="form-control" maxlength="20" placeholder="手机号">
 						</div>
 						<div class="col-sm-2">
-							<select name="userLevel" id="userLevel" class="form-control">
+							<select name="orderState" id="orderState" class="form-control">
 								<option value="">全部</option>
-								<option value="1">普通会员</option>
-								<option value="2">月度会员</option>
-								<option value="3">半年会员</option>
-								<option value="4">年度会员</option>
+								<option value="0">待付款</option>
+								<option value="10">已付款</option>
 							</select>
 						</div>
 
 						<div class="col-sm-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
 						</div>
-						<div class="ibox-tools">
-							<a href="../user/add"
-								class="btn btn-sm btn-primary">新增用户</a>
-						</div>
+			
 					</div>
 				</div>
 			</div>
@@ -50,38 +45,31 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>用户ID</th>
-							<th>昵称</th>
-							<th>手机号</th>
-							<th>级别</th>
-							<th>性别</th>
-							<th>年龄</th>
-							<th>城市</th>
-							<th>性取向</th>
-							<th>设备类型</th>
-							<th>用户状态</th>
+							<th>订单号</th>
+							<th>订单状态</th>
+							<th>下单时间</th>
+							<th>订单来源</th>
+							<th>支付方式</th>
+							<th>支付金额</th>
+							<th>用户Id</th>
+							<th>用户昵称</th>
+							<th>产品类型</th>
+							<th>会员类型</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="emp" items="${listUser}">
+						<c:forEach var="emp" items="${orderList}">
 							<tr>
+								<td>${emp.orderNumber}</td>
+								<td>${emp.orderStateName}</td>
+								<td>${emp.orderTime}</td>
+								<td>${emp.orderSourceName}</td>
+								<td>${emp.payTypeName}</td>
+								<td>${emp.orderPrice}</td>
 								<td>${emp.userNo}</td>
 								<td>${emp.nickName}</td>
-								<td>${emp.phone}</td>
-								<td>${emp.userLevel}</td>
-								<td>${emp.sex}</td>
-								<td>${emp.age}</td>
-								<td>${emp.cityName}</td>
-								<td>${emp.sexuat}</td>
-								<td>${emp.deviceType}</td>
-								<td>${emp.isDisable}</td>
-								<td>
-								<a class="btn btn-white btn-sm" href="../user/add?userId=${emp.userId}">
-								<iclass="fa fa-pencil"></i> 编辑 </a>
-								<c:if test="${emp.isHomeUser==0}">
-								 <a class="btn btn-white btn-sm"href="javascript:void(0)" onclick="SetHomeUser(${emp.userId},1)">
-								 <i class="fa fa-pencil"></i> 设到首页 </a></td>
-								</c:if>
+								<td>${emp.productDesc}</td>
+								<td>${emp.title}</td>
 							
 							</tr>
 						</c:forEach>

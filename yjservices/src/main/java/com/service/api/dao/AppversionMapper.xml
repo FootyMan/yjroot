@@ -11,10 +11,11 @@
 		<result column="updateDescription" property="updateDescription"
 			jdbcType="VARCHAR" />
 		<result column="downloadUrl" property="downloadUrl" jdbcType="VARCHAR" />
+		<result column="isMust" property="isMust" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		versionId,deviceType,versionName,versionCode,versionDate,updateDescription,downloadUrl
+		versionId,deviceType,versionName,versionCode,versionDate,updateDescription,downloadUrl,isMust
 	</sql>
 
 	<insert id="insertAppversion" parameterType="com.service.bean.Appversion"

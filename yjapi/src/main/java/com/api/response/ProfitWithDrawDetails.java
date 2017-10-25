@@ -12,7 +12,7 @@ public class ProfitWithDrawDetails {
 	@ApiModelProperty(value = "日期")
 	private String date;
 	@ApiModelProperty(value = "提现金额")
-	private String moeny;
+	private String money;
 	@ApiModelProperty(value = "结算状态")
 	private String state;
 	@ApiModelProperty(value = "结算状态Id 1待结算 2已结算")
@@ -34,19 +34,19 @@ public class ProfitWithDrawDetails {
 		this.date = date;
 	}
 
-	public String getMoeny() {
-		return moeny;
-	}
-
-	public void setMoeny(String moeny) {
-		this.moeny = moeny;
-	}
-
 	public String getState() {
 		return state;
 	}
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
 	}
 }

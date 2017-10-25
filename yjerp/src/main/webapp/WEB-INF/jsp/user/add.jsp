@@ -10,7 +10,7 @@
 		<div class="ibox-title">
 			<div class="row">
 				<h5>
-					<a href="#">商品管理</a>><a href="/ope/goods/list">商品列表</a>><a href="#">商品发布</a>
+					<a href="../user/list">用户管理</a>><a href="#">用户编辑</a>
 				</h5>
 			</div>
 		</div>

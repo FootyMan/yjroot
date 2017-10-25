@@ -122,6 +122,7 @@ public class InitBusiness {
 		TwoCodeResponse twoCode=new TwoCodeResponse();
 		twoCode.setImgUrl(SystemConfig.TwoCodeUrl);
 		// appData.setCityData(citys);
+		appData.setTwoCode(twoCode);
 		response.setData(appData);
 		return response;
 
@@ -155,6 +156,7 @@ public class InitBusiness {
 			versionModel.setUpdateDesc(version.getUpdateDescription());
 			versionModel.setVersionCode(version.getVersionCode());
 			versionModel.setVersionName(version.getVersionName());
+			versionModel.setIsClose(version.getIsMust());
 		}
 		return versionModel;
 	}
@@ -186,7 +188,7 @@ public class InitBusiness {
 			UserDatum datum = user.getDatum();
 
 			info.setUserId(userId);
-			info.setShowId(user.getId());
+			info.setShowId(user.getUserNo());
 			info.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
 			info.setNickName(user.getNickName());
 			info.setSex(datum.getGender());
@@ -210,7 +212,7 @@ public class InitBusiness {
 			User user = userServiceImpl.selectUserByUserId(userId);
 			if (user != null) {
 				info.setUserId(userId);
-				info.setShowId(user.getId());
+				info.setShowId(user.getUserNo());
 				info.setNickName(user.getNickName());
 				info.setVip(user.getUserLevel());
 				info.setFull(false);

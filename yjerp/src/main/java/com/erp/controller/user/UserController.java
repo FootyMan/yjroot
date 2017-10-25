@@ -3,6 +3,7 @@ package com.erp.controller.user;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
@@ -21,6 +23,7 @@ import com.service.api.impl.ProvinceServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
 import com.service.api.impl.UserImgServiceImpl;
 import com.service.api.impl.UserServiceImpl;
+import com.service.bean.HomeUser;
 import com.service.bean.Province;
 import com.service.bean.User;
 import com.service.bean.UserDatum;
@@ -28,6 +31,7 @@ import com.service.bean.UserImg;
 import com.service.easemob.EaseMobBusiness;
 import com.service.enums.DeviceType;
 import com.service.enums.UserLevel;
+import com.service.erp.impl.HomeUserServiceImplERP;
 import com.service.erp.impl.UserImgServiceImplERP;
 import com.service.erp.impl.UserServiceImplERP;
 import com.service.utils.Md5Util;
@@ -51,6 +55,8 @@ public class UserController {
 	private UserImgServiceImpl userImgServiceImpl;
 	@Autowired
 	private UserImgServiceImplERP userImgServiceImplERP;
+	@Autowired
+	private HomeUserServiceImplERP homeUserServiceImplERP;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
@@ -63,6 +69,18 @@ public class UserController {
 		userParameter.setPage(pagination);
 		Pagination.threadLocal.set(pagination);
 
+		if (!StringUtils.isEmpty(userModel.getUserNo())) {
+			userParameter.setUserNo(userModel.getUserNo());
+		}
+		else if (!StringUtils.isEmpty(userModel.getPhone())) {
+			userParameter.setPhone(userModel.getPhone());
+		}
+		else if(!StringUtils.isEmpty(userModel.getUserLevel()))
+		{
+			userParameter.setUserLevel(Integer.parseInt(userModel.getUserLevel()));
+		}
+		// 查询首页
+		List<HomeUser> homeData = homeUserServiceImplERP.selectHomeUserList();
 		List<User> empReslist = userServiceImplERP.ErpUserListByPage(userParameter);
 		List<UserModel> listUser = new ArrayList<UserModel>();
 		for (User x : empReslist) {
@@ -81,6 +99,8 @@ public class UserController {
 			m.setSexName(datm.getGender() == 1 ? "男" : "女");
 			m.setCityName(provinceServiceImpl.SelectProvincesById(datm.getCityId()).getName());
 			m.setSexuat(datm.getSexuat());
+			m.setIsHomeUser(SetIsHomeUser(homeData, x.getUserId()));
+			m.setUserNo(x.getUserNo());
 			listUser.add(m);
 		}
 		model.addAttribute("listUser", listUser);
@@ -166,7 +186,7 @@ public class UserController {
 		} else {
 			InsertUser(userModel);
 		}
-		return new ModelAndView("/user/list");
+		return new ModelAndView("redirect:/user/list");
 	}
 
 	/**
@@ -179,8 +199,9 @@ public class UserController {
 		List<UserImageModel> imgList = userModel.getImgList();
 		User entiyUser = new User();
 		entiyUser = SetUserEntity(userModel, 0);
-		int userId = userServiceImplERP.InsertUserErp(entiyUser);
-		if (userId > 0) {
+		int insertResult = userServiceImplERP.InsertUserErp(entiyUser);
+		if (insertResult > 0) {
+			int userId=entiyUser.getUserId();
 			// 添加基本资料
 			UserDatum datum = SetUserDatum(userModel, userId);
 			int datumId = userDatumServiceImpl.insertDatum(datum);
@@ -201,7 +222,7 @@ public class UserController {
 				}
 			}
 		}
-		return userId;
+		return insertResult;
 	}
 
 	/**
@@ -326,5 +347,56 @@ public class UserController {
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("page", Pagination.threadLocal.get());
 		return new ModelAndView("/user/home");
+	}
+
+	@RequestMapping(value = "/setHome", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int SetHomeUser(int userId, int type, Model model) {
+
+		int result=-1;
+		HomeUser homeResult = homeUserServiceImplERP.selectHomeUserByUserId(userId);
+		if (type == 1)// 添加
+		{
+			if (homeResult != null) {
+
+				return result;// 已存在
+			}
+			// 添加
+			HomeUser homeEntity = new HomeUser();
+			homeEntity.setUserId(userId);
+			homeEntity.setHomeType(1);
+			homeEntity.setSortColumn(1);
+			int insertResult = homeUserServiceImplERP.insertHomeUser(homeEntity);
+			if (insertResult > 0) {
+				return insertResult;
+			} else {
+				return 0;
+			}
+		}
+		
+		else if(type==2)//删除
+		{
+			result=homeUserServiceImplERP.deleteHomeUser(homeResult.getHomeId());
+		}
+		return result;
+	}
+
+	/**
+	 * 首页是否存在
+	 * 
+	 * @param data
+	 * @param userId
+	 * @return
+	 */
+	public int SetIsHomeUser(List<HomeUser> data, int userId) {
+		if (data != null) {
+
+			// Predicate<HomeUser> predicate = n -> n.getUserId() == userId;
+			Optional<HomeUser> home = data.stream().filter(p -> p.getUserId() == userId).findFirst();
+			if (home.isPresent()) {
+				return 1;
+			}
+		}
+		return 0;
 	}
 }

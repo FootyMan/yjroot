@@ -56,7 +56,7 @@ public class HomeBusiness {
 			// 查询推荐用户
 		}
 		//
-		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex());
+		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex(),request.getUserId());
 		List<User> userData = userServiceImpl.HomeUserList(pagePaging);
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {

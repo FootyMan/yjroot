@@ -34,6 +34,7 @@ public class UserBrowseServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userVisitorMapper.selectBrowseByNumber(toUserId);
 	}
+
 	/**
 	 * 删除访客
 	 * 
@@ -43,6 +44,28 @@ public class UserBrowseServiceImpl {
 	public int deleteBrowsById(int Id) {
 		DBContextHolder.setDBType("siteRead");
 		return userVisitorMapper.deleteBrowsById(Id);
+	}
+
+	/**
+	 * 是否存在浏览记录
+	 * 
+	 * @param order
+	 * @return
+	 */
+	public UserBrowse selectExistRecord(UserBrowse browse) {
+		DBContextHolder.setDBType("siteRead");
+		return userVisitorMapper.selectExistRecord(browse);
+	}
+
+	/**
+	 * 更新浏览次数
+	 * 
+	 * @param order
+	 * @return
+	 */
+	public int updateBrowesCount(UserBrowse browse) {
+		DBContextHolder.setDBType("siteRead");
+		return userVisitorMapper.updateBrowesCount(browse);
 	}
 
 }

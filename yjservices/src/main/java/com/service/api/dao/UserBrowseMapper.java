@@ -24,4 +24,18 @@ public abstract interface  UserBrowseMapper {
 	 * @return
 	 */
 	public abstract int deleteBrowsById(int Id);
+	
+	/**
+	 * 是否存在浏览记录
+	 * @param browse
+	 * @return
+	 */
+	public abstract UserBrowse selectExistRecord(UserBrowse browse);
+	
+	/**
+	 * 更新浏览次数
+	 * @param browse
+	 * @return
+	 */
+	public abstract int updateBrowesCount(UserBrowse browse);
 }

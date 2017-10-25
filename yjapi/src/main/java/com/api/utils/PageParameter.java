@@ -28,12 +28,13 @@ public class PageParameter {
 	 * @param sex
 	 * @return
 	 */
-	public static AppHomePagePaging GetHomePage(int pageIndex, int sex) {
+	public static AppHomePagePaging GetHomePage(int pageIndex, int sex,int userId) {
 		pageIndex = pageIndex == 0 ? 1 : pageIndex;
 		AppHomePagePaging pagePaging = new AppHomePagePaging();
 		pagePaging.setPageIndex((pageIndex - 1) * PageUtils.PageSize.getValue());
 		pagePaging.setPageSize(PageUtils.PageSize.getValue());
 		pagePaging.setGender(sex);
+		pagePaging.setUserId(userId);
 		return pagePaging;
 	}
 

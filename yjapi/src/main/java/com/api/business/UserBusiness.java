@@ -1,6 +1,7 @@
 package com.api.business;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -443,11 +444,21 @@ public class UserBusiness {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
 				userServiceImpl.updateBrowseNumber(detailId);
-				// 添加浏览记录 也就是访客记录
 				UserBrowse browes = new UserBrowse();
 				browes.setBrowseId(userId);
 				browes.setToUserId(detailId);
-				userBrowseServiceImpl.insertBrowse(browes);
+				UserBrowse brResult=userBrowseServiceImpl.selectExistRecord(browes);
+				if (brResult!=null) {
+					browes.setKeyId(brResult.getKeyId());
+					browes.setBrowseDate(new Date());
+					userBrowseServiceImpl.updateBrowesCount(browes);
+				}
+				else
+				{
+					// 添加浏览记录 也就是访客记录
+					userBrowseServiceImpl.insertBrowse(browes);
+				}
+
 			}
 		});
 		t.start();
@@ -484,7 +495,7 @@ public class UserBusiness {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
 			userBase.setHeadImage(SystemConfig.ImgurlPrefix + userData.getHeadImage());
-			userBase.setShowId(userData.getId());
+			userBase.setShowId(userData.getUserNo());
 			userBase.setNickName(userData.getNickName());
 			userBase.setSex(datum.getGender());
 			userBase.setAge(datum.getAge());
@@ -616,7 +627,7 @@ public class UserBusiness {
 			list.add(businessUtils.EntityToModel(user));
 		}
 		response.getData().setList(list);
-		//response.setData(list);
+		// response.setData(list);
 		return response;
 	}
 
@@ -650,22 +661,23 @@ public class UserBusiness {
 		}
 		return response;
 	}
+
 	/**
 	 * 删除访客
+	 * 
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<?> RemoveBrowse(baseRequest<RemoveBrowseRequest> request)
-	{
-		BaseResponse<?> response=new BaseResponse<Object>();
-		RemoveBrowseRequest body=request.getbody();
-		if (body.getBrowseId()<=0) {
+	public BaseResponse<?> RemoveBrowse(baseRequest<RemoveBrowseRequest> request) {
+		BaseResponse<?> response = new BaseResponse<Object>();
+		RemoveBrowseRequest body = request.getbody();
+		if (body.getBrowseId() <= 0) {
 			response.setCode(ResultEnum.ColmunErrorCode);
 			response.setMsg("请求id为空");
 			return response;
 		}
-		int result=userBrowseServiceImpl.deleteBrowsById(body.getBrowseId());
-		if (result<=0) {
+		int result = userBrowseServiceImpl.deleteBrowsById(body.getBrowseId());
+		if (result <= 0) {
 			response.setCode(ResultEnum.ServiceErrorCode);
 			response.setMsg("服务器请求失败");
 		}
@@ -678,25 +690,20 @@ public class UserBusiness {
 		String msg = "";// 消息
 		PhoneMsgRequest body = request.getbody();
 		// 注册
-		if (body.getType() == 1)
-		{
+		if (body.getType() == 1) {
 			msg = "欢迎加入欲见，验证码为" + code + "，一分钟内有效";
 		}
 		// 2绑定支付宝账号
 		// 3提现
-		else if (body.getType() == 2) 
-		{
+		else if (body.getType() == 2) {
 			msg = "您正在绑定支付宝账号;验证码为" + code + "，一分钟内有效";
-		} 
-		else if (body.getType() == 3) // 3提现
+		} else if (body.getType() == 3) // 3提现
 		{
 			msg = "您在平台提现验证码为" + code + "，一分钟内有效";
-		}
-		else if (body.getType() == 4) // 修改密码
+		} else if (body.getType() == 4) // 修改密码
 		{
 			msg = "您修改密码验证码为" + code + "，一分钟内有效";
-		}
-		else if (body.getType() == 5) // 忘记密码
+		} else if (body.getType() == 5) // 忘记密码
 		{
 			msg = "您忘记密码验证码为" + code + "，一分钟内有效";
 		}

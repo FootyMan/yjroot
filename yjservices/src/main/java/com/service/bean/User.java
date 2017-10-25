@@ -16,7 +16,7 @@ public class User implements Serializable{
 	/**
 	 * 向外展示用户ID
 	 */
-	private String Id;
+	private String userNo;
 	/**
 	 * 手机号
 	 */
@@ -118,12 +118,6 @@ public class User implements Serializable{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getId() {
-		return Id;
-	}
-	public void setId(String id) {
-		Id = id;
-	}
 	public String getPhone() {
 		return phone;
 	}
@@ -207,6 +201,12 @@ public class User implements Serializable{
 	}
 	public void setBrowse(UserBrowse browse) {
 		this.browse = browse;
+	}
+	public String getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 
 }

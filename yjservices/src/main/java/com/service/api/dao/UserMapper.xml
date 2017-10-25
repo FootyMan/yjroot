@@ -4,7 +4,7 @@
 <mapper namespace="com.service.api.dao.UserMapper">
 	<resultMap id="positionResultMap" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
-		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
 		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
 	</resultMap>
 	<resultMap id="appUserResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
-		<result column="Id" property="Id" jdbcType="VARCHAR" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
 		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
@@ -60,7 +60,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		userId,Id,phone,deviceType,deviceToken,headImage,
+		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
 		inviteCode,passWord
@@ -68,9 +68,9 @@
 	<insert id="insertUser" parameterType="com.service.bean.User"
 		keyProperty="userId">
 		insert into
-		user(id,phone,deviceType,deviceToken,registerTime,userLevel,isDisable,isEasemob,userSource,inviteCode,passWord)
+		user(userNo,phone,deviceType,deviceToken,registerTime,userLevel,isDisable,isEasemob,userSource,inviteCode,passWord)
 		select
-		max(id)+1,#{phone},#{deviceType},#{deviceToken},NOW(),1,1,0,#{userSource},#{inviteCode},#{passWord}
+		max(userNo)+1,#{phone},#{deviceType},#{deviceToken},NOW(),1,1,0,#{userSource},#{inviteCode},#{passWord}
 		from user
 	</insert>
 
@@ -134,7 +134,7 @@
 	<select id="HomeUserList" resultMap="appUserResult"
 		parameterType="com.service.bean.AppHomePagePaging">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
 		FROM user a inner join userdatum b
 		on
@@ -143,6 +143,7 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
+		and a.userId!=#{userId} 
 		order by a.browseNumber desc
 		LIMIT #{pageIndex},#{pageSize}
 	</select>
@@ -159,12 +160,13 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
+		and a.userId!=#{userId} 
 	</select>
 
 	<!-- 首页推荐 -->
 	<select id="HomeUserRecommend" resultMap="appUserResult">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender
 		FROM user a inner join userdatum b
 		on a.userId=b.userId
 		inner join
@@ -179,7 +181,7 @@
 	<select id="RangeUserList" resultMap="appUserResult"
 		parameterType="com.service.bean.RangeParameter">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,b.age,b.gender,
 		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
 		rangeM,b.sign,b.sexuat
 		FROM user a inner join userdatum b
@@ -215,7 +217,7 @@
 	<select id="getUserDetails" resultMap="appUserResult"
 		parameterType="com.service.bean.RangeParameter">
 		SELECT
-		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.headImage,a.userNo,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
 		rangeM,a.userLevel
 		FROM user a inner join userdatum b
@@ -230,7 +232,7 @@
 	<!-- 个人用户所有信息用于初始化客户端 -->
 	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
 		SELECT
-		a.headImage,a.Id,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.headImage,a.userNo,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		a.userLevel,a.inviteCode,a.phone
 		FROM user a inner join userdatum b
 		on
@@ -250,7 +252,7 @@
 	<select id="userLikeList" resultMap="appUserResult"
 		parameterType="java.lang.Integer">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
 		FROM user a inner join userdatum b
 		on
@@ -266,7 +268,7 @@
 	<select id="userBrowseList" resultMap="appUserResult"
 		parameterType="com.service.bean.RangeParameter">
 		SELECT
-		a.userId,a.Id,a.headImage,a.userLevel,a.nickName,a.inviteCode,
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign,c.browseDate,c.Id as keyId
 		FROM user a inner join userdatum b
 		on
@@ -296,7 +298,7 @@
 	</select>
 	<sql id="Range_Column_Where">
 		<if test="showId>0">
-			AND a.Id=#{showId}
+			AND a.userNo=#{showId}
 		</if>
 		<if test="sex>0">
 			AND b.gender=#{sex}

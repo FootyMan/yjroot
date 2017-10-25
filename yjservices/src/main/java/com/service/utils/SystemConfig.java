@@ -54,9 +54,14 @@ public class SystemConfig {
 	 * 图片前缀
 	 */
 	public static String ImgurlPrefix = PropertiesUtils.ReadProperties(fileName, "img_url");
-	
+
 	/**
 	 * 二维码路径
 	 */
 	public static String TwoCodeUrl = PropertiesUtils.ReadProperties(fileName, "twoCode_url");
+	/**
+	 * 最小提现金额
+	 */
+	public static double Min_Withdrawals = Double.parseDouble(PropertiesUtils.ReadProperties(fileName, "min_withdrawals"));
+
 }
