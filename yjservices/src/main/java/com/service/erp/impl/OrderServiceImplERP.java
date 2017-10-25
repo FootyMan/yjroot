@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.service.bean.Order;
+import com.service.bean.OrderListParameter;
 import com.service.erp.dao.OrderMapperERP;
 import com.service.utils.DBContextHolder;
 
@@ -20,8 +21,8 @@ public class OrderServiceImplERP {
 	 * 
 	 * @return
 	 */
-	public List<Order> selectListOrderByPage() {
+	public List<Order> selectListOrderByPage(OrderListParameter order) {
 		DBContextHolder.setDBType("siteRead");
-		return OrderMapperERP.selectListOrderByPage();
+		return OrderMapperERP.selectListOrderByPage(order);
 	}
 }

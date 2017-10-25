@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.erp.model.OrderModel;
+import com.erp.model.UserModel;
 import com.service.bean.Order;
+import com.service.bean.OrderListParameter;
 import com.service.bean.Product;
 import com.service.bean.User;
 import com.service.enums.DeviceType;
@@ -20,6 +22,7 @@ import com.service.enums.PayType;
 import com.service.erp.impl.OrderServiceImplERP;
 import com.service.utils.DateUtil;
 import com.service.utils.Pagination;
+import com.service.utils.StringUtils;
 
 @Controller
 @RequestMapping("/order")
@@ -31,18 +34,29 @@ public class OrderController {
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(OrderModel orderModel, Model model) {// Employee
 
-		Order orderParameter = new Order();
+		OrderListParameter orderParameter = new OrderListParameter();
 		Pagination pagination = orderModel.getPage();
 		if (pagination == null) {
 			pagination = new Pagination();
 		}
-		orderParameter.setPage(pagination);
+		// orderParameter.setPage(pagination);
+
+		if (!StringUtils.isEmpty(orderModel.getUserNo())) {
+			orderParameter.setUserNo(orderModel.getUserNo());
+		}
+		if (!StringUtils.isEmpty(orderModel.getPhone())) {
+			orderParameter.setPhone(orderModel.getPhone());
+		}
+
+		if (orderModel.getOrderState() >= 0) {
+			orderParameter.setOrderState(orderModel.getOrderState());
+		}
 		Pagination.threadLocal.set(pagination);
 
-		List<OrderModel> orderList=new ArrayList<OrderModel>();
-		List<Order> orderData=orderServiceImplERP.selectListOrderByPage();
+		List<OrderModel> orderList = new ArrayList<OrderModel>();
+		List<Order> orderData = orderServiceImplERP.selectListOrderByPage(orderParameter);
 		for (Order o : orderData) {
-			OrderModel m=new OrderModel();
+			OrderModel m = new OrderModel();
 			m.setOrderId(o.getOrderId());
 			m.setOrderNumber(o.getOrderNumber());
 			m.setUserId(o.getUserId());
@@ -51,13 +65,13 @@ public class OrderController {
 			m.setPayTypeName(PayType.GetPayType(o.getPayType()).getPayName());
 			m.setOrderPrice(o.getOrderPrice());
 			m.setOrderTime(DateUtil.getDateTime(o.getOrderTime()));
-			User user=o.getUser();
-			if (user!=null) {
+			User user = o.getUser();
+			if (user != null) {
 				m.setUserNo(user.getUserNo());
 				m.setNickName(user.getNickName());
 			}
-			Product product=o.getProduct();
-			if (product!=null) {
+			Product product = o.getProduct();
+			if (product != null) {
 				m.setProductDesc(product.getProductDesc());
 				m.setTitle(product.getTitle());
 			}

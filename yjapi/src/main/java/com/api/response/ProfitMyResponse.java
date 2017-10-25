@@ -11,6 +11,8 @@ public class ProfitMyResponse {
 
 	@ApiModelProperty(value = "账号")
 	private String account;
+	@ApiModelProperty(value = "真实姓名")
+	private String realName;
 	@ApiModelProperty(value = "可提现金额")
 	private double canMoney;
 	@ApiModelProperty(value = "累计收入")
@@ -40,5 +42,11 @@ public class ProfitMyResponse {
 	}
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
+	}
+	public String getRealName() {
+		return realName;
+	}
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 }

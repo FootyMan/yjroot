@@ -28,7 +28,7 @@
 						</div>
 						<div class="col-sm-2">
 							<select name="orderState" id="orderState" class="form-control">
-								<option value="">全部</option>
+								<option value="-1">全部</option>
 								<option value="0">待付款</option>
 								<option value="10">已付款</option>
 							</select>
