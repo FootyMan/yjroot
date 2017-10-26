@@ -5,8 +5,10 @@ import com.service.utils.Pagination;
 public class ProfitListModel {
 	
 	private Pagination page;
+	private int recordID;
 	private int userid;
 	private String userNo;
+	private String phone;
 	private String nickName;
 	private double financialMoney;
 	private String payAccount;
@@ -111,5 +113,21 @@ public class ProfitListModel {
 
 	public void setOperateStatusName(String operateStatusName) {
 		this.operateStatusName = operateStatusName;
+	}
+
+	public int getRecordID() {
+		return recordID;
+	}
+
+	public void setRecordID(int recordID) {
+		this.recordID = recordID;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

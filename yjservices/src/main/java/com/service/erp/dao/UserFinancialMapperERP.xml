@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.service.api.dao.UserFinancialMapper">
+<mapper namespace="com.service.erp.dao.UserFinancialMapperERP">
 	<resultMap id="financialResultMap" type="com.service.bean.UserFinancial">
 		<id column="financialId" property="financialId" jdbcType="INTEGER" />
 		<result column="userId" property="userId" jdbcType="INTEGER" />
@@ -10,7 +10,8 @@
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="totalMoney" property="totalMoney" jdbcType="DECIMAL" />
 		<result column="totalRevenue" property="totalRevenue" jdbcType="DECIMAL" />
-		<result column="totalWithDraw" property="totalWithDraw" jdbcType="DECIMAL" />
+		<result column="totalWithDraw" property="totalWithDraw"
+			jdbcType="DECIMAL" />
 		<!-- 映射用户信息表 一对一 -->
 		<association property="user" javaType="com.service.bean.User">
 			<id column="userId" property="userId" jdbcType="INTEGER" />
@@ -19,14 +20,19 @@
 			<result column="nickName" property="nickName" jdbcType="VARCHAR" />
 		</association>
 		<!-- 支出收入明细 一对一 -->
-		<association property="financialDetail" javaType="com.service.bean.UserFinancialDetail">
+		<association property="financialDetail"
+			javaType="com.service.bean.UserFinancialDetail">
 			<id column="recordID" property="recordID" jdbcType="INTEGER" />
 			<result column="userId" property="userId" jdbcType="INTEGER" />
-			<result column="financialType" property="financialType" jdbcType="INTEGER" />
-			<result column="financialMoney" property="financialMoney" jdbcType="DECIMAL" />
+			<result column="financialType" property="financialType"
+				jdbcType="INTEGER" />
+			<result column="financialMoney" property="financialMoney"
+				jdbcType="DECIMAL" />
 			<result column="operateDate" property="operateDate" jdbcType="TIMESTAMP" />
-			<result column="operateStatus" property="operateStatus" jdbcType="INTEGER" />
-			<result column="sourceNumber" property="sourceNumber" jdbcType="VARCHAR" />
+			<result column="operateStatus" property="operateStatus"
+				jdbcType="INTEGER" />
+			<result column="sourceNumber" property="sourceNumber"
+				jdbcType="VARCHAR" />
 		</association>
 	</resultMap>
 
@@ -34,41 +40,38 @@
 		financialId,userId,payRealName,payAccount,phone,totalMoney,
 		totalRevenue,totalWithDraw
 	</sql>
-	 
 
-	<update id="updateFinancial" parameterType="com.service.bean.UserFinancial">
-		update userfinancial
-		<set>
-			<if test="payRealName!=null and payRealName!=''">
-				payRealName=#{payRealName},
-			</if>
-			<if test="payAccount!=null and payAccount!=''">
-				payAccount=#{payAccount},
-			</if>
-			<if test="phone!=null and phone!=''">
-				phone=#{phone},
-			</if>
-			<if test="totalMoney!=null and totalMoney>0">
-				totalMoney=#{totalMoney},
-			</if>
-			<if test="totalRevenue!=null and totalRevenue>0">
-				totalRevenue=#{totalRevenue},
-			</if>
-			<if test="totalWithDraw!=null and totalWithDraw>0">
-				totalWithDraw=#{totalWithDraw},
-			</if>
-		</set>
-		where userId=#{userId}
+
+	<!-- 更新操作状态 -->
+	<update id="updateOperateStatus" parameterType="com.service.bean.UserFinancialDetail">
+		update userfinancialdetail set operateStatus=#{operateStatus} where
+		recordID=#{recordID}
 	</update>
-	<select id="selectWdListByPage" resultMap="financialResultMap">
-		SELECT 
-		c.userid,c.userNo,c.nickName,a.financialMoney,b.payAccount,b.payRealName,b.totalMoney,a.sourceNumber,a.operateDate,a.operateStatus 
-		FROM userfinancialdetail as a  
-		inner join  userfinancial as b
-    	on a.userId=b.userId
-    	inner join user as c
+	<select id="selectWdListByPage" resultMap="financialResultMap" parameterType="com.service.parameter.bean.FinancialParametERP">
+		SELECT
+		a.recordID,c.userid,c.userNo,c.nickName,a.financialMoney,b.payAccount,b.payRealName,b.totalMoney,a.sourceNumber,a.operateDate,a.operateStatus
+		FROM userfinancialdetail as a
+		inner join userfinancial as b
+		on
+		a.userId=b.userId
+		inner join user as c
 		on a.userId=c.userId
-		where a.financialType=2 order by a.operateDate;
+		where
+		a.financialType=2 
+		<include refid="ListWhere"></include>
+		order by a.operateDate
 	</select>
+	
+	<sql id="ListWhere">
+		<if test="userNo!=null and userNo!=''">
+			and c.userNo=#{userNo}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and c.phone=#{phone}
+		</if>
+		<if test="operateStatus>0">
+			and a.operateStatus=#{operateStatus}
+		</if>
+	</sql>
 
 </mapper>

@@ -81,7 +81,7 @@
 							<li><a class="J_menuItem" href="./user/list">会员管理</a></li>
 							<li><a class="J_menuItem" href="./user/home">首页用户</a>
 							<li><a class="J_menuItem" href="./order/list">订单管理</a>
-							<li><a class="J_menuItem" href="/sys/roleFunc/list">用户提现</a></li>
+							<li><a class="J_menuItem" href="./profit/wdList">用户提现</a></li>
 <!-- 							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li> -->
 <!-- 							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li> -->
 <!-- 							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li> -->

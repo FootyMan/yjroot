@@ -10,7 +10,7 @@
 <jsp:include page="/inc/web/header.jsp" />
 <div class="container-fluid">
 
-	<form action="../user/list" method="get">
+	<form action="../profit/wdList" method="get">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<div class="row">
@@ -23,16 +23,14 @@
 								maxlength="20" placeholder="用户id">
 						</div>
 						<div class="col-sm-2">
-							<input type="text" name="phone" id="phone"
-								class="form-control" maxlength="20" placeholder="手机号">
+							<input type="text" name="phone" id="phone" class="form-control"
+								maxlength="20" placeholder="手机号">
 						</div>
 						<div class="col-sm-2">
-							<select name="userLevel" id="userLevel" class="form-control">
-								<option value="">全部</option>
-								<option value="1">普通会员</option>
-								<option value="2">月度会员</option>
-								<option value="3">半年会员</option>
-								<option value="4">年度会员</option>
+							<select name="operateStatus" id="operateStatus" class="form-control">
+								<option value="0">全部</option>
+								<option value="1">未结算</option>
+								<option value="2">已结算</option>
 							</select>
 						</div>
 
@@ -40,8 +38,7 @@
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
 						</div>
 						<div class="ibox-tools">
-							<a href="../user/add"
-								class="btn btn-sm btn-primary">新增用户</a>
+							<a href="../user/add" class="btn btn-sm btn-primary">新增用户</a>
 						</div>
 					</div>
 				</div>
@@ -74,13 +71,18 @@
 								<td>${emp.operateDate}</td>
 								<td>${emp.operateStatusName}</td>
 								<td>
-								<a class="btn btn-white btn-sm" href="../user/add?userId=${emp.userId}">
-								<iclass="fa fa-pencil"></i> 标记已打款 </a>
-								<c:if test="${emp.isHomeUser==0}">
-								 <a class="btn btn-white btn-sm"href="javascript:void(0)" onclick="SetHomeUser(${emp.userId},1)">
-								 <i class="fa fa-pencil"></i> 去支付 </a></td>
+								<c:if test="${emp.operateStatus==1}">
+								<a class="btn btn-white btn-sm"
+									href="javascript:void(0)" onclick="SetOperateState(${emp.recordID})"> <i
+										class="fa fa-pencil"></i> 标记已打款
+								</a> 
+								<a class="btn btn-white btn-sm" href="javascript:void(0)"
+									onclick="SetHomeUser(${emp.recordID},1)"> 
+									<i class="fafa-pencil"></i> 去支付</a>
 								</c:if>
-							
+								</td>
+
+
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -92,4 +94,30 @@
 		</div>
 	</form>
 </div>
-<script src="../js/goods/goods.js"></script>
+<script>
+//设置首页用户
+function SetOperateState(recordId){
+	var httpUrl = '../profit/setOperate?recordId='+recordId;
+	$.ajax({
+		type:'get',
+		async:false,
+		url:httpUrl,
+		success:function(data){
+			if(data>=1){
+				alert("设置成功！");
+				// $(".goodsID"+goodsId).remove();
+				location.reload();
+			} 
+			else
+			{
+				alert("设置失败")
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			alert("网络异常");
+			
+		}
+	});
+}
+
+</script>
