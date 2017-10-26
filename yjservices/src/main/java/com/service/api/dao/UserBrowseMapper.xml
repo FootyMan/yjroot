@@ -8,10 +8,12 @@
 		<result column="toUserId" property="toUserId" jdbcType="INTEGER" />
 		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
 		<result column="isBrowse" property="isBrowse" jdbcType="INTEGER" />
+		<result column="browseNumber" property="browseNumber" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		Id as keyId,browseId,toUserId,browseDate,isBrowse
+		Id as
+		keyId,browseId,toUserId,browseDate,browseNumber,isBrowse
 	</sql>
 
 	<insert id="insertBrowse" parameterType="com.service.bean.UserBrowse">
@@ -31,16 +33,32 @@
 	</select>
 
 	<delete id="deleteBrowsById" parameterType="java.lang.Integer">
-		delete from userbrowse where id=#{id}
+		delete from
+		userbrowse where id=#{id}
 	</delete>
-	
-	<select id="selectExistRecord" parameterType="com.service.bean.UserBrowse" resultType="com.service.bean.UserBrowse">
-	select 
-	<include refid="Base_Column_List"></include>
+
+	<select id="selectExistRecord" parameterType="com.service.bean.UserBrowse"
+		resultType="com.service.bean.UserBrowse">
+		select
+		<include refid="Base_Column_List"></include>
 		from userbrowse where browseId=#{browseId} and toUserId=#{toUserId}
 	</select>
-	
+
 	<update id="updateBrowesCount" parameterType="com.service.bean.UserBrowse">
-	 update userbrowse set isBrowse=isBrowse+1,browseDate=#{browseDate} where id=#{keyId}
+		update userbrowse
+		set
+		browseNumber=browseNumber+1,browseDate=#{browseDate},isBrowse=0
+		where
+		id=#{keyId}
+	</update>
+	<!-- 获取最近访客列表之后 更新数据 证明此人已浏览  mysql如果要更新查出来的数据 外面必须套一层查询-->
+	<update id="updateBrowesIsBrowse" parameterType="java.lang.Integer">
+		update  userbrowse set isBrowse=1 where Id in 
+    	(
+			select a.Id from 
+        	(
+				select Id from userbrowse where toUserId=#{toUserId} and isBrowse=0
+       		 )as a
+		)
 	</update>
 </mapper>

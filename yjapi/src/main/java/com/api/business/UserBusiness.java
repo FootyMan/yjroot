@@ -18,6 +18,7 @@ import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
 import com.api.request.LableRequest;
 import com.api.request.LableRequestData;
+import com.api.request.LikeListRequest;
 import com.api.request.PhoneMsgRequest;
 import com.api.request.RemoveBrowseRequest;
 import com.api.request.RemoveImgRequest;
@@ -45,6 +46,7 @@ import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.service.api.impl.InvitationCodeServiceImpl;
+import com.service.api.impl.UserBrowseExtServiceImpl;
 import com.service.api.impl.UserBrowseServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
 import com.service.api.impl.UserImgServiceImpl;
@@ -53,11 +55,13 @@ import com.service.api.impl.UserLableMappingServiceImpl;
 import com.service.api.impl.UserServiceImpl;
 import com.service.api.impl.UserVerifyCodeServiceImpl;
 import com.service.api.impl.UserlikeServiceImpl;
+import com.service.bean.AppHomePagePaging;
 import com.service.bean.InvitationCode;
 import com.service.bean.LabletType;
 import com.service.bean.RangeParameter;
 import com.service.bean.User;
 import com.service.bean.UserBrowse;
+import com.service.bean.UserBrowseExt;
 import com.service.bean.UserDatum;
 import com.service.bean.UserImg;
 import com.service.bean.UserInvite;
@@ -97,6 +101,8 @@ public class UserBusiness {
 	private InitBusiness initBusiness;
 	@Autowired
 	private BusinessUtils businessUtils;
+	@Autowired
+	private UserBrowseExtServiceImpl userBrowseExtServiceImpl;
 
 	/**
 	 * 添加用户验证码
@@ -339,6 +345,11 @@ public class UserBusiness {
 				userInviteServiceImpl.insertInvite(invite);
 				// 添加经纬度
 				businessUtils.AddUserPoint(request, registerId);
+				// 添加浏览主表 用于首页查询排序、统计浏览次数
+				UserBrowseExt ext = new UserBrowseExt();
+				ext.setUserId(registerId);
+				ext.setBrowseNumber(0);
+				userBrowseExtServiceImpl.insertBrowseExt(ext);
 				// 注册环信
 				String easemobId = registerId + SystemConfig.EnvIdentity;
 				String result = EaseMobBusiness.AccountCreate(easemobId);
@@ -440,21 +451,19 @@ public class UserBusiness {
 	 * @param userPositionService
 	 * @param request
 	 */
-	public void UpdateUserBrowse(UserBrowseServiceImpl userBrowseServiceImpl, int detailId, int userId) {
+	public void UpdateUserBrowse(int detailId, int userId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
-				userServiceImpl.updateBrowseNumber(detailId);
+				userBrowseExtServiceImpl.updateBrowesExt(detailId);
 				UserBrowse browes = new UserBrowse();
 				browes.setBrowseId(userId);
 				browes.setToUserId(detailId);
-				UserBrowse brResult=userBrowseServiceImpl.selectExistRecord(browes);
-				if (brResult!=null) {
+				UserBrowse brResult = userBrowseServiceImpl.selectExistRecord(browes);
+				if (brResult != null) {
 					browes.setKeyId(brResult.getKeyId());
 					browes.setBrowseDate(new Date());
 					userBrowseServiceImpl.updateBrowesCount(browes);
-				}
-				else
-				{
+				} else {
 					// 添加浏览记录 也就是访客记录
 					userBrowseServiceImpl.insertBrowse(browes);
 				}
@@ -534,7 +543,7 @@ public class UserBusiness {
 		details.setUser(userBase);
 		response.setData(details);
 
-		UpdateUserBrowse(userBrowseServiceImpl, body.getDetailId(), request.getUserId());
+		UpdateUserBrowse(body.getDetailId(), request.getUserId());
 		return response;
 	}
 
@@ -618,11 +627,18 @@ public class UserBusiness {
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<LikeListResponse> UserLikeList(baseRequest<?> request) {
+	public BaseResponse<LikeListResponse> UserLikeList(baseRequest<LikeListRequest> request) {
 		BaseResponse<LikeListResponse> response = new BaseResponse<LikeListResponse>();
 		response.setData(new LikeListResponse());
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
-		List<User> userData = userServiceImpl.userLikeList(request.getUserId());
+		LikeListRequest body=request.getbody();
+		if (body==null || body.getPageIndex()<=0) {
+			response.setCode(ResultEnum.VerificationCode);
+			response.setMsg("页码为空");
+			return response;
+		}
+		AppHomePagePaging pagePaging = PageParameter.GetLikeListPage(body.getPageIndex(), request.getUserId());
+		List<User> userData = userServiceImpl.userLikeList(pagePaging);
 		for (User user : userData) {
 			list.add(businessUtils.EntityToModel(user));
 		}
@@ -657,6 +673,10 @@ public class UserBusiness {
 				browesResponse.add(businessUtils.BrowesEntityToModel(user));
 			}
 			list.setList(browesResponse);
+			if (body.getPageIndex()==1) {
+				//只有第一页的时候 更新所有浏览用户 已被查看
+				userBrowseServiceImpl.updateBrowesIsBrowse(request.getUserId());
+			}
 			response.setData(list);
 		}
 		return response;
@@ -678,8 +698,8 @@ public class UserBusiness {
 		}
 		int result = userBrowseServiceImpl.deleteBrowsById(body.getBrowseId());
 		if (result <= 0) {
-			response.setCode(ResultEnum.ServiceErrorCode);
-			response.setMsg("服务器请求失败");
+			response.setCode(ResultEnum.VerificationCode);
+			response.setMsg("服务器无此记录");
 		}
 		return response;
 	}

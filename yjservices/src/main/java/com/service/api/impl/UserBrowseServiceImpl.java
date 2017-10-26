@@ -68,4 +68,15 @@ public class UserBrowseServiceImpl {
 		return userVisitorMapper.updateBrowesCount(browse);
 	}
 
+	/**
+	 * 更新访客已被查看
+	 * 
+	 * @param toUserId
+	 * @return
+	 */
+	public int updateBrowesIsBrowse(int toUserId) {
+		DBContextHolder.setDBType("siteRead");
+		return userVisitorMapper.updateBrowesIsBrowse(toUserId);
+	}
+
 }

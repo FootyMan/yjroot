@@ -37,6 +37,21 @@ public class PageParameter {
 		pagePaging.setUserId(userId);
 		return pagePaging;
 	}
+	/**
+	 * 喜欢列表
+	 * @param pageIndex
+	 * @param sex
+	 * @param userId
+	 * @return
+	 */
+	public static AppHomePagePaging GetLikeListPage(int pageIndex,int userId) {
+		pageIndex = pageIndex == 0 ? 1 : pageIndex;
+		AppHomePagePaging pagePaging = new AppHomePagePaging();
+		pagePaging.setPageIndex((pageIndex - 1) * PageUtils.PageSize.getValue());
+		pagePaging.setPageSize(PageUtils.PageSize.getValue());
+		pagePaging.setUserId(userId);
+		return pagePaging;
+	}
 
 	/**
 	 * 获取页数

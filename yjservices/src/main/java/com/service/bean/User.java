@@ -66,10 +66,6 @@ public class User implements Serializable{
 	 * 用户资料表
 	 */
 	private UserDatum datum;
-	/**
-	 * 浏览次数
-	 */
-	private int browseNumber;
 	
 	/**
 	 * 环信Id
@@ -93,12 +89,6 @@ public class User implements Serializable{
 	}
 	public void setPage(Pagination page) {
 		this.page = page;
-	}
-	public int getBrowseNumber() {
-		return browseNumber;
-	}
-	public void setBrowseNumber(int browseNumber) {
-		this.browseNumber = browseNumber;
 	}
 	public UserDatum getDatum() {
 		return datum;

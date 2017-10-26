@@ -136,15 +136,18 @@
 		SELECT
 		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
-		FROM user a inner join userdatum b
-		on
-		a.userId=b.userId where
+		FROM user a 
+		inner join userdatum b
+		on a.userId=b.userId 
+		inner join userbrowseext as c
+		on a.userId=c.userId
+		where
 		1=1
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
 		and a.userId!=#{userId} 
-		order by a.browseNumber desc
+		order by c.browseTime desc
 		LIMIT #{pageIndex},#{pageSize}
 	</select>
 	<!-- 首页列表count -->
@@ -240,17 +243,10 @@
 		where
 		a.userId=#{userId};
 	</select>
-
-	<!-- 更新浏览次数 -->
-	<update id="updateBrowseNumber" parameterType="java.lang.Integer">
-		update user set
-		browseNumber=browseNumber+1 where userId=#{userId};
-	</update>
-
-
+	
 	<!-- 用户喜欢列表 -->
 	<select id="userLikeList" resultMap="appUserResult"
-		parameterType="java.lang.Integer">
+		parameterType="com.service.bean.AppHomePagePaging">
 		SELECT
 		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
@@ -262,6 +258,7 @@
 		where
 		c.userId=#{userId}
 		order by c.likeDate desc
+		LIMIT #{pageIndex},#{pageSize}
 	</select>
 
 	<!-- 最近访客列表 只取一年的数据 -->

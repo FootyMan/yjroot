@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.UserBrowseExtMapper">
+	<resultMap id="browseResultMap" type="com.service.bean.UserBrowseExt">
+		<id column="browseExt" property="browseExt" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="browseTime" property="browseTime" jdbcType="TIMESTAMP" />
+		<result column="browseNumber" property="browseNumber" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		browseExt,userId,browseTime,browseNumber
+	</sql>
+
+	<insert id="insertBrowseExt" parameterType="com.service.bean.UserBrowseExt">
+		insert into
+		userbrowseext
+		(browseExt,userId,browseTime,browseNumber)
+		values
+		(#{browseExt},#{userId},now(),#{browseNumber})
+
+	</insert>
+	<update id="updateBrowesExt" parameterType="java.lang.Integer">
+		update userbrowseext set browseNumber=browseNumber+1,browseTime=now() where
+		userId=#{userId}
+	</update>
+</mapper>

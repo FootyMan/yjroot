@@ -156,16 +156,16 @@ public class UserServiceImpl {
 		return userMappe.getUserDetails(rangeParameter);
 	}
 
-	/**
-	 * 个人详情主页
-	 *
-	 * @param user
-	 * @return
-	 */
-	public int updateBrowseNumber(int userId) {
-		DBContextHolder.setDBType("siteRead");
-		return userMappe.updateBrowseNumber(userId);
-	}
+//	/**
+//	 * 个人详情主页
+//	 *
+//	 * @param user
+//	 * @return
+//	 */
+//	public int updateBrowseNumber(int userId) {
+//		DBContextHolder.setDBType("siteRead");
+//		return userMappe.updateBrowseNumber(userId);
+//	}
 
 	/**
 	 * 初始化用户
@@ -184,9 +184,9 @@ public class UserServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public List<User> userLikeList(int userId) {
+	public List<User> userLikeList(AppHomePagePaging page) {
 		DBContextHolder.setDBType("siteRead");
-		return userMappe.userLikeList(userId);
+		return userMappe.userLikeList(page);
 	}
 
 	/**

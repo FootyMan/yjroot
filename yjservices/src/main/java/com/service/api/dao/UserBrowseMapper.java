@@ -38,4 +38,11 @@ public abstract interface  UserBrowseMapper {
 	 * @return
 	 */
 	public abstract int updateBrowesCount(UserBrowse browse);
+	
+	/**
+	 * 更新访客已被查看
+	 * @param toUserId
+	 * @return
+	 */
+	public abstract int updateBrowesIsBrowse(int toUserId);
 }

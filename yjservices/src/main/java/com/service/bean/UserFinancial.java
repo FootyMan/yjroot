@@ -1,5 +1,7 @@
 package com.service.bean;
 
+import com.service.utils.Pagination;
+
 public class UserFinancial {
 
 	//主键自增
@@ -18,6 +20,14 @@ public class UserFinancial {
 	private double totalRevenue;
 	//账户累计总支出
 	private double totalWithDraw;
+	//用户信息 
+	private User user;
+	//明细
+	private UserFinancialDetail financialDetail;
+	/**
+	 * 分页
+	 */
+	private Pagination page;
 	public int getFinancialId() {
 		return financialId;
 	}
@@ -65,5 +75,23 @@ public class UserFinancial {
 	}
 	public void setTotalWithDraw(double totalWithDraw) {
 		this.totalWithDraw = totalWithDraw;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public UserFinancialDetail getFinancialDetail() {
+		return financialDetail;
+	}
+	public void setFinancialDetail(UserFinancialDetail financialDetail) {
+		this.financialDetail = financialDetail;
+	}
+	public Pagination getPage() {
+		return page;
+	}
+	public void setPage(Pagination page) {
+		this.page = page;
 	}
 }

@@ -244,7 +244,7 @@ public class UserController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/likeList", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-details", value = "喜欢列表", notes = "喜欢列表")
-	public BaseResponse<LikeListResponse> UserLikeList(@ApiParam(value = "输入") @RequestBody baseRequest<?> request) {
+	public BaseResponse<LikeListResponse> UserLikeList(@ApiParam(value = "输入") @RequestBody baseRequest<LikeListRequest> request) {
 		return userBusiness.UserLikeList(request);
 	}
 

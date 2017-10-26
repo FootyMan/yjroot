@@ -111,7 +111,7 @@ public abstract interface UserMapper {
 	 * @param userId
 	 * @return
 	 */
-	public abstract int updateBrowseNumber(int userId);
+	// public abstract int updateBrowseNumber(int userId);
 
 	/**
 	 * 初始化用户
@@ -127,7 +127,7 @@ public abstract interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> userLikeList(int userId);
+	public abstract List<User> userLikeList(AppHomePagePaging page);
 
 	/**
 	 * 用户访客浏览
@@ -136,7 +136,7 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> userBrowseList(RangeParameter rangeParameter);
-	
+
 	/**
 	 * 根据ID获取
 	 * 

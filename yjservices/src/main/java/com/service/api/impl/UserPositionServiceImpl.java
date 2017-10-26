@@ -15,32 +15,39 @@ public class UserPositionServiceImpl {
 
 	/**
 	 * 添加
+	 * 
 	 * @param position
 	 * @return
 	 */
-	public int insertPosition(UserPosition position)
-	{
+	public int insertPosition(UserPosition position) {
 		DBContextHolder.setDBType("siteRead");
 		return UserPosition.insertPosition(position);
 	}
 
 	/**
 	 * 更新
+	 * 
 	 * @param position
 	 * @return
 	 */
-	public int updatePosition(UserPosition position)
-	{
+	public int updatePosition(UserPosition position) {
 		DBContextHolder.setDBType("siteRead");
-		return UserPosition.updatePosition(position);
+		int count = UserPosition.selectCountByUserId(position.getUserId());
+		if (count > 0) {
+			return UserPosition.updatePosition(position);
+		} else {
+			return UserPosition.insertPosition(position);
+		}
+
 	}
+
 	/**
 	 * 是否存储
+	 * 
 	 * @param position
 	 * @return
 	 */
-	public int selectCountByUserId(int userid)
-	{
+	public int selectCountByUserId(int userid) {
 		DBContextHolder.setDBType("siteRead");
 		return UserPosition.selectCountByUserId(userid);
 	}
