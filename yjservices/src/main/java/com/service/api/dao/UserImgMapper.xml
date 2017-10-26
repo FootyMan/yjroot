@@ -30,7 +30,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from userimg where userId=#{userId} and imgStatus=1 order by
-		imageSort
+		imgid
 	</select>
 
 

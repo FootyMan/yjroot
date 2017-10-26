@@ -37,9 +37,7 @@
 						<div class="col-sm-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
 						</div>
-						<div class="ibox-tools">
-							<a href="../user/add" class="btn btn-sm btn-primary">新增用户</a>
-						</div>
+						 
 					</div>
 				</div>
 			</div>
@@ -76,8 +74,7 @@
 									href="javascript:void(0)" onclick="SetOperateState(${emp.recordID})"> <i
 										class="fa fa-pencil"></i> 标记已打款
 								</a> 
-								<a class="btn btn-white btn-sm" href="javascript:void(0)"
-									onclick="SetHomeUser(${emp.recordID},1)"> 
+								<a class="btn btn-white btn-sm" href="https://auth.alipay.com/login/index.htm"> 
 									<i class="fafa-pencil"></i> 去支付</a>
 								</c:if>
 								</td>
