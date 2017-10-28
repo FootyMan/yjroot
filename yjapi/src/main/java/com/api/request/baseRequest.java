@@ -16,7 +16,7 @@ public class baseRequest<T> {
 	private int versionCode;
 
 	@ApiModelProperty(value = "key+时间戳=密文")
-	private String Sign;
+	private String sign;
 
 	@ApiModelProperty(value = "用户ID")
 	private int userId;
@@ -71,14 +71,6 @@ public class baseRequest<T> {
 		this.clientVersion = clientVersion;
 	}
 
-	public String getSign() {
-		return Sign;
-	}
-
-	public void setSign(String sign) {
-		Sign = sign;
-	}
-
 	public int getUserId() {
 		return userId;
 	}
@@ -109,6 +101,14 @@ public class baseRequest<T> {
 
 	public void setVersionCode(int versionCode) {
 		this.versionCode = versionCode;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
 	}
 
 }

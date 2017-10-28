@@ -47,7 +47,7 @@ public abstract interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	public abstract int selectUserByphone(@Param("phone") String phone);
+	public abstract User selectUserByphone(String phone);//@Param("phone") 
 
 	/**
 	 * 用户登录
@@ -106,14 +106,6 @@ public abstract interface UserMapper {
 	public abstract List<User> getUserDetails(RangeParameter rangeParameter);
 
 	/**
-	 * 更新浏览次数
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	// public abstract int updateBrowseNumber(int userId);
-
-	/**
 	 * 初始化用户
 	 *
 	 * @param user
@@ -144,4 +136,11 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract List<User> selectDatumByUserId(int userId);
+	
+	/**
+	 * 更新导入用户资料
+	 * @param user
+	 * @return
+	 */
+	public abstract int updateImportUser(User user);
 }

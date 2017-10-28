@@ -224,11 +224,21 @@ public class UserBusiness {
 		// 检查短信验证码
 		userModel model = request.getbody();
 		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
-		int isExistPhone = userServiceImpl.selectUserByphone(model.getPhone());
-		if (isExistPhone > 0) {
-			response.setCode(ResultEnum.ServiceErrorCode);
-			response.setMsg("手机号已存在！请登录");
-			return response;
+		User userData = userServiceImpl.selectUserByphone(model.getPhone());
+		if (userData!=null) {
+			//如果已存在 是否是导入用户
+			if (userData.getIsImport()==1) {
+				
+				//导入用户走此逻辑
+				return SetImportUser(request,userData);
+			}
+			else
+			{
+				response.setCode(ResultEnum.ServiceErrorCode);
+				response.setMsg("手机号已存在！请登录");
+				return response;
+			}
+			
 		}
 		User codeData = userServiceImpl.selectUserByInviteCode(model.getInviteCode());
 		if (codeData == null) {
@@ -351,7 +361,7 @@ public class UserBusiness {
 				ext.setBrowseNumber(0);
 				userBrowseExtServiceImpl.insertBrowseExt(ext);
 				// 注册环信
-				String easemobId = registerId + SystemConfig.EnvIdentity;
+				String easemobId = registerId + SystemConfig.EaseSuffixId;
 				String result = EaseMobBusiness.AccountCreate(easemobId);
 				Map map = (Map) JSON.parse(result);
 				if (map != null && !map.containsKey("error")) {
@@ -389,6 +399,9 @@ public class UserBusiness {
 		entiy.setShape(model.getShape());
 		entiy.setSexuat(model.getSexuat());
 		entiy.setGender(model.getSex());
+		if (StringUtils.isEmpty(model.getSign())) {
+			model.setSign(ResultEnum.defaultSign);
+		}
 		entiy.setSign(model.getSign());
 		logger.info("昵称：" + model.getSign());
 		// 是否需要更新昵称
@@ -438,6 +451,9 @@ public class UserBusiness {
 			model.setSexuat(datum.getSexuat());
 			model.setSign(datum.getSign());
 			model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+			if (user.getHeadImage().indexOf("http")!=-1) {
+				model.setHeadImage(user.getHeadImage());
+			}
 			model.setNickName(user.getNickName());
 			response.setData(model);
 		}
@@ -454,20 +470,22 @@ public class UserBusiness {
 	public void UpdateUserBrowse(int detailId, int userId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
-				userBrowseExtServiceImpl.updateBrowesExt(detailId);
-				UserBrowse browes = new UserBrowse();
-				browes.setBrowseId(userId);
-				browes.setToUserId(detailId);
-				UserBrowse brResult = userBrowseServiceImpl.selectExistRecord(browes);
-				if (brResult != null) {
-					browes.setKeyId(brResult.getKeyId());
-					browes.setBrowseDate(new Date());
-					userBrowseServiceImpl.updateBrowesCount(browes);
-				} else {
-					// 添加浏览记录 也就是访客记录
-					userBrowseServiceImpl.insertBrowse(browes);
+				//不是自己浏览自己个人空间 增加浏览记录
+				if (detailId != userId) {
+					userBrowseExtServiceImpl.updateBrowesExt(detailId);
+					UserBrowse browes = new UserBrowse();
+					browes.setBrowseId(userId);
+					browes.setToUserId(detailId);
+					UserBrowse brResult = userBrowseServiceImpl.selectExistRecord(browes);
+					if (brResult != null) {
+						browes.setKeyId(brResult.getKeyId());
+						browes.setBrowseDate(new Date());
+						userBrowseServiceImpl.updateBrowesCount(browes);
+					} else {
+						// 添加浏览记录 也就是访客记录
+						userBrowseServiceImpl.insertBrowse(browes);
+					}
 				}
-
 			}
 		});
 		t.start();
@@ -493,17 +511,20 @@ public class UserBusiness {
 		RangeParameter rangeParameter = new RangeParameter();
 		rangeParameter.setUserId(body.getDetailId());
 		// 如果经纬度小于等于0 证明当前位置不可访问 默认天安门
-		if (body.getLat() <= 0 || body.getLon() <= 0) {
-			body.setLat(ResultEnum.defaultLat);
-			body.setLon(ResultEnum.defaultLon);
+		if (request.getLat() <= 0 || request.getLon() <= 0) {
+			request.setLat(ResultEnum.defaultLat);
+			request.setLon(ResultEnum.defaultLon);
 		}
-		rangeParameter.setLat(body.getLat());
-		rangeParameter.setLon(body.getLon());
+		rangeParameter.setLat(request.getLat());
+		rangeParameter.setLon(request.getLon());
 		List<User> userDatas = userServiceImpl.getUserDetails(rangeParameter);
 		if (userDatas != null && userDatas.size() > 0) {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
 			userBase.setHeadImage(SystemConfig.ImgurlPrefix + userData.getHeadImage());
+			if (userData.getHeadImage().indexOf("http")!=-1) {
+				userBase.setHeadImage(userData.getHeadImage());
+			}
 			userBase.setShowId(userData.getUserNo());
 			userBase.setNickName(userData.getNickName());
 			userBase.setSex(datum.getGender());
@@ -517,7 +538,7 @@ public class UserBusiness {
 			userBase.setShape(datum.getShape());
 			userBase.setSexuat(datum.getSexuat());
 			userBase.setVip(userData.getUserLevel());
-			userBase.setEaseId(body.getDetailId() + SystemConfig.EnvIdentity);
+			userBase.setEaseId(body.getDetailId() + SystemConfig.EaseSuffixId);
 		}
 		// 图片
 
@@ -631,8 +652,8 @@ public class UserBusiness {
 		BaseResponse<LikeListResponse> response = new BaseResponse<LikeListResponse>();
 		response.setData(new LikeListResponse());
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
-		LikeListRequest body=request.getbody();
-		if (body==null || body.getPageIndex()<=0) {
+		LikeListRequest body = request.getbody();
+		if (body == null || body.getPageIndex() <= 0) {
 			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("页码为空");
 			return response;
@@ -673,8 +694,8 @@ public class UserBusiness {
 				browesResponse.add(businessUtils.BrowesEntityToModel(user));
 			}
 			list.setList(browesResponse);
-			if (body.getPageIndex()==1) {
-				//只有第一页的时候 更新所有浏览用户 已被查看
+			if (body.getPageIndex() == 1) {
+				// 只有第一页的时候 更新所有浏览用户 已被查看
 				userBrowseServiceImpl.updateBrowesIsBrowse(request.getUserId());
 			}
 			response.setData(list);
@@ -734,6 +755,41 @@ public class UserBusiness {
 		map.put("phone", phone);
 		map.put("msg", msg);
 		return map;
+	}
+	
+	/**
+	 * 导入用户更新资料
+	 * @param request
+	 * @param user
+	 * @return
+	 */
+	private BaseResponse<InitResponse> SetImportUser(baseRequest<userModel> request,User user)
+	{
+		BaseResponse<InitResponse> response=new BaseResponse<InitResponse>();
+		userModel body=request.getbody();
+		//更新用户deviceType,deviceToken，userSource，passWord
+		//更新坐标
+		User codeData = userServiceImpl.selectUserByInviteCode(body.getInviteCode());
+		if (codeData == null) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("邀请码不正确");
+			return response;
+		}
+		User entity=new User();
+		entity.setUserId(user.getUserId());
+		entity.setDeviceToken(request.getDeviceToken());
+		entity.setDeviceType(request.getDeviceType());
+		entity.setUserSource(request.getDeviceType());
+		entity.setInviteCode(body.getInviteCode());
+		entity.setPassWord(Md5Util.stringByMD5(body.getPassWord()));
+		entity.setIsImport(0);//更新为不是导入用户
+		int result=userServiceImpl.updateImportUser(entity);
+		if (result>0) {
+			businessUtils.SetUserPosition(request, user.getUserId());
+		}
+		InitResponse initUser = initBusiness.InitUserData(user.getUserId());
+		response.setData(initUser);
+		return response;
 	}
 
 	public void test() {

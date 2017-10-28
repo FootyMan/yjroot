@@ -1,7 +1,5 @@
 package com.api.controller;
 
- 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.api.business.InitBusiness;
- 
+
 import com.api.request.*;
 import com.api.response.*;
 import com.api.utils.decrypt.ResponseEncryptBody;
@@ -44,9 +42,11 @@ public class InitController {
 	public BaseResponse<InitResponse> initUser(// InitUserRequest
 			@ApiParam(value = "输入") @RequestBody baseRequest<?> request) throws Exception {
 
-		BaseResponse<InitResponse> response = initBusiness.initUser(request);
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		InitResponse initUser = initBusiness.InitUserData(request.getUserId());
 		response.setData(initUser);
+		//更新坐标
+		initBusiness.initUser(request);
 		return response;
 	}
 

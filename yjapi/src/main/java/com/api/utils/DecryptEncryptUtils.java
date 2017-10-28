@@ -13,7 +13,7 @@ public class DecryptEncryptUtils {
 		String jiami = input;
 		if (SystemConfig.isEncrypt) {
 			try {
-				jiami = DES.encrypt(input);
+				jiami = EncryUtil.encrypt(input);
 				// System.out.println("加密后数据" + jiami);
 				//
 				// String jimi = DES.decrypt(jiami);

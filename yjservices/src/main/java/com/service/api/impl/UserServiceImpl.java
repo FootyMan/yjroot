@@ -21,7 +21,7 @@ public class UserServiceImpl {
 	private UserMapper userMappe;
 	@Autowired
 	private ProvinceMapper provinceMapper;
- 
+
 	/**
 	 * 添加
 	 * 
@@ -72,7 +72,7 @@ public class UserServiceImpl {
 	 * @param user
 	 * @return
 	 */
-	public int selectUserByphone(String phone) {
+	public User selectUserByphone(String phone) {
 		DBContextHolder.setDBType("siteRead");
 		return userMappe.selectUserByphone(phone);
 
@@ -156,16 +156,16 @@ public class UserServiceImpl {
 		return userMappe.getUserDetails(rangeParameter);
 	}
 
-//	/**
-//	 * 个人详情主页
-//	 *
-//	 * @param user
-//	 * @return
-//	 */
-//	public int updateBrowseNumber(int userId) {
-//		DBContextHolder.setDBType("siteRead");
-//		return userMappe.updateBrowseNumber(userId);
-//	}
+	// /**
+	// * 个人详情主页
+	// *
+	// * @param user
+	// * @return
+	// */
+	// public int updateBrowseNumber(int userId) {
+	// DBContextHolder.setDBType("siteRead");
+	// return userMappe.updateBrowseNumber(userId);
+	// }
 
 	/**
 	 * 初始化用户
@@ -200,6 +200,7 @@ public class UserServiceImpl {
 		List<User> list = userMappe.userBrowseList(rangeParameter);
 		return list;
 	}
+
 	/**
 	 * 根据ID获取城市
 	 * 
@@ -207,15 +208,15 @@ public class UserServiceImpl {
 	 * @return
 	 */
 	public Province SelectProvincesById(int id) {
-		CityRedisManager manager=new CityRedisManager();
-		//如果缓存为空查数据库
-		Province obj=manager.GetCitySingle(id);
-		if (obj==null) {
+		CityRedisManager manager = new CityRedisManager();
+		// 如果缓存为空查数据库
+		Province obj = manager.GetCitySingle(id);
+		if (obj == null) {
 			DBContextHolder.setDBType("siteRead");
 			return provinceMapper.SelectProvincesById(id);
 		}
 		return obj;
-		
+
 	}
 
 	/**
@@ -228,4 +229,16 @@ public class UserServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userMappe.selectDatumByUserId(userId);
 	}
+
+	/**
+	 * 更新导入用户资料
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public int updateImportUser(User user) {
+		DBContextHolder.setDBType("siteRead");
+		return userMappe.updateImportUser(user);
+	}
+
 }

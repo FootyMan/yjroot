@@ -17,6 +17,9 @@
 		<result column="userSource" property="userSource" jdbcType="INTEGER" />
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="userResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
@@ -33,7 +36,9 @@
 		<result column="userSource" property="userSource" jdbcType="INTEGER" />
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
-		<result column="browseDate" property="browseDate" jdbcType="TIMESTAMP" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
 		<!-- 映射用户资料表 一对一 -->
 		<association property="datum" javaType="com.service.bean.UserDatum">
 			<id column="datumId" property="datumId" jdbcType="INTEGER" />
@@ -54,7 +59,7 @@
 		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
-		inviteCode,passWord
+		inviteCode,passWord,easemobId,getuiId,isImport
 	</sql>
 	<!-- 后台用户列表 -->
 	<select id="ErpUserListByPage" resultMap="userResult"

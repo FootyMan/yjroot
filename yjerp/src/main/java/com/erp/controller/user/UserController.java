@@ -118,6 +118,9 @@ public class UserController {
 			if (entity_Users != null && entity_Users.size() > 0) {
 				User enUser = entity_Users.get(0);
 				userModel.setHeadImage(SystemConfig.ImgurlPrefix + enUser.getHeadImage());
+				if (enUser.getHeadImage().indexOf("http")!=-1) {
+					userModel.setHeadImage(enUser.getHeadImage());
+				}
 				userModel.setPhone(enUser.getPhone());
 				userModel.setDeviceType(enUser.getDeviceType());
 				userModel.setNickName(enUser.getNickName());
@@ -138,6 +141,9 @@ public class UserController {
 					UserImageModel imgModel = new UserImageModel();
 					imgModel.setImageId(userImg.getImgId());
 					imgModel.setImgUrl(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+					if (userImg.getImagePath().indexOf("http")!=-1) {
+						imgModel.setImgUrl(userImg.getImagePath());
+					}
 					imgS.add(imgModel);
 				}
 				userModel.setImgList(imgS);
@@ -208,7 +214,7 @@ public class UserController {
 			if (datumId > 0) {
 				AddUserImage(imgList, userId);
 				// 注册环信
-				String easemobId = userId + SystemConfig.EnvIdentity;
+				String easemobId = userId + SystemConfig.EaseSuffixId;
 				String result = EaseMobBusiness.AccountCreate(easemobId);
 				Map map = (Map) JSON.parse(result);
 				if (map != null && !map.containsKey("error")) {

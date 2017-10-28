@@ -84,6 +84,10 @@ public class User implements Serializable{
 	 * 分页
 	 */
 	private Pagination page;
+	/**
+	 * 是否是导入用户 0不是 1是
+	 */
+	private int isImport;
 	public Pagination getPage() {
 		return page;
 	}
@@ -197,6 +201,12 @@ public class User implements Serializable{
 	}
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
+	}
+	public int getIsImport() {
+		return isImport;
+	}
+	public void setIsImport(int isImport) {
+		this.isImport = isImport;
 	}
 
 }

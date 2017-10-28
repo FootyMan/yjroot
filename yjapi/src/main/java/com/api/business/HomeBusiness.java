@@ -129,6 +129,9 @@ public class HomeBusiness {
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
 		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+		if (user.getHeadImage().indexOf("http")!=-1) {
+			model.setHeadImage(user.getHeadImage());
+		}
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		UserDatum datum = user.getDatum();

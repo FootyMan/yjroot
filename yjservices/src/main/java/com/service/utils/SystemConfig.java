@@ -36,9 +36,9 @@ public class SystemConfig {
 
 	/**
 	 * 
-	 * 环境标识-测试环境 dev,qa,production线上环境用
+	 * 环境标识-测试环境 dev,qa,release线上环境用
 	 */
-	public static String EnvIdentity = PropertiesUtils.ReadProperties(fileName, "EnvIdentity");
+	public static String EnvIdentity = PropertiesUtils.ReadProperties(fileName, "envIdentity");
 
 	/**
 	 * 支付宝回调地址
@@ -63,5 +63,12 @@ public class SystemConfig {
 	 * 最小提现金额
 	 */
 	public static double Min_Withdrawals = Double.parseDouble(PropertiesUtils.ReadProperties(fileName, "min_withdrawals"));
+	
+	/**
+	 * 
+	 * 环信id后缀 根据环境区分用户  测试和开发qa 线上去掉就行
+	 */
+	public static String EaseSuffixId= PropertiesUtils.ReadProperties(fileName, "ease_suffixId");
+	 
 
 }

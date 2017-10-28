@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.request.baseRequest;
+import com.api.response.BaseResponse;
 import com.api.response.BrowesResponse;
 import com.api.response.HomeResponse;
+import com.api.response.InitResponse;
 import com.api.response.InitResponseAppData;
 import com.api.response.LableResponse;
 import com.api.response.LableTypeResponse;
@@ -59,6 +61,38 @@ public class BusinessUtils {
 	}
 
 	/**
+	 * 更新用户坐标
+	 * 
+	 * @param request
+	 * @param userId
+	 * @return
+	 */
+	public void SetUserPosition(baseRequest<?> request, int userId) {
+		BaseResponse<?> response = new BaseResponse<Object>();
+		UserPosition position = new UserPosition();
+		position.setIsPosition(1);
+		if (request.getLon() <= 0) {
+			request.setLon(ResultEnum.defaultLon);
+		}
+		if (request.getLat() <= 0) {
+			request.setLat(ResultEnum.defaultLat);
+			position.setIsPosition(0);
+		}
+
+		position.setUserId(userId);
+		position.setLongitude(request.getLon());
+		position.setLatitude(request.getLat());
+		int positionId = userPositionService.updatePosition(position);
+		// if (positionId <= 0) {
+		// response.setCode(ResultEnum.ServiceErrorCode);
+		// response.setMsg("坐标拾取失败");
+		// return response;
+		// }
+		// }
+		// return response;
+	}
+
+	/**
 	 * 实体对象转换model
 	 * 
 	 * @param user
@@ -70,11 +104,15 @@ public class BusinessUtils {
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
 		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+		if (user.getHeadImage().indexOf("http") != -1) {
+			model.setHeadImage(user.getHeadImage());
+		}
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		model.setSign(user.getDatum().getSign());
 		return model;
 	}
+
 	/**
 	 * 最近访客实体对象转换model
 	 * 
@@ -87,6 +125,9 @@ public class BusinessUtils {
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
 		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+		if (user.getHeadImage().indexOf("http")!=-1) {
+			model.setHeadImage(user.getHeadImage());
+		}
 		model.setSex(user.getDatum().getGender());
 		model.setAge(user.getDatum().getAge());
 		model.setSign(user.getDatum().getSign());
@@ -140,6 +181,9 @@ public class BusinessUtils {
 			for (UserImg userImg : userImgs) {
 				UserImgResponse img = new UserImgResponse();
 				img.setImg(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+				if (userImg.getImagePath().indexOf("http")!=-1) {
+					img.setImg(userImg.getImagePath());
+				}
 				img.setImgId(userImg.getImgId());
 				imgList.add(img);
 			}

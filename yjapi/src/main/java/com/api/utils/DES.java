@@ -19,7 +19,7 @@ public class DES {
 	
 	private final static String DES = "DES";
 	private final static String ENCODE = "utf-8";
-	private final static String defaultKey = "test1234";
+	private final static String defaultKey = CommonConfig.signKey;
 	/**
 	 * 使用 默认key 加密
 	 * 
@@ -133,7 +133,7 @@ public class DES {
 		SecretKey securekey = keyFactory.generateSecret(dks);
 
 		// Cipher对象实际完成解密操作
-		Cipher cipher = Cipher.getInstance(DES);
+		Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 
 		// 用密钥初始化Cipher对象
 		cipher.init(Cipher.DECRYPT_MODE, securekey, sr);

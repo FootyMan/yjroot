@@ -33,7 +33,10 @@ import com.alibaba.fastjson.JSON;
 import com.api.alipay.sdk.AlipayPayManager;
 import com.api.response.AlipayResponse;
 import com.api.response.BaseResponse;
+import com.api.utils.CommonConfig;
 import com.api.utils.DES;
+import com.api.utils.EncryUtil;
+import com.api.utils.Hex;
 import com.api.utils.PageUtils;
 import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
@@ -55,6 +58,9 @@ import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
 import com.service.utils.SystemConfig;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 public class TestLog4j {
 
 	@Autowired
@@ -63,8 +69,25 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		double reward = 1 * SystemConfig.percentage;
-		System.out.println(reward);
+		BASE64Encoder encoder = new BASE64Encoder();
+		String str = "123";
+		String encStr = encoder.encode(str.getBytes());
+		System.out.println("64加密：" + encStr);
+
+		// 解密
+		BASE64Decoder decoder = new BASE64Decoder();
+		byte[] by = decoder.decodeBuffer(encStr);
+		System.out.println("64解密" + new String(by, "utf-8"));
+
+		//Hex hex = new Hex();
+		String message = "123";
+		String t="";
+		System.out.println("加密后：" + (t = EncryUtil.encrypt(message)));  
+        System.out.println("解密后：" + EncryUtil.decrypt(t));  
+		// String encod= new BASE64Encoder().encode(buf);;
+		// System.out.println("64解密："+encod);
+		// double reward = 1 * SystemConfig.percentage;
+		// System.out.println(reward);
 		//
 		// List<String> strings=new ArrayList<String>();
 		// strings.add("1");
@@ -102,16 +125,16 @@ public class TestLog4j {
 		// 获取token
 		// String toket = EaseMobBusiness.QueryToken();
 		// 创建用户
-//		String st = EaseMobBusiness.AccountCreate("1qa");
-//		// 删除用户
-//		st = EaseMobBusiness.AccountDel("1qa");
-//
-//		Map map = (Map) JSON.parse(st);
-//		if (map != null && !map.containsKey("error")) {
-//
-//		}
-//
-//		System.out.println(map.get("uri"));
+		// String st = EaseMobBusiness.AccountCreate("1qa");
+		// // 删除用户
+		// st = EaseMobBusiness.AccountDel("1qa");
+		//
+		// Map map = (Map) JSON.parse(st);
+		// if (map != null && !map.containsKey("error")) {
+		//
+		// }
+		//
+		// System.out.println(map.get("uri"));
 		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Date date = sdf.parse("2017-09-26 10:42:11");
 		// Calendar c1 = Calendar.getInstance();
@@ -139,7 +162,8 @@ public class TestLog4j {
 		// dString=DES.encrypt(dString);
 		// System.out.println(dString);
 
-		String reqStr = DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
+		// String reqStr =
+		// DES.decrypt("fiQJ0FtQYu6C1JBQtCVez/90iBJ98+8j89UKsGOk0bQ=");
 		// toket = EaseMobBusiness.QueryToken();
 		// baseResponse response=new baseResponse();
 		// System.out.println(reqStr);

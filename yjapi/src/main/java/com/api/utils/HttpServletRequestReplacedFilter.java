@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSON;
 import com.api.request.baseRequest;
 import com.api.response.BaseResponse;
+import com.google.gson.Gson;
 import com.service.utils.CommonMethod;
+import com.service.utils.Md5Util;
 import com.service.utils.SystemConfig;
 
 import javassist.runtime.Desc;
@@ -42,8 +45,9 @@ public class HttpServletRequestReplacedFilter implements Filter {
 				// String url = requestWrapper.getRequestURL().toString();
 				String reqStr = CommonMethod.ReadInputStreamFromClientRequest(requestWrapper);
 				logger.info(reqStr);
-				baseRequest model = CommonMethod.ConvertJsonToObj(reqStr, baseRequest.class);
-				if (model != null && model.getTimeStamp().equals("11232")) {
+				Gson gson = new Gson();
+				baseRequest<Object> model = gson.fromJson(reqStr, baseRequest.class);
+				if (model != null && model.getSign().toUpperCase().equals(GetSign(model.getTimeStamp()))) {
 					chain.doFilter(requestWrapper, response);
 				} else {
 					BaseResponse<?> r = new BaseResponse<Object>();
@@ -68,6 +72,17 @@ public class HttpServletRequestReplacedFilter implements Filter {
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 
+	}
+
+	/**
+	 * 获取签名
+	 * 
+	 * @param timeStamp
+	 * @return
+	 */
+	public String GetSign(String timeStamp) {
+		String sign = CommonConfig.signKey + timeStamp;
+		return Md5Util.stringByMD5(sign);
 	}
 
 }

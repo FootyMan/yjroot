@@ -53,30 +53,9 @@ public class InitBusiness {
 	 * @param user
 	 * @return
 	 */
-	public BaseResponse<InitResponse> initUser(baseRequest<?> user) {
+	public void initUser(baseRequest<?> request) {
 
-		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
-		UserPosition position = new UserPosition();
-		position.setIsPosition(1);
-		if (user.getLon() <= 0) {
-			user.setLon(ResultEnum.defaultLon);
-		}
-		if (user.getLat() <= 0) {
-			user.setLat(ResultEnum.defaultLat);
-			position.setIsPosition(0);
-		}
-
-		position.setUserId(user.getUserId());
-		position.setLongitude(user.getLon());
-		position.setLatitude(user.getLat());
-		int positionId = userPositionServiceImpl.updatePosition(position);
-		if (positionId <= 0) {
-			response.setCode(ResultEnum.ServiceErrorCode);
-			response.setMsg("坐标拾取失败");
-			return response;
-		}
-		// }
-		return response;
+		businessUtils.SetUserPosition(request, request.getUserId());
 	}
 
 	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
@@ -118,8 +97,8 @@ public class InitBusiness {
 		appData.setVersionData(versionResponseModel);
 		appData.setTwoData(pageTwoModel);
 
-		//二维码
-		TwoCodeResponse twoCode=new TwoCodeResponse();
+		// 二维码
+		TwoCodeResponse twoCode = new TwoCodeResponse();
 		twoCode.setImgUrl(SystemConfig.TwoCodeUrl);
 		// appData.setCityData(citys);
 		appData.setTwoCode(twoCode);
@@ -190,6 +169,9 @@ public class InitBusiness {
 			info.setUserId(userId);
 			info.setShowId(user.getUserNo());
 			info.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
+			if (user.getHeadImage().indexOf("http")!=-1) {
+				info.setHeadImage(user.getHeadImage());
+			}
 			info.setNickName(user.getNickName());
 			info.setSex(datum.getGender());
 			info.setAge(datum.getAge());
@@ -206,7 +188,7 @@ public class InitBusiness {
 			info.setVip(user.getUserLevel());
 			info.setInviteCode(user.getInviteCode());
 			info.setFull(true);
-			info.setEaseId(userId + SystemConfig.EnvIdentity);
+			info.setEaseId(userId + SystemConfig.EaseSuffixId);
 			info.setPhone(user.getPhone());
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
@@ -216,7 +198,7 @@ public class InitBusiness {
 				info.setNickName(user.getNickName());
 				info.setVip(user.getUserLevel());
 				info.setFull(false);
-				info.setEaseId(userId + SystemConfig.EnvIdentity);
+				info.setEaseId(userId + SystemConfig.EaseSuffixId);
 				info.setPhone(user.getPhone());
 			}
 		}

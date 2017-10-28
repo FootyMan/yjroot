@@ -17,6 +17,9 @@
 		<result column="userSource" property="userSource" jdbcType="INTEGER" />
 		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="appUserResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
@@ -35,6 +38,7 @@
 		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
 		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
 		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
 		<!-- 映射用户资料表 一对一 -->
 		<association property="datum" javaType="com.service.bean.UserDatum">
 			<id column="datumId" property="datumId" jdbcType="INTEGER" />
@@ -63,7 +67,7 @@
 		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
-		inviteCode,passWord
+		inviteCode,passWord,easemobId,getuiId,isImport
 	</sql>
 	<insert id="insertUser" parameterType="com.service.bean.User"
 		keyProperty="userId">
@@ -119,9 +123,11 @@
 		<include refid="Base_Column_List"></include>
 		from user where inviteCode=#{inviteCode}
 	</select>
-	<select id="selectUserByphone" resultType="java.lang.Integer"
+	<!-- 根据手机号查找 -->
+	<select id="selectUserByphone" resultType="com.service.bean.User"
 		parameterType="java.lang.String">
-		select count(1)
+		select
+		<include refid="Base_Column_List"></include>
 		from user where phone=#{phone}
 	</select>
 	<select id="userLogin" resultType="com.service.bean.User"
@@ -136,9 +142,10 @@
 		SELECT
 		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign
-		FROM user a 
+		FROM user a
 		inner join userdatum b
-		on a.userId=b.userId 
+		on
+		a.userId=b.userId
 		inner join userbrowseext as c
 		on a.userId=c.userId
 		where
@@ -146,9 +153,10 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
-		and a.userId!=#{userId} 
+		and a.userId!=#{userId}
 		order by c.browseTime desc
-		LIMIT #{pageIndex},#{pageSize}
+		LIMIT
+		#{pageIndex},#{pageSize}
 	</select>
 	<!-- 首页列表count -->
 	<select id="HomeUserListCount" resultType="java.lang.Integer"
@@ -163,7 +171,7 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
-		and a.userId!=#{userId} 
+		and a.userId!=#{userId}
 	</select>
 
 	<!-- 首页推荐 -->
@@ -243,7 +251,7 @@
 		where
 		a.userId=#{userId};
 	</select>
-	
+
 	<!-- 用户喜欢列表 -->
 	<select id="userLikeList" resultMap="appUserResult"
 		parameterType="com.service.bean.AppHomePagePaging">
@@ -258,7 +266,8 @@
 		where
 		c.userId=#{userId}
 		order by c.likeDate desc
-		LIMIT #{pageIndex},#{pageSize}
+		LIMIT
+		#{pageIndex},#{pageSize}
 	</select>
 
 	<!-- 最近访客列表 只取一年的数据 -->
@@ -267,13 +276,16 @@
 		SELECT
 		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,
 		b.age,b.gender,b.sign,c.browseDate,c.Id as keyId
-		FROM user a inner join userdatum b
+		FROM user a inner join
+		userdatum b
 		on
 		a.userId=b.userId
 		inner join userbrowse as c
-		on a.userId=c.browseId
+		on
+		a.userId=c.browseId
 		where
-		c.toUserId=#{userId} and DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+		c.toUserId=#{userId} and DATE_SUB(CURDATE(),
+		INTERVAL 1 YEAR)
 		&lt;c.browseDate
 		order by c.browseDate desc
 		LIMIT
@@ -293,6 +305,33 @@
 		where
 		b.userId=#{userId}
 	</select>
+
+	<!-- 更新导入用户资料 -->
+	<update id="updateImportUser" parameterType="com.service.bean.User">
+		update user
+		<set>
+			<if test="deviceType>0">
+				deviceType=#{deviceType},
+			</if>
+			<if test="deviceToken!=null and deviceToken!=''">
+				deviceToken=#{deviceToken},
+			</if>
+			<if test="userSource>0">
+				userSource=#{userSource},
+			</if>
+			<if test="inviteCode!=null and inviteCode!=''">
+				inviteCode=#{inviteCode},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				passWord=#{passWord},
+			</if>
+			<if test="isImport>=0">
+				isImport=#{isImport},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+
 	<sql id="Range_Column_Where">
 		<if test="showId>0">
 			AND a.userNo=#{showId}

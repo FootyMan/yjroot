@@ -37,4 +37,8 @@ public class ResultEnum {
 	 * 每日提现上限
 	 */
 	public static double Quota = 500;
+	/**
+	 * 默认签名
+	 */
+	public static String defaultSign="这家伙很懒，什么也没留下....";
 }
