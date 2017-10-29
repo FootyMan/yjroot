@@ -775,6 +775,15 @@ public class UserBusiness {
 			response.setMsg("邀请码不正确");
 			return response;
 		}
+		
+		//添加邀请记录
+		UserInvite invite = new UserInvite();
+		invite.setInviteUserId(codeData.getUserId());
+		invite.setInviteCode(codeData.getInviteCode());
+		invite.setRegisterUserId(user.getUserId());
+		userInviteServiceImpl.insertInvite(invite);
+		
+		//更新导入用户信息
 		User entity=new User();
 		entity.setUserId(user.getUserId());
 		entity.setDeviceToken(request.getDeviceToken());
@@ -785,8 +794,10 @@ public class UserBusiness {
 		entity.setIsImport(0);//更新为不是导入用户
 		int result=userServiceImpl.updateImportUser(entity);
 		if (result>0) {
+			//更新经纬度
 			businessUtils.SetUserPosition(request, user.getUserId());
 		}
+		//获取用户信息
 		InitResponse initUser = initBusiness.InitUserData(user.getUserId());
 		response.setData(initUser);
 		return response;

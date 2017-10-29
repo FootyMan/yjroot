@@ -26,7 +26,7 @@ public class RangeParameter {
 	/**
 	 * 显示ID
 	 */
-	private int showId;
+	private String showId;
 	/**
 	 * 性别
 	 */
@@ -43,10 +43,10 @@ public class RangeParameter {
 	 * 年龄范围
 	 */
 	private int endAge;
-	public int getShowId() {
+	public String getShowId() {
 		return showId;
 	}
-	public void setShowId(int showId) {
+	public void setShowId(String showId) {
 		this.showId = showId;
 	}
 	public int getSex() {

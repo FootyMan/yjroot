@@ -69,11 +69,11 @@
 								<td>${emp.nickName}</td>
 								<td>${emp.phone}</td>
 								<td>${emp.userLevel}</td>
-								<td>${emp.sex}</td>
+								<td>${emp.sexName}</td>
 								<td>${emp.age}</td>
 								<td>${emp.cityName}</td>
 								<td>${emp.sexuat}</td>
-								<td>${emp.deviceType}</td>
+								<td>${emp.deviceTypeName}</td>
 								<td>${emp.isDisable}</td>
 								<td>
 								<a class="btn btn-white btn-sm" href="../user/add?userId=${emp.userId}">

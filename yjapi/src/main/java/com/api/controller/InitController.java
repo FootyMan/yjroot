@@ -62,6 +62,8 @@ public class InitController {
 	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
 	public BaseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
 			throws Exception {
+		//更新坐标
+		initBusiness.initUser(request);
 		return initBusiness.InitAppData(request);
 	}
 

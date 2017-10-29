@@ -56,7 +56,8 @@ public class HomeBusiness {
 			// 查询推荐用户
 		}
 		//
-		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex(),request.getUserId());
+		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex(),
+				request.getUserId());
 		List<User> userData = userServiceImpl.HomeUserList(pagePaging);
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {
@@ -75,6 +76,7 @@ public class HomeBusiness {
 
 	/**
 	 * 获取附近的人列表
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -92,16 +94,21 @@ public class HomeBusiness {
 		}
 		rangeParameter.setLat(request.getLat());
 		rangeParameter.setLon(request.getLon());
-		rangeParameter.setShowId(requestModel.getShowId());
-		rangeParameter.setSex(requestModel.getSex());
-		rangeParameter.setCityId(requestModel.getCityId());
-		// 年龄区间截取
-		if (!StringUtils.isEmpty(requestModel.getAgeSection())) {
-			String ageSection = requestModel.getAgeSection().replaceAll(" ", "");
-			String[] age = ageSection.split("-");
-			rangeParameter.setBeginAge(Integer.parseInt(age[0]));
-			rangeParameter.setEndAge(Integer.parseInt(age[1]));
+		//如果id搜索 其他条件忽略
+		if (!StringUtils.isEmpty(requestModel.getShowId())) {
+			rangeParameter.setShowId(requestModel.getShowId());
+		} else {
+			rangeParameter.setSex(requestModel.getSex());
+			rangeParameter.setCityId(requestModel.getCityId());
+			// 年龄区间截取
+			if (!StringUtils.isEmpty(requestModel.getAgeSection())) {
+				String ageSection = requestModel.getAgeSection().replaceAll(" ", "");
+				String[] age = ageSection.split("-");
+				rangeParameter.setBeginAge(Integer.parseInt(age[0]));
+				rangeParameter.setEndAge(Integer.parseInt(age[1]));
+			}
 		}
+
 		List<User> userData = userServiceImpl.RangeUserList(rangeParameter);
 		List<RangeDataResponse> list = new ArrayList<RangeDataResponse>();
 		for (User user : userData) {
@@ -117,6 +124,7 @@ public class HomeBusiness {
 		response.setData(rangeResponse);
 		return response;
 	}
+
 	/**
 	 * 实体对象转换model
 	 * 
@@ -129,7 +137,7 @@ public class HomeBusiness {
 		model.setNickName(user.getNickName());
 		model.setVip(user.getUserLevel());
 		model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
-		if (user.getHeadImage().indexOf("http")!=-1) {
+		if (user.getHeadImage().indexOf("http") != -1) {
 			model.setHeadImage(user.getHeadImage());
 		}
 		model.setSex(user.getDatum().getGender());
