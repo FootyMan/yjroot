@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Properties;
 
+import com.erp.model.PositionModel;
+import com.erp.utils.PositionUtils;
+import com.service.utils.HttpClientUtil;
+
 public class TestMyBatis {
 
 	// static SqlSessionFactory sqlSessionFactory = null;
@@ -15,20 +19,23 @@ public class TestMyBatis {
 	// sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
 	// }
 	public static void main(String[] args) {
-		String A = new String("java");
-		StringBuffer B = new StringBuffer("java");
-		A = replace(A);
-		Integer a = 100;
-		Integer b = 100;
-		System.out.println(a == b);
-		Integer i = 1000;
-		Integer j = 1000;
-		System.out.println(i == j);
-		appstr(B);
-		System.out.println(A + B);
 
-		ReadProperties();
-		//ThreadLocal
+		PositionModel resultStr =PositionUtils. GetpositionByAddress("北京");
+		System.out.println(resultStr.getLat());
+		// String A = new String("java");
+		// StringBuffer B = new StringBuffer("java");
+		// A = replace(A);
+		// Integer a = 100;
+		// Integer b = 100;
+		// System.out.println(a == b);
+		// Integer i = 1000;
+		// Integer j = 1000;
+		// System.out.println(i == j);
+		// appstr(B);
+		// System.out.println(A + B);
+		//
+		// ReadProperties();
+		// ThreadLocal
 		// EmployeeServiceImpl empservece=new EmployeeServiceImpl();
 		// Employee emp=new Employee();
 		// emp.setRoleId(0);
@@ -76,11 +83,11 @@ public class TestMyBatis {
 
 		Properties prop = new Properties();
 		try {
-			//褰撳墠绾跨▼璺緞
-			String path = Thread.currentThread().getContextClassLoader().getResource  ("config.properties").getPath();
+			// 褰撳墠绾跨▼璺緞
+			String path = Thread.currentThread().getContextClassLoader().getResource("config.properties").getPath();
 			InputStream in = new BufferedInputStream(new FileInputStream(path));
 			prop.load(in); /// 鍔犺浇灞炴�у垪琛�
-			System.out.println("-------------------"+prop.getProperty("img.ftp.host"));
+			System.out.println("-------------------" + prop.getProperty("img.ftp.host"));
 			Iterator<String> it = prop.stringPropertyNames().iterator();
 			while (it.hasNext()) {
 				String key = it.next();

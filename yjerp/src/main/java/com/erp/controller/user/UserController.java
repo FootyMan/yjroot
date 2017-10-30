@@ -16,18 +16,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.erp.model.PositionModel;
 import com.erp.model.ProvinceModel;
 import com.erp.model.UserImageModel;
 import com.erp.model.UserModel;
+import com.erp.utils.PositionUtils;
 import com.service.api.impl.ProvinceServiceImpl;
+import com.service.api.impl.UserBrowseExtServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
 import com.service.api.impl.UserImgServiceImpl;
+import com.service.api.impl.UserPositionServiceImpl;
 import com.service.api.impl.UserServiceImpl;
 import com.service.bean.HomeUser;
 import com.service.bean.Province;
 import com.service.bean.User;
+import com.service.bean.UserBrowseExt;
 import com.service.bean.UserDatum;
 import com.service.bean.UserImg;
+import com.service.bean.UserPosition;
 import com.service.easemob.EaseMobBusiness;
 import com.service.enums.DeviceType;
 import com.service.enums.UserLevel;
@@ -57,6 +63,10 @@ public class UserController {
 	private UserImgServiceImplERP userImgServiceImplERP;
 	@Autowired
 	private HomeUserServiceImplERP homeUserServiceImplERP;
+	@Autowired
+	private UserBrowseExtServiceImpl userBrowseExtServiceImpl;
+	@Autowired
+	private UserPositionServiceImpl userPositionServiceImpl;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
@@ -226,6 +236,19 @@ public class UserController {
 					userServiceImpl.updateUser(upUser);
 
 				}
+				//添加浏览记录表
+				UserBrowseExt ext=new UserBrowseExt();
+				ext.setUserId(userId);
+				ext.setBrowseNumber(0);
+				userBrowseExtServiceImpl.insertBrowseExt(ext);
+				//添加经纬度
+				PositionModel resultStr =PositionUtils. GetpositionByAddress(userModel.getCityName());
+				UserPosition position=new UserPosition();
+				position.setIsPosition(1);
+				position.setUserId(userId);
+				position.setLongitude(resultStr.getLon());
+				position.setLatitude(resultStr.getLat());
+				userPositionServiceImpl.insertPosition(position);
 			}
 		}
 		return insertResult;

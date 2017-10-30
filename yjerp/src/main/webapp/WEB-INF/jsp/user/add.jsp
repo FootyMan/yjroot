@@ -18,6 +18,7 @@
 	<form id="deptForm" action="../user/add.do" method="POST"
 		class="form-horizontal">
 		<input type="hidden" id="userId" name="userId" value="${obj.userId}" />
+		<input type="hidden" id="cityName" name="cityName" />
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<div class="row">
@@ -110,7 +111,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">所属城市：</label>
 				<div class="col-sm-4">
-					<select id="cityId" name="cityId" class="form-control">
+					<select id="cityId" name="cityId" class="form-control" onchange="showPosition()">
 						<c:forEach var="item" items="${listPro}">
 							<option value="${item.provinceId}" <c:if test="${obj.cityId==item.provinceId }">selected='selected'</c:if>>${item.name}</option>
 						</c:forEach>
@@ -193,6 +194,10 @@
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script src="../js/goods/goods.js?v=20170216"></script>
 <script type="text/javascript">
-	
+function showPosition() {
+	var address=$("#cityId").find("option:selected").text();  //获取Select选择的Text
+	$("#cityName").attr("value",address);
+   
+}
 </script>
 

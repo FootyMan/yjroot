@@ -8,8 +8,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
-    <title>我的erp</title>
-    <meta name="keywords" content="屹品文汇">
+    <title>北京众合致远科技有限责任公司</title>
+    <meta name="keywords" content="众合致远">
     <link href="<%=path%>/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=path%>/css/font-awesome.min.css" rel="stylesheet">
     <link href="<%=path%>/css/animate.css"  rel="stylesheet">
