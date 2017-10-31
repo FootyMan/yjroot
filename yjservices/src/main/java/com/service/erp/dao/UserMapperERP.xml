@@ -121,6 +121,11 @@
 		where
 		a.userId=#{userId};
 	</select>
+	
+	
+	<select id="selectUserByNickName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM user WHERE nickName=#{nickName}
+	</select>
 
 	<sql id="ListWhere">
 		<if test="userNo!=null and userNo!=''">

@@ -33,4 +33,11 @@ public abstract interface UserMapperERP {
 	 * @return
 	 */
 	public abstract List<User> selectDetalsERP(int userId);
+	/**
+	 * 根据昵称是否存在
+	 * @param nickName
+	 * @return
+	 */
+	
+	public abstract int selectUserByNickName(String nickName);
 }

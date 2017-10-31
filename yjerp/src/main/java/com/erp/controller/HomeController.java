@@ -106,7 +106,7 @@ public class HomeController {
 			System.out.println(listJs);
 			if (!StringUtils.isEmpty(listJs)) {
 				HauSheList list = gson.fromJson(listJs, HauSheList.class);
-			
+
 				for (ListDiscovers dis : list.getInfo().discovers) {
 
 					if (dis.getName().indexOf("花蛇小秘书") == -1) {
@@ -116,10 +116,10 @@ public class HomeController {
 								+ "&token=ed15251098dc72f9a8e0e74487ab2ae0 ", "");
 						if (!StringUtils.isEmpty(ditailsJs)) {
 							DetailsInfo info = gson.fromJson(ditailsJs, DetailsInfo.class);
-							if (info.getInfo().getPhoto()!=null && info.getInfo().getPhoto().size()>0 ) {
+							if (info.getInfo().getPhoto() != null && info.getInfo().getPhoto().size() > 0) {
 								InsertUser(info.getInfo());
 							}
-							
+
 						}
 
 					}
@@ -140,65 +140,78 @@ public class HomeController {
 	private int InsertUser(UserInfo info) {
 		List<Photo> imgList = info.getPhoto();
 		Member member = info.getMember();
-		User entiyUser = new User();
-		entiyUser = SetUserEntity(member);
-		int insertResult = userServiceImplERP.InsertUserErp(entiyUser);
-		if (insertResult > 0) {
-			int userId = entiyUser.getUserId();
-			// 添加基本资料
-			UserDatum datum = SetUserDatum(member, userId);
-			int datumId = userDatumServiceImpl.insertDatum(datum);
-			if (datumId > 0) {
-				AddUserImage(imgList, userId);
-//				// 注册环信
-//				String easemobId = userId + SystemConfig.EaseSuffixId;
-//				String result = EaseMobBusiness.AccountCreate(easemobId);
-//				Map map = (Map) JSON.parse(result);
-//				if (map != null && !map.containsKey("error")) {
-//					// 更新用户
-//					User upUser = new User();
-//					upUser.setUserId(userId);
-//					upUser.setEasemobId(easemobId);
-//					upUser.setIsEasemob(1);
-//					userServiceImpl.updateUser(upUser);
-//
-//				}
-				// 添加浏览记录表
-				UserBrowseExt ext = new UserBrowseExt();
-				ext.setUserId(userId);
-				ext.setBrowseNumber(0);
-				userBrowseExtServiceImpl.insertBrowseExt(ext);
-				// 添加经纬度
+		int insertResult=0;
+		if (!StringUtils.isEmpty(member.getName())) {
+			//去掉重复数据
+		int number=	userServiceImplERP.selectUserByNickName(member.getName());
+		if (number<=0) {
 
-				UserPosition position = new UserPosition();
-				position.setIsPosition(1);
-				position.setUserId(userId);
-			 
-				position.setLongitude(StringUtils.isEmpty(member.getLongitude())?39.9151190:Double.parseDouble(member.getLongitude()));
-				position.setLatitude(StringUtils.isEmpty(member.getLatitude())?116.4039630:Double.parseDouble(member.getLatitude()));
-				userPositionServiceImpl.insertPosition(position);
-				// 添加标签
-				List<Label> lables = info.getLables();
-				if (lables != null) {
-					List<UserLableMapping> userLableMappings = new ArrayList<UserLableMapping>();
-					for (Label label : lables) {
-						LabletType type = labletTypeServiceImpl.selectlabletByName(label.getLable_name());
-						if (type != null) {
-							UserLableMapping mapping = new UserLableMapping();
-							mapping.setUserId(userId);
-							mapping.setLableId(type.getLableId());
-							mapping.setLableType(type.getLableType());
-							userLableMappings.add(mapping);
+			User entiyUser = new User();
+			entiyUser = SetUserEntity(member);
+			insertResult = userServiceImplERP.InsertUserErp(entiyUser);
+			if (insertResult > 0) {
+				int userId = entiyUser.getUserId();
+				// 添加基本资料
+				UserDatum datum = SetUserDatum(member, userId);
+				int datumId = userDatumServiceImpl.insertDatum(datum);
+				if (datumId > 0) {
+					AddUserImage(imgList, userId);
+//					// 注册环信
+//					String easemobId = userId + SystemConfig.EaseSuffixId;
+//					String result = EaseMobBusiness.AccountCreate(easemobId);
+//					Map map = (Map) JSON.parse(result);
+//					if (map != null && !map.containsKey("error")) {
+//						// 更新用户
+//						User upUser = new User();
+//						upUser.setUserId(userId);
+//						upUser.setEasemobId(easemobId);
+//						upUser.setIsEasemob(1);
+//						userServiceImpl.updateUser(upUser);
+	//
+//					}
+					// 添加浏览记录表
+					UserBrowseExt ext = new UserBrowseExt();
+					ext.setUserId(userId);
+					ext.setBrowseNumber(0);
+					userBrowseExtServiceImpl.insertBrowseExt(ext);
+					// 添加经纬度
 
+					UserPosition position = new UserPosition();
+					position.setIsPosition(1);
+					position.setUserId(userId);
+				 
+					position.setLongitude(StringUtils.isEmpty(member.getLongitude())?39.9151190:Double.parseDouble(member.getLongitude()));
+					position.setLatitude(StringUtils.isEmpty(member.getLatitude())?116.4039630:Double.parseDouble(member.getLatitude()));
+					userPositionServiceImpl.insertPosition(position);
+					// 添加标签
+					List<Label> lables = info.getLables();
+					if (lables != null) {
+						List<UserLableMapping> userLableMappings = new ArrayList<UserLableMapping>();
+						for (Label label : lables) {
+							LabletType type = labletTypeServiceImpl.selectlabletByName(label.getLable_name());
+							if (type != null) {
+								UserLableMapping mapping = new UserLableMapping();
+								mapping.setUserId(userId);
+								mapping.setLableId(type.getLableId());
+								mapping.setLableType(type.getLableType());
+								userLableMappings.add(mapping);
+
+							}
+						}
+						if (userLableMappings.size() > 0) {
+							userLableMappingServiceImpl.insertlabletMapping(userLableMappings);
 						}
 					}
-					if (userLableMappings.size() > 0) {
-						userLableMappingServiceImpl.insertlabletMapping(userLableMappings);
-					}
-				}
 
+				}
 			}
+			
+			
 		}
+			
+		}
+		
+		
 		return insertResult;
 	}
 

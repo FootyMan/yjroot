@@ -72,7 +72,7 @@
 								<li><a href="/accounts/logout">安全退出</a></li>
 							</ul>
 						</div>
-						<div class="logo-element">心上</div>
+						<div class="logo-element">众合致远上</div>
 					</li>
 
 					<li><a href="/main#"><i class="fa fa-th-large"></i> <span

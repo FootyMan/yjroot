@@ -58,4 +58,14 @@ public class UserServiceImplERP {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.selectDetalsERP(userId);
 	}
+	/**
+	 * 根据昵称是否存在
+	 * @param nickName
+	 * @return
+	 */
+	public int selectUserByNickName(String nickName)
+	{
+		DBContextHolder.setDBType("siteRead");
+		return userMapperERP.selectUserByNickName(nickName);
+	}
 }
