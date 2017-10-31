@@ -173,11 +173,13 @@
 						<option value="2"  <c:if test="${obj.deviceType==2 }">selected='selected'</c:if>>Android</option>
 					</select>
 				</div>
-				<label class="col-sm-2 control-label">邀请码：</label>
-				<div class="col-sm-4">
-					<input type="text" name="inviteCode" id="inviteCode"
-						class="form-control" required="" value="${obj.inviteCode }" />
-				</div>
+				<c:if test="${obj.userId<=0 }">
+					<label class="col-sm-2 control-label">邀请码：</label>
+					<div class="col-sm-4">
+						<input type="text" name="registerCode" id="registerCode"
+							class="form-control" required="" />
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="form-group">

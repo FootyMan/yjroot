@@ -225,20 +225,22 @@ public class UserBusiness {
 		userModel model = request.getbody();
 		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		User userData = userServiceImpl.selectUserByphone(model.getPhone());
-		if (userData!=null) {
-			//如果已存在 是否是导入用户
-			if (userData.getIsImport()==1) {
-				
-				//导入用户走此逻辑
-				return SetImportUser(request,userData);
-			}
-			else
-			{
-				response.setCode(ResultEnum.ServiceErrorCode);
-				response.setMsg("手机号已存在！请登录");
-				return response;
-			}
+		if (userData != null) {
+			response.setCode(ResultEnum.ServiceErrorCode);
+			response.setMsg("手机号已存在！请登录");
+			return response;
+			// 如果已存在 是否是导入用户
+			// 2017-10-31注掉以下逻辑、因为导入用户始终是导入用户 导入获取不了手机号
+			// if (userData.getIsImport()==1) {
+			//
+			// //导入用户走此逻辑
+			// return SetImportUser(request,userData);
+			// }
+			// else
+			// {
 			
+			// }
+
 		}
 		User codeData = userServiceImpl.selectUserByInviteCode(model.getInviteCode());
 		if (codeData == null) {
@@ -451,7 +453,7 @@ public class UserBusiness {
 			model.setSexuat(datum.getSexuat());
 			model.setSign(datum.getSign());
 			model.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
-			if (user.getHeadImage().indexOf("http")!=-1) {
+			if (user.getHeadImage().indexOf("http") != -1) {
 				model.setHeadImage(user.getHeadImage());
 			}
 			model.setNickName(user.getNickName());
@@ -470,7 +472,7 @@ public class UserBusiness {
 	public void UpdateUserBrowse(int detailId, int userId) {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
-				//不是自己浏览自己个人空间 增加浏览记录
+				// 不是自己浏览自己个人空间 增加浏览记录
 				if (detailId != userId) {
 					userBrowseExtServiceImpl.updateBrowesExt(detailId);
 					UserBrowse browes = new UserBrowse();
@@ -522,7 +524,7 @@ public class UserBusiness {
 			User userData = userDatas.get(0);
 			UserDatum datum = userData.getDatum();
 			userBase.setHeadImage(SystemConfig.ImgurlPrefix + userData.getHeadImage());
-			if (userData.getHeadImage().indexOf("http")!=-1) {
+			if (userData.getHeadImage().indexOf("http") != -1) {
 				userBase.setHeadImage(userData.getHeadImage());
 			}
 			userBase.setShowId(userData.getUserNo());
@@ -756,48 +758,48 @@ public class UserBusiness {
 		map.put("msg", msg);
 		return map;
 	}
-	
+
 	/**
 	 * 导入用户更新资料
+	 * 
 	 * @param request
 	 * @param user
 	 * @return
 	 */
-	private BaseResponse<InitResponse> SetImportUser(baseRequest<userModel> request,User user)
-	{
-		BaseResponse<InitResponse> response=new BaseResponse<InitResponse>();
-		userModel body=request.getbody();
-		//更新用户deviceType,deviceToken，userSource，passWord
-		//更新坐标
+	private BaseResponse<InitResponse> SetImportUser(baseRequest<userModel> request, User user) {
+		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
+		userModel body = request.getbody();
+		// 更新用户deviceType,deviceToken，userSource，passWord
+		// 更新坐标
 		User codeData = userServiceImpl.selectUserByInviteCode(body.getInviteCode());
 		if (codeData == null) {
 			response.setCode(ResultEnum.ServiceErrorCode);
 			response.setMsg("邀请码不正确");
 			return response;
 		}
-		
-		//添加邀请记录
+
+		// 添加邀请记录
 		UserInvite invite = new UserInvite();
 		invite.setInviteUserId(codeData.getUserId());
 		invite.setInviteCode(codeData.getInviteCode());
 		invite.setRegisterUserId(user.getUserId());
 		userInviteServiceImpl.insertInvite(invite);
-		
-		//更新导入用户信息
-		User entity=new User();
+
+		// 更新导入用户信息
+		User entity = new User();
 		entity.setUserId(user.getUserId());
 		entity.setDeviceToken(request.getDeviceToken());
 		entity.setDeviceType(request.getDeviceType());
 		entity.setUserSource(request.getDeviceType());
 		entity.setInviteCode(body.getInviteCode());
 		entity.setPassWord(Md5Util.stringByMD5(body.getPassWord()));
-		entity.setIsImport(0);//更新为不是导入用户
-		int result=userServiceImpl.updateImportUser(entity);
-		if (result>0) {
-			//更新经纬度
+		entity.setIsImport(0);// 更新为不是导入用户
+		int result = userServiceImpl.updateImportUser(entity);
+		if (result > 0) {
+			// 更新经纬度
 			businessUtils.SetUserPosition(request, user.getUserId());
 		}
-		//获取用户信息
+		// 获取用户信息
 		InitResponse initUser = initBusiness.InitUserData(user.getUserId());
 		response.setData(initUser);
 		return response;

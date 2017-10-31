@@ -51,7 +51,6 @@
 							<th>收款账号</th>
 							<th>收款人</th>
 							<th>账户剩余金额</th>
-							<th>提现单号</th>
 							<th>提现日期</th>
 							<th>状态</th>
 						</tr>
@@ -65,7 +64,6 @@
 								<td>${emp.payAccount}</td>
 								<td>${emp.payRealName}</td>
 								<td>${emp.totalMoney}</td>
-								<td>${emp.sourceNumber}</td>
 								<td>${emp.operateDate}</td>
 								<td>${emp.operateStatusName}</td>
 								<td>

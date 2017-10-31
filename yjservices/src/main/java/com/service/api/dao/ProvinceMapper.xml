@@ -17,4 +17,9 @@
 		parameterType="java.lang.Integer">
 		SELECT * FROM province WHERE provinceId=#{provinceId}
 	</select>
+	
+	<select id="SelectProvincesByName" resultType="com.service.bean.Province"
+		parameterType="java.lang.String">
+		SELECT  * FROM province WHERE name=#{name} limit 1
+	</select>
 </mapper>

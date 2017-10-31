@@ -24,4 +24,8 @@ public class LabletTypeServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return labletTypeMapper.selectlabletTypeAll();
 	}
+	public LabletType selectlabletByName(String name) {
+		DBContextHolder.setDBType("siteRead");
+		return labletTypeMapper.selectlabletByName(name);
+	}
 }

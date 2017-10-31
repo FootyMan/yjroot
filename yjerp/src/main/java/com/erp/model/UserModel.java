@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.service.utils.Pagination;
 
-public class UserModel implements Serializable  { 
+public class UserModel implements Serializable {
 
 	private Pagination page;
 
@@ -46,7 +46,10 @@ public class UserModel implements Serializable  {
 	 * 邀请码
 	 */
 	private String inviteCode;
-
+	/**
+	 * 注册邀请码
+	 */
+	private String registerCode;
 	/**
 	 * 年龄
 	 */
@@ -90,7 +93,7 @@ public class UserModel implements Serializable  {
 	 * 设备名称
 	 */
 	private String deviceTypeName;
-	
+
 	/**
 	 * 个性签名
 	 */
@@ -104,6 +107,7 @@ public class UserModel implements Serializable  {
 	 * 首页是否存在
 	 */
 	private int isHomeUser;
+
 	public List<UserImageModel> getImgList() {
 		return imgList;
 	}
@@ -286,6 +290,14 @@ public class UserModel implements Serializable  {
 
 	public void setIsHomeUser(int isHomeUser) {
 		this.isHomeUser = isHomeUser;
+	}
+
+	public String getRegisterCode() {
+		return registerCode;
+	}
+
+	public void setRegisterCode(String registerCode) {
+		this.registerCode = registerCode;
 	}
 
 }

@@ -37,4 +37,14 @@ public class ProvinceServiceImpl {
 		return obj;
 		
 	}
+	/**
+	 * 根据名称查询Id
+	 * @param name
+	 * @return
+	 */
+	public Province SelectProvincesByName(String name)
+	{
+		return provinceMapper.SelectProvincesByName(name);
+	}
 }
+

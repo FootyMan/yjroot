@@ -19,4 +19,10 @@ public abstract interface ProvinceMapper {
 	 * @return
 	 */
 	public abstract Province SelectProvincesById(int id);
+	/**
+	 * 根据名称查询id
+	 * @param name
+	 * @return
+	 */
+	public abstract Province SelectProvincesByName(String name);
 }

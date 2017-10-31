@@ -23,4 +23,10 @@
 		<include refid="Base_Column_List" />
 		from labletype  
 	</select>
+	
+	<select id="selectlabletByName" resultType="com.service.bean.LabletType" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from labletype  where lableName=#{lableName}
+	</select>
 </mapper>

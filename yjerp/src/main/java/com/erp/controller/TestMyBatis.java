@@ -1,12 +1,15 @@
 package com.erp.controller;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Random;
 
 import com.erp.model.PositionModel;
 import com.erp.utils.PositionUtils;
@@ -20,7 +23,13 @@ public class TestMyBatis {
 	// }
 	public static void main(String[] args) {
 
-		PositionModel resultStr =PositionUtils. GetpositionByAddress("北京");
+		String phone=game(10);
+		System.out.println(phone);
+//		CacheData cacheData = new CacheData();
+//		File file=new File("D:\\huasheCacheData_4");
+//		CacheData object = (CacheData)getCacheObj(file);
+	//	cacheData.setCache(object);
+		PositionModel resultStr = PositionUtils.GetpositionByAddress("北京");
 		System.out.println(resultStr.getLat());
 		// String A = new String("java");
 		// StringBuffer B = new StringBuffer("java");
@@ -78,6 +87,20 @@ public class TestMyBatis {
 		// sqlSession.close();
 		// }
 	}
+	
+	public static String game(int count) {
+		StringBuffer sb = new StringBuffer();
+		String str = "0123456789";
+		Random r = new Random();
+		for (int i = 0; i < count; i++) {
+			int num = r.nextInt(str.length());
+			sb.append(str.charAt(num));
+			str = str.replace((str.charAt(num) + ""), "");
+		}
+		return sb.toString();
+	}
+
+	
 
 	public static void ReadProperties() {
 

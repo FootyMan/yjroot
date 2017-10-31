@@ -31,8 +31,8 @@ public class PageParameter {
 	public static AppHomePagePaging GetHomePage(int pageIndex, int sex,int userId) {
 		pageIndex = pageIndex == 0 ? 1 : pageIndex;
 		AppHomePagePaging pagePaging = new AppHomePagePaging();
-		pagePaging.setPageIndex((pageIndex - 1) * PageUtils.PageSize.getValue());
-		pagePaging.setPageSize(PageUtils.PageSize.getValue());
+		pagePaging.setPageIndex((pageIndex - 1) * 21);
+		pagePaging.setPageSize(21);
 		pagePaging.setGender(sex);
 		pagePaging.setUserId(userId);
 		return pagePaging;

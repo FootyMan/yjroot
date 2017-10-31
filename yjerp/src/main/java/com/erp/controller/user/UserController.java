@@ -21,18 +21,22 @@ import com.erp.model.ProvinceModel;
 import com.erp.model.UserImageModel;
 import com.erp.model.UserModel;
 import com.erp.utils.PositionUtils;
+import com.service.api.impl.InvitationCodeServiceImpl;
 import com.service.api.impl.ProvinceServiceImpl;
 import com.service.api.impl.UserBrowseExtServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
 import com.service.api.impl.UserImgServiceImpl;
+import com.service.api.impl.UserInviteServiceImpl;
 import com.service.api.impl.UserPositionServiceImpl;
 import com.service.api.impl.UserServiceImpl;
 import com.service.bean.HomeUser;
+import com.service.bean.InvitationCode;
 import com.service.bean.Province;
 import com.service.bean.User;
 import com.service.bean.UserBrowseExt;
 import com.service.bean.UserDatum;
 import com.service.bean.UserImg;
+import com.service.bean.UserInvite;
 import com.service.bean.UserPosition;
 import com.service.easemob.EaseMobBusiness;
 import com.service.enums.DeviceType;
@@ -67,6 +71,10 @@ public class UserController {
 	private UserBrowseExtServiceImpl userBrowseExtServiceImpl;
 	@Autowired
 	private UserPositionServiceImpl userPositionServiceImpl;
+	@Autowired
+	private InvitationCodeServiceImpl invitationCodeServiceImpl;
+	@Autowired
+	private UserInviteServiceImpl userInviteServiceImpl;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
@@ -248,7 +256,18 @@ public class UserController {
 				position.setUserId(userId);
 				position.setLongitude(resultStr.getLon());
 				position.setLatitude(resultStr.getLat());
+				
 				userPositionServiceImpl.insertPosition(position);
+				User codeData = userServiceImpl.selectUserByInviteCode(userModel.getRegisterCode());
+				if (codeData!=null) {
+					// 添加邀请
+					UserInvite invite = new UserInvite();
+					invite.setInviteUserId(codeData.getUserId());
+					invite.setInviteCode(codeData.getInviteCode());
+					invite.setRegisterUserId(userId);
+					userInviteServiceImpl.insertInvite(invite);
+				}
+				
 			}
 		}
 		return insertResult;
@@ -270,14 +289,18 @@ public class UserController {
 			entiyUser.setHeadImage(headImg);
 			entiyUser.setNickName(userModel.getNickName());
 		} else {
+			
+			// 获取邀请码
+			InvitationCode inCode = invitationCodeServiceImpl.selectCodeByvalid();
+			entiyUser.setInviteCode(inCode.getCode());// inCode.getCode()
 			// 添加
 			entiyUser.setPhone(userModel.getPhone());
 			entiyUser.setDeviceType(userModel.getDeviceType());
-			entiyUser.setDeviceToken("");
+			entiyUser.setDeviceToken("XXXX-XXXX-XXXX-XXXX");
 			String headImg = userModel.getHeadImage().replace(SystemConfig.ImgurlPrefix, "");
 			entiyUser.setHeadImage(headImg);
 			entiyUser.setNickName(userModel.getNickName());
-			entiyUser.setInviteCode(userModel.getInviteCode());
+			 
 			entiyUser.setPassWord(Md5Util.stringByMD5("000000"));
 		}
 		return entiyUser;

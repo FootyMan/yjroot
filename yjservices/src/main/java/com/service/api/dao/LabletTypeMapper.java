@@ -9,4 +9,6 @@ public abstract interface LabletTypeMapper {
 	public abstract int insertlabletType(LabletType labletType);
 
 	public abstract List<LabletType> selectlabletTypeAll();
+	
+	public abstract LabletType selectlabletByName(String name);
 }

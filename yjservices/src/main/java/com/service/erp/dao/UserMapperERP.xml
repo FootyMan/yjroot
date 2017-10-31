@@ -101,10 +101,10 @@
 	<insert id="InsertUserErp" parameterType="com.service.bean.User"
 		keyProperty="userId">
 		insert into user
-		(userNo,phone,deviceType,headImage,registerTime,userLevel,nickName,isDisable,
+		(userNo,phone,deviceType,deviceToken,headImage,registerTime,userLevel,nickName,isDisable,
 		isEasemob,userSource,inviteCode,passWord)
 		select
-		max(userNo)+1,#{phone},#{deviceType},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
+		max(userNo)+1,#{phone},#{deviceType},#{deviceToken},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
 		#{passWord} from user
 	</insert>
 
