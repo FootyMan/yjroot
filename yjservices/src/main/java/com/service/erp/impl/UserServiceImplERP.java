@@ -68,4 +68,14 @@ public class UserServiceImplERP {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.selectUserByNickName(nickName);
 	}
+	/**
+	 * 查询所有环信id发送消息
+	 * @param nickName
+	 * @return
+	 */
+	public List<String> selectEaseIdAll()
+	{
+		DBContextHolder.setDBType("siteRead");
+		return userMapperERP.selectEaseIdAll();
+	}
 }

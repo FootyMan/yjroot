@@ -41,9 +41,14 @@ public class SystemConfig {
 	public static String EnvIdentity = PropertiesUtils.ReadProperties(fileName, "envIdentity");
 
 	/**
-	 * 支付宝回调地址
+	 * api服务器地址
 	 */
-	public static String AlipayNotifyurl = PropertiesUtils.ReadProperties(fileName, "alipay_notify_url");
+	public static String ServerApiAddress = PropertiesUtils.ReadProperties(fileName, "server_api_address");
+	/**
+	 * erp服务器地址
+	 */
+	public static String ServerErpAddress = PropertiesUtils.ReadProperties(fileName, "server_erp_address");
+	
 
 	/**
 	 * 是否从缓存读取数据

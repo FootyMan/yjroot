@@ -1,4 +1,4 @@
-package com.api.alipay.sdk;
+package com.service.alipay.sdk;
 
 import com.service.utils.SystemConfig;
 
@@ -17,7 +17,11 @@ public class AlipayConfig {
 	public static String alipay_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCo9nvEA3q66k7g5pka3APQErGwGR7K/ziVCOr/NQrUcNuDOUBoGlTMZH17o4ktPu3tcg5SRWeLVoaskhlMDE+BYmTSj/uwed7+Pa61GPv0ckt77kAGVa6UPebg27rYGeRtBMO/T2wIRWsPcBW9yb5rXOE65AK31TOSOKmrxXigLQIDAQAB";
 
 	// 服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = SystemConfig.AlipayNotifyurl;
+	public static String notify_url = SystemConfig.ServerApiAddress + "payNotif/aliNotif";
+
+	// 页面跳转同步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+	// 商户可以自定义同步跳转地址
+	public static String return_url = SystemConfig.ServerApiAddress+"wappay/return_url.jsp";
 	// 签名方式
 	public static String sign_type = "RSA";
 
@@ -26,6 +30,10 @@ public class AlipayConfig {
 
 	// 字符编码格式
 	public static String sellerId = "sunwei@91yj.cc";
+	// 请求网关地址
+	public static String URL = "https://openapi.alipay.com/gateway.do";
+	// 返回格式
+	public static String FORMAT = "json";
 	// 支付宝网关
 	// public static String gatewayUrl =
 	// "https://openapi.alipay.com/gateway.do";

@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.alipay.sdk.AlipayPayManager;
 import com.api.request.OrderRequest;
 import com.api.request.baseRequest;
 import com.api.response.AlipayResponse;
@@ -15,6 +14,7 @@ import com.api.response.WxResponse;
 import com.api.response.BaseResponse;
 import com.api.response.ProductDetailResponse;
 import com.api.response.ProductsResponse;
+import com.service.alipay.sdk.AlipayPayManager;
 import com.service.api.impl.OrderServiceImpl;
 import com.service.api.impl.ProductServiceImpl;
 import com.service.bean.Order;

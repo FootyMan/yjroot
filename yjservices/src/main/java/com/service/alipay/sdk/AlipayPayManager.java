@@ -1,4 +1,4 @@
-package com.api.alipay.sdk;
+package com.service.alipay.sdk;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;

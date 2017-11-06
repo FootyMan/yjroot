@@ -21,6 +21,7 @@ import com.erp.model.ProvinceModel;
 import com.erp.model.UserImageModel;
 import com.erp.model.UserModel;
 import com.erp.utils.PositionUtils;
+import com.google.gson.Gson;
 import com.service.api.impl.InvitationCodeServiceImpl;
 import com.service.api.impl.ProvinceServiceImpl;
 import com.service.api.impl.UserBrowseExtServiceImpl;
@@ -89,12 +90,9 @@ public class UserController {
 
 		if (!StringUtils.isEmpty(userModel.getUserNo())) {
 			userParameter.setUserNo(userModel.getUserNo());
-		}
-		else if (!StringUtils.isEmpty(userModel.getPhone())) {
+		} else if (!StringUtils.isEmpty(userModel.getPhone())) {
 			userParameter.setPhone(userModel.getPhone());
-		}
-		else if(!StringUtils.isEmpty(userModel.getUserLevel()))
-		{
+		} else if (!StringUtils.isEmpty(userModel.getUserLevel())) {
 			userParameter.setUserLevel(Integer.parseInt(userModel.getUserLevel()));
 		}
 		// 查询首页
@@ -136,7 +134,7 @@ public class UserController {
 			if (entity_Users != null && entity_Users.size() > 0) {
 				User enUser = entity_Users.get(0);
 				userModel.setHeadImage(SystemConfig.ImgurlPrefix + enUser.getHeadImage());
-				if (enUser.getHeadImage().indexOf("http")!=-1) {
+				if (enUser.getHeadImage().indexOf("http") != -1) {
 					userModel.setHeadImage(enUser.getHeadImage());
 				}
 				userModel.setPhone(enUser.getPhone());
@@ -159,7 +157,7 @@ public class UserController {
 					UserImageModel imgModel = new UserImageModel();
 					imgModel.setImageId(userImg.getImgId());
 					imgModel.setImgUrl(SystemConfig.ImgurlPrefix + userImg.getImagePath());
-					if (userImg.getImagePath().indexOf("http")!=-1) {
+					if (userImg.getImagePath().indexOf("http") != -1) {
 						imgModel.setImgUrl(userImg.getImagePath());
 					}
 					imgS.add(imgModel);
@@ -225,7 +223,7 @@ public class UserController {
 		entiyUser = SetUserEntity(userModel, 0);
 		int insertResult = userServiceImplERP.InsertUserErp(entiyUser);
 		if (insertResult > 0) {
-			int userId=entiyUser.getUserId();
+			int userId = entiyUser.getUserId();
 			// 添加基本资料
 			UserDatum datum = SetUserDatum(userModel, userId);
 			int datumId = userDatumServiceImpl.insertDatum(datum);
@@ -244,22 +242,22 @@ public class UserController {
 					userServiceImpl.updateUser(upUser);
 
 				}
-				//添加浏览记录表
-				UserBrowseExt ext=new UserBrowseExt();
+				// 添加浏览记录表
+				UserBrowseExt ext = new UserBrowseExt();
 				ext.setUserId(userId);
 				ext.setBrowseNumber(0);
 				userBrowseExtServiceImpl.insertBrowseExt(ext);
-				//添加经纬度
-				PositionModel resultStr =PositionUtils. GetpositionByAddress(userModel.getCityName());
-				UserPosition position=new UserPosition();
+				// 添加经纬度
+				PositionModel resultStr = PositionUtils.GetpositionByAddress(userModel.getCityName());
+				UserPosition position = new UserPosition();
 				position.setIsPosition(1);
 				position.setUserId(userId);
 				position.setLongitude(resultStr.getLon());
 				position.setLatitude(resultStr.getLat());
-				
+
 				userPositionServiceImpl.insertPosition(position);
 				User codeData = userServiceImpl.selectUserByInviteCode(userModel.getRegisterCode());
-				if (codeData!=null) {
+				if (codeData != null) {
 					// 添加邀请
 					UserInvite invite = new UserInvite();
 					invite.setInviteUserId(codeData.getUserId());
@@ -267,7 +265,7 @@ public class UserController {
 					invite.setRegisterUserId(userId);
 					userInviteServiceImpl.insertInvite(invite);
 				}
-				
+
 			}
 		}
 		return insertResult;
@@ -289,7 +287,7 @@ public class UserController {
 			entiyUser.setHeadImage(headImg);
 			entiyUser.setNickName(userModel.getNickName());
 		} else {
-			
+
 			// 获取邀请码
 			InvitationCode inCode = invitationCodeServiceImpl.selectCodeByvalid();
 			entiyUser.setInviteCode(inCode.getCode());// inCode.getCode()
@@ -300,7 +298,7 @@ public class UserController {
 			String headImg = userModel.getHeadImage().replace(SystemConfig.ImgurlPrefix, "");
 			entiyUser.setHeadImage(headImg);
 			entiyUser.setNickName(userModel.getNickName());
-			 
+
 			entiyUser.setPassWord(Md5Util.stringByMD5("000000"));
 		}
 		return entiyUser;
@@ -405,7 +403,7 @@ public class UserController {
 	@ResponseBody
 	public int SetHomeUser(int userId, int type, Model model) {
 
-		int result=-1;
+		int result = -1;
 		HomeUser homeResult = homeUserServiceImplERP.selectHomeUserByUserId(userId);
 		if (type == 1)// 添加
 		{
@@ -425,10 +423,10 @@ public class UserController {
 				return 0;
 			}
 		}
-		
-		else if(type==2)//删除
+
+		else if (type == 2)// 删除
 		{
-			result=homeUserServiceImplERP.deleteHomeUser(homeResult.getHomeId());
+			result = homeUserServiceImplERP.deleteHomeUser(homeResult.getHomeId());
 		}
 		return result;
 	}
@@ -450,5 +448,54 @@ public class UserController {
 			}
 		}
 		return 0;
+	}
+
+	@RequestMapping(value = "/sendMsg", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int SendEaseMessage(String message) throws InterruptedException {
+		List<String> listStr = new ArrayList<String>();
+		Gson gson=new Gson();
+		int j = 1;
+		List<String> easeData = userServiceImplERP.selectEaseIdAll();
+		if (easeData.size()>=90) {
+			
+			for (int i = 0; i < easeData.size(); i++) {
+				if (j >= 90) {
+					// 开始发送
+					//String strUser = String.join(",", listStr);
+					// 发送消息
+					
+//					listStr.add("1");listStr.add("2");listStr.add("3");listStr.add("4");listStr.add("5");
+//					listStr.add("6");
+//					listStr.add("7");listStr.add("8");
+					String strUser=gson.toJson(listStr);
+					EaseMobBusiness.SendMessage(strUser, message);
+					listStr.clear();
+					j = 0;
+					Thread.sleep(3000);// 线程休眠3秒
+
+				}
+				if (!StringUtils.isEmpty(easeData.get(i))) {
+					listStr.add(easeData.get(i));
+				}
+				
+				j++;
+			}
+		}
+		else
+		{
+			 
+			String strUser =gson.toJson(easeData);
+			// 发送消息
+			EaseMobBusiness.SendMessage(strUser, message);
+		}
+		
+		// EaseMobBusiness.SendMessage(strUser, msg)
+		return 1;
+	}
+
+	@RequestMapping(value = "/easeMessage", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView easeMessage(Model model) {// Employee
+		return new ModelAndView("/user/easeMessage");
 	}
 }

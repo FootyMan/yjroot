@@ -123,6 +123,10 @@
 	</select>
 	
 	
+	<!-- 查询所有环信id发送消息 -->
+	<select id="selectEaseIdAll" resultType="java.lang.String">
+		SELECT easemobId FROM user WHERE isDisable=1
+	</select>
 	<select id="selectUserByNickName" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM user WHERE nickName=#{nickName}
 	</select>

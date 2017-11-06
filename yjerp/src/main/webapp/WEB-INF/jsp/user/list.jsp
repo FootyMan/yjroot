@@ -43,6 +43,10 @@
 							<a href="../user/add"
 								class="btn btn-sm btn-primary">新增用户</a>
 						</div>
+						<div class="ibox-tools">
+							<a href="../user/easeMessage"
+								class="btn btn-sm btn-primary">发送消息</a>
+						</div>
 					</div>
 				</div>
 			</div>

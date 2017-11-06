@@ -40,4 +40,10 @@ public abstract interface UserMapperERP {
 	 */
 	
 	public abstract int selectUserByNickName(String nickName);
+	
+	/**
+	 * 查询所有环信id发送消息
+	 * @return
+	 */
+	public abstract List<String> selectEaseIdAll();
 }

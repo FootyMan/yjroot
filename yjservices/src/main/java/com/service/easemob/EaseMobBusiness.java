@@ -108,7 +108,21 @@ public class EaseMobBusiness {
 		if (StringUtils.isEmpty(token)) {
 			token = QueryToken();
 		}
+		String parameter = "{\"username\":\"%s\",\"password\":\"%s\"}";
 		return ReqUrl(getEaseMobUrl() + "users/" + userName, "", "DELETE", token);
+	}
+
+	/// <summary>
+	/// 发送消息
+	/// </summary>
+	/// <param name="userName">账号</param>
+	/// <returns>成功返回会员JSON详细信息，失败直接返回：系统错误信息</returns>
+	public static String SendMessage(String strUser,String msg) {
+		if (StringUtils.isEmpty(token)) {
+			token = QueryToken();
+		}
+		String parameter = "{\"target_type\": \"users\",\"target\":"+strUser+",\"msg\": {\"type\": \"txt\",\"msg\": \""+msg+"\"},\"from\": \"5\",\"ext\":{\"easeHeadURL\":\"http://101.132.142.247/img//TwoCode/logo.png\",\"easeNickName\":\"欲见官方小秘书\",\"yjId\":\"5\",\"easeId\":\"5\"}}";
+		return ReqUrl(getEaseMobUrl() + "messages", parameter, "POST", token);
 	}
 
 	// /**

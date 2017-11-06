@@ -7,12 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
 import com.erp.model.PositionModel;
 import com.erp.utils.PositionUtils;
+import com.google.gson.Gson;
 import com.service.utils.HttpClientUtil;
 
 public class TestMyBatis {
@@ -23,6 +26,13 @@ public class TestMyBatis {
 	// }
 	public static void main(String[] args) {
 
+		List<String> strs=new ArrayList<String>();
+		strs.add("1");strs.add("2");strs.add("3");strs.add("4");
+		
+		Gson gson=new Gson();
+		String str=gson.toJson(strs);
+	 
+		System.out.println(str);
 		String phone=game(10);
 		System.out.println(phone);
 //		CacheData cacheData = new CacheData();
