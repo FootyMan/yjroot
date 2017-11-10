@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.api.dao.InformMapper">
+	<resultMap id="informResultMap" type="com.service.bean.Inform">
+		<id column="informId" property="informId" jdbcType="INTEGER" />
+		<result column="informUserId" property="informUserId" jdbcType="INTEGER" />
+		<result column="beingInformId" property="beingInformId" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertReport" parameterType="com.service.bean.Inform">
+		insert into inform
+		(informUserId, beingInformId,content,createTime,reason)
+		values
+		(#{informUserId}, #{beingInformId},#{content},now(),#{reason})
+	</insert>
+
+
+</mapper>

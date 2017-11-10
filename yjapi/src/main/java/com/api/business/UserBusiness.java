@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.api.request.BrowseRequest;
 import com.api.request.DetailsRequest;
+import com.api.request.InformRequest;
 import com.api.request.LableRequest;
 import com.api.request.LableRequestData;
 import com.api.request.LikeListRequest;
@@ -46,6 +47,7 @@ import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
 import com.service.api.impl.InvitationCodeServiceImpl;
+import com.service.api.impl.ReportServiceImpl;
 import com.service.api.impl.UserBrowseExtServiceImpl;
 import com.service.api.impl.UserBrowseServiceImpl;
 import com.service.api.impl.UserDatumServiceImpl;
@@ -59,6 +61,7 @@ import com.service.bean.AppHomePagePaging;
 import com.service.bean.InvitationCode;
 import com.service.bean.LabletType;
 import com.service.bean.RangeParameter;
+import com.service.bean.Inform;
 import com.service.bean.User;
 import com.service.bean.UserBrowse;
 import com.service.bean.UserBrowseExt;
@@ -103,6 +106,8 @@ public class UserBusiness {
 	private BusinessUtils businessUtils;
 	@Autowired
 	private UserBrowseExtServiceImpl userBrowseExtServiceImpl;
+	@Autowired
+	private ReportServiceImpl reportServiceImpl;
 
 	/**
 	 * 添加用户验证码
@@ -803,6 +808,34 @@ public class UserBusiness {
 		InitResponse initUser = initBusiness.InitUserData(user.getUserId());
 		response.setData(initUser);
 		return response;
+	}
+	
+	/**
+	 * 举报用户
+	 * @param request
+	 * @return
+	 */
+	public BaseResponse<?> UserInform(baseRequest<InformRequest> request)
+	{
+		BaseResponse<?> response=new BaseResponse<Object>();
+		Inform report=new Inform();
+		InformRequest body=request.getbody();
+		if (body==null || StringUtils.isEmpty(body.getReason())) {
+			response.setMsg("参数为空");
+			response.setCode(ResultEnum.ColmunErrorCode);
+			return response;
+		}
+		report.setInformUserId(request.getUserId());
+		report.setBeingInformId(body.getDetailId());
+		report.setContent("");
+		report.setReason(body.getReason());
+		int result=reportServiceImpl.insertReport(report);
+		if (result<=0) {
+			response.setMsg("服务器错误");
+			response.setCode(ResultEnum.ServiceErrorCode);
+		}
+		return response;
+		
 	}
 
 	public void test() {

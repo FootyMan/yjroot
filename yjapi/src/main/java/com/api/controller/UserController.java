@@ -306,5 +306,19 @@ public class UserController {
 		//fileBusiness.RemoveFile(request.getbody().getImgUrl());
 		return response;
 	}
+	/**
+	 * 举报用户
+	 * 
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseEncryptBody
+	@RequestMapping(value = "/inform", method = RequestMethod.POST)
+	@ApiOperation(nickname = "swagger-details", value = "举报用户", notes = "举报用户")
+	public BaseResponse<?> UserInform (@ApiParam(value = "输入") @RequestBody baseRequest<InformRequest> request) {
+		BaseResponse<?> response = userBusiness.UserInform(request);
+		return response;
+	}
 
 }
