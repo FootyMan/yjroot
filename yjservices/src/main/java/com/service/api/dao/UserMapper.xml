@@ -149,7 +149,7 @@
 		inner join userbrowseext as c
 		on a.userId=c.userId
 		where
-		1=1
+		a.isDisable=1 
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
@@ -167,7 +167,7 @@
 		on
 		a.userId=b.userId
 		where
-		1=1
+		a.isDisable=1 
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
@@ -183,7 +183,7 @@
 		inner join
 		homeuser c
 		on a.userId=c.userId
-		where c.homeType=1
+		where c.homeType=1 and a.isDisable=1 
 		order by c.sortColumn
 		desc
 	</select>
@@ -201,7 +201,7 @@
 		userposition c
 		on a.userId=c.userId
 		where
-		a.userId!=#{userId}
+		a.userId!=#{userId} and a.isDisable=1 
 		<include refid="Range_Column_Where"></include>
 		ORDER BY
 		rangeM ASC
@@ -220,7 +220,7 @@
 		userposition c
 		on a.userId=c.userId
 		where
-		a.userId!=#{userId}
+		a.userId!=#{userId} and a.isDisable=1 
 		<include refid="Range_Column_Where"></include>
 	</select>
 
