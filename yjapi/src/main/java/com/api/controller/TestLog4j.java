@@ -30,8 +30,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.SystemPropertyUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.api.response.AlipayResponse;
 import com.api.response.BaseResponse;
+import com.api.response.IapReceipt;
+import com.api.response.IapReceiptResult;
 import com.api.utils.CommonConfig;
 import com.api.utils.DES;
 import com.api.utils.EncryUtil;
@@ -41,6 +44,9 @@ import com.api.wxpay.sdk.WXPay;
 import com.api.wxpay.sdk.WXPayConfigImpl;
 import com.api.wxpay.sdk.WXPayUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.service.api.impl.InvitationCodeServiceImpl;
 import com.service.bean.InvitationCode;
@@ -68,6 +74,9 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
+		/**
+		 * 加密 解密
+	
 		BASE64Encoder encoder = new BASE64Encoder();
 		String str = "123";
 		String encStr = encoder.encode(str.getBytes());
@@ -83,6 +92,16 @@ public class TestLog4j {
 		String t="";
 		System.out.println("加密后：" + (t = EncryUtil.encrypt(message)));  
         System.out.println("解密后：" + EncryUtil.decrypt(t));  
+        */
+        String jsonStr="{\"receipt\": {\"original_purchase_date_pst\": \"2016-04-28 03:18:49 America/Los_Angeles\",\"purchase_date_ms\": \"1461838729285\",\"unique_identifier\": \"d4e721ec67ef2feca7fbdbd25a45cfb37e10ea7b\",\"original_transaction_id\": \"1000000208620470\",\"bvrs\": \"1.1\",\"transaction_id\": \"1000000208620470\",\"quantity\": \"1\",\"unique_vendor_identifier\": \"8E19EEC4-33D7-4536-B62E-112BAC68EECD\",\"item_id\": \"1108798151\",\"product_id\": \"1244\",\"purchase_date\": \"2016-04-28 10:18:49 Etc/GMT\",\"original_purchase_date\": \"2016-04-28 10:18:49 Etc/GMT\",\"purchase_date_pst\": \"2016-04-28 03:18:49 America/Los_Angeles\",\"bid\": \"com.doctorHys\",\"original_purchase_date_ms\": \"1461838729285\"},\"status\": 0}";
+        Gson gson=new Gson();
+        IapReceiptResult result=gson.fromJson(jsonStr, IapReceiptResult.class);
+    	 
+        if (result.getStatus()==0) {
+			System.out.println(result.getStatus());
+			IapReceipt receipt=result.getReceipt();
+			System.out.println(receipt.getTransaction_id());
+		}
 		// String encod= new BASE64Encoder().encode(buf);;
 		// System.out.println("64解密："+encod);
 		// double reward = 1 * SystemConfig.percentage;

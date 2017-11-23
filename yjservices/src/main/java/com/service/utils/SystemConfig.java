@@ -74,6 +74,11 @@ public class SystemConfig {
 	 * 环信id后缀 根据环境区分用户  测试和开发qa 线上去掉就行
 	 */
 	public static String EaseSuffixId= PropertiesUtils.ReadProperties(fileName, "ease_suffixId");
+	
+	/**
+	 * 苹果内购验证地址
+	 */
+	public static String CertificateUrl=PropertiesUtils.ReadProperties(fileName, "certificateUrl");
 	 
 
 }

@@ -22,7 +22,7 @@ public class Order {
 	private double orderPrice;
 	// 1IOS 2android
 	private int orderSource;
-	// 支付类型1微信 2支付宝
+	// 支付类型1微信 2支付宝 3苹果内购
 	private int payType;
 
 	// 用户信息

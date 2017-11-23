@@ -2,7 +2,7 @@ package com.service.enums;
 
 public enum PayType {
 
-	wx(1, "微信"), ali(2, "支付宝");
+	wx(1, "微信"), ali(2, "支付宝"),Iap(3, "苹果内购");
 	private int payId;
 	private String payName;
 	 
