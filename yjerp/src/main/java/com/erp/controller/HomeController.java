@@ -132,6 +132,33 @@ public class HomeController {
 	}
 
 	/**
+	 * 导入用户注册环信
+	 * @return
+	 */
+	@RequestMapping(value = "/main/registerEasemob", method = RequestMethod.GET)
+	@ResponseBody
+	public String RegisterEasemob() {
+
+		List<User> userResult=userServiceImplERP.ImportUser();
+		for (User user : userResult) {
+			// 注册环信
+			String easemobId =String.valueOf(user.getUserId());
+			String result = EaseMobBusiness.AccountCreate(easemobId);
+			Map map = (Map) JSON.parse(result);
+			if (map != null && !map.containsKey("error")) {
+				// 更新用户
+				User upUser = new User();
+				upUser.setUserId(user.getUserId());
+				upUser.setEasemobId(easemobId);
+				upUser.setIsEasemob(1);
+				userServiceImpl.updateUser(upUser);
+
+			}
+		}
+		
+		return "成功";
+	}
+	/**
 	 * 添加
 	 * 
 	 * @param userModel

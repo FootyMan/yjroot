@@ -78,4 +78,14 @@ public class UserServiceImplERP {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.selectEaseIdAll();
 	}
+	
+	/**
+	 * 获取导入用户
+	 * @return
+	 */
+	public List<User> ImportUser()
+	{
+		DBContextHolder.setDBType("siteRead");
+		return userMapperERP.ImportUser();
+	}
 }

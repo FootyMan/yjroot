@@ -46,4 +46,10 @@ public abstract interface UserMapperERP {
 	 * @return
 	 */
 	public abstract List<String> selectEaseIdAll();
+	
+	/**
+	 * 获取导入用户
+	 * @return
+	 */
+	public List<User> ImportUser();
 }
