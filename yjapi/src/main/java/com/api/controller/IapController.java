@@ -95,7 +95,7 @@ public class IapController {
 		IapResponse iapResponse = new IapResponse();
 		iapResponse.setIsVerify(1);
 		IapRequest body = request.getbody();
-		if (StringUtils.isEmpty(body.getReceipt())) {
+		if (StringUtils.isEmpty(body.getReceipt()) || body.getUserId()==0) {
 			return null;
 		}
 		logger.info("苹果内购票据参数:" + body.getReceipt());
@@ -122,7 +122,7 @@ public class IapController {
 					// 生成订单
 					Order order = new Order();
 					order.setOrderNumber(inapp.getTransaction_id());
-					order.setUserId(request.getUserId());
+					order.setUserId(body.getUserId());
 					order.setProductId(product.getProductId());
 					order.setOrderSource(1);//ios
 					order.setOrderPrice(product.getPrice());
