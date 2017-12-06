@@ -385,76 +385,32 @@
 //		$("#uploadFileInput").after(img);
 //	});
 //})
-////修改商品状态
-//function updateGoodsState( goodsId, goodsState, rejectReason,userId,goodsTitle){
-//	var joinParam = "";
-//	if(rejectReason!=null){
-//		joinParam="&remarks="+rejectReason+"&goodsTitle="+goodsTitle;
-//	}
-//	var httpUrl = '/ope/goodsCheck/updateGoodsState?id='+goodsId+"&goodsState="+goodsState+joinParam+"&userId="+userId;
-//	$.ajax({
-//		type:'get',
-//		async:false,
-//		url:httpUrl,
-//		success:function(data){
-//			if(data=="1"){
-//				alert("审核成功！");
-//				// $(".goodsID"+goodsId).remove();
-//				//window.reload();
-//			}else{
-//				alert("审核失败，请重新审核！商品ID:"+goodsId);
-//			}
-//		},
-//		error:function(XMLHttpRequest, textStatus, errorThrown){
-////			alert(XMLHttpRequest.status);
-////			alert(XMLHttpRequest.readyState);
-////			alert(textStatus);
-//			alert("网络异常，正在重新提交！商品ID:"+goodsId);
-//			updateGoodsState(goodsId, goodsState, rejectReason,userId,goodsTitle);
-//		}
-//	});
-//}
-//// 闲置详情表单验证
-//function formValidate(){
-//	//图片个数
-//	var imgCount = $(".goodsImg");
-//	if(imgCount.length<1){
-//		return "最少1张图片！";
-//	}
-//	 var brandId=$("#brandIdSelect").val();
-//	 if(brandId==0)
-//	 {
-//		return "请选择品牌！";
-//     }
-//	 var goodsNameInput=$("#goodsNameInput").val();
-//	 if(goodsNameInput=="")
-//	 {
-//		return "请填写商品标题！";
-//     }	 
-//	
-//	 var goodsCategorySelect=$("#goodsCategorySelect").val();
-//	 if(goodsCategorySelect==0)
-//	 {
-//		return "请选择一级类目！";
-//     }	 
-//	 var PgoodsCategorySelect=$("#PgoodsCategorySelect").val();
-//	 if(PgoodsCategorySelect==0)
-//	 {
-//		return "请选择二级类目！";
-//     }	 	 
-//	 var salePriceInput=$("#salePriceInput").val();
-//	 if(salePriceInput<=0)
-//	 {
-//		return "售价必须大于0！";
-//     }	 
-//	 var sellerDescInput=$("#sellerDescInput").val();
-//	 if(sellerDescInput=="")
-//	 {
-//		return "请输入卖家寄语！";
-//     }	 
-//	 
-//	return 1;
-//}
+//设置首页用户
+function SetHomeUser(userId,type){
+	var httpUrl = '../user/setHome?userId='+userId+'&type='+type;
+	$.ajax({
+		type:'get',
+		async:false,
+		url:httpUrl,
+		success:function(data){
+			if(data>=1){
+				alert("设置成功！");
+				// $(".goodsID"+goodsId).remove();
+				location.reload();
+			}else if(data==-1){
+				alert("改用户首页已存在");
+			}
+			else
+			{
+				alert("设置失败")
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			alert("网络异常");
+			
+		}
+	});
+}
 
 //上传图片
 function uploadFileFun() {
@@ -502,10 +458,10 @@ function uploadFileFunHead() {
 				fileElementId : 'uploadFileInputHead', // 文件选择框的id属性
 				dataType : 'text', // 服务器返回的格式，可以是json
 				success : function(data, status) {// 相当于java中try语句块的用法
-					alert("1123213");
 					var imgSrc = data;// eval('('+data+')');
 					$("#addImgDefHead").attr("src",imgSrc);
 					var imgSort = $("#uploadFileInputHead").attr('isUpdate');
+					$("#headImage").attr("value",imgSrc);
 //					if (imgSort != "-1") {// 图片新增
 //						$("[updateImgTag='img_src_" + imgSort + "']").attr('src', imgSrc);
 //						$("[updateImgTag='img_src_input_" + imgSort + "']").val(imgSrc);

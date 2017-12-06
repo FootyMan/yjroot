@@ -18,7 +18,7 @@
 <meta name="description"
 	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 <link
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+	href="./css/font-awesome.min.css"
 	rel="stylesheet">
 <link href="./css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
 <link href="./css/animate.min.css" rel="stylesheet">
@@ -72,7 +72,7 @@
 								<li><a href="/accounts/logout">安全退出</a></li>
 							</ul>
 						</div>
-						<div class="logo-element">心上</div>
+						<div class="logo-element">众合致远上</div>
 					</li>
 
 					<li><a href="/main#"><i class="fa fa-th-large"></i> <span
@@ -80,8 +80,8 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="./user/list">会员管理</a></li>
 							<li><a class="J_menuItem" href="./user/home">首页用户</a>
-							<li><a class="J_menuItem" href="./user/add">订单管理</a>
-							<li><a class="J_menuItem" href="/sys/roleFunc/list">用户提现</a></li>
+							<li><a class="J_menuItem" href="./order/list">订单管理</a>
+							<li><a class="J_menuItem" href="./profit/wdList">用户提现</a></li>
 <!-- 							<li><a class="J_menuItem" href="/sys/func/list">组织架构管理</a></li> -->
 <!-- 							<li><a class="J_menuItem" href="/sys/config/list">系统配置</a></li> -->
 <!-- 							<li><a class="J_menuItem" href="/sys/log/list">系统日志</a></li> -->

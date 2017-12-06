@@ -25,7 +25,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="logo-element">	心上  </div>
+                        <div class="logo-element">	众合致远  </div>
 
                     </li>
 <%--                     <% --%>
