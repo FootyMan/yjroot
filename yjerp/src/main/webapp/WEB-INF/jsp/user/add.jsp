@@ -32,7 +32,7 @@
 					style="display: none;" type="file" name="uploadFileInputHead" />
 				<c:choose>
 					<c:when test="${obj.headImage==null || obj.headImage==''}">
-						<img id="addImgDefHead" src="../img/add_img.png" width="100px"
+						<img id="addImgDefHead" src="../erp/img/add_img.png" width="100px"
 							height="100px"
 							onclick='javascript:$("#uploadFileInputHead").attr("isUpdate","-1");$("#uploadFileInputHead").click();return false;' />
 					</c:when>
@@ -70,7 +70,7 @@
 				</c:forEach>
 				<input id="uploadFileInput" isUpdate="-1" onchange="uploadFileFun()"
 					multiple="true" name="uploadFileInput" style="display: none;"
-					type="file" /> <img id="addImgDef" src="../img/add_img.png"
+					type="file" /> <img id="addImgDef" src="../erp/img/add_img.png"
 					onclick='javascript:$("#uploadFileInput").attr("isUpdate","-1");$("#uploadFileInput").click();return false;' />
 			</div>
 

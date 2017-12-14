@@ -247,6 +247,14 @@ public class UserBusiness {
 			// }
 
 		}
+		//如果邀请码为空设置默认邀请码
+		if (StringUtils.isEmpty(model.getInviteCode())) {
+			
+			model.setInviteCode("123456");
+			if ("release".equals(SystemConfig.EnvIdentity)) {
+				model.setInviteCode("998585");
+			}
+		}
 		User codeData = userServiceImpl.selectUserByInviteCode(model.getInviteCode());
 		if (codeData == null) {
 			response.setCode(ResultEnum.ServiceErrorCode);
