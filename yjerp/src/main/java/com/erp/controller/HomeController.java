@@ -54,6 +54,7 @@ import com.service.bean.UserImg;
 import com.service.bean.UserLableMapping;
 import com.service.bean.UserPosition;
 import com.service.easemob.EaseMobBusiness;
+import com.service.easemob.NeteaseBusiness;
 import com.service.erp.impl.UserServiceImplERP;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
@@ -133,19 +134,22 @@ public class HomeController {
 
 	/**
 	 * 导入用户注册环信
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/main/registerEasemob", method = RequestMethod.GET)
 	@ResponseBody
 	public String RegisterEasemob() {
 
-		List<User> userResult=userServiceImplERP.ImportUser();
+		List<User> userResult = userServiceImplERP.ImportUser();
 		for (User user : userResult) {
 			// 注册环信
-			String easemobId =String.valueOf(user.getUserId());
-			String result = EaseMobBusiness.AccountCreate(easemobId);
-			Map map = (Map) JSON.parse(result);
-			if (map != null && !map.containsKey("error")) {
+			String easemobId = user.getUserId() + SystemConfig.EaseSuffixId;
+			// String result = EaseMobBusiness.AccountCreate(easemobId);
+			// Map map = (Map) JSON.parse(result);
+			boolean isSuccess = NeteaseBusiness.CreateaccId(easemobId);
+			// if (map != null && !map.containsKey("error")) {
+			if (isSuccess) {
 				// 更新用户
 				User upUser = new User();
 				upUser.setUserId(user.getUserId());
@@ -153,11 +157,16 @@ public class HomeController {
 				upUser.setIsEasemob(1);
 				userServiceImpl.updateUser(upUser);
 
+			} else {
+				// 已存在则更新
+				isSuccess = NeteaseBusiness.RefreshToken(easemobId);
+				System.out.println(isSuccess);
 			}
 		}
-		
+
 		return "成功";
 	}
+
 	/**
 	 * 添加
 	 * 
@@ -167,78 +176,80 @@ public class HomeController {
 	private int InsertUser(UserInfo info) {
 		List<Photo> imgList = info.getPhoto();
 		Member member = info.getMember();
-		int insertResult=0;
+		int insertResult = 0;
 		if (!StringUtils.isEmpty(member.getName())) {
-			//去掉重复数据
-		int number=	userServiceImplERP.selectUserByNickName(member.getName());
-		if (number<=0) {
+			// 去掉重复数据
+			int number = userServiceImplERP.selectUserByNickName(member.getName());
+			if (number <= 0) {
 
-			User entiyUser = new User();
-			entiyUser = SetUserEntity(member);
-			insertResult = userServiceImplERP.InsertUserErp(entiyUser);
-			if (insertResult > 0) {
-				int userId = entiyUser.getUserId();
-				// 添加基本资料
-				UserDatum datum = SetUserDatum(member, userId);
-				int datumId = userDatumServiceImpl.insertDatum(datum);
-				if (datumId > 0) {
-					AddUserImage(imgList, userId);
-//					// 注册环信
-//					String easemobId = userId + SystemConfig.EaseSuffixId;
-//					String result = EaseMobBusiness.AccountCreate(easemobId);
-//					Map map = (Map) JSON.parse(result);
-//					if (map != null && !map.containsKey("error")) {
-//						// 更新用户
-//						User upUser = new User();
-//						upUser.setUserId(userId);
-//						upUser.setEasemobId(easemobId);
-//						upUser.setIsEasemob(1);
-//						userServiceImpl.updateUser(upUser);
-	//
-//					}
-					// 添加浏览记录表
-					UserBrowseExt ext = new UserBrowseExt();
-					ext.setUserId(userId);
-					ext.setBrowseNumber(0);
-					userBrowseExtServiceImpl.insertBrowseExt(ext);
-					// 添加经纬度
+				User entiyUser = new User();
+				entiyUser = SetUserEntity(member);
+				insertResult = userServiceImplERP.InsertUserErp(entiyUser);
+				if (insertResult > 0) {
+					int userId = entiyUser.getUserId();
+					// 添加基本资料
+					UserDatum datum = SetUserDatum(member, userId);
+					int datumId = userDatumServiceImpl.insertDatum(datum);
+					if (datumId > 0) {
+						AddUserImage(imgList, userId);
+						// // 注册环信
+						// String easemobId = userId +
+						// SystemConfig.EaseSuffixId;
+						// String result =
+						// EaseMobBusiness.AccountCreate(easemobId);
+						// Map map = (Map) JSON.parse(result);
+						// if (map != null && !map.containsKey("error")) {
+						// // 更新用户
+						// User upUser = new User();
+						// upUser.setUserId(userId);
+						// upUser.setEasemobId(easemobId);
+						// upUser.setIsEasemob(1);
+						// userServiceImpl.updateUser(upUser);
+						//
+						// }
+						// 添加浏览记录表
+						UserBrowseExt ext = new UserBrowseExt();
+						ext.setUserId(userId);
+						ext.setBrowseNumber(0);
+						userBrowseExtServiceImpl.insertBrowseExt(ext);
+						// 添加经纬度
 
-					UserPosition position = new UserPosition();
-					position.setIsPosition(1);
-					position.setUserId(userId);
-				 
-					position.setLongitude(StringUtils.isEmpty(member.getLongitude())?39.9151190:Double.parseDouble(member.getLongitude()));
-					position.setLatitude(StringUtils.isEmpty(member.getLatitude())?116.4039630:Double.parseDouble(member.getLatitude()));
-					userPositionServiceImpl.insertPosition(position);
-					// 添加标签
-					List<Label> lables = info.getLables();
-					if (lables != null) {
-						List<UserLableMapping> userLableMappings = new ArrayList<UserLableMapping>();
-						for (Label label : lables) {
-							LabletType type = labletTypeServiceImpl.selectlabletByName(label.getLable_name());
-							if (type != null) {
-								UserLableMapping mapping = new UserLableMapping();
-								mapping.setUserId(userId);
-								mapping.setLableId(type.getLableId());
-								mapping.setLableType(type.getLableType());
-								userLableMappings.add(mapping);
+						UserPosition position = new UserPosition();
+						position.setIsPosition(1);
+						position.setUserId(userId);
 
+						position.setLongitude(StringUtils.isEmpty(member.getLongitude()) ? 39.9151190
+								: Double.parseDouble(member.getLongitude()));
+						position.setLatitude(StringUtils.isEmpty(member.getLatitude()) ? 116.4039630
+								: Double.parseDouble(member.getLatitude()));
+						userPositionServiceImpl.insertPosition(position);
+						// 添加标签
+						List<Label> lables = info.getLables();
+						if (lables != null) {
+							List<UserLableMapping> userLableMappings = new ArrayList<UserLableMapping>();
+							for (Label label : lables) {
+								LabletType type = labletTypeServiceImpl.selectlabletByName(label.getLable_name());
+								if (type != null) {
+									UserLableMapping mapping = new UserLableMapping();
+									mapping.setUserId(userId);
+									mapping.setLableId(type.getLableId());
+									mapping.setLableType(type.getLableType());
+									userLableMappings.add(mapping);
+
+								}
+							}
+							if (userLableMappings.size() > 0) {
+								userLableMappingServiceImpl.insertlabletMapping(userLableMappings);
 							}
 						}
-						if (userLableMappings.size() > 0) {
-							userLableMappingServiceImpl.insertlabletMapping(userLableMappings);
-						}
-					}
 
+					}
 				}
+
 			}
-			
-			
+
 		}
-			
-		}
-		
-		
+
 		return insertResult;
 	}
 

@@ -148,7 +148,7 @@
 	<select id="ImportUser" resultMap="userResult">
 		 SELECT 
 		 <include refid="Base_Column_List"></include>
-		  FROM myschema.user where userId>8
+		  FROM myschema.user
 	</select>
 
 

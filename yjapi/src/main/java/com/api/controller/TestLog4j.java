@@ -23,6 +23,17 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Predicate;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.lang.jstl.Literal;
 import org.aspectj.weaver.ast.Var;
@@ -52,7 +63,9 @@ import com.service.api.impl.InvitationCodeServiceImpl;
 import com.service.bean.InvitationCode;
 import com.service.bean.Province;
 import com.service.bean.UserFinancial;
+import com.service.easemob.CheckSumBuilder;
 import com.service.easemob.EaseMobBusiness;
+import com.service.easemob.NeteaseBusiness;
 import com.service.enums.LableType;
 import com.service.enums.OrderState;
 import com.service.redis.CityRedisManager;
@@ -74,34 +87,47 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
+		boolean isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
+		System.out.println(isFlag);
+		// CreateaccId();
 		/**
 		 * 加密 解密
-	
-		BASE64Encoder encoder = new BASE64Encoder();
-		String str = "123";
-		String encStr = encoder.encode(str.getBytes());
-		System.out.println("64加密：" + encStr);
-
-		// 解密
-		BASE64Decoder decoder = new BASE64Decoder();
-		byte[] by = decoder.decodeBuffer(encStr);
-		System.out.println("64解密" + new String(by, "utf-8"));
-
-		//Hex hex = new Hex();
-		String message = "123";
-		String t="";
-		System.out.println("加密后：" + (t = EncryUtil.encrypt(message)));  
-        System.out.println("解密后：" + EncryUtil.decrypt(t));  
-        */
-        String jsonStr="{\"receipt\": {\"original_purchase_date_pst\": \"2016-04-28 03:18:49 America/Los_Angeles\",\"purchase_date_ms\": \"1461838729285\",\"unique_identifier\": \"d4e721ec67ef2feca7fbdbd25a45cfb37e10ea7b\",\"original_transaction_id\": \"1000000208620470\",\"bvrs\": \"1.1\",\"transaction_id\": \"1000000208620470\",\"quantity\": \"1\",\"unique_vendor_identifier\": \"8E19EEC4-33D7-4536-B62E-112BAC68EECD\",\"item_id\": \"1108798151\",\"product_id\": \"1244\",\"purchase_date\": \"2016-04-28 10:18:49 Etc/GMT\",\"original_purchase_date\": \"2016-04-28 10:18:49 Etc/GMT\",\"purchase_date_pst\": \"2016-04-28 03:18:49 America/Los_Angeles\",\"bid\": \"com.doctorHys\",\"original_purchase_date_ms\": \"1461838729285\"},\"status\": 0}";
-        Gson gson=new Gson();
-        IapReceiptResult result=gson.fromJson(jsonStr, IapReceiptResult.class);
-    	 
-        if (result.getStatus()==0) {
-			System.out.println(result.getStatus());
-			IapReceipt receipt=result.getReceipt();
-			System.out.println(receipt.getTransaction_id());
-		}
+		 * 
+		 * BASE64Encoder encoder = new BASE64Encoder(); String str = "123";
+		 * String encStr = encoder.encode(str.getBytes());
+		 * System.out.println("64加密：" + encStr);
+		 * 
+		 * // 解密 BASE64Decoder decoder = new BASE64Decoder(); byte[] by =
+		 * decoder.decodeBuffer(encStr); System.out.println("64解密" + new
+		 * String(by, "utf-8"));
+		 * 
+		 * //Hex hex = new Hex(); String message = "123"; String t="";
+		 * System.out.println("加密后：" + (t = EncryUtil.encrypt(message)));
+		 * System.out.println("解密后：" + EncryUtil.decrypt(t));
+		 */
+		// String jsonStr = "{\"receipt\": {\"original_purchase_date_pst\":
+		// \"2016-04-28 03:18:49 America/Los_Angeles\",\"purchase_date_ms\":
+		// \"1461838729285\",\"unique_identifier\":
+		// \"d4e721ec67ef2feca7fbdbd25a45cfb37e10ea7b\",\"original_transaction_id\":
+		// \"1000000208620470\",\"bvrs\": \"1.1\",\"transaction_id\":
+		// \"1000000208620470\",\"quantity\":
+		// \"1\",\"unique_vendor_identifier\":
+		// \"8E19EEC4-33D7-4536-B62E-112BAC68EECD\",\"item_id\":
+		// \"1108798151\",\"product_id\": \"1244\",\"purchase_date\":
+		// \"2016-04-28 10:18:49 Etc/GMT\",\"original_purchase_date\":
+		// \"2016-04-28 10:18:49 Etc/GMT\",\"purchase_date_pst\": \"2016-04-28
+		// 03:18:49 America/Los_Angeles\",\"bid\":
+		// \"com.doctorHys\",\"original_purchase_date_ms\":
+		// \"1461838729285\"},\"status\": 0}";
+		// Gson gson = new Gson();
+		// IapReceiptResult result = gson.fromJson(jsonStr,
+		// IapReceiptResult.class);
+		//
+		// if (result.getStatus() == 0) {
+		// System.out.println(result.getStatus());
+		// IapReceipt receipt = result.getReceipt();
+		// System.out.println(receipt.getTransaction_id());
+		// }
 		// String encod= new BASE64Encoder().encode(buf);;
 		// System.out.println("64解密："+encod);
 		// double reward = 1 * SystemConfig.percentage;
@@ -273,6 +299,37 @@ public class TestLog4j {
 		public void setTestDate(Date testDate) {
 			this.testDate = testDate;
 		}
+	}
+
+	public static void CreateaccId() throws Exception, Exception {
+
+		String url = "https://api.netease.im/nimserver/user/create.action";
+		HttpPost httpPost = new HttpPost(url);
+		String appKey = "dfe5724d830c73e04fea28d7ffbde313";
+		String appSecret = "8822033395ae";
+		String nonce = "12345";
+		String curTime = String.valueOf((new Date()).getTime() / 1000L);
+		String checkSum = CheckSumBuilder.getCheckSum(appSecret, nonce, curTime);// 参考
+																					// 计算CheckSum的java代码
+
+		// 设置请求的header
+		httpPost.addHeader("AppKey", appKey);
+		httpPost.addHeader("Nonce", nonce);
+		httpPost.addHeader("CurTime", curTime);
+		httpPost.addHeader("CheckSum", checkSum);
+		httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+
+		// 设置请求的参数
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("accid", "helloworld"));
+		httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		// 执行请求
+		// HttpResponse response = httpClient.execute(httpPost);
+		CloseableHttpResponse response = httpclient.execute(httpPost);
+
+		// 打印执行结果
+		System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));
 	}
 
 }

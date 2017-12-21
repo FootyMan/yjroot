@@ -72,6 +72,7 @@ import com.service.bean.UserLableMapping;
 import com.service.bean.UserVerifyCode;
 import com.service.bean.Userlike;
 import com.service.easemob.EaseMobBusiness;
+import com.service.easemob.NeteaseBusiness;
 import com.service.enums.LableType;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
@@ -243,13 +244,13 @@ public class UserBusiness {
 			// }
 			// else
 			// {
-			
+
 			// }
 
 		}
-		//如果邀请码为空设置默认邀请码
+		// 如果邀请码为空设置默认邀请码
 		if (StringUtils.isEmpty(model.getInviteCode())) {
-			
+
 			model.setInviteCode("123456");
 			if ("release".equals(SystemConfig.EnvIdentity)) {
 				model.setInviteCode("998585");
@@ -375,11 +376,13 @@ public class UserBusiness {
 				ext.setUserId(registerId);
 				ext.setBrowseNumber(0);
 				userBrowseExtServiceImpl.insertBrowseExt(ext);
-				// 注册环信
+				// 注册环信----改用网易云im
 				String easemobId = registerId + SystemConfig.EaseSuffixId;
-				String result = EaseMobBusiness.AccountCreate(easemobId);
-				Map map = (Map) JSON.parse(result);
-				if (map != null && !map.containsKey("error")) {
+				// String result = EaseMobBusiness.AccountCreate(easemobId);
+				// Map map = (Map) JSON.parse(result);
+				boolean isSuccess = NeteaseBusiness.CreateaccId(easemobId);
+				// if (map != null && !map.containsKey("error")) {
+				if (isSuccess) {
 					// 更新用户
 					User upUser = new User();
 					upUser.setUserId(registerId);
@@ -817,18 +820,18 @@ public class UserBusiness {
 		response.setData(initUser);
 		return response;
 	}
-	
+
 	/**
 	 * 举报用户
+	 * 
 	 * @param request
 	 * @return
 	 */
-	public BaseResponse<?> UserInform(baseRequest<InformRequest> request)
-	{
-		BaseResponse<?> response=new BaseResponse<Object>();
-		Inform report=new Inform();
-		InformRequest body=request.getbody();
-		if (body==null || StringUtils.isEmpty(body.getReason())) {
+	public BaseResponse<?> UserInform(baseRequest<InformRequest> request) {
+		BaseResponse<?> response = new BaseResponse<Object>();
+		Inform report = new Inform();
+		InformRequest body = request.getbody();
+		if (body == null || StringUtils.isEmpty(body.getReason())) {
 			response.setMsg("参数为空");
 			response.setCode(ResultEnum.ColmunErrorCode);
 			return response;
@@ -837,13 +840,13 @@ public class UserBusiness {
 		report.setBeingInformId(body.getDetailId());
 		report.setContent("");
 		report.setReason(body.getReason());
-		int result=reportServiceImpl.insertReport(report);
-		if (result<=0) {
+		int result = reportServiceImpl.insertReport(report);
+		if (result <= 0) {
 			response.setMsg("服务器错误");
 			response.setCode(ResultEnum.ServiceErrorCode);
 		}
 		return response;
-		
+
 	}
 
 	public void test() {
