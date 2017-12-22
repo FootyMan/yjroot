@@ -189,6 +189,7 @@ public class InitBusiness {
 			info.setInviteCode(user.getInviteCode());
 			info.setFull(true);
 			info.setEaseId(userId + SystemConfig.EaseSuffixId);
+			info.setImToken(user.getImToken());
 			info.setPhone(user.getPhone());
 		} else {
 			User user = userServiceImpl.selectUserByUserId(userId);
@@ -199,6 +200,7 @@ public class InitBusiness {
 				info.setVip(user.getUserLevel());
 				info.setFull(false);
 				info.setEaseId(userId + SystemConfig.EaseSuffixId);
+				info.setImToken(user.getImToken());
 				info.setPhone(user.getPhone());
 			}
 		}

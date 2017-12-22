@@ -41,6 +41,7 @@ import com.service.bean.UserInvite;
 import com.service.bean.UserPosition;
 import com.service.easemob.EaseMobBusiness;
 import com.service.easemob.NeteaseBusiness;
+import com.service.easemob.NeteaseModel;
 import com.service.enums.DeviceType;
 import com.service.enums.UserLevel;
 import com.service.erp.impl.HomeUserServiceImplERP;
@@ -232,11 +233,11 @@ public class UserController {
 				AddUserImage(imgList, userId);
 				// 注册环信
 				String easemobId = userId + SystemConfig.EaseSuffixId;
-				boolean isSuccess = NeteaseBusiness.CreateaccId(easemobId);
+				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId);
 //				String result = EaseMobBusiness.AccountCreate(easemobId);
 //				Map map = (Map) JSON.parse(result);
 //				if (map != null && !map.containsKey("error")) {
-				if (isSuccess) {
+				if (netease!=null) {
 					// 更新用户
 					User upUser = new User();
 					upUser.setUserId(userId);

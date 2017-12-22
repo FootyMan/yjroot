@@ -39,7 +39,7 @@ public class NeteaseBusiness {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean CreateaccId(String userId) {
+	public static NeteaseModel CreateaccId(String userId) {
 		String jsonRet;
 		try {
 			String url = "https://api.netease.im/nimserver/user/create.action";
@@ -47,7 +47,7 @@ public class NeteaseBusiness {
 			nvps.add(new BasicNameValuePair("accid", userId));
 			jsonRet = PostRequest(url, nvps);
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 		return JsonResolve(jsonRet);
 	}
@@ -58,7 +58,7 @@ public class NeteaseBusiness {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean RefreshToken(String userId) {
+	public static NeteaseModel RefreshToken(String userId) {
 		String jsonRet;
 		try {
 			String url = "https://api.netease.im/nimserver/user/refreshToken.action";
@@ -66,7 +66,7 @@ public class NeteaseBusiness {
 			nvps.add(new BasicNameValuePair("accid", userId));
 			jsonRet = PostRequest(url, nvps);
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 		return JsonResolve(jsonRet);
 	}
@@ -78,7 +78,7 @@ public class NeteaseBusiness {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean BlockaccId(String userId) throws Exception {
+	public static NeteaseModel BlockaccId(String userId) throws Exception {
 		String url = "https://api.netease.im/nimserver/user/block.action";
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 		nvps.add(new BasicNameValuePair("accid", userId));
@@ -93,7 +93,7 @@ public class NeteaseBusiness {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean UnblockaccId(String userId) throws Exception {
+	public static NeteaseModel UnblockaccId(String userId) throws Exception {
 		String url = "https://api.netease.im/nimserver/user/unblock.action";
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 		nvps.add(new BasicNameValuePair("accid", userId));
@@ -145,16 +145,10 @@ public class NeteaseBusiness {
 	 * @param json
 	 * @return
 	 */
-	public static boolean JsonResolve(String json) {
+	public static NeteaseModel JsonResolve(String json) {
 		Gson gson = new Gson();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = gson.fromJson(json, map.getClass());
-		double code = Double.valueOf(map.get("code").toString());
-		int i = (int) code;
-		if (i == 200) {
-			return true;
-		} else {
-			return false;
-		}
+		 
+		NeteaseModel netease = gson.fromJson(json, NeteaseModel.class);
+		return netease;
 	}
 }

@@ -88,6 +88,10 @@ public class User implements Serializable{
 	 * 是否是导入用户 0不是 1是
 	 */
 	private int isImport;
+	/**
+	 * 网易云Token
+	 */
+	private String imToken;
 	public Pagination getPage() {
 		return page;
 	}
@@ -207,6 +211,12 @@ public class User implements Serializable{
 	}
 	public void setIsImport(int isImport) {
 		this.isImport = isImport;
+	}
+	public String getImToken() {
+		return imToken;
+	}
+	public void setImToken(String imToken) {
+		this.imToken = imToken;
 	}
 
 }

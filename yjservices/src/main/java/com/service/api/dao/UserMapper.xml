@@ -20,6 +20,7 @@
 		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
 		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
 		<result column="isImport" property="isImport" jdbcType="INTEGER" />
+		<result column="imToken" property="imToken" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="appUserResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
@@ -67,7 +68,7 @@
 		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
-		inviteCode,passWord,easemobId,getuiId,isImport
+		inviteCode,passWord,easemobId,getuiId,isImport,imToken
 	</sql>
 	<insert id="insertUser" parameterType="com.service.bean.User"
 		keyProperty="userId">
@@ -107,6 +108,9 @@
 			</if>
 			<if test="getuiId!=null and getuiId!=''">
 				getuiId=#{getuiId},
+			</if>
+			<if test="imToken!=null and imToken!=''">
+				imToken=#{imToken},
 			</if>
 		</set>
 		where userId=#{userId}
@@ -230,7 +234,7 @@
 		SELECT
 		a.headImage,a.userNo,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
 		Fn_GetRange(#{lat},#{lon},c.latitude,c.longitude) AS
-		rangeM,a.userLevel
+		rangeM,a.userLevel,a.imToken
 		FROM user a inner join userdatum b
 		on
 		a.userId=b.userId inner join userposition c

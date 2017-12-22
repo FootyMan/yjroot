@@ -161,7 +161,8 @@ public class UserInfoResponse {
 	private String easeId;
 	@ApiModelProperty(value = "手机号")
 	private String phone;
-
+	@ApiModelProperty(value = "云信Token")
+	private String imToken;
 	public boolean isFull() {
 		return isFull;
 	}
@@ -192,5 +193,13 @@ public class UserInfoResponse {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getImToken() {
+		return imToken;
+	}
+
+	public void setImToken(String imToken) {
+		this.imToken = imToken;
 	}
 }

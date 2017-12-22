@@ -73,6 +73,7 @@ import com.service.bean.UserVerifyCode;
 import com.service.bean.Userlike;
 import com.service.easemob.EaseMobBusiness;
 import com.service.easemob.NeteaseBusiness;
+import com.service.easemob.NeteaseModel;
 import com.service.enums.LableType;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
@@ -380,13 +381,14 @@ public class UserBusiness {
 				String easemobId = registerId + SystemConfig.EaseSuffixId;
 				// String result = EaseMobBusiness.AccountCreate(easemobId);
 				// Map map = (Map) JSON.parse(result);
-				boolean isSuccess = NeteaseBusiness.CreateaccId(easemobId);
+				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId);
 				// if (map != null && !map.containsKey("error")) {
-				if (isSuccess) {
+				if (netease!=null && netease.getCode()==200) {
 					// 更新用户
 					User upUser = new User();
 					upUser.setUserId(registerId);
 					upUser.setEasemobId(easemobId);
+					upUser.setImToken(netease.getInfo().getToken());
 					upUser.setIsEasemob(1);
 					userServiceImpl.updateUser(upUser);
 
@@ -557,6 +559,7 @@ public class UserBusiness {
 			userBase.setSexuat(datum.getSexuat());
 			userBase.setVip(userData.getUserLevel());
 			userBase.setEaseId(body.getDetailId() + SystemConfig.EaseSuffixId);
+			userBase.setImToken(userData.getImToken());
 		}
 		// 图片
 

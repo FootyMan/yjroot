@@ -66,6 +66,7 @@ import com.service.bean.UserFinancial;
 import com.service.easemob.CheckSumBuilder;
 import com.service.easemob.EaseMobBusiness;
 import com.service.easemob.NeteaseBusiness;
+import com.service.easemob.NeteaseModel;
 import com.service.enums.LableType;
 import com.service.enums.OrderState;
 import com.service.redis.CityRedisManager;
@@ -87,7 +88,7 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		boolean isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
+		NeteaseModel isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
 		System.out.println(isFlag);
 		// CreateaccId();
 		/**

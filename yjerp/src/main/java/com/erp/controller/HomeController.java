@@ -55,6 +55,7 @@ import com.service.bean.UserLableMapping;
 import com.service.bean.UserPosition;
 import com.service.easemob.EaseMobBusiness;
 import com.service.easemob.NeteaseBusiness;
+import com.service.easemob.NeteaseModel;
 import com.service.erp.impl.UserServiceImplERP;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
@@ -147,20 +148,27 @@ public class HomeController {
 			String easemobId = user.getUserId() + SystemConfig.EaseSuffixId;
 			// String result = EaseMobBusiness.AccountCreate(easemobId);
 			// Map map = (Map) JSON.parse(result);
-			boolean isSuccess = NeteaseBusiness.CreateaccId(easemobId);
+			NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId);
 			// if (map != null && !map.containsKey("error")) {
-			if (isSuccess) {
+			if (netease!=null && netease.getCode()==200) {
 				// 更新用户
 				User upUser = new User();
 				upUser.setUserId(user.getUserId());
 				upUser.setEasemobId(easemobId);
 				upUser.setIsEasemob(1);
+				upUser.setImToken(netease.getInfo().getToken());
 				userServiceImpl.updateUser(upUser);
 
 			} else {
 				// 已存在则更新
-				isSuccess = NeteaseBusiness.RefreshToken(easemobId);
-				System.out.println(isSuccess);
+				netease = NeteaseBusiness.RefreshToken(easemobId);
+				User upUser = new User();
+				upUser.setUserId(user.getUserId());
+				upUser.setEasemobId(easemobId);
+				upUser.setIsEasemob(1);
+				upUser.setImToken(netease.getInfo().getToken());
+				userServiceImpl.updateUser(upUser);
+				System.out.println(netease.getInfo().getToken());
 			}
 		}
 

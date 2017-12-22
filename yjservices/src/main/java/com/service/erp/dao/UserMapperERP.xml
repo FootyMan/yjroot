@@ -20,6 +20,7 @@
 		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
 		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
 		<result column="isImport" property="isImport" jdbcType="INTEGER" />
+		<result column="imToken" property="imToken" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="userResult" type="com.service.bean.User">
 		<id column="userId" property="userId" jdbcType="INTEGER" />
@@ -59,7 +60,7 @@
 		userId,userNo,phone,deviceType,deviceToken,headImage,
 		registerTime,
 		userLevel, nickName, isDisable, isEasemob, userSource,
-		inviteCode,passWord,easemobId,getuiId,isImport
+		inviteCode,passWord,easemobId,getuiId,isImport,imToken
 	</sql>
 	<!-- 后台用户列表 -->
 	<select id="ErpUserListByPage" resultMap="userResult"
