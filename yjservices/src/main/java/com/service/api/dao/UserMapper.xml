@@ -40,6 +40,7 @@
 		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
 		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
 		<result column="isImport" property="isImport" jdbcType="INTEGER" />
+		<result column="imToken" property="imToken" jdbcType="VARCHAR" />
 		<!-- 映射用户资料表 一对一 -->
 		<association property="datum" javaType="com.service.bean.UserDatum">
 			<id column="datumId" property="datumId" jdbcType="INTEGER" />
@@ -248,7 +249,7 @@
 	<select id="initUser" resultMap="appUserResult" parameterType="java.lang.Integer">
 		SELECT
 		a.headImage,a.userNo,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
-		a.userLevel,a.inviteCode,a.phone
+		a.userLevel,a.inviteCode,a.phone,a.imToken 
 		FROM user a inner join userdatum b
 		on
 		a.userId=b.userId

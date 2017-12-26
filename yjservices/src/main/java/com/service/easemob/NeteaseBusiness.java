@@ -45,12 +45,14 @@ public class NeteaseBusiness {
 			String url = "https://api.netease.im/nimserver/user/create.action";
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair("accid", userId));
+			// nvps.add(new BasicNameValuePair("token", "yj123"));
 			jsonRet = PostRequest(url, nvps);
 		} catch (Exception e) {
 			return null;
 		}
 		return JsonResolve(jsonRet);
 	}
+
 	/**
 	 * 更新并获取新token
 	 * 
@@ -102,6 +104,53 @@ public class NeteaseBusiness {
 	}
 
 	/**
+	 * 轮询创建accid
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public static NeteaseModel RollCreateaccId(String userId, String nickName, String icon) {
+		String jsonRet;
+		try {
+			String url = "https://api.netease.im/nimserver/user/create.action";
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("accid", userId));
+			nvps.add(new BasicNameValuePair("name", nickName));
+			nvps.add(new BasicNameValuePair("icon", icon));
+			jsonRet = PostRequest(url, nvps);
+		} catch (Exception e) {
+			return null;
+		}
+		return JsonResolve(jsonRet);
+	}
+
+	/**
+	 * 更新用户名片
+	 * 
+	 * @param userId
+	 * @param nickName
+	 * @param icon
+	 * @return
+	 * @throws Exception
+	 */
+	public static NeteaseModel UpdateUinfo(String userId, String nickName, String icon) {
+		String jsonRet;
+		try {
+			String url = "https://api.netease.im/nimserver/user/updateUinfo.action";
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("accid", userId));
+			nvps.add(new BasicNameValuePair("name", nickName));
+			nvps.add(new BasicNameValuePair("icon", icon));
+			jsonRet = PostRequest(url, nvps);
+
+		} catch (Exception e) {
+			return null;
+		}
+		return JsonResolve(jsonRet);
+	}
+
+	/**
 	 * 请求
 	 * 
 	 * @param url路径
@@ -147,7 +196,7 @@ public class NeteaseBusiness {
 	 */
 	public static NeteaseModel JsonResolve(String json) {
 		Gson gson = new Gson();
-		 
+
 		NeteaseModel netease = gson.fromJson(json, NeteaseModel.class);
 		return netease;
 	}
