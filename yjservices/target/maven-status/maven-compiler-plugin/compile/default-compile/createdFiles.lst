@@ -4,6 +4,7 @@ com\service\utils\IPage.class
 com\service\alipay\sdk\AlipayConfig.class
 com\service\api\dao\AppversionMapper.class
 com\service\erp\dao\UserImgMapperERP.class
+com\service\easemob\NeteaseInfo.class
 com\service\api\impl\UserVerifyCodeServiceImpl.class
 com\service\enums\PayType.class
 com\service\erp\dao\UserMapperERP.class
@@ -34,6 +35,7 @@ com\service\bean\HomeUser.class
 com\service\api\dao\UserlikeMapper.class
 com\service\bean\Role.class
 com\service\utils\SerializeUtil.class
+com\service\easemob\NeteaseModel.class
 com\service\bean\UserLableMapping.class
 com\service\utils\BasePage.class
 com\service\api\dao\UserBrowseExtMapper.class
@@ -119,6 +121,7 @@ com\service\api\dao\EmployeeMapper.class
 com\service\api\impl\DepServiceImpl.class
 com\service\utils\RequestUtils.class
 com\service\api\impl\UserBrowseExtServiceImpl.class
+com\service\easemob\NeteaseBusiness.class
 com\service\utils\SystemConfig.class
 com\service\enums\FinancialOperateStatus.class
 com\service\utils\Week.class
@@ -130,6 +133,7 @@ com\service\api\impl\UserInviteServiceImpl.class
 com\service\bean\Employee.class
 com\service\bean\Inform.class
 com\service\erp\dao\OrderMapperERP.class
+com\service\easemob\CheckSumBuilder.class
 com\service\erp\dao\HomeUserMapperERP.class
 com\service\bean\UserPosition.class
 com\service\utils\ValidateUtil.class

@@ -155,7 +155,6 @@ public class HomeController {
 				headImage = SystemConfig.ImgurlPrefix + user.getHeadImage();
 			}
 			NeteaseModel netease = NeteaseBusiness.RollCreateaccId(easemobId, user.getNickName(), headImage);
-			// if (map != null && !map.containsKey("error")) {
 			if (netease != null && netease.getCode() == 200) {
 				// 更新用户
 				User upUser = new User();
@@ -164,17 +163,19 @@ public class HomeController {
 				upUser.setIsEasemob(1);
 				upUser.setImToken(netease.getInfo().getToken());
 				userServiceImpl.updateUser(upUser);
+				netease = NeteaseBusiness.UpdateUinfo(easemobId, user.getNickName(), headImage);
 
 			} else {
 
 				// 已存在则更新
+				netease = NeteaseBusiness.RefreshToken(easemobId);
+				User upUser = new User();
+				upUser.setUserId(user.getUserId());
+				upUser.setEasemobId(easemobId);
+				upUser.setIsEasemob(1);
+				upUser.setImToken(netease.getInfo().getToken());
+				userServiceImpl.updateUser(upUser);
 				netease = NeteaseBusiness.UpdateUinfo(easemobId, user.getNickName(), headImage);
-//				User upUser = new User();
-//				upUser.setUserId(user.getUserId());
-//				upUser.setEasemobId(easemobId);
-//				upUser.setIsEasemob(1);
-//				upUser.setImToken(netease.getInfo().getToken());
-//				userServiceImpl.updateUser(upUser);
 				System.out.println(netease.getCode());
 			}
 		}

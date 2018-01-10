@@ -285,6 +285,7 @@ public class UserBusiness {
 			response.setMsg("注册用户失败");
 			return response;
 		}
+		SetNeteaseToken(userEntity.getUserId());
 		InitResponse initUser = initBusiness.InitUserData(userEntity.getUserId());
 		response.setData(initUser);
 		AddUserInvite(request, codeData, userEntity.getUserId());
@@ -381,9 +382,9 @@ public class UserBusiness {
 				String easemobId = registerId + SystemConfig.EaseSuffixId;
 				// String result = EaseMobBusiness.AccountCreate(easemobId);
 				// Map map = (Map) JSON.parse(result);
-				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId);
+				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId,registerId);
 				// if (map != null && !map.containsKey("error")) {
-				if (netease!=null && netease.getCode()==200) {
+				if (netease != null && netease.getCode() == 200) {
 					// 更新用户
 					User upUser = new User();
 					upUser.setUserId(registerId);
@@ -850,6 +851,20 @@ public class UserBusiness {
 		}
 		return response;
 
+	}
+
+	/**
+	 * 设置网易云token
+	 * 
+	 * @param userId
+	 */
+	public void SetNeteaseToken(int userId) {
+		// 此处设置网易云IM登录token
+		User up_user = new User();
+		up_user.setUserId(userId);
+		String token = userId+ SystemConfig.EaseSuffixId;
+		up_user.setImToken(token);
+		userServiceImpl.updateUser(up_user);
 	}
 
 	public void test() {

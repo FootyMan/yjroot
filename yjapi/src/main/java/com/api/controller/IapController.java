@@ -112,7 +112,7 @@ public class IapController {
 			for (IapInapp inapp : result.getReceipt().getIn_app()) {
 				//先获取产品
 				//根据用户id加订单 是否存在这笔订单
-				int productId= Integer.parseInt(inapp.getProduct_id().replace("com.zhzy.yj.", ""));
+				int productId= Integer.parseInt(inapp.getProduct_id().replace("com.zhzy.yujian.", ""));
 				
 				//查询订单是否存在
 				Order orderData = orderServiceImpl.selectOrderByNumber(inapp.getTransaction_id());

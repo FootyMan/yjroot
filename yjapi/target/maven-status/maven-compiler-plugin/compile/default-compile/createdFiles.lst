@@ -57,6 +57,7 @@ com\api\request\ProfitAccountRequest.class
 com\api\request\userModel.class
 com\api\response\RangeDataResponse.class
 com\api\wxpay\sdk\WXPayReport.class
+com\api\response\IapInapp.class
 com\api\request\baseRequest.class
 com\api\response\ProfitMyResponse.class
 com\api\response\HomeResponse.class

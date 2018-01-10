@@ -21,6 +21,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
+import com.service.utils.SystemConfig;
 
 /***
  * 网易云im
@@ -39,13 +40,14 @@ public class NeteaseBusiness {
 	 * @return
 	 * @throws Exception
 	 */
-	public static NeteaseModel CreateaccId(String userId) {
+	public static NeteaseModel CreateaccId(String easemobId,int registerId) {
 		String jsonRet;
 		try {
 			String url = "https://api.netease.im/nimserver/user/create.action";
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-			nvps.add(new BasicNameValuePair("accid", userId));
-			// nvps.add(new BasicNameValuePair("token", "yj123"));
+			nvps.add(new BasicNameValuePair("accid", easemobId));
+			String token = registerId + SystemConfig.EaseSuffixId;
+			nvps.add(new BasicNameValuePair("token", token));
 			jsonRet = PostRequest(url, nvps);
 		} catch (Exception e) {
 			return null;

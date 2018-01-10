@@ -21,12 +21,14 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\alipay\sdk\AlipayPayM
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\DynamicDataSource.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\LabletType.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\StringUtils.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\easemob\NeteaseInfo.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserLableMappingServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\InvitationCode.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\UserVerifyCode.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\AppHomePagePaging.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\BasePage.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserFinancialServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\easemob\NeteaseModel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\enums\PayType.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\erp\impl\UserImgServiceImplERP.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\DateUtil.java
@@ -48,6 +50,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\enums\UserLevel.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\RoleServiceImpl.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\OrderListParameter.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\impl\UserBrowseServiceImpl.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\easemob\CheckSumBuilder.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\redis\RedisManager.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserFinancialMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserLableMappingMapper.java
@@ -60,6 +63,7 @@ D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\Week.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\PaginationInterceptor.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\api\dao\UserMapper.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\IPage.java
+D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\easemob\NeteaseBusiness.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\bean\UserDislike.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\utils\DBContextHolder.java
 D:\YjWorkSpace\yjroot\yjservices\src\main\java\com\service\erp\dao\HomeUserMapperERP.java

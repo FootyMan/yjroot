@@ -88,6 +88,7 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
+		System.out.println(Md5Util.stringByMD5("1"));
 		NeteaseModel isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
 		System.out.println(isFlag);
 		// CreateaccId();

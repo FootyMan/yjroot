@@ -84,6 +84,7 @@ D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\request\RangeRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\BaseResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\TwoCodeResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayConstants.java
+D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\IapInapp.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayRequest.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\response\MyImageResponse.java
 D:\YjWorkSpace\yjroot\yjapi\src\main\java\com\api\wxpay\sdk\WXPayUtil.java

@@ -233,7 +233,7 @@ public class UserController {
 				AddUserImage(imgList, userId);
 				// 注册环信
 				String easemobId = userId + SystemConfig.EaseSuffixId;
-				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId);
+				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId,userId);
 //				String result = EaseMobBusiness.AccountCreate(easemobId);
 //				Map map = (Map) JSON.parse(result);
 //				if (map != null && !map.containsKey("error")) {
