@@ -88,9 +88,24 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println(Md5Util.stringByMD5("1"));
-		NeteaseModel isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
-		System.out.println(isFlag);
+		String string = "User-Agent	Dalvik/2.1.0 (Linux; U; Android 7.1.1; XT1650-05 Build/NCCS26.118-31-1-10)";
+		String str[] = string.split(";");
+		if (str.length > 0) {
+			String version = str[2];
+			if (!StringUtils.isEmpty(version)) {
+				String numbers = version.replaceAll("Android", "").trim();
+				int dd =Integer.parseInt(numbers.substring(0, 1));
+				System.out.println(dd);
+	 
+			}
+			// System.out.println(version);
+		}
+		// for (String s : str) {
+		// System.out.println(s);
+		// }
+		// System.out.println(Md5Util.stringByMD5("1"));
+		// NeteaseModel isFlag=NeteaseBusiness.UnblockaccId("helloworld1");
+		// System.out.println(isFlag);
 		// CreateaccId();
 		/**
 		 * 加密 解密

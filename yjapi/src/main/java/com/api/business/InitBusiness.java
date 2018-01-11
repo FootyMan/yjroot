@@ -2,6 +2,8 @@ package com.api.business;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +61,7 @@ public class InitBusiness {
 		businessUtils.SetUserPosition(request, request.getUserId());
 	}
 
-	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request) {
+	public BaseResponse<InitResponseAppData> InitAppData(baseRequest<?> request, HttpServletRequest req) {
 		BaseResponse<InitResponseAppData> response = new BaseResponse<InitResponseAppData>();
 		InitResponseAppData appData = new InitResponseAppData();
 		// List<LabletType> labletTypes = GetLableTypeAll();
@@ -92,7 +94,7 @@ public class InitBusiness {
 		// });
 
 		// 返回版本信息
-		VersionResponse versionResponseModel = GetAppVersion(request.getDeviceType(), request.getVersionCode());
+		VersionResponse versionResponseModel = GetAppVersion(request.getDeviceType(), request.getVersionCode(), req);
 		// 二次启动页
 		PageTwoResponse pageTwoModel = GetPageTwo();
 		appData.setVersionData(versionResponseModel);
@@ -126,19 +128,56 @@ public class InitBusiness {
 	 * @param versionCode
 	 * @return
 	 */
-	public VersionResponse GetAppVersion(int deviceType, int versionCode) {
+	public VersionResponse GetAppVersion(int deviceType, int versionCode, HttpServletRequest req) {
 		VersionResponse versionModel = new VersionResponse();
-		Appversion version = appversionServiceImpl.selectVersionByDevice(deviceType);
-		if (version != null && version.getVersionCode() > versionCode) {
-			// 提示更新
-			versionModel.setExistUp(true);
-			versionModel.setDownloadUrl(version.getDownloadUrl());
-			versionModel.setUpdateDesc(version.getUpdateDescription());
-			versionModel.setVersionCode(version.getVersionCode());
-			versionModel.setVersionName(version.getVersionName());
-			versionModel.setIsClose(version.getIsMust());
+		// android7.0以上不提示更新
+		if (VerificationAdroid(deviceType, versionCode, req)) {
+			Appversion version = appversionServiceImpl.selectVersionByDevice(deviceType);
+			if (version != null && version.getVersionCode() > versionCode) {
+				// 提示更新
+				versionModel.setExistUp(true);
+				versionModel.setDownloadUrl(version.getDownloadUrl());
+				versionModel.setUpdateDesc(version.getUpdateDescription());
+				versionModel.setVersionCode(version.getVersionCode());
+				versionModel.setVersionName(version.getVersionName());
+				versionModel.setIsClose(version.getIsMust());
+			}
 		}
+
 		return versionModel;
+	}
+
+	/**
+	 * android7.0以上不提示更新
+	 * 
+	 * @param deviceType
+	 * @param req
+	 * @return
+	 */
+	public boolean VerificationAdroid(int deviceType, int versionCode, HttpServletRequest req) {
+		// android7.0以上不提示更新
+		try {
+			if (deviceType == 2) {
+				String userAgent = req.getHeader("user-agent");
+				if (!StringUtils.isEmpty(userAgent)) {
+					String agentSplit[] = userAgent.split(";");
+					if (agentSplit.length > 0) {
+						String version = agentSplit[2];
+						if (!StringUtils.isEmpty(version)) {
+							String numbers = version.replaceAll("Android", "").trim();
+							int no = Integer.parseInt(numbers.substring(0, 1));
+							if (no >= 7 && versionCode <= 4) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			return true;
+		}
+		return true;
 	}
 
 	/**
@@ -170,7 +209,7 @@ public class InitBusiness {
 			info.setUserId(userId);
 			info.setShowId(user.getUserNo());
 			info.setHeadImage(SystemConfig.ImgurlPrefix + user.getHeadImage());
-			if (user.getHeadImage().indexOf("http")!=-1) {
+			if (user.getHeadImage().indexOf("http") != -1) {
 				info.setHeadImage(user.getHeadImage());
 			}
 			info.setNickName(user.getNickName());

@@ -1,5 +1,8 @@
 package com.api.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -48,10 +51,11 @@ public class InitController {
 		BaseResponse<InitResponse> response = new BaseResponse<InitResponse>();
 		InitResponse initUser = initBusiness.InitUserData(request.getUserId());
 		response.setData(initUser);
-		//更新坐标
+		// 更新坐标
 		initBusiness.initUser(request);
-		//判断没有头像的提示上传头像并且注册资料完善的
-		if (initUser.getUser().isFull()&& StringUtils.isEmpty(initUser.getUser().getHeadImage().replace(SystemConfig.ImgurlPrefix, ""))) {
+		// 判断没有头像的提示上传头像并且注册资料完善的
+		if (initUser.getUser().isFull()
+				&& StringUtils.isEmpty(initUser.getUser().getHeadImage().replace(SystemConfig.ImgurlPrefix, ""))) {
 			response.setMsg("没头像还想约会?");
 			response.setCode(ResultEnum.ServiceErrorCode);
 		}
@@ -68,11 +72,11 @@ public class InitController {
 	@ResponseEncryptBody
 	@RequestMapping(value = "/appData", method = RequestMethod.POST)
 	@ApiOperation(nickname = "swagger-user", value = "初始化app填充的数据 如城市、我的标签 角色4返回用户提示更新 5二次启动页", notes = "初始化app填充的数据")
-	public BaseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest<?> request)
-			throws Exception {
-		//更新坐标
+	public BaseResponse<InitResponseAppData> InitAppData(@ApiParam(value = "输入") @RequestBody baseRequest<?> request,
+			HttpServletRequest req) throws Exception {
+		// 更新坐标
 		initBusiness.initUser(request);
-		return initBusiness.InitAppData(request);
+		return initBusiness.InitAppData(request, req);
 	}
 
 	/**
