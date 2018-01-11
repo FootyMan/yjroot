@@ -116,7 +116,7 @@ public class HomeBusiness {
 		}
 
 		// 获取总页数
-		if (list != null && list.size() > 0 && rangeParameter.getPageIndex() == 1) {
+		if (list != null && list.size() > 0 && requestModel.getPageIndex() == 1) {
 			int count = userServiceImpl.RangelistCount(rangeParameter);
 			rangeResponse.setTotalPage(PageParameter.GetTotalPage(count, rangeParameter.getPageSize()));
 		}

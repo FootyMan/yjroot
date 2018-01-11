@@ -29,6 +29,7 @@ import com.service.bean.UserDatum;
 import com.service.bean.UserPosition;
 import com.service.redis.CityRedisManager;
 import com.service.utils.ResultModel;
+import com.service.utils.StringUtils;
 import com.service.utils.SystemConfig;
 
 @Service("InitBusiness")

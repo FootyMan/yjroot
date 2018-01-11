@@ -11,7 +11,10 @@ import com.api.business.InitBusiness;
 
 import com.api.request.*;
 import com.api.response.*;
+import com.api.utils.ResultEnum;
 import com.api.utils.decrypt.ResponseEncryptBody;
+import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,6 +50,11 @@ public class InitController {
 		response.setData(initUser);
 		//更新坐标
 		initBusiness.initUser(request);
+		//判断没有头像的提示上传头像并且注册资料完善的
+		if (initUser.getUser().isFull()&& StringUtils.isEmpty(initUser.getUser().getHeadImage().replace(SystemConfig.ImgurlPrefix, ""))) {
+			response.setMsg("没头像还想约会?");
+			response.setCode(ResultEnum.ServiceErrorCode);
+		}
 		return response;
 	}
 
