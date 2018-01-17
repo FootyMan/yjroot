@@ -1,9 +1,12 @@
 package com.erp.controller.user;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,6 +50,7 @@ import com.service.enums.UserLevel;
 import com.service.erp.impl.HomeUserServiceImplERP;
 import com.service.erp.impl.UserImgServiceImplERP;
 import com.service.erp.impl.UserServiceImplERP;
+import com.service.utils.MandDaoClient;
 import com.service.utils.Md5Util;
 import com.service.utils.Pagination;
 import com.service.utils.StringUtils;
@@ -119,6 +123,7 @@ public class UserController {
 			m.setSexuat(datm.getSexuat());
 			m.setIsHomeUser(SetIsHomeUser(homeData, x.getUserId()));
 			m.setUserNo(x.getUserNo());
+			m.setUserLevelId(x.getUserLevel());
 			listUser.add(m);
 		}
 		model.addAttribute("listUser", listUser);
@@ -233,11 +238,11 @@ public class UserController {
 				AddUserImage(imgList, userId);
 				// 注册环信
 				String easemobId = userId + SystemConfig.EaseSuffixId;
-				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId,userId);
-//				String result = EaseMobBusiness.AccountCreate(easemobId);
-//				Map map = (Map) JSON.parse(result);
-//				if (map != null && !map.containsKey("error")) {
-				if (netease!=null) {
+				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId, userId);
+				// String result = EaseMobBusiness.AccountCreate(easemobId);
+				// Map map = (Map) JSON.parse(result);
+				// if (map != null && !map.containsKey("error")) {
+				if (netease != null) {
 					// 更新用户
 					User upUser = new User();
 					upUser.setUserId(userId);
@@ -458,21 +463,21 @@ public class UserController {
 	@ResponseBody
 	public int SendEaseMessage(String message) throws InterruptedException {
 		List<String> listStr = new ArrayList<String>();
-		Gson gson=new Gson();
+		Gson gson = new Gson();
 		int j = 1;
 		List<String> easeData = userServiceImplERP.selectEaseIdAll();
-		if (easeData.size()>=90) {
-			
+		if (easeData.size() >= 90) {
+
 			for (int i = 0; i < easeData.size(); i++) {
 				if (j >= 90) {
 					// 开始发送
-					//String strUser = String.join(",", listStr);
+					// String strUser = String.join(",", listStr);
 					// 发送消息
-					
-//					listStr.add("1");listStr.add("2");listStr.add("3");listStr.add("4");listStr.add("5");
-//					listStr.add("6");
-//					listStr.add("7");listStr.add("8");
-					String strUser=gson.toJson(listStr);
+
+					// listStr.add("1");listStr.add("2");listStr.add("3");listStr.add("4");listStr.add("5");
+					// listStr.add("6");
+					// listStr.add("7");listStr.add("8");
+					String strUser = gson.toJson(listStr);
 					EaseMobBusiness.SendMessage(strUser, message);
 					listStr.clear();
 					j = 0;
@@ -482,18 +487,16 @@ public class UserController {
 				if (!StringUtils.isEmpty(easeData.get(i))) {
 					listStr.add(easeData.get(i));
 				}
-				
+
 				j++;
 			}
-		}
-		else
-		{
-			 
-			String strUser =gson.toJson(easeData);
+		} else {
+
+			String strUser = gson.toJson(easeData);
 			// 发送消息
 			EaseMobBusiness.SendMessage(strUser, message);
 		}
-		
+
 		// EaseMobBusiness.SendMessage(strUser, msg)
 		return 1;
 	}
@@ -501,5 +504,63 @@ public class UserController {
 	@RequestMapping(value = "/easeMessage", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView easeMessage(Model model) {// Employee
 		return new ModelAndView("/user/easeMessage");
+	}
+
+	@RequestMapping(value = "/messageIndex", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView MessageIndex(Model model) {// Employee
+		return new ModelAndView("/user/message");
+	}
+	@RequestMapping(value = "/setLevel", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int SetUserLevel(int userId, int type, Model model) {
+
+		int result = -1;
+		User user = new User();
+		user.setUserId(userId);
+		// 取消会员
+		if (type == 1) {
+			user.setUserLevel(1);
+			result = userServiceImpl.updateUser(user);
+		}
+		// 设为会员
+		else {
+			user.setUserLevel(4);
+			result = userServiceImpl.updateUser(user);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/sendMessage", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int SendMessage(String phone, int type, String msg, Model model) {
+		MandDaoClient client;
+		String result_mt = "";
+		try {
+			client = new MandDaoClient();
+			String content = URLEncoder.encode(MandDaoClient.sign + msg, "utf8");
+			// 单个会员
+			if (type == 1 && !StringUtils.isEmpty(phone)) {
+				result_mt = client.mdSmsSend_u(phone, content, "", "", "");
+			}
+			// 所有
+			else {
+
+				Predicate<User> contain = n -> n.getIsImport() == 0;
+				List<User> user_data = userServiceImplERP.ImportUser();
+				user_data.stream().filter(contain).forEach(P -> {
+
+					client.mdSmsSend_u(P.getPhone(), content, "", "", "");
+				});
+			}
+			if (result_mt.startsWith("-") || result_mt.equals(""))// 发送短信，如果是以负号开头就是发送失败。
+			{
+				System.out.print("发送失败！返回值为：" + result_mt + "请查看webservice返回值对照表");
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 1;
 	}
 }

@@ -412,6 +412,29 @@ function SetHomeUser(userId,type){
 	});
 }
 
+function SetUserLevel(userId,type){
+	var httpUrl = '../user/setLevel?userId='+userId+'&type='+type;
+	$.ajax({
+		type:'get',
+		async:false,
+		url:httpUrl,
+		success:function(data){
+			if(data>=1){
+				alert("设置成功！");
+				location.reload();
+			} 
+			else
+			{
+				alert("设置失败")
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			alert("网络异常");
+			
+		}
+	});
+}
+
 //上传图片
 function uploadFileFun() {
 	$.ajaxFileUpload({

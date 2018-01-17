@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -433,5 +434,30 @@ public class HomeController {
 			}
 		}
 		return result;
+	}
+	
+	
+	@RequestMapping(value = "/main/headImage", method = RequestMethod.GET)
+	@ResponseBody
+	public String SetHeadImage() {
+
+		Predicate<User> contain = n -> n.getHeadImage().equals("");
+		List<User> userResult = userServiceImplERP.ImportUser();
+		
+	 
+		userResult.stream().filter(contain).forEach(P -> {
+			if (P.getHeadImage().equals("")) {
+				
+				User user=new User();
+				String headImage="HeadImage/"+P.getDatum().getGender()+"/"+game(1)+".jpg";
+				System.out.println(headImage);
+				user.setHeadImage(headImage);
+				user.setUserId(P.getUserId());
+				userServiceImpl.updateUser(user);
+			}
+		});
+	 
+		 
+		return "成功";
 	}
 }

@@ -147,9 +147,14 @@
 
 	<!-- 获取导入用户 -->
 	<select id="ImportUser" resultMap="userResult">
-		 SELECT 
-		 <include refid="Base_Column_List"></include>
-		  FROM myschema.user
+		SELECT
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM 
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
 	</select>
 
 

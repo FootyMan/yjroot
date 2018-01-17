@@ -34,6 +34,10 @@ public class UserModel implements Serializable {
 	 */
 	private String userLevel;
 	/**
+	 * 级别ID
+	 */
+	private int userLevelId;
+	/**
 	 * 用户昵称
 	 */
 	private String nickName;
@@ -298,6 +302,14 @@ public class UserModel implements Serializable {
 
 	public void setRegisterCode(String registerCode) {
 		this.registerCode = registerCode;
+	}
+
+	public int getUserLevelId() {
+		return userLevelId;
+	}
+
+	public void setUserLevelId(int userLevelId) {
+		this.userLevelId = userLevelId;
 	}
 
 }

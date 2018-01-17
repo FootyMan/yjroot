@@ -23,8 +23,8 @@
 								maxlength="20" placeholder="用户id">
 						</div>
 						<div class="col-sm-2">
-							<input type="text" name="phone" id="phone"
-								class="form-control" maxlength="20" placeholder="手机号">
+							<input type="text" name="phone" id="phone" class="form-control"
+								maxlength="20" placeholder="手机号">
 						</div>
 						<div class="col-sm-2">
 							<select name="userLevel" id="userLevel" class="form-control">
@@ -40,12 +40,10 @@
 							<input type="submit" class="btn btn-sm btn-primary" value="搜索" />
 						</div>
 						<div class="ibox-tools">
-							<a href="../user/add"
-								class="btn btn-sm btn-primary">新增用户</a>
+							<a href="../user/add" class="btn btn-sm btn-primary">新增用户</a>
 						</div>
 						<div class="ibox-tools">
-							<a href="../user/easeMessage"
-								class="btn btn-sm btn-primary">发送消息</a>
+							<a href="../user/easeMessage" class="btn btn-sm btn-primary">发送消息</a>
 						</div>
 					</div>
 				</div>
@@ -79,14 +77,32 @@
 								<td>${emp.sexuat}</td>
 								<td>${emp.deviceTypeName}</td>
 								<td>${emp.isDisable}</td>
-								<td>
-								<a class="btn btn-white btn-sm" href="../user/add?userId=${emp.userId}">
-								<iclass="fa fa-pencil"></i> 编辑 </a>
-								<c:if test="${emp.isHomeUser==0}">
-								 <a class="btn btn-white btn-sm"href="javascript:void(0)" onclick="SetHomeUser(${emp.userId},1)">
-								 <i class="fa fa-pencil"></i> 设到首页 </a></td>
-								</c:if>
-							
+								<td><a class="btn btn-white btn-sm"
+									href="../user/add?userId=${emp.userId}">  
+										  编辑 </a> <c:if test="${emp.isHomeUser==0}">
+										<a class="btn btn-white btn-sm" href="javascript:void(0)"
+											onclick="SetHomeUser(${emp.userId},1)"> 
+<!-- 											<i -->
+<!-- 											class="fa fa-pencil"></i>  -->
+											设到首页
+										</a>
+									</c:if> <c:if test="${emp.userLevelId==1}">
+										<a class="btn btn-white btn-sm" href="javascript:void(0)"
+											onclick="SetUserLevel(${emp.userId},2)"> 
+<!-- 											<i -->
+<!-- 											class="fa fa-pencil"></i> -->
+											 设为会员
+										</a>
+									</c:if> <c:if test="${emp.userLevelId>1}">
+										<a class="btn btn-white btn-sm" href="javascript:void(0)"
+											onclick="SetUserLevel(${emp.userId},1)"> 
+<!-- 											<i -->
+<!-- 											class="fa fa-pencil"></i>  -->
+											取消会员
+										</a>
+									</c:if></td>
+
+
 							</tr>
 						</c:forEach>
 					</tbody>
