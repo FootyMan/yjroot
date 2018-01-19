@@ -93,13 +93,17 @@ public class UserController {
 		}
 		userParameter.setPage(pagination);
 		Pagination.threadLocal.set(pagination);
-
+		userParameter.setIsImport(-1);
 		if (!StringUtils.isEmpty(userModel.getUserNo())) {
 			userParameter.setUserNo(userModel.getUserNo());
 		} else if (!StringUtils.isEmpty(userModel.getPhone())) {
 			userParameter.setPhone(userModel.getPhone());
 		} else if (!StringUtils.isEmpty(userModel.getUserLevel())) {
 			userParameter.setUserLevel(Integer.parseInt(userModel.getUserLevel()));
+		} else if (!StringUtils.isEmpty(userModel.getNickName())) {
+			userParameter.setNickName(userModel.getNickName());
+		} else if (!StringUtils.isEmpty(userModel.getIsImport())) {
+			userParameter.setIsImport(Integer.parseInt(userModel.getIsImport()));
 		}
 		// 查询首页
 		List<HomeUser> homeData = homeUserServiceImplERP.selectHomeUserList();
@@ -510,6 +514,7 @@ public class UserController {
 	public ModelAndView MessageIndex(Model model) {// Employee
 		return new ModelAndView("/user/message");
 	}
+
 	@RequestMapping(value = "/setLevel", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public int SetUserLevel(int userId, int type, Model model) {

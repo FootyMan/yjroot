@@ -1,5 +1,6 @@
 package com.api.business;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ import com.service.api.impl.OrderServiceImpl;
 import com.service.api.impl.ProductServiceImpl;
 import com.service.bean.Order;
 import com.service.bean.Product;
+import com.service.redis.IosPayTypeManager;
 import com.service.utils.StringUtils;
+import com.service.utils.SystemConfig;
 
 @Service("OrderBusiness")
 public class OrderBusiness {
@@ -39,8 +42,8 @@ public class OrderBusiness {
 
 		OrderRequest orderModel = request.getbody();
 		Product product = productServiceImpl.selectProductById(orderModel.getProductId());
-		//订单号
-		String orderNumber=StringUtils.GetOrderNumber(request.getUserId(), product.getProductId());
+		// 订单号
+		String orderNumber = StringUtils.GetOrderNumber(request.getUserId(), product.getProductId());
 		if (product != null && product.getProductId() > 0) {
 			// 生成订单
 			Order order = new Order();
@@ -66,8 +69,8 @@ public class OrderBusiness {
 			wxResponse.setData(wx);
 			return wxResponse;
 		}
-		// 支付宝
-		else if (orderModel.getPayType() == 2) {
+		// android支付宝
+		else if (orderModel.getPayType() == 2 && request.getDeviceType() == 2) {
 			BaseResponse<AlipayResponse> aliPayResponse = new BaseResponse<AlipayResponse>();
 
 			AlipayResponse alipayResponseModel = new AlipayResponse();
@@ -76,6 +79,23 @@ public class OrderBusiness {
 			String orderString = alipayManager.GetOrderString(orderNumber, product.getProductDesc(),
 					String.valueOf(product.getPrice()));
 			alipayResponseModel.setAlipayString(orderString);
+			aliPayResponse.setData(alipayResponseModel);
+			return aliPayResponse;
+		}
+		// ios支付宝
+		else if (orderModel.getPayType() == 2 && request.getDeviceType() == 1) {
+			BaseResponse<AlipayResponse> aliPayResponse = new BaseResponse<AlipayResponse>();
+			AlipayResponse alipayResponseModel = new AlipayResponse();
+			String aliWebUrl="";
+			try {
+				aliWebUrl = SystemConfig.ServerErpAddress + "/wappay/pay.jsp?WIDout_trade_no=" + orderNumber
+						+ "&WIDsubject=" + URLEncoder.encode(product.getTitle(),"utf-8") + "&WIDtotal_amount=" + product.getPrice() + "&WIDbody="
+						+ URLEncoder.encode(product.getProductDesc(),"utf-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			alipayResponseModel.setAlipayString(aliWebUrl);
 			aliPayResponse.setData(alipayResponseModel);
 			return aliPayResponse;
 		}
@@ -89,6 +109,8 @@ public class OrderBusiness {
 	 * @return
 	 */
 	public BaseResponse<ProductsResponse> GetProducts(baseRequest<?> request) {
+
+		IosPayTypeManager payManger = new IosPayTypeManager();
 		List<Product> products = productServiceImpl.selectProductlist();
 
 		BaseResponse<ProductsResponse> response = new BaseResponse<ProductsResponse>();
@@ -104,6 +126,8 @@ public class OrderBusiness {
 		}
 		ps.setProducts(listProduct);
 		response.setData(ps);
+		// 是否走内购非0为真 0不走 1走
+		response.getData().setIsIap(payManger.GetPayType());
 		return response;
 	}
 }

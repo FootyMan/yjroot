@@ -40,12 +40,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>支付成功</title>
 </head>
-<body>
+<body onload="Successfun()">
 	<button class="new-btn-login" onclick="Successfun()" type="button" style="text-align: center;">支付成功跳转个人中心</button>
 </body>
 </html>
 <script language="javascript">
+
 	function Successfun() {
-		alert("ios");
+		//paySuccess();
+		alert("11");
 	}
 </script>

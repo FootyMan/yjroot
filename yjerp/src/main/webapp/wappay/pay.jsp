@@ -23,12 +23,12 @@ if(request.getParameter("WIDout_trade_no")!=null){
 	// 商户订单号，商户网站订单系统中唯一订单号，必填
     String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 	// 订单名称，必填
-    String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
+    String subject = request.getParameter("WIDsubject");
 	System.out.println(subject);
     // 付款金额，必填
     String total_amount=new String(request.getParameter("WIDtotal_amount").getBytes("ISO-8859-1"),"UTF-8");
     // 商品描述，可空
-    String body = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
+    String body = request.getParameter("WIDbody");
     // 超时时间 可空
    String timeout_express="2m";
     // 销售产品码 必填
@@ -58,7 +58,7 @@ if(request.getParameter("WIDout_trade_no")!=null){
 	try {
 		// 调用SDK生成表单
 		form = client.pageExecute(alipay_request).getBody();
-		response.setContentType("text/html;charset=" + AlipayConfig.CHARSET); 
+		response.setContentType("text/html;charset=" + AlipayConfig.charset); 
 	    response.getWriter().write(form);//直接将完整的表单html输出到页面 
 	    response.getWriter().flush(); 
 	    response.getWriter().close();

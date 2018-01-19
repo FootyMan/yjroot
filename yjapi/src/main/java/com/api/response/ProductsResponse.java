@@ -10,6 +10,10 @@ public class ProductsResponse {
 	{
 		products=new ArrayList<ProductDetailResponse>();
 	}
+	@ApiModelProperty(value = "购买产品")
+	private List<ProductDetailResponse> products;
+	@ApiModelProperty(value = "是否走内购 非0为真")
+	private int isIap;
 	
 	public List<ProductDetailResponse> getProducts() {
 		return products;
@@ -19,7 +23,12 @@ public class ProductsResponse {
 		this.products = products;
 	}
 
-	@ApiModelProperty(value = "购买产品")
-	private List<ProductDetailResponse> products;
+	public int getIsIap() {
+		return isIap;
+	}
+
+	public void setIsIap(int isIap) {
+		this.isIap = isIap;
+	}
 
 }

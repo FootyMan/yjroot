@@ -76,7 +76,7 @@
 		
 		where 1=1
 		<include refid="ListWhere"></include>
-		order by a.userId
+		 order by a.registerTime desc
 		<!-- <if test="gender>0"> -->
 		<!-- and b.gender=#{gender} -->
 		<!-- </if> -->
@@ -141,6 +141,12 @@
 		</if>
 		<if test="userLevel!=null and userLevel>0">
 			and userLevel=#{userLevel}
+		</if>
+		<if test="nickName!=null and nickName!=''">
+			and nickName=#{nickName}
+		</if>
+		<if test="isImport!=null and isImport>0">
+			and isImport=#{isImport}
 		</if>
 	</sql>
 

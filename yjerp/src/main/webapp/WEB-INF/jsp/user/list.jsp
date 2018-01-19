@@ -27,6 +27,17 @@
 								maxlength="20" placeholder="手机号">
 						</div>
 						<div class="col-sm-2">
+							<input type="text" name="nickName" id="nickName" class="form-control"
+								maxlength="20" placeholder="昵称">
+						</div>
+						<div class="col-sm-2">
+							<select name="isImport" id="isImport" class="form-control">
+								<option value="">全部</option>
+								<option value="0">注册用户</option>
+								<option value="1">花蛇用户</option>
+							</select>
+						</div>
+						<div class="col-sm-2">
 							<select name="userLevel" id="userLevel" class="form-control">
 								<option value="">全部</option>
 								<option value="1">普通会员</option>

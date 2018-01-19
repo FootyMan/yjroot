@@ -1,21 +1,16 @@
 package com.erp.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +26,6 @@ import com.erp.huashe.ListDiscovers;
 import com.erp.huashe.Member;
 import com.erp.huashe.Photo;
 import com.erp.huashe.UserInfo;
-import com.erp.model.PositionModel;
-import com.erp.model.UserImageModel;
-import com.erp.model.UserModel;
-import com.erp.utils.PositionUtils;
 import com.google.gson.Gson;
 import com.service.api.impl.InvitationCodeServiceImpl;
 import com.service.api.impl.LabletTypeServiceImpl;
@@ -58,6 +49,7 @@ import com.service.easemob.EaseMobBusiness;
 import com.service.easemob.NeteaseBusiness;
 import com.service.easemob.NeteaseModel;
 import com.service.erp.impl.UserServiceImplERP;
+import com.service.redis.IosPayTypeManager;
 import com.service.utils.Md5Util;
 import com.service.utils.StringUtils;
 import com.service.utils.SystemConfig;
@@ -435,29 +427,42 @@ public class HomeController {
 		}
 		return result;
 	}
-	
-	
+
 	@RequestMapping(value = "/main/headImage", method = RequestMethod.GET)
 	@ResponseBody
 	public String SetHeadImage() {
 
 		Predicate<User> contain = n -> n.getHeadImage().equals("");
 		List<User> userResult = userServiceImplERP.ImportUser();
-		
-	 
+
 		userResult.stream().filter(contain).forEach(P -> {
 			if (P.getHeadImage().equals("")) {
-				
-				User user=new User();
-				String headImage="HeadImage/"+P.getDatum().getGender()+"/"+game(1)+".jpg";
+
+				User user = new User();
+				String headImage = "HeadImage/" + P.getDatum().getGender() + "/" + game(1) + ".jpg";
 				System.out.println(headImage);
 				user.setHeadImage(headImage);
 				user.setUserId(P.getUserId());
 				userServiceImpl.updateUser(user);
 			}
 		});
-	 
-		 
+
 		return "成功";
 	}
+
+	@RequestMapping(value = "/main/setPayType", method = RequestMethod.GET)
+	@ResponseBody
+	public String SetIosPayType(int isIap) {
+		IosPayTypeManager payManger=new IosPayTypeManager();
+		return payManger.SetPayType(isIap);
+
+	}
+	@RequestMapping(value = "/main/getPayType", method = RequestMethod.GET)
+	@ResponseBody
+	public int GetIosPayType() {
+		IosPayTypeManager payManger=new IosPayTypeManager();
+		return payManger.GetPayType();
+
+	}
+
 }

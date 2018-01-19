@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -88,18 +90,26 @@ public class TestLog4j {
 
 	public static void main(String[] args) throws Exception {
 
-		String string = "User-Agent	Dalvik/2.1.0 (Linux; U; Android 7.1.1; XT1650-05 Build/NCCS26.118-31-1-10)";
-		String str[] = string.split(";");
-		if (str.length > 0) {
-			String version = str[2];
-			if (!StringUtils.isEmpty(version)) {
-				String numbers = version.replaceAll("Android", "").trim();
-				int dd =Integer.parseInt(numbers.substring(0, 1));
-				System.out.println(dd);
-	 
-			}
-			// System.out.println(version);
-		}
+		String dd="成都市";
+		dd=URLEncoder.encode(dd,"UTF-8");
+		String dString=URLDecoder.decode(dd,"UTF-8");
+		System.out.println(dString);
+//		String strdesc=new String(dd.getBytes("ISO-8859-1"),"UTF-8");
+//		String aliWebUrl = SystemConfig.ServerErpAddress + "/wappay/pay.jsp?WIDout_trade_no=111111"
+//				+ "&WIDsubject=" + strdesc + "&WIDtotal_amount=11&WIDbody="+ strdesc;
+//		System.out.println(aliWebUrl);
+//		String string = "User-Agent	Dalvik/2.1.0 (Linux; U; Android 7.1.1; XT1650-05 Build/NCCS26.118-31-1-10)";
+//		String str[] = string.split(";");
+//		if (str.length > 0) {
+//			String version = str[2];
+//			if (!StringUtils.isEmpty(version)) {
+//				String numbers = version.replaceAll("Android", "").trim();
+//				int dd =Integer.parseInt(numbers.substring(0, 1));
+//				System.out.println(dd);
+//	 
+//			}
+//			// System.out.println(version);
+//		}
 		// for (String s : str) {
 		// System.out.println(s);
 		// }
