@@ -55,11 +55,22 @@ public class HomeBusiness {
 			object.setRecommend(recommend);
 			// 查询推荐用户
 		}
-		//
+		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex(),
 				request.getUserId());
+		// 把欲见小秘书写死
+		if (requestModel.getPageIndex() == 1) {
+			User secretary = userServiceImpl.GetSecretary();
+			HomeResponse mishu = new HomeResponse();
+			mishu.setVip(secretary.getUserLevel());
+			mishu.setHeadImage(SystemConfig.ImgurlPrefix + secretary.getHeadImage());
+			mishu.setNickName(secretary.getNickName());
+			mishu.setAge(26);
+			mishu.setUserId(secretary.getUserId());
+			list.add(mishu);
+			pagePaging.setPageSize(pagePaging.getPageSize() - 1);
+		}
 		List<User> userData = userServiceImpl.HomeUserList(pagePaging);
-		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		for (User user : userData) {
 			list.add(businessUtils.EntityToModel(user));
 		}
@@ -94,7 +105,7 @@ public class HomeBusiness {
 		}
 		rangeParameter.setLat(request.getLat());
 		rangeParameter.setLon(request.getLon());
-		//如果id搜索 其他条件忽略
+		// 如果id搜索 其他条件忽略
 		if (!StringUtils.isEmpty(requestModel.getShowId())) {
 			rangeParameter.setShowId(requestModel.getShowId());
 		} else {

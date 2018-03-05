@@ -158,7 +158,7 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
-		and a.userId!=#{userId}
+		and a.userId!=#{userId} and a.userId!=5
 		order by c.browseTime desc
 		LIMIT
 		#{pageIndex},#{pageSize}
@@ -176,7 +176,7 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
-		and a.userId!=#{userId}
+		and a.userId!=#{userId} and a.userId!=5
 	</select>
 
 	<!-- 首页推荐 -->
@@ -337,6 +337,13 @@
 		where userId=#{userId}
 	</update>
 
+    <!-- 欲见小秘书 -->
+	<select id="GetSecretary" resultType="com.service.bean.User">
+		 SELECT
+		 userId, userNo, headImage, userLevel, nickName, inviteCode From user	
+         where  userId=5
+	</select>
+	
 	<sql id="Range_Column_Where">
 		<if test="showId>0">
 			AND a.userNo=#{showId}

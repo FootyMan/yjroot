@@ -240,5 +240,15 @@ public class UserServiceImpl {
 		DBContextHolder.setDBType("siteRead");
 		return userMappe.updateImportUser(user);
 	}
+	/**
+	 * 获取小秘书
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public User GetSecretary() {
+		DBContextHolder.setDBType("siteRead");
+		return userMappe.GetSecretary();
+	}
 
 }

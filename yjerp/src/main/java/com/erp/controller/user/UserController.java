@@ -50,6 +50,7 @@ import com.service.enums.UserLevel;
 import com.service.erp.impl.HomeUserServiceImplERP;
 import com.service.erp.impl.UserImgServiceImplERP;
 import com.service.erp.impl.UserServiceImplERP;
+import com.service.parameter.bean.UserListSearchParameter;
 import com.service.utils.MandDaoClient;
 import com.service.utils.Md5Util;
 import com.service.utils.Pagination;
@@ -86,7 +87,7 @@ public class UserController {
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView list(UserModel userModel, Model model) {// Employee
 
-		User userParameter = new User();
+		UserListSearchParameter userParameter = new UserListSearchParameter();
 		Pagination pagination = userModel.getPage();
 		if (pagination == null) {
 			pagination = new Pagination();
@@ -104,6 +105,8 @@ public class UserController {
 			userParameter.setNickName(userModel.getNickName());
 		} else if (!StringUtils.isEmpty(userModel.getIsImport())) {
 			userParameter.setIsImport(Integer.parseInt(userModel.getIsImport()));
+		} else if (userModel.getSex() > 0) {
+			userParameter.setGender(userModel.getSex());
 		}
 		// 查询首页
 		List<HomeUser> homeData = homeUserServiceImplERP.selectHomeUserList();
@@ -128,6 +131,10 @@ public class UserController {
 			m.setIsHomeUser(SetIsHomeUser(homeData, x.getUserId()));
 			m.setUserNo(x.getUserNo());
 			m.setUserLevelId(x.getUserLevel());
+			m.setHeadImage(SystemConfig.ImgurlPrefix + x.getHeadImage());
+			if (x.getHeadImage().indexOf("http") != -1) {
+				m.setHeadImage(x.getHeadImage());
+			}
 			listUser.add(m);
 		}
 		model.addAttribute("listUser", listUser);

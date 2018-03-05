@@ -3,6 +3,7 @@ package com.service.erp.dao;
 import java.util.List;
 
 import com.service.bean.User;
+import com.service.parameter.bean.UserListSearchParameter;
 
 public abstract interface UserMapperERP {
 
@@ -11,7 +12,7 @@ public abstract interface UserMapperERP {
 	 * @param user
 	 * @return
 	 */
-	public abstract List<User> ErpUserListByPage(User user);
+	public abstract List<User> ErpUserListByPage(UserListSearchParameter user);
 	
 	/**
 	 * 首页用户列表

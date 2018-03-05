@@ -11,7 +11,7 @@ public enum UserLevel {
 	Ordinary(1,"普通会员",1),
 	Month(2,"包月会员",2),
 	Half_a_year(3,"半年会员",3),
-	Year(4,"半年会员",4);
+	Year(4,"年费会员",4);
 
 	private int code;
 	private int userLevel;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.service.bean.User;
 import com.service.erp.dao.UserMapperERP;
+import com.service.parameter.bean.UserListSearchParameter;
 import com.service.utils.DBContextHolder;
 
 @Service("UserServiceImplERP")
@@ -21,7 +22,7 @@ public class UserServiceImplERP {
 	 * @param user
 	 * @return
 	 */
-	public List<User> ErpUserListByPage(User user) {
+	public List<User> ErpUserListByPage(UserListSearchParameter user) {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.ErpUserListByPage(user);
 	}

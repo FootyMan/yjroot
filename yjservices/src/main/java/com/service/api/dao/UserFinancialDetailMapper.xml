@@ -74,7 +74,7 @@
 		from userfinancialdetail as a
 		inner join t_order as b on
 		a.sourceNumber=b.orderNumber
-		inner join user as c on c.userId=1
+		inner join user as c on c.userId=b.userId
 		inner
 		join product d on d.productId=b.productId
 		where a.userId=#{userId} and

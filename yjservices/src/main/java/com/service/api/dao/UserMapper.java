@@ -143,4 +143,9 @@ public abstract interface UserMapper {
 	 * @return
 	 */
 	public abstract int updateImportUser(User user);
+	/**
+	 * 获取小秘书
+	 * @return
+	 */
+	public abstract User GetSecretary();
 }

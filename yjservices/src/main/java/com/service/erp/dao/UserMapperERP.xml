@@ -64,7 +64,7 @@
 	</sql>
 	<!-- 后台用户列表 -->
 	<select id="ErpUserListByPage" resultMap="userResult"
-		parameterType="com.service.bean.User">
+		parameterType="com.service.parameter.bean.UserListSearchParameter">
 		SELECT
 		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
 		a.userLevel,a.isDisable,b.sexuat,b.cityId,
@@ -147,6 +147,9 @@
 		</if>
 		<if test="isImport!=null and isImport>0">
 			and isImport=#{isImport}
+		</if>
+		<if test="gender">
+			and b.gender=#{gender}
 		</if>
 	</sql>
 
