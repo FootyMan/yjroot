@@ -94,18 +94,23 @@ public class UserController {
 		}
 		userParameter.setPage(pagination);
 		Pagination.threadLocal.set(pagination);
-		userParameter.setIsImport(-1);
+
 		if (!StringUtils.isEmpty(userModel.getUserNo())) {
 			userParameter.setUserNo(userModel.getUserNo());
-		} else if (!StringUtils.isEmpty(userModel.getPhone())) {
+		}
+		if (!StringUtils.isEmpty(userModel.getPhone())) {
 			userParameter.setPhone(userModel.getPhone());
-		} else if (!StringUtils.isEmpty(userModel.getUserLevel())) {
+		}
+		if (!StringUtils.isEmpty(userModel.getUserLevel())) {
 			userParameter.setUserLevel(Integer.parseInt(userModel.getUserLevel()));
-		} else if (!StringUtils.isEmpty(userModel.getNickName())) {
+		}
+		if (!StringUtils.isEmpty(userModel.getNickName())) {
 			userParameter.setNickName(userModel.getNickName());
-		} else if (!StringUtils.isEmpty(userModel.getIsImport())) {
-			userParameter.setIsImport(Integer.parseInt(userModel.getIsImport()));
-		} else if (userModel.getSex() > 0) {
+		}
+		if (userModel.getIsImport() > 0) {
+			userParameter.setIsImport(userModel.getIsImport());
+		}
+		if (userModel.getSex() > 0) {
 			userParameter.setGender(userModel.getSex());
 		}
 		// 查询首页
@@ -126,7 +131,7 @@ public class UserController {
 			m.setInviteCode(x.getInviteCode());
 			m.setAge(datm.getAge());
 			m.setSexName(datm.getGender() == 1 ? "男" : "女");
-			m.setCityName(provinceServiceImpl.SelectProvincesById(datm.getCityId()).getName());
+			m.setCityName("11");// provinceServiceImpl.SelectProvincesById(datm.getCityId()).getName();
 			m.setSexuat(datm.getSexuat());
 			m.setIsHomeUser(SetIsHomeUser(homeData, x.getUserId()));
 			m.setUserNo(x.getUserNo());
