@@ -145,7 +145,7 @@
 		<if test="nickName!=null and nickName!=''">
 			and nickName=#{nickName}
 		</if>
-		<if test="isImport!=null and isImport>0">
+		<if test="isImport>0">
 			and isImport=#{isImport}
 		</if>
 		<if test="gender">

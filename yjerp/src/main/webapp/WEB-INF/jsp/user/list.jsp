@@ -32,14 +32,14 @@
 						</div>
 						<div class="col-sm-2">
 							<select name="isImport" id="isImport" class="form-control">
-								<option value="">全部</option>
-								<option value="0">注册用户</option>
-								<option value="1">花蛇用户</option>
+								<option value="0">全部</option>
+								<option value="1">注册用户</option>
+								<option value="2">花蛇用户</option>
 							</select>
 						</div>
 						<div class="col-sm-2">
 							<select name="userLevel" id="userLevel" class="form-control">
-								<option value="">全部</option>
+								<option value="0">全部</option>
 								<option value="1">普通会员</option>
 								<option value="2">月度会员</option>
 								<option value="3">半年会员</option>
@@ -48,7 +48,7 @@
 						</div>
 						<div class="col-sm-2">
 							<select name="sex" id="sex" class="form-control">
-								<option value="">全部</option>
+								<option value="0">全部</option>
 								<option value="1">男</option>
 								<option value="2">女</option>
 							</select>

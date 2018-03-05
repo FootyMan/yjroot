@@ -71,7 +71,7 @@ public class UserModel implements Serializable {
 	/**
 	 * 是否是导入用户
 	 */
-	private String isImport;
+	private int isImport;
 
 	public String getCityName() {
 		return cityName;
@@ -316,11 +316,11 @@ public class UserModel implements Serializable {
 		this.userLevelId = userLevelId;
 	}
 
-	public String getIsImport() {
+	public int getIsImport() {
 		return isImport;
 	}
 
-	public void setIsImport(String isImport) {
+	public void setIsImport(int isImport) {
 		this.isImport = isImport;
 	}
 
