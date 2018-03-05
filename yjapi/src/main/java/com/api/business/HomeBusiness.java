@@ -17,8 +17,10 @@ import com.api.response.BaseResponse;
 import com.api.utils.PageParameter;
 import com.api.utils.ResponseUtils;
 import com.api.utils.ResultEnum;
+import com.service.api.impl.LoginLogServiceImpl;
 import com.service.api.impl.UserServiceImpl;
 import com.service.bean.AppHomePagePaging;
+import com.service.bean.LoginLog;
 import com.service.bean.RangeParameter;
 import com.service.bean.User;
 import com.service.bean.UserDatum;
@@ -32,6 +34,8 @@ public class HomeBusiness {
 	private UserServiceImpl userServiceImpl;
 	@Autowired
 	private BusinessUtils businessUtils;
+	@Autowired
+	private LoginLogServiceImpl loginLogServiceImpl;
 
 	/**
 	 * 获取首页列表
@@ -54,6 +58,7 @@ public class HomeBusiness {
 			}
 			object.setRecommend(recommend);
 			// 查询推荐用户
+			WriteLoginLog(request.getUserId(),"首页访问",2);
 		}
 		List<HomeResponse> list = new ArrayList<HomeResponse>();
 		AppHomePagePaging pagePaging = PageParameter.GetHomePage(requestModel.getPageIndex(), requestModel.getSex(),
@@ -158,6 +163,25 @@ public class HomeBusiness {
 		model.setSign(datum.getSign());
 		model.setSexuat(datum.getSexuat());
 		return model;
+	}
+
+	/**
+	 * 写入访问日志
+	 * @param userId
+	 * @param remark
+	 * @param loginType
+	 */
+	public void WriteLoginLog(int userId,String remark,int loginType) {
+		Thread t = new Thread(new Runnable() {
+			public void run() {
+				LoginLog log=new LoginLog();
+				log.setUserId(userId);
+				log.setLoginType(loginType);
+				log.setRemark(remark);
+				loginLogServiceImpl.insertLoginLog(log);
+			}
+		});
+		t.start();
 	}
 
 }
