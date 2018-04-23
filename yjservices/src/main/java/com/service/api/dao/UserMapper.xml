@@ -158,6 +158,9 @@
 		<if test="gender>0">
 			and b.gender=#{gender}
 		</if>
+		<if test="userId==7">
+			and isImport=2
+		</if>
 		and a.userId!=#{userId} and a.userId!=5
 		order by c.browseTime desc
 		LIMIT
@@ -175,6 +178,9 @@
 		a.isDisable=1 
 		<if test="gender>0">
 			and b.gender=#{gender}
+		</if>
+		<if test="userId==7">
+			and isImport=2
 		</if>
 		and a.userId!=#{userId} and a.userId!=5
 	</select>
@@ -356,6 +362,9 @@
 		</if>
 		<if test="beginAge>0 and endAge >0">
 			AND b.age between #{beginAge} and #{endAge}
+		</if>
+		<if test="userId==7">
+			and isImport=2
 		</if>
 	</sql>
 </mapper>
