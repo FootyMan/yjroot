@@ -347,6 +347,13 @@ public class UserBusiness {
 			response.setMsg("用户名或密码错误");
 			return response;
 		}
+		else {
+			if (resultUser.getIsDisable()<=0) {
+				response.setCode(ResultEnum.VerificationCode);
+				response.setMsg("此用户上传有关色情图片 已被禁用");
+				return response;
+			}
+		}
 		InitResponse initUser = initBusiness.InitUserData(resultUser.getUserId());
 		response.setData(initUser);
 		return response;

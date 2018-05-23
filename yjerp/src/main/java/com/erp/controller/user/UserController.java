@@ -580,4 +580,24 @@ public class UserController {
 
 		return 1;
 	}
+
+	/**
+	 * 
+	 * @param userId
+	 * @param type
+	 *            1启用 0禁用
+	 * @param model
+	 * @return
+	 */
+
+	@RequestMapping(value = "/setisDisable", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public int SetIsDisable(int userId, int type, Model model) {
+
+		User user = new User();
+		user.setUserId(userId);
+		user.setIsDisable(type);
+		int result = userServiceImplERP.setUserIsEnable(user);
+		return result;
+	}
 }

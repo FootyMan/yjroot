@@ -517,3 +517,28 @@ function updateImgHead(imgSort) {
 // }
 // }
 // window.onload=pageLoadFun;
+
+
+//禁用-启用
+function SetisDisable(userId,type){
+	var httpUrl = '../user/setisDisable?userId='+userId+'&type='+type;
+	$.ajax({
+		type:'get',
+		async:false,
+		url:httpUrl,
+		success:function(data){
+			if(data>=1){
+				alert("设置成功！");
+				location.reload();
+			} 
+			else
+			{
+				alert("设置失败")
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			alert("网络异常");
+			
+		}
+	});
+}

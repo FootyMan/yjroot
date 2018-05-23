@@ -89,4 +89,15 @@ public class UserServiceImplERP {
 		DBContextHolder.setDBType("siteRead");
 		return userMapperERP.ImportUser();
 	}
+	
+	/**
+	 * 设置用户是否禁用 1启用 0禁用
+	 * @param user
+	 * @return
+	 */
+	public int setUserIsEnable(User user)
+	{
+		DBContextHolder.setDBType("siteRead");
+		return userMapperERP.setUserIsEnable(user);
+	}
 }

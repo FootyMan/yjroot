@@ -113,7 +113,23 @@
 											onclick="SetUserLevel(${emp.userId},1)"> <!-- 											<i -->
 											<!-- 											class="fa fa-pencil"></i>  --> 取消会员
 										</a>
-									</c:if></td>
+									</c:if>
+									
+									
+									<!-- 启用用户 禁用用户 -->
+									<c:if test="${emp.isDisable.equals('启用')}">
+										<a class="btn btn-white btn-sm" href="javascript:void(0)"
+											onclick="SetisDisable(${emp.userId},0)"> <!-- 											<i -->
+			 										禁用
+										</a>
+									</c:if>
+									<c:if test="${emp.isDisable.equals('禁用')}">
+										<a class="btn btn-white btn-sm" href="javascript:void(0)"
+											onclick="SetisDisable(${emp.userId},1)"> <!-- 											<i -->
+			 										启用
+										</a>
+									</c:if>
+									</td>
 
 
 							</tr>

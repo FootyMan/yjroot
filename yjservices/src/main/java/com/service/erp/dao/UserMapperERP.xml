@@ -167,6 +167,17 @@
 	</select>
 
 
+	<!-- 禁用用户 -->
+	<update id="setUserIsEnable" parameterType="com.service.bean.User">
+		update user
+		<set>
+			<if test="isDisable!= null and isDisable>=0">
+				isDisable=#{isDisable},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+
 
 
 
