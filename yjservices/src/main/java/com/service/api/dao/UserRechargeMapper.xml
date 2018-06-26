@@ -44,7 +44,7 @@
 				isValid=#{isValid},
 			</if>
 		</set>
-		where userId=#{userId} and rechargeId=#{rechargeId}
+		where userId=#{userId}
 	</update>
 	<select id="selectRechargeByuserId" resultType="com.service.bean.UserRecharge"
 		parameterType="java.lang.Integer">
@@ -60,6 +60,6 @@
 		select
 		<include refid="BASE_COLUMN"></include>
 		from userrecharge
-		WHERE endTime&lt;=#{endTime} and isValid=2
+		WHERE endTime&lt;=#{endTime} and isValid=1
 	</select>
 </mapper>
