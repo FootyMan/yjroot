@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 
 import org.apache.log4j.Logger;
@@ -83,6 +85,9 @@ import com.service.utils.SystemConfig;
 public class UserBusiness {
 
 	private static Logger logger = Logger.getLogger(UserBusiness.class);
+	// 用户线程池
+	private static ExecutorService userThreadPoll = Executors
+			.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;
@@ -346,9 +351,8 @@ public class UserBusiness {
 			response.setCode(ResultEnum.VerificationCode);
 			response.setMsg("用户名或密码错误");
 			return response;
-		}
-		else {
-			if (resultUser.getIsDisable()<=0) {
+		} else {
+			if (resultUser.getIsDisable() <= 0) {
 				response.setCode(ResultEnum.VerificationCode);
 				response.setMsg("此用户上传有关色情图片 已被禁用");
 				return response;
@@ -370,41 +374,32 @@ public class UserBusiness {
 	 *            注册用户ID
 	 */
 	public void AddUserInvite(baseRequest<?> request, User invitation, int registerId) {
-		Thread t = new Thread(new Runnable() {
-			public void run() {
-				// 添加邀请
-				UserInvite invite = new UserInvite();
-				invite.setInviteUserId(invitation.getUserId());
-				invite.setInviteCode(invitation.getInviteCode());
-				invite.setRegisterUserId(registerId);
-				userInviteServiceImpl.insertInvite(invite);
-				// 添加经纬度
-				businessUtils.AddUserPoint(request, registerId);
-				// 添加浏览主表 用于首页查询排序、统计浏览次数
-				UserBrowseExt ext = new UserBrowseExt();
-				ext.setUserId(registerId);
-				ext.setBrowseNumber(0);
-				userBrowseExtServiceImpl.insertBrowseExt(ext);
-				// 注册环信----改用网易云im
-				String easemobId = registerId + SystemConfig.EaseSuffixId;
-				// String result = EaseMobBusiness.AccountCreate(easemobId);
-				// Map map = (Map) JSON.parse(result);
-				NeteaseModel netease = NeteaseBusiness.CreateaccId(easemobId,registerId);
-				// if (map != null && !map.containsKey("error")) {
-				if (netease != null && netease.getCode() == 200) {
-					// 更新用户
-					User upUser = new User();
-					upUser.setUserId(registerId);
-					upUser.setEasemobId(easemobId);
-					upUser.setImToken(netease.getInfo().getToken());
-					upUser.setIsEasemob(1);
-					userServiceImpl.updateUser(upUser);
-
-				}
-
-			}
-		});
-		t.start();
+		userThreadPoll.execute(new UserOperThread(request, invitation, registerId,userInviteServiceImpl,businessUtils,userBrowseExtServiceImpl,userServiceImpl));
+		/*
+		 * Thread t = new Thread(new Runnable() { public void run() { // 添加邀请
+		 * UserInvite invite = new UserInvite();
+		 * invite.setInviteUserId(invitation.getUserId());
+		 * invite.setInviteCode(invitation.getInviteCode());
+		 * invite.setRegisterUserId(registerId);
+		 * userInviteServiceImpl.insertInvite(invite); // 添加经纬度
+		 * businessUtils.AddUserPoint(request, registerId); // 添加浏览主表
+		 * 用于首页查询排序、统计浏览次数 UserBrowseExt ext = new UserBrowseExt();
+		 * ext.setUserId(registerId); ext.setBrowseNumber(0);
+		 * userBrowseExtServiceImpl.insertBrowseExt(ext); // 注册环信----改用网易云im
+		 * String easemobId = registerId + SystemConfig.EaseSuffixId; // String
+		 * result = EaseMobBusiness.AccountCreate(easemobId); // Map map = (Map)
+		 * JSON.parse(result); NeteaseModel netease =
+		 * NeteaseBusiness.CreateaccId(easemobId, registerId); // if (map !=
+		 * null && !map.containsKey("error")) { if (netease != null &&
+		 * netease.getCode() == 200) { // 更新用户 User upUser = new User();
+		 * upUser.setUserId(registerId); upUser.setEasemobId(easemobId);
+		 * upUser.setImToken(netease.getInfo().getToken());
+		 * upUser.setIsEasemob(1); userServiceImpl.updateUser(upUser);
+		 * 
+		 * }
+		 * 
+		 * } }); t.start();
+		 */
 	}
 
 	/**
@@ -869,19 +864,9 @@ public class UserBusiness {
 		// 此处设置网易云IM登录token
 		User up_user = new User();
 		up_user.setUserId(userId);
-		String token = userId+ SystemConfig.EaseSuffixId;
+		String token = userId + SystemConfig.EaseSuffixId;
 		up_user.setImToken(token);
 		userServiceImpl.updateUser(up_user);
-	}
-
-	public void test() {
-		Thread t = new Thread(new Runnable() {
-			public void run() {
-				System.out.println("1111111111111111");
-			}
-		});
-		t.start();
-
 	}
 
 }
