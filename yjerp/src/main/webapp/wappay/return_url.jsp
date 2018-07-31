@@ -1,5 +1,10 @@
 <%@page import="com.alipay.api.internal.util.AlipaySignature"%>
 <%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<%
 	/* *
 	 功能：支付宝页面跳转同步通知页面
 	 版本：3.2
@@ -38,14 +43,34 @@
 </style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/css/index.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/css/reset.css">
 <title>支付成功</title>
 </head>
 <body onload="Successfun()">
-	<button class="new-btn-login" onclick="Successfun()" type="button" style="text-align: center;">支付成功跳转个人中心</button>
+	<div class="tip_icon">
+		<img src="<%=path%>/images/zhifubao.png" class="tip_img" />
+	</div>
+	<p class="tips_status">恭喜您成为会员</p>
+	<div class="click_return"  onclick="Successfun()">
+		返回
+	</div>
 </body>
 </html>
 <script language="javascript">
-
+	//rem换算
+	(function(win, doc) {
+		doc.documentElement.style.fontSize = doc.documentElement.clientWidth
+				* 100 / 750 + 'px';
+		win.onresize = function() {
+			doc.documentElement.style.fontSize = doc.documentElement.clientWidth
+					* 100 / 750 + 'px';
+		};
+	})(window, document);
 	function Successfun() {
 		paySuccess();
 		//alert("11");
