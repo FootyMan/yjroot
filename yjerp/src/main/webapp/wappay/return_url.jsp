@@ -47,7 +47,7 @@
 <script language="javascript">
 
 	function Successfun() {
-		//paySuccess();
-		alert("11");
+		paySuccess();
+		//alert("11");
 	}
 </script>
