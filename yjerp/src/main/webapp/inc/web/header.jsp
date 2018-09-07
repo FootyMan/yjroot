@@ -33,26 +33,26 @@
 	<script type="text/javascript" src="<%=path%>/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script>
         $(document).ready(function () {
-        	 $('.form_datetime').datetimepicker({
-        	        language:  'zh-CN',
-        	        weekStart: 1,
-        	        todayBtn:  1,
-        			autoclose: 1,
-        			todayHighlight: 1,
-        			startView: 2,
-        			forceParse: 0,
-        	        showMeridian: 1
-        	    });
-        		$('.form_date').datetimepicker({
-        	        language:  'zh-CN',
-        	        weekStart: 1,
-        	        todayBtn:  1,
-        			autoclose: 1,
-        			todayHighlight: 1,
-        			startView: 2,
-        			minView: 2,
-        			forceParse: 0
-        	    });
+//         	 $('.form_datetime').datetimepicker({
+//         	        language:  'zh-CN',
+//         	        weekStart: 1,
+//         	        todayBtn:  1,
+//         			autoclose: 1,
+//         			todayHighlight: 1,
+//         			startView: 2,
+//         			forceParse: 0,
+//         	        showMeridian: 1
+//         	    });
+//         		$('.form_date').datetimepicker({
+//         	        language:  'zh-CN',
+//         	        weekStart: 1,
+//         	        todayBtn:  1,
+//         			autoclose: 1,
+//         			todayHighlight: 1,
+//         			startView: 2,
+//         			minView: 2,
+//         			forceParse: 0
+//         	    });
         	
         	/* 
             $('.input-daterange').datepicker({

@@ -113,23 +113,17 @@
 											onclick="SetUserLevel(${emp.userId},1)"> <!-- 											<i -->
 											<!-- 											class="fa fa-pencil"></i>  --> 取消会员
 										</a>
-									</c:if>
-									
-									
-									<!-- 启用用户 禁用用户 -->
-									<c:if test="${emp.isDisable.equals('启用')}">
+									</c:if> <!-- 启用用户 禁用用户 --> <c:if test="${emp.isDisable.equals('启用')}">
 										<a class="btn btn-white btn-sm" href="javascript:void(0)"
 											onclick="SetisDisable(${emp.userId},0)"> <!-- 											<i -->
-			 										禁用
+											禁用
 										</a>
-									</c:if>
-									<c:if test="${emp.isDisable.equals('禁用')}">
+									</c:if> <c:if test="${emp.isDisable.equals('禁用')}">
 										<a class="btn btn-white btn-sm" href="javascript:void(0)"
 											onclick="SetisDisable(${emp.userId},1)"> <!-- 											<i -->
-			 										启用
+											启用
 										</a>
-									</c:if>
-									</td>
+									</c:if></td>
 
 
 							</tr>
@@ -142,5 +136,26 @@
 			</div>
 		</div>
 	</form>
+	<input type="button" onclick="test()" id="btn_test" value="事实上"/> 
 </div>
 <script src="../js/goods/goods.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script>
+
+function test()
+{
+	$.ajax({
+		type : "get",
+		url : "../user/list",
+		dataType: 'html',
+// 		data : JSON.stringify(queryData),
+// 		contentType : "application/json",
+		success : function (data) {
+			alert(data)
+		// data = jQuery.parseJSON(data);
+		console.info(data);
+		$("#aaa").html(data);
+		}
+		    });
+	}
+</script>
