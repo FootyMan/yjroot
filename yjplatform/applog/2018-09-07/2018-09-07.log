@@ -1,0 +1,1048 @@
+2018-09-07 15:54:07 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 20400 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 15:54:07 -Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+2018-09-07 15:54:07 -The following profiles are active: dev
+2018-09-07 15:54:07 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:54:07 CST 2018]; root of context hierarchy
+2018-09-07 15:54:09 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 15:54:10 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$abad5e4c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:10 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$74a6dbd0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:12 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 15:54:13 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 15:54:13 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 15:54:13 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:13 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:54:14 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 15:54:14 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:54:14 -Starting service [Tomcat]
+2018-09-07 15:54:14 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 15:54:14 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 15:54:14 -Initializing Spring embedded WebApplicationContext
+2018-09-07 15:54:14 -Root WebApplicationContext: initialization completed in 7378 ms
+2018-09-07 15:54:15 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 15:54:15 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 15:54:15 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 15:54:15 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 15:54:15 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 15:54:15 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 15:54:15 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 15:54:15 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 15:54:16 -{dataSource-1} inited
+2018-09-07 15:54:16 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:54:07 CST 2018]; root of context hierarchy
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long[])
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/update]}" onto public com.erp.utils.R com.erp.controller.DeptController.update(com.erp.domain.DeptDO)
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/list],methods=[GET]}" onto public java.util.List<com.erp.domain.DeptDO> com.erp.controller.DeptController.list()
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.save(com.erp.domain.DeptDO)
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.DeptController.tree()
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.dept()
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/system/sysDept/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.treeView()
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.add()
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long[])
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/update]}" onto public com.erp.utils.R com.erp.controller.FileController.update(com.erp.domain.FileDO)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public com.erp.utils.PageUtils com.erp.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.save(com.erp.domain.FileDO)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/info/{id}]}" onto public com.erp.utils.R com.erp.controller.FileController.info(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto com.erp.utils.R com.erp.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:54:18 -Mapped "{[/common/generator/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.erp.controller.GeneratorController.list()
+2018-09-07 15:54:18 -Mapped "{[/common/generator/code/{tableName}]}" onto public void com.erp.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:54:18 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String com.erp.controller.GeneratorController.generator()
+2018-09-07 15:54:18 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String com.erp.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/common/generator/batchCode]}" onto public void com.erp.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:54:18 -Mapped "{[/common/log/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.remove(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String com.erp.controller.LogController.log()
+2018-09-07 15:54:18 -Mapped "{[/common/log/list],methods=[GET]}" onto com.erp.domain.PageDO<com.erp.domain.LogDO> com.erp.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.batchRemove(java.lang.Long[])
+2018-09-07 15:54:18 -Mapped "{[/index],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.index(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/main],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.main()
+2018-09-07 15:54:18 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.logout()
+2018-09-07 15:54:18 -Mapped "{[/login],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.login()
+2018-09-07 15:54:18 -Mapped "{[/login],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-09-07 15:54:18 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.remove(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.update(com.erp.domain.MenuDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/list]}" onto java.util.List<com.erp.domain.MenuDO> com.erp.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.save(com.erp.domain.MenuDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/tree/{roleId}],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/tree],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree()
+2018-09-07 15:54:18 -Mapped "{[/sys/menu/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/menu],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.menu(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/role/add],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.add()
+2018-09-07 15:54:18 -Mapped "{[/sys/role/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.update(com.erp.domain.RoleDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/role/list],methods=[GET]}" onto java.util.List<com.erp.domain.RoleDO> com.erp.controller.RoleController.list()
+2018-09-07 15:54:18 -Mapped "{[/sys/role/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/role/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(com.erp.domain.RoleDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/role/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.batchRemove(java.lang.Long[])
+2018-09-07 15:54:18 -Mapped "{[/sys/role],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.role()
+2018-09-07 15:54:18 -Mapped "{[/sys/role/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/online/list]}" onto public java.util.List<com.erp.domain.UserOnline> com.erp.controller.SessionController.list()
+2018-09-07 15:54:18 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String com.erp.controller.SessionController.online()
+2018-09-07 15:54:18 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> com.erp.controller.SessionController.sessionList()
+2018-09-07 15:54:18 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public com.erp.utils.R com.erp.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/exit],methods=[POST]}" onto boolean com.erp.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/add],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.add(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.remove(java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.update(com.erp.domain.UserDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/list],methods=[GET]}" onto com.erp.utils.PageUtils com.erp.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.save(com.erp.domain.UserDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.batchRemove(java.lang.Long[])
+2018-09-07 15:54:18 -Mapped "{[/sys/user/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.UserController.tree()
+2018-09-07 15:54:18 -Mapped "{[/sys/user],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.user(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.treeView()
+2018-09-07 15:54:18 -Mapped "{[/sys/user/updatePeronal],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.updatePeronal(com.erp.domain.UserDO)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/resetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.resetPwd(com.ero.vo.UserVO)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/adminResetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.adminResetPwd(com.ero.vo.UserVO)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/personal],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.personal(org.springframework.ui.Model)
+2018-09-07 15:54:18 -Mapped "{[/sys/user/uploadImg],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:54:18 -Mapped "{[/error]}" onto public com.erp.utils.R com.erp.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:54:18 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView com.erp.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:54:18 -Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:54:18 -Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-07 15:54:18 -Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-07 15:54:18 -Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-07 15:54:19 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:54:19 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:54:07 CST 2018]; root of context hierarchy
+2018-09-07 15:54:19 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:54:19 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:54:19 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:54:19 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-09-07 15:54:19 -[THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-09-07 15:54:21 -Registering beans for JMX exposure on startup
+2018-09-07 15:54:21 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-07 15:54:21 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-09-07 15:54:21 -Starting beans in phase 2147483647
+2018-09-07 15:54:21 -Context refreshed
+2018-09-07 15:54:21 -Found 1 custom documentation plugin(s)
+2018-09-07 15:54:21 -Scanning for api listing references
+2018-09-07 15:54:21 -Generating unique operation named: removeUsingPOST_1
+2018-09-07 15:54:22 -Generating unique operation named: addUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: editUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: removeUsingPOST_2
+2018-09-07 15:54:22 -Generating unique operation named: removeUsingPOST_3
+2018-09-07 15:54:22 -Generating unique operation named: saveUsingPOST_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingHEAD_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPOST_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPUT_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPATCH_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingDELETE_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingOPTIONS_1
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingTRACE_1
+2018-09-07 15:54:22 -Generating unique operation named: editUsingGET_2
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_2
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPOST_2
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_3
+2018-09-07 15:54:22 -Generating unique operation named: removeUsingPOST_4
+2018-09-07 15:54:22 -Generating unique operation named: welcomeUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: addUsingGET_2
+2018-09-07 15:54:22 -Generating unique operation named: editUsingGET_3
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_4
+2018-09-07 15:54:22 -Generating unique operation named: removeUsingPOST_5
+2018-09-07 15:54:22 -Generating unique operation named: saveUsingPOST_2
+2018-09-07 15:54:22 -Generating unique operation named: treeUsingGET_1
+2018-09-07 15:54:22 -Generating unique operation named: treeUsingGET_2
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPOST_3
+2018-09-07 15:54:22 -Generating unique operation named: addUsingGET_3
+2018-09-07 15:54:22 -Generating unique operation named: batchRemoveUsingPOST_1
+2018-09-07 15:54:22 -Generating unique operation named: editUsingGET_4
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_5
+2018-09-07 15:54:22 -Generating unique operation named: saveUsingPOST_3
+2018-09-07 15:54:22 -Generating unique operation named: saveUsingPOST_4
+2018-09-07 15:54:22 -Generating unique operation named: updateUsingPOST_4
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_6
+2018-09-07 15:54:22 -Generating unique operation named: listUsingHEAD_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingPOST_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingPUT_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingPATCH_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingDELETE_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingOPTIONS_1
+2018-09-07 15:54:22 -Generating unique operation named: listUsingTRACE_1
+2018-09-07 15:54:22 -Generating unique operation named: addUsingGET_4
+2018-09-07 15:54:22 -Generating unique operation named: batchRemoveUsingPOST_2
+2018-09-07 15:54:22 -Generating unique operation named: editUsingGET_5
+2018-09-07 15:54:22 -Generating unique operation named: listUsingGET_7
+2018-09-07 15:54:22 -Generating unique operation named: removeUsingPOST_6
+2018-09-07 15:54:23 -Generating unique operation named: saveUsingPOST_5
+2018-09-07 15:54:23 -Generating unique operation named: treeUsingGET_3
+2018-09-07 15:54:23 -Generating unique operation named: treeViewUsingGET_1
+2018-09-07 15:54:23 -Generating unique operation named: updateUsingPOST_5
+2018-09-07 15:54:23 -Starting ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:54:23 -Using a shared selector for servlet write/read
+2018-09-07 15:54:23 -Tomcat started on port(s): 8083 (http) with context path ''
+2018-09-07 15:54:23 -Started BootdoApplication in 17.106 seconds (JVM running for 17.743)
+2018-09-07 15:58:21 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 22360 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 15:58:21 -Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+2018-09-07 15:58:21 -The following profiles are active: dev
+2018-09-07 15:58:22 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:58:22 CST 2018]; root of context hierarchy
+2018-09-07 15:58:23 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 15:58:25 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$dcd78647] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:25 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$a5d103cb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:25 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 15:58:26 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 15:58:26 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 15:58:26 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:26 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:58:27 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 15:58:27 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:58:27 -Starting service [Tomcat]
+2018-09-07 15:58:27 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 15:58:27 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 15:58:27 -Initializing Spring embedded WebApplicationContext
+2018-09-07 15:58:27 -Root WebApplicationContext: initialization completed in 5192 ms
+2018-09-07 15:58:27 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 15:58:27 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 15:58:27 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 15:58:27 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 15:58:27 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 15:58:27 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 15:58:27 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 15:58:27 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 15:58:28 -{dataSource-1} inited
+2018-09-07 15:58:28 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:58:22 CST 2018]; root of context hierarchy
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long[])
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/update]}" onto public com.erp.utils.R com.erp.controller.DeptController.update(com.erp.domain.DeptDO)
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/list],methods=[GET]}" onto public java.util.List<com.erp.domain.DeptDO> com.erp.controller.DeptController.list()
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.save(com.erp.domain.DeptDO)
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.DeptController.tree()
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.dept()
+2018-09-07 15:58:30 -Mapped "{[/system/sysDept/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.treeView()
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.add()
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long[])
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/update]}" onto public com.erp.utils.R com.erp.controller.FileController.update(com.erp.domain.FileDO)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public com.erp.utils.PageUtils com.erp.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.save(com.erp.domain.FileDO)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/info/{id}]}" onto public com.erp.utils.R com.erp.controller.FileController.info(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto com.erp.utils.R com.erp.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:58:30 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/common/generator/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.erp.controller.GeneratorController.list()
+2018-09-07 15:58:30 -Mapped "{[/common/generator/code/{tableName}]}" onto public void com.erp.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:58:30 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String com.erp.controller.GeneratorController.generator()
+2018-09-07 15:58:30 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String com.erp.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/common/generator/batchCode]}" onto public void com.erp.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:58:30 -Mapped "{[/common/log/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.remove(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String com.erp.controller.LogController.log()
+2018-09-07 15:58:30 -Mapped "{[/common/log/list],methods=[GET]}" onto com.erp.domain.PageDO<com.erp.domain.LogDO> com.erp.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.batchRemove(java.lang.Long[])
+2018-09-07 15:58:30 -Mapped "{[/index],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.index(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/main],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.main()
+2018-09-07 15:58:30 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.logout()
+2018-09-07 15:58:30 -Mapped "{[/login],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.login()
+2018-09-07 15:58:30 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/login],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.remove(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.update(com.erp.domain.MenuDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/list]}" onto java.util.List<com.erp.domain.MenuDO> com.erp.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.save(com.erp.domain.MenuDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/tree/{roleId}],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/tree],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree()
+2018-09-07 15:58:30 -Mapped "{[/sys/menu/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/menu],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.menu(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/sys/role/add],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.add()
+2018-09-07 15:58:30 -Mapped "{[/sys/role/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.update(com.erp.domain.RoleDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/role/list],methods=[GET]}" onto java.util.List<com.erp.domain.RoleDO> com.erp.controller.RoleController.list()
+2018-09-07 15:58:30 -Mapped "{[/sys/role/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/role/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(com.erp.domain.RoleDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/role/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.batchRemove(java.lang.Long[])
+2018-09-07 15:58:30 -Mapped "{[/sys/role/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/sys/role],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.role()
+2018-09-07 15:58:30 -Mapped "{[/sys/online/list]}" onto public java.util.List<com.erp.domain.UserOnline> com.erp.controller.SessionController.list()
+2018-09-07 15:58:30 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> com.erp.controller.SessionController.sessionList()
+2018-09-07 15:58:30 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String com.erp.controller.SessionController.online()
+2018-09-07 15:58:30 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public com.erp.utils.R com.erp.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/exit],methods=[POST]}" onto boolean com.erp.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/add],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.add(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.remove(java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.update(com.erp.domain.UserDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/list],methods=[GET]}" onto com.erp.utils.PageUtils com.erp.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.save(com.erp.domain.UserDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.batchRemove(java.lang.Long[])
+2018-09-07 15:58:30 -Mapped "{[/sys/user/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.UserController.tree()
+2018-09-07 15:58:30 -Mapped "{[/sys/user/personal],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.personal(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/updatePeronal],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.updatePeronal(com.erp.domain.UserDO)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/resetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.resetPwd(com.ero.vo.UserVO)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/adminResetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.adminResetPwd(com.ero.vo.UserVO)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/uploadImg],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:58:30 -Mapped "{[/sys/user/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.treeView()
+2018-09-07 15:58:30 -Mapped "{[/sys/user],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.user(org.springframework.ui.Model)
+2018-09-07 15:58:30 -Mapped "{[/error]}" onto public com.erp.utils.R com.erp.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:58:30 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView com.erp.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:58:30 -Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:58:30 -Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-07 15:58:30 -Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-07 15:58:30 -Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-07 15:58:30 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:58:31 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:58:22 CST 2018]; root of context hierarchy
+2018-09-07 15:58:31 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:58:31 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:58:31 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:58:31 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-09-07 15:58:31 -[THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-09-07 15:58:33 -Registering beans for JMX exposure on startup
+2018-09-07 15:58:33 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-07 15:58:33 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-09-07 15:58:33 -Starting beans in phase 2147483647
+2018-09-07 15:58:33 -Context refreshed
+2018-09-07 15:58:33 -Found 1 custom documentation plugin(s)
+2018-09-07 15:58:33 -Scanning for api listing references
+2018-09-07 15:58:33 -Generating unique operation named: removeUsingPOST_1
+2018-09-07 15:58:33 -Generating unique operation named: addUsingGET_1
+2018-09-07 15:58:33 -Generating unique operation named: editUsingGET_1
+2018-09-07 15:58:33 -Generating unique operation named: listUsingGET_1
+2018-09-07 15:58:33 -Generating unique operation named: removeUsingPOST_2
+2018-09-07 15:58:33 -Generating unique operation named: removeUsingPOST_3
+2018-09-07 15:58:33 -Generating unique operation named: saveUsingPOST_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingGET_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingHEAD_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPOST_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPUT_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPATCH_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingDELETE_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingOPTIONS_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingTRACE_1
+2018-09-07 15:58:34 -Generating unique operation named: editUsingGET_2
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_2
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPOST_2
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_3
+2018-09-07 15:58:34 -Generating unique operation named: removeUsingPOST_4
+2018-09-07 15:58:34 -Generating unique operation named: welcomeUsingGET_1
+2018-09-07 15:58:34 -Generating unique operation named: addUsingGET_2
+2018-09-07 15:58:34 -Generating unique operation named: editUsingGET_3
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_4
+2018-09-07 15:58:34 -Generating unique operation named: removeUsingPOST_5
+2018-09-07 15:58:34 -Generating unique operation named: saveUsingPOST_2
+2018-09-07 15:58:34 -Generating unique operation named: treeUsingGET_1
+2018-09-07 15:58:34 -Generating unique operation named: treeUsingGET_2
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPOST_3
+2018-09-07 15:58:34 -Generating unique operation named: addUsingGET_3
+2018-09-07 15:58:34 -Generating unique operation named: batchRemoveUsingPOST_1
+2018-09-07 15:58:34 -Generating unique operation named: editUsingGET_4
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_5
+2018-09-07 15:58:34 -Generating unique operation named: saveUsingPOST_3
+2018-09-07 15:58:34 -Generating unique operation named: saveUsingPOST_4
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPOST_4
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_6
+2018-09-07 15:58:34 -Generating unique operation named: listUsingHEAD_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingPOST_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingPUT_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingPATCH_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingDELETE_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingOPTIONS_1
+2018-09-07 15:58:34 -Generating unique operation named: listUsingTRACE_1
+2018-09-07 15:58:34 -Generating unique operation named: addUsingGET_4
+2018-09-07 15:58:34 -Generating unique operation named: batchRemoveUsingPOST_2
+2018-09-07 15:58:34 -Generating unique operation named: editUsingGET_5
+2018-09-07 15:58:34 -Generating unique operation named: listUsingGET_7
+2018-09-07 15:58:34 -Generating unique operation named: removeUsingPOST_6
+2018-09-07 15:58:34 -Generating unique operation named: saveUsingPOST_5
+2018-09-07 15:58:34 -Generating unique operation named: treeUsingGET_3
+2018-09-07 15:58:34 -Generating unique operation named: treeViewUsingGET_1
+2018-09-07 15:58:34 -Generating unique operation named: updateUsingPOST_5
+2018-09-07 15:58:34 -Starting ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:58:34 -Using a shared selector for servlet write/read
+2018-09-07 15:58:34 -Tomcat started on port(s): 8083 (http) with context path ''
+2018-09-07 15:58:34 -Started BootdoApplication in 13.472 seconds (JVM running for 13.98)
+2018-09-07 15:59:29 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 22084 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 15:59:29 -Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+2018-09-07 15:59:29 -The following profiles are active: dev
+2018-09-07 15:59:29 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:59:29 CST 2018]; root of context hierarchy
+2018-09-07 15:59:31 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 15:59:32 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$200c0b47] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:32 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$e90588cb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 15:59:33 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 15:59:33 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 15:59:33 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:33 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 15:59:34 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 15:59:34 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:59:34 -Starting service [Tomcat]
+2018-09-07 15:59:34 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 15:59:34 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 15:59:34 -Initializing Spring embedded WebApplicationContext
+2018-09-07 15:59:34 -Root WebApplicationContext: initialization completed in 5089 ms
+2018-09-07 15:59:34 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 15:59:34 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 15:59:34 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 15:59:34 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 15:59:34 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 15:59:34 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 15:59:34 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 15:59:34 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 15:59:35 -{dataSource-1} inited
+2018-09-07 15:59:36 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:59:29 CST 2018]; root of context hierarchy
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long[])
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/update]}" onto public com.erp.utils.R com.erp.controller.DeptController.update(com.erp.domain.DeptDO)
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/list],methods=[GET]}" onto public java.util.List<com.erp.domain.DeptDO> com.erp.controller.DeptController.list()
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.save(com.erp.domain.DeptDO)
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.DeptController.tree()
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.dept()
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.treeView()
+2018-09-07 15:59:37 -Mapped "{[/system/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.add()
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long[])
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/update]}" onto public com.erp.utils.R com.erp.controller.FileController.update(com.erp.domain.FileDO)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public com.erp.utils.PageUtils com.erp.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.save(com.erp.domain.FileDO)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/info/{id}]}" onto public com.erp.utils.R com.erp.controller.FileController.info(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto com.erp.utils.R com.erp.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/common/generator/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.erp.controller.GeneratorController.list()
+2018-09-07 15:59:37 -Mapped "{[/common/generator/code/{tableName}]}" onto public void com.erp.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:59:37 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String com.erp.controller.GeneratorController.generator()
+2018-09-07 15:59:37 -Mapped "{[/common/generator/batchCode]}" onto public void com.erp.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 15:59:37 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String com.erp.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/common/log/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.remove(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String com.erp.controller.LogController.log()
+2018-09-07 15:59:37 -Mapped "{[/common/log/list],methods=[GET]}" onto com.erp.domain.PageDO<com.erp.domain.LogDO> com.erp.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.batchRemove(java.lang.Long[])
+2018-09-07 15:59:37 -Mapped "{[/index],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.index(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/main],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.main()
+2018-09-07 15:59:37 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.logout()
+2018-09-07 15:59:37 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/login],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-09-07 15:59:37 -Mapped "{[/login],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.login()
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.remove(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.update(com.erp.domain.MenuDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/list]}" onto java.util.List<com.erp.domain.MenuDO> com.erp.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.save(com.erp.domain.MenuDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/tree/{roleId}],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/tree],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree()
+2018-09-07 15:59:37 -Mapped "{[/sys/menu/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/menu],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.menu(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/role/add],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.add()
+2018-09-07 15:59:37 -Mapped "{[/sys/role/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.update(com.erp.domain.RoleDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/role/list],methods=[GET]}" onto java.util.List<com.erp.domain.RoleDO> com.erp.controller.RoleController.list()
+2018-09-07 15:59:37 -Mapped "{[/sys/role/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/role/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(com.erp.domain.RoleDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/role/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.batchRemove(java.lang.Long[])
+2018-09-07 15:59:37 -Mapped "{[/sys/role],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.role()
+2018-09-07 15:59:37 -Mapped "{[/sys/role/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/online/list]}" onto public java.util.List<com.erp.domain.UserOnline> com.erp.controller.SessionController.list()
+2018-09-07 15:59:37 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String com.erp.controller.SessionController.online()
+2018-09-07 15:59:37 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> com.erp.controller.SessionController.sessionList()
+2018-09-07 15:59:37 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public com.erp.utils.R com.erp.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/exit],methods=[POST]}" onto boolean com.erp.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/add],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.add(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.remove(java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.update(com.erp.domain.UserDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/list],methods=[GET]}" onto com.erp.utils.PageUtils com.erp.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.save(com.erp.domain.UserDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.batchRemove(java.lang.Long[])
+2018-09-07 15:59:37 -Mapped "{[/sys/user/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.UserController.tree()
+2018-09-07 15:59:37 -Mapped "{[/sys/user],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.user(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.treeView()
+2018-09-07 15:59:37 -Mapped "{[/sys/user/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/adminResetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.adminResetPwd(com.ero.vo.UserVO)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/uploadImg],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/personal],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.personal(org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/updatePeronal],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.updatePeronal(com.erp.domain.UserDO)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 15:59:37 -Mapped "{[/sys/user/resetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.resetPwd(com.ero.vo.UserVO)
+2018-09-07 15:59:37 -Mapped "{[/error]}" onto public com.erp.utils.R com.erp.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:59:37 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView com.erp.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 15:59:37 -Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 15:59:37 -Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-07 15:59:37 -Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-07 15:59:37 -Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-07 15:59:38 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:59:38 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 15:59:29 CST 2018]; root of context hierarchy
+2018-09-07 15:59:39 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:59:39 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:59:39 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 15:59:39 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-09-07 15:59:39 -[THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-09-07 15:59:40 -Registering beans for JMX exposure on startup
+2018-09-07 15:59:40 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-07 15:59:40 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-09-07 15:59:40 -Starting beans in phase 2147483647
+2018-09-07 15:59:40 -Context refreshed
+2018-09-07 15:59:40 -Found 1 custom documentation plugin(s)
+2018-09-07 15:59:41 -Scanning for api listing references
+2018-09-07 15:59:41 -Generating unique operation named: removeUsingPOST_1
+2018-09-07 15:59:41 -Generating unique operation named: addUsingGET_1
+2018-09-07 15:59:41 -Generating unique operation named: editUsingGET_1
+2018-09-07 15:59:41 -Generating unique operation named: listUsingGET_1
+2018-09-07 15:59:41 -Generating unique operation named: removeUsingPOST_2
+2018-09-07 15:59:41 -Generating unique operation named: removeUsingPOST_3
+2018-09-07 15:59:41 -Generating unique operation named: saveUsingPOST_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingGET_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingHEAD_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingPOST_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingPUT_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingPATCH_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingDELETE_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingOPTIONS_1
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingTRACE_1
+2018-09-07 15:59:41 -Generating unique operation named: editUsingGET_2
+2018-09-07 15:59:41 -Generating unique operation named: listUsingGET_2
+2018-09-07 15:59:41 -Generating unique operation named: updateUsingPOST_2
+2018-09-07 15:59:41 -Generating unique operation named: listUsingGET_3
+2018-09-07 15:59:41 -Generating unique operation named: removeUsingPOST_4
+2018-09-07 15:59:41 -Generating unique operation named: welcomeUsingGET_1
+2018-09-07 15:59:42 -Generating unique operation named: addUsingGET_2
+2018-09-07 15:59:42 -Generating unique operation named: editUsingGET_3
+2018-09-07 15:59:42 -Generating unique operation named: listUsingGET_4
+2018-09-07 15:59:42 -Generating unique operation named: removeUsingPOST_5
+2018-09-07 15:59:42 -Generating unique operation named: saveUsingPOST_2
+2018-09-07 15:59:42 -Generating unique operation named: treeUsingGET_1
+2018-09-07 15:59:42 -Generating unique operation named: treeUsingGET_2
+2018-09-07 15:59:42 -Generating unique operation named: updateUsingPOST_3
+2018-09-07 15:59:42 -Generating unique operation named: addUsingGET_3
+2018-09-07 15:59:42 -Generating unique operation named: batchRemoveUsingPOST_1
+2018-09-07 15:59:42 -Generating unique operation named: editUsingGET_4
+2018-09-07 15:59:42 -Generating unique operation named: listUsingGET_5
+2018-09-07 15:59:42 -Generating unique operation named: saveUsingPOST_3
+2018-09-07 15:59:42 -Generating unique operation named: saveUsingPOST_4
+2018-09-07 15:59:42 -Generating unique operation named: updateUsingPOST_4
+2018-09-07 15:59:42 -Generating unique operation named: listUsingGET_6
+2018-09-07 15:59:42 -Generating unique operation named: listUsingHEAD_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingPOST_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingPUT_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingPATCH_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingDELETE_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingOPTIONS_1
+2018-09-07 15:59:42 -Generating unique operation named: listUsingTRACE_1
+2018-09-07 15:59:42 -Generating unique operation named: addUsingGET_4
+2018-09-07 15:59:42 -Generating unique operation named: batchRemoveUsingPOST_2
+2018-09-07 15:59:42 -Generating unique operation named: editUsingGET_5
+2018-09-07 15:59:42 -Generating unique operation named: listUsingGET_7
+2018-09-07 15:59:42 -Generating unique operation named: removeUsingPOST_6
+2018-09-07 15:59:42 -Generating unique operation named: saveUsingPOST_5
+2018-09-07 15:59:42 -Generating unique operation named: treeUsingGET_3
+2018-09-07 15:59:42 -Generating unique operation named: treeViewUsingGET_1
+2018-09-07 15:59:42 -Generating unique operation named: updateUsingPOST_5
+2018-09-07 15:59:42 -Starting ProtocolHandler ["http-nio-8083"]
+2018-09-07 15:59:42 -Using a shared selector for servlet write/read
+2018-09-07 15:59:42 -Tomcat started on port(s): 8083 (http) with context path ''
+2018-09-07 15:59:42 -Started BootdoApplication in 14.442 seconds (JVM running for 14.928)
+2018-09-07 16:09:26 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 15452 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 16:09:26 -Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+2018-09-07 16:09:26 -The following profiles are active: dev
+2018-09-07 16:09:26 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@618425b5: startup date [Fri Sep 07 16:09:26 CST 2018]; root of context hierarchy
+2018-09-07 16:09:28 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 16:09:29 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$14a5a0c8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:29 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$dd9f1e4c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 16:09:30 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 16:09:30 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 16:09:30 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:30 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:09:31 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 16:09:31 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 16:09:31 -Starting service [Tomcat]
+2018-09-07 16:09:31 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 16:09:31 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 16:09:31 -Initializing Spring embedded WebApplicationContext
+2018-09-07 16:09:31 -Root WebApplicationContext: initialization completed in 4863 ms
+2018-09-07 16:09:31 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 16:09:31 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 16:09:31 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 16:09:31 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 16:09:31 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 16:09:31 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 16:09:31 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 16:09:31 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 16:09:32 -{dataSource-1} inited
+2018-09-07 16:09:33 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@618425b5: startup date [Fri Sep 07 16:09:26 CST 2018]; root of context hierarchy
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long[])
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/update]}" onto public com.erp.utils.R com.erp.controller.DeptController.update(com.erp.domain.DeptDO)
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/list],methods=[GET]}" onto public java.util.List<com.erp.domain.DeptDO> com.erp.controller.DeptController.list()
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.save(com.erp.domain.DeptDO)
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.DeptController.tree()
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.dept()
+2018-09-07 16:09:34 -Mapped "{[/system/sysDept/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.treeView()
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.add()
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long[])
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/update]}" onto public com.erp.utils.R com.erp.controller.FileController.update(com.erp.domain.FileDO)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public com.erp.utils.PageUtils com.erp.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.save(com.erp.domain.FileDO)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/info/{id}]}" onto public com.erp.utils.R com.erp.controller.FileController.info(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto com.erp.utils.R com.erp.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:09:34 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/common/generator/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.erp.controller.GeneratorController.list()
+2018-09-07 16:09:34 -Mapped "{[/common/generator/code/{tableName}]}" onto public void com.erp.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 16:09:34 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String com.erp.controller.GeneratorController.generator()
+2018-09-07 16:09:34 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String com.erp.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/common/generator/batchCode]}" onto public void com.erp.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 16:09:34 -Mapped "{[/common/log/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.remove(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String com.erp.controller.LogController.log()
+2018-09-07 16:09:34 -Mapped "{[/common/log/list],methods=[GET]}" onto com.erp.domain.PageDO<com.erp.domain.LogDO> com.erp.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.batchRemove(java.lang.Long[])
+2018-09-07 16:09:34 -Mapped "{[/index],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.index(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/main],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.main()
+2018-09-07 16:09:34 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.logout()
+2018-09-07 16:09:34 -Mapped "{[/login],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-09-07 16:09:34 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/login],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.login()
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.remove(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.update(com.erp.domain.MenuDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/list]}" onto java.util.List<com.erp.domain.MenuDO> com.erp.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.save(com.erp.domain.MenuDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/tree/{roleId}],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/tree],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree()
+2018-09-07 16:09:34 -Mapped "{[/sys/menu/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/menu],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.menu(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/sys/role/add],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.add()
+2018-09-07 16:09:34 -Mapped "{[/sys/role/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.update(com.erp.domain.RoleDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/role/list],methods=[GET]}" onto java.util.List<com.erp.domain.RoleDO> com.erp.controller.RoleController.list()
+2018-09-07 16:09:34 -Mapped "{[/sys/role/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/role/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(com.erp.domain.RoleDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/role/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.batchRemove(java.lang.Long[])
+2018-09-07 16:09:34 -Mapped "{[/sys/role],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.role()
+2018-09-07 16:09:34 -Mapped "{[/sys/role/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/sys/online/list]}" onto public java.util.List<com.erp.domain.UserOnline> com.erp.controller.SessionController.list()
+2018-09-07 16:09:34 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public com.erp.utils.R com.erp.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-09-07 16:09:34 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String com.erp.controller.SessionController.online()
+2018-09-07 16:09:34 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> com.erp.controller.SessionController.sessionList()
+2018-09-07 16:09:34 -Mapped "{[/sys/user/exit],methods=[POST]}" onto boolean com.erp.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/add],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.add(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.remove(java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.update(com.erp.domain.UserDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/list],methods=[GET]}" onto com.erp.utils.PageUtils com.erp.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.save(com.erp.domain.UserDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.batchRemove(java.lang.Long[])
+2018-09-07 16:09:34 -Mapped "{[/sys/user/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.UserController.tree()
+2018-09-07 16:09:34 -Mapped "{[/sys/user],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.user(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.treeView()
+2018-09-07 16:09:34 -Mapped "{[/sys/user/resetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.resetPwd(com.ero.vo.UserVO)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/adminResetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.adminResetPwd(com.ero.vo.UserVO)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/updatePeronal],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.updatePeronal(com.erp.domain.UserDO)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/uploadImg],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:09:34 -Mapped "{[/sys/user/personal],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.personal(org.springframework.ui.Model)
+2018-09-07 16:09:34 -Mapped "{[/error]}" onto public com.erp.utils.R com.erp.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 16:09:34 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView com.erp.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 16:09:34 -Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:09:34 -Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-07 16:09:34 -Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-07 16:09:34 -Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-07 16:09:35 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:09:35 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@618425b5: startup date [Fri Sep 07 16:09:26 CST 2018]; root of context hierarchy
+2018-09-07 16:09:35 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:09:35 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:09:35 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:09:35 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-09-07 16:09:35 -[THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-09-07 16:09:37 -Registering beans for JMX exposure on startup
+2018-09-07 16:09:37 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-07 16:09:37 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-09-07 16:09:37 -Starting beans in phase 2147483647
+2018-09-07 16:09:37 -Context refreshed
+2018-09-07 16:09:37 -Found 1 custom documentation plugin(s)
+2018-09-07 16:09:37 -Scanning for api listing references
+2018-09-07 16:09:37 -Generating unique operation named: removeUsingPOST_1
+2018-09-07 16:09:38 -Generating unique operation named: addUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: editUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: removeUsingPOST_2
+2018-09-07 16:09:38 -Generating unique operation named: removeUsingPOST_3
+2018-09-07 16:09:38 -Generating unique operation named: saveUsingPOST_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingHEAD_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPOST_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPUT_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPATCH_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingDELETE_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingOPTIONS_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingTRACE_1
+2018-09-07 16:09:38 -Generating unique operation named: editUsingGET_2
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_2
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPOST_2
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_3
+2018-09-07 16:09:38 -Generating unique operation named: removeUsingPOST_4
+2018-09-07 16:09:38 -Generating unique operation named: welcomeUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: addUsingGET_2
+2018-09-07 16:09:38 -Generating unique operation named: editUsingGET_3
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_4
+2018-09-07 16:09:38 -Generating unique operation named: removeUsingPOST_5
+2018-09-07 16:09:38 -Generating unique operation named: saveUsingPOST_2
+2018-09-07 16:09:38 -Generating unique operation named: treeUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: treeUsingGET_2
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPOST_3
+2018-09-07 16:09:38 -Generating unique operation named: addUsingGET_3
+2018-09-07 16:09:38 -Generating unique operation named: batchRemoveUsingPOST_1
+2018-09-07 16:09:38 -Generating unique operation named: editUsingGET_4
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_5
+2018-09-07 16:09:38 -Generating unique operation named: saveUsingPOST_3
+2018-09-07 16:09:38 -Generating unique operation named: saveUsingPOST_4
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPOST_4
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_6
+2018-09-07 16:09:38 -Generating unique operation named: listUsingHEAD_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingPOST_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingPUT_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingPATCH_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingDELETE_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingOPTIONS_1
+2018-09-07 16:09:38 -Generating unique operation named: listUsingTRACE_1
+2018-09-07 16:09:38 -Generating unique operation named: addUsingGET_4
+2018-09-07 16:09:38 -Generating unique operation named: batchRemoveUsingPOST_2
+2018-09-07 16:09:38 -Generating unique operation named: editUsingGET_5
+2018-09-07 16:09:38 -Generating unique operation named: listUsingGET_7
+2018-09-07 16:09:38 -Generating unique operation named: removeUsingPOST_6
+2018-09-07 16:09:38 -Generating unique operation named: saveUsingPOST_5
+2018-09-07 16:09:38 -Generating unique operation named: treeUsingGET_3
+2018-09-07 16:09:38 -Generating unique operation named: treeViewUsingGET_1
+2018-09-07 16:09:38 -Generating unique operation named: updateUsingPOST_5
+2018-09-07 16:09:38 -Starting ProtocolHandler ["http-nio-8083"]
+2018-09-07 16:09:38 -Using a shared selector for servlet write/read
+2018-09-07 16:09:38 -Tomcat started on port(s): 8083 (http) with context path ''
+2018-09-07 16:09:38 -Started BootdoApplication in 13.373 seconds (JVM running for 13.865)
+2018-09-07 16:10:59 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 3276 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 16:10:59 -Running with Spring Boot v2.0.3.RELEASE, Spring v4.3.7.RELEASE
+2018-09-07 16:10:59 -The following profiles are active: dev
+2018-09-07 16:10:59 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@a530d0a: startup date [Fri Sep 07 16:10:59 CST 2018]; root of context hierarchy
+2018-09-07 16:11:00 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 16:11:01 -Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$c4cfabdc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:02 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7bbd75be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:02 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$44b6f342] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 16:11:03 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 16:11:03 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 16:11:03 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:03 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:11:04 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 16:11:04 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 16:11:04 -Starting service [Tomcat]
+2018-09-07 16:11:04 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 16:11:04 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 16:11:04 -Initializing Spring embedded WebApplicationContext
+2018-09-07 16:11:04 -Root WebApplicationContext: initialization completed in 5126 ms
+2018-09-07 16:11:04 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 16:11:04 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 16:11:04 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 16:11:04 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 16:11:04 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 16:11:04 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 16:11:04 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 16:11:04 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 16:11:05 -{dataSource-1} inited
+2018-09-07 16:11:06 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@a530d0a: startup date [Fri Sep 07 16:10:59 CST 2018]; root of context hierarchy
+2018-09-07 16:11:07 -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentationPluginsBootstrapper' defined in URL [jar:file:/C:/Users/HCY/.m2/repository/io/springfox/springfox-spring-web/2.6.1/springfox-spring-web-2.6.1.jar!/springfox/documentation/spring/web/plugins/DocumentationPluginsBootstrapper.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webMvcRequestHandlerProvider' defined in URL [jar:file:/C:/Users/HCY/.m2/repository/io/springfox/springfox-spring-web/2.6.1/springfox-spring-web-2.6.1.jar!/springfox/documentation/spring/web/plugins/WebMvcRequestHandlerProvider.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+2018-09-07 16:11:07 -{dataSource-1} closed
+2018-09-07 16:11:07 -Stopping service [Tomcat]
+2018-09-07 16:11:07 -
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2018-09-07 16:11:07 -Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentationPluginsBootstrapper' defined in URL [jar:file:/C:/Users/HCY/.m2/repository/io/springfox/springfox-spring-web/2.6.1/springfox-spring-web-2.6.1.jar!/springfox/documentation/spring/web/plugins/DocumentationPluginsBootstrapper.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webMvcRequestHandlerProvider' defined in URL [jar:file:/C:/Users/HCY/.m2/repository/io/springfox/springfox-spring-web/2.6.1/springfox-spring-web-2.6.1.jar!/springfox/documentation/spring/web/plugins/WebMvcRequestHandlerProvider.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:732)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:197)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1276)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1133)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:395)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1255)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1243)
+	at com.erp.BootdoApplication.main(BootdoApplication.java:21)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webMvcRequestHandlerProvider' defined in URL [jar:file:/C:/Users/HCY/.m2/repository/io/springfox/springfox-spring-web/2.6.1/springfox-spring-web-2.6.1.jar!/springfox/documentation/spring/web/plugins/WebMvcRequestHandlerProvider.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:732)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:197)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1276)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1133)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1325)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1291)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1096)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:818)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:724)
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:590)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1256)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1105)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:503)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:317)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:251)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1325)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1291)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1096)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:818)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:724)
+	... 36 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:582)
+	... 52 common frames omitted
+Caused by: java.lang.AbstractMethodError: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$$EnhancerBySpringCGLIB$$88ae9123.addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurerComposite.addInterceptors(WebMvcConfigurerComposite.java:87)
+	at org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration.addInterceptors(DelegatingWebMvcConfiguration.java:82)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getInterceptors(WebMvcConfigurationSupport.java:296)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.requestMappingHandlerMapping(WebMvcConfigurationSupport.java:253)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration.requestMappingHandlerMapping(WebMvcAutoConfiguration.java:487)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration$$EnhancerBySpringCGLIB$$e6aac63e.CGLIB$requestMappingHandlerMapping$7(<generated>)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration$$EnhancerBySpringCGLIB$$e6aac63e$$FastClassBySpringCGLIB$$e240bcb4.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration$$EnhancerBySpringCGLIB$$e6aac63e.requestMappingHandlerMapping(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 53 common frames omitted
+2018-09-07 16:15:36 -Starting BootdoApplication on DESKTOP-1PNEIEU with PID 10744 (D:\YjWorkSpace\yjroot\yjplatform\target\classes started by HCY in D:\YjWorkSpace\yjroot\yjplatform)
+2018-09-07 16:15:36 -Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+2018-09-07 16:15:36 -The following profiles are active: dev
+2018-09-07 16:15:36 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 16:15:36 CST 2018]; root of context hierarchy
+2018-09-07 16:15:39 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-07 16:15:40 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c055871] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:40 -Bean 'shiroConfig' of type [com.erp.config.ShiroConfig$$EnhancerBySpringCGLIB$$d4fed5f5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Bean 'userRealm' of type [com.erp.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/HCY/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-09-07 16:15:41 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Cache with name 'com.erp.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-09-07 16:15:41 -Added EhCache named [com.erp.shiro.UserRealm.authorizationCache]
+2018-09-07 16:15:41 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:41 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-07 16:15:42 -Tomcat initialized with port(s): 8083 (http)
+2018-09-07 16:15:42 -Initializing ProtocolHandler ["http-nio-8083"]
+2018-09-07 16:15:42 -Starting service [Tomcat]
+2018-09-07 16:15:42 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-09-07 16:15:42 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_141\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;E:\app\HCY\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet\;D:\Java\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\;C:\Program Files (x86)\MySQL\MySQL Fabric 1.5.3 & MySQL Utilities 1.5.3 1.5\Doctrine extensions for PHP\;D:\Paython;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Users\HCY\AppData\Local\Microsoft\WindowsApps;.]
+2018-09-07 16:15:42 -Initializing Spring embedded WebApplicationContext
+2018-09-07 16:15:42 -Root WebApplicationContext: initialization completed in 5548 ms
+2018-09-07 16:15:42 -Servlet statViewServlet mapped to [/druid/*]
+2018-09-07 16:15:42 -Servlet dispatcherServlet mapped to [/]
+2018-09-07 16:15:42 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-07 16:15:42 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-07 16:15:42 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-07 16:15:42 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-07 16:15:42 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-07 16:15:42 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-07 16:15:43 -{dataSource-1} inited
+2018-09-07 16:15:44 -ApplicationContext registed-->org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 16:15:36 CST 2018]; root of context hierarchy
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.remove(java.lang.Long[])
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/update]}" onto public com.erp.utils.R com.erp.controller.DeptController.update(com.erp.domain.DeptDO)
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/list],methods=[GET]}" onto public java.util.List<com.erp.domain.DeptDO> com.erp.controller.DeptController.list()
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.DeptController.save(com.erp.domain.DeptDO)
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.DeptController.tree()
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.treeView()
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.dept()
+2018-09-07 16:15:45 -Mapped "{[/system/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String com.erp.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.add()
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.remove(java.lang.Long[])
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/update]}" onto public com.erp.utils.R com.erp.controller.FileController.update(com.erp.domain.FileDO)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public com.erp.utils.PageUtils com.erp.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public com.erp.utils.R com.erp.controller.FileController.save(com.erp.domain.FileDO)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/info/{id}]}" onto public com.erp.utils.R com.erp.controller.FileController.info(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto com.erp.utils.R com.erp.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:15:45 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String com.erp.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/common/generator/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.erp.controller.GeneratorController.list()
+2018-09-07 16:15:45 -Mapped "{[/common/generator/code/{tableName}]}" onto public void com.erp.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 16:15:45 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String com.erp.controller.GeneratorController.generator()
+2018-09-07 16:15:45 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String com.erp.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/common/generator/batchCode]}" onto public void com.erp.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-09-07 16:15:45 -Mapped "{[/common/log/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.remove(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String com.erp.controller.LogController.log()
+2018-09-07 16:15:45 -Mapped "{[/common/log/list],methods=[GET]}" onto com.erp.domain.PageDO<com.erp.domain.LogDO> com.erp.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LogController.batchRemove(java.lang.Long[])
+2018-09-07 16:15:45 -Mapped "{[/index],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.index(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/main],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.main()
+2018-09-07 16:15:45 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.logout()
+2018-09-07 16:15:45 -Mapped "{[/login],methods=[POST]}" onto com.erp.utils.R com.erp.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-09-07 16:15:45 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/login],methods=[GET]}" onto java.lang.String com.erp.controller.LoginController.login()
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/add/{pId}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.remove(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.update(com.erp.domain.MenuDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/list]}" onto java.util.List<com.erp.domain.MenuDO> com.erp.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.MenuController.save(com.erp.domain.MenuDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/tree/{roleId}],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/tree],methods=[GET]}" onto com.erp.domain.Tree<com.erp.domain.MenuDO> com.erp.controller.MenuController.tree()
+2018-09-07 16:15:45 -Mapped "{[/sys/menu/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/menu],methods=[GET]}" onto java.lang.String com.erp.controller.MenuController.menu(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/role/add],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.add()
+2018-09-07 16:15:45 -Mapped "{[/sys/role/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.update(com.erp.domain.RoleDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/role/list],methods=[GET]}" onto java.util.List<com.erp.domain.RoleDO> com.erp.controller.RoleController.list()
+2018-09-07 16:15:45 -Mapped "{[/sys/role/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/role/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.save(com.erp.domain.RoleDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/role/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.RoleController.batchRemove(java.lang.Long[])
+2018-09-07 16:15:45 -Mapped "{[/sys/role],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.role()
+2018-09-07 16:15:45 -Mapped "{[/sys/role/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/online/list]}" onto public java.util.List<com.erp.domain.UserOnline> com.erp.controller.SessionController.list()
+2018-09-07 16:15:45 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String com.erp.controller.SessionController.online()
+2018-09-07 16:15:45 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public com.erp.utils.R com.erp.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-09-07 16:15:45 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> com.erp.controller.SessionController.sessionList()
+2018-09-07 16:15:45 -Mapped "{[/sys/user/exit],methods=[POST]}" onto boolean com.erp.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/add],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.add(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/remove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.remove(java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/update],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.update(com.erp.domain.UserDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/list],methods=[GET]}" onto com.erp.utils.PageUtils com.erp.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/save],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.save(com.erp.domain.UserDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/batchRemove],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.batchRemove(java.lang.Long[])
+2018-09-07 16:15:45 -Mapped "{[/sys/user/tree],methods=[GET]}" onto public com.erp.domain.Tree<com.erp.domain.DeptDO> com.erp.controller.UserController.tree()
+2018-09-07 16:15:45 -Mapped "{[/sys/user/updatePeronal],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.updatePeronal(com.erp.domain.UserDO)
+2018-09-07 16:15:45 -Mapped "{[/sys/user],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.user(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/treeView],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.treeView()
+2018-09-07 16:15:45 -Mapped "{[/sys/user/edit/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/adminResetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.adminResetPwd(com.ero.vo.UserVO)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/personal],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.personal(org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/uploadImg],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String com.erp.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-09-07 16:15:45 -Mapped "{[/sys/user/resetPwd],methods=[POST]}" onto com.erp.utils.R com.erp.controller.UserController.resetPwd(com.ero.vo.UserVO)
+2018-09-07 16:15:45 -Mapped "{[/error]}" onto public com.erp.utils.R com.erp.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 16:15:45 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView com.erp.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-07 16:15:45 -Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-09-07 16:15:45 -Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-07 16:15:45 -Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-07 16:15:45 -Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-07 16:15:46 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:15:46 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1af2d44a: startup date [Fri Sep 07 16:15:36 CST 2018]; root of context hierarchy
+2018-09-07 16:15:46 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:15:46 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:15:46 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-07 16:15:46 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-09-07 16:15:46 -[THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-09-07 16:15:48 -Registering beans for JMX exposure on startup
+2018-09-07 16:15:48 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-07 16:15:48 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-09-07 16:15:48 -Starting beans in phase 2147483647
+2018-09-07 16:15:48 -Context refreshed
+2018-09-07 16:15:48 -Found 1 custom documentation plugin(s)
+2018-09-07 16:15:48 -Scanning for api listing references
+2018-09-07 16:15:48 -Generating unique operation named: removeUsingPOST_1
+2018-09-07 16:15:48 -Generating unique operation named: addUsingGET_1
+2018-09-07 16:15:48 -Generating unique operation named: editUsingGET_1
+2018-09-07 16:15:48 -Generating unique operation named: listUsingGET_1
+2018-09-07 16:15:48 -Generating unique operation named: removeUsingPOST_2
+2018-09-07 16:15:48 -Generating unique operation named: removeUsingPOST_3
+2018-09-07 16:15:48 -Generating unique operation named: saveUsingPOST_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingGET_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingHEAD_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPOST_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPUT_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPATCH_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingDELETE_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingOPTIONS_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingTRACE_1
+2018-09-07 16:15:49 -Generating unique operation named: editUsingGET_2
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_2
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPOST_2
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_3
+2018-09-07 16:15:49 -Generating unique operation named: removeUsingPOST_4
+2018-09-07 16:15:49 -Generating unique operation named: welcomeUsingGET_1
+2018-09-07 16:15:49 -Generating unique operation named: addUsingGET_2
+2018-09-07 16:15:49 -Generating unique operation named: editUsingGET_3
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_4
+2018-09-07 16:15:49 -Generating unique operation named: removeUsingPOST_5
+2018-09-07 16:15:49 -Generating unique operation named: saveUsingPOST_2
+2018-09-07 16:15:49 -Generating unique operation named: treeUsingGET_1
+2018-09-07 16:15:49 -Generating unique operation named: treeUsingGET_2
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPOST_3
+2018-09-07 16:15:49 -Generating unique operation named: addUsingGET_3
+2018-09-07 16:15:49 -Generating unique operation named: batchRemoveUsingPOST_1
+2018-09-07 16:15:49 -Generating unique operation named: editUsingGET_4
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_5
+2018-09-07 16:15:49 -Generating unique operation named: saveUsingPOST_3
+2018-09-07 16:15:49 -Generating unique operation named: saveUsingPOST_4
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPOST_4
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_6
+2018-09-07 16:15:49 -Generating unique operation named: listUsingHEAD_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingPOST_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingPUT_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingPATCH_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingDELETE_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingOPTIONS_1
+2018-09-07 16:15:49 -Generating unique operation named: listUsingTRACE_1
+2018-09-07 16:15:49 -Generating unique operation named: addUsingGET_4
+2018-09-07 16:15:49 -Generating unique operation named: batchRemoveUsingPOST_2
+2018-09-07 16:15:49 -Generating unique operation named: editUsingGET_5
+2018-09-07 16:15:49 -Generating unique operation named: listUsingGET_7
+2018-09-07 16:15:49 -Generating unique operation named: removeUsingPOST_6
+2018-09-07 16:15:49 -Generating unique operation named: saveUsingPOST_5
+2018-09-07 16:15:49 -Generating unique operation named: treeUsingGET_3
+2018-09-07 16:15:49 -Generating unique operation named: treeViewUsingGET_1
+2018-09-07 16:15:49 -Generating unique operation named: updateUsingPOST_5
+2018-09-07 16:15:49 -Starting ProtocolHandler ["http-nio-8083"]
+2018-09-07 16:15:49 -Using a shared selector for servlet write/read
+2018-09-07 16:15:49 -Tomcat started on port(s): 8083 (http) with context path ''
+2018-09-07 16:15:49 -Started BootdoApplication in 13.912 seconds (JVM running for 14.395)
