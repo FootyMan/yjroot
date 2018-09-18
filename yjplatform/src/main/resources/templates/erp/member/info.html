@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<style>
+tr td {
+	vertical-align: middle !important;
+}
+
+.warning td[rowspan]:first-child {
+	background-color: #d9edf7;
+}
+
+.col-xs-full {
+	padding: 0
+}
+
+.label-addition {
+	font-size: 22px;
+	padding: 10px 0;
+}
+</style>
+<body class="gray-bg">
+	<div class="ibox-content">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<div class="row">
+					<h3>头像</h3>
+				</div>
+			</div>
+
+			<div class="ibox-content" id="addImgDiv">
+				<img id="addImgDefHead" th:src=${obj.headImage} width="100px"
+					height="100px" />
+
+			</div>
+		</div>
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<div class="row">
+					<h3>图像库</h3>
+				</div>
+			</div>
+			<div class="ibox-content" id="addImgDiv">
+				<span th:each="img: ${obj.imgList}"> <img width="100px"
+					height="100px" th:src="${img.imgUrl }" />
+				</span>
+			</div>
+
+		</div>
+
+
+		<div class="ibox-title">
+			<div class="row">
+				<h3>基本信息</h3>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<table class="table table-bordered" align="center">
+				<tbody>
+					<tr>
+						<th class="warning">手机号：</th>
+						<td th:text="${obj.phone }"></td>
+						<th class="warning">昵称：</th>
+						<td th:text="${obj.nickName}"></td>
+					</tr>
+					<tr>
+						<th class="warning">年龄：</th>
+						<td th:text="${obj.age}"></td>
+						<th class="warning">性别：</th>
+						<td th:if="${obj.sex==1}">男</td>
+						<td th:if="${obj.sex==2}">女</td>
+					</tr>
+					<tr>
+						<th class="warning">所属城市：</th>
+						<td th:text="${obj.cityName}"></td>
+						<th class="warning">体重：</th>
+						<td th:text="${obj.weight}"></td>
+					</tr>
+					<tr>
+						<th class="warning">身高：</th>
+						<td th:text="${obj.height}"></td>
+						<th class="warning">体型：</th>
+						<td th:text="${obj.shape}"></td>
+					</tr>
+					<tr>
+						<th class="warning">性取向：</th>
+						<td th:text="${obj.sexuat}"></td>
+						<th class="warning">个性签名：</th>
+						<td th:text="${obj.sign}"></td>
+					</tr>
+					<tr>
+						<th class="warning">设备类型：</th>
+						<td th:if="${obj.deviceType==1}">IOS</td>
+						<td th:if="${obj.deviceType==2}">Android</td>
+						<th class="warning">邀请码：</th>
+						<td th:text="${obj.inviteCode}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div class="ibox-title">
+				<div class="row">
+					<h3>会员信息</h3>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+				<table class="table table-bordered" align="center">
+					<tbody>
+						<span th:if="${rec!=null}"> <span th:each="item : ${rec}">
+						<tr>
+							<th class="warning">充值时间：</th>
+							<td th:text="${#dates.format(item.beginTime, 'yyyy/MM/dd HH:mm')}"></td>
+							<th class="warning">结束时间：</th>
+							<td th:text="${#dates.format(item.endTime, 'yyyy/MM/dd HH:mm')}"></td>
+						</tr>
+						<tr>
+							<th class="warning">充值天数：</th>
+							<td th:text="${item.validDays}"></td>
+							<th class="warning">是否有效：</th>
+							<td th:if="${item.isValid==1}">有效</td>
+							<td th:if="${item.isValid==2}">无效</td>
+						</tr>
+						</span>
+						</span>
+						<span th:if="${rec.size()==0}">
+							<tr>
+								<div class="col-md-12 label-primary text-center label-addition">
+									<h1>未有充值记录</h1>
+								</div>
+							</tr>
+						</span>
+					</tbody>
+				</table>
+			</div>
+		</div>
+</body>
+</html>

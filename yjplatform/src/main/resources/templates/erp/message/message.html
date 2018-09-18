@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">手机号：</label>
+								<div class="col-sm-4">
+									<input type="text" name="phone" id="phone" class="form-control"
+										maxlength="20" required=""/>
+								</div>
+								<label class="col-sm-2 control-label">短信内容：</label>
+								<div class="col-sm-4">
+									<textarea name="msgContent" id="msgContent"
+										class="form-control" required=""></textarea>
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-4 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">发送</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/erp/message/message.js"></script>
+	</script>
+</body>
+</html>

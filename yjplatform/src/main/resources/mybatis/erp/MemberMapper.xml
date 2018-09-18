@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.erp.dao.MemberDao">
+	<resultMap id="userResultList" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
+		<result column="imToken" property="imToken" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="userResult" type="com.service.bean.User">
+		<id column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userNo" property="userNo" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="INTEGER" />
+		<result column="deviceToken" property="deviceToken" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="userLevel" property="userLevel" jdbcType="INTEGER" />
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="isDisable" property="isDisable" jdbcType="INTEGER" />
+		<result column="isEasemob" property="isEasemob" jdbcType="INTEGER" />
+		<result column="userSource" property="userSource" jdbcType="INTEGER" />
+		<result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="easemobId" property="easemobId" jdbcType="VARCHAR" />
+		<result column="getuiId" property="getuiId" jdbcType="VARCHAR" />
+		<result column="isImport" property="isImport" jdbcType="INTEGER" />
+		<!-- 映射用户资料表 一对一 -->
+		<association property="datum" javaType="com.service.bean.UserDatum">
+			<id column="datumId" property="datumId" jdbcType="INTEGER" />
+			<result column="userId" property="userId" jdbcType="INTEGER" />
+			<result column="age" property="age" jdbcType="INTEGER" />
+			<result column="gender" property="gender" jdbcType="INTEGER" />
+			<result column="cityId" property="cityId" jdbcType="INTEGER" />
+			<result column="weight" property="weight" jdbcType="VARCHAR" />
+			<result column="height" property="height" jdbcType="VARCHAR" />
+			<result column="shape" property="shape" jdbcType="VARCHAR" />
+			<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
+			<result column="sign" property="sign" jdbcType="VARCHAR" />
+			<result column="rangeM" property="rangeM" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		userId,userNo,phone,deviceType,deviceToken,headImage,
+		registerTime,
+		userLevel, nickName, isDisable, isEasemob, userSource,
+		inviteCode,passWord,easemobId,getuiId,isImport,imToken
+	</sql>
+	<!-- 后台用户列表 -->
+	<select id="UserList" resultMap="userResult">
+		SELECT
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		where 1=1
+		<include refid="ListWhere"></include>
+		order by a.registerTime desc
+		<if test="offset != null and limit != null">
+		<!-- 此处使用 $ 之前使用#号 不知道为毛 自动转换String  分页之后有冒号-->
+			limit ${offset}, ${limit}
+		</if>
+	</select>
+	<!-- 后台用户列表 -->
+	<select id="UserListCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+
+		where 1=1
+		<include refid="ListWhere"></include>
+	</select>
+
+	<!-- 首页用户 -->
+	<select id="HomeUserList" resultMap="userResult">
+		SELECT
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join homeuser c
+		on
+		c.userId=a.userId
+		<where>
+			<if test="userNo != null and userNo != ''"> and a.userNo = #{userNo} </if>
+		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<!-- 首页用户 -->
+	<select id="HomeUserCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+		inner join
+		homeuser c
+		on
+		c.userId=a.userId
+		<where>
+			<if test="userNo != null and userNo != ''"> and a.userNo = #{userNo} </if>
+		</where>
+	</select>
+
+	<insert id="InsertUserErp" parameterType="com.service.bean.User"
+		keyProperty="userId">
+		insert into user
+		(userNo,phone,deviceType,deviceToken,headImage,registerTime,userLevel,nickName,isDisable,
+		isEasemob,userSource,inviteCode,passWord)
+		select
+		max(userNo)+1,#{phone},#{deviceType},#{deviceToken},#{headImage},now(),1,#{nickName},1,1,3,#{inviteCode},
+		#{passWord} from user
+	</insert>
+
+	<!-- 详情 -->
+	<select id="selectDetalsERP" resultMap="userResult"
+		parameterType="java.lang.Integer">
+		SELECT
+		a.userId,a.userNo,a.Phone,a.deviceType,
+		a.headImage,a.nickName,b.gender,b.age,b.cityId,b.sign,b.weight,b.height,b.shape,b.sexuat,
+		a.userLevel,a.inviteCode
+		FROM user a inner join userdatum b
+		on
+		a.userId=b.userId
+		where
+		a.userId=#{userId};
+	</select>
+
+
+	<!-- 查询所有环信id发送消息 -->
+	<select id="selectEaseIdAll" resultType="java.lang.String">
+		SELECT easemobId FROM
+		user WHERE isDisable=1
+	</select>
+	<select id="selectUserByNickName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM user WHERE nickName=#{nickName}
+	</select>
+
+	<sql id="ListWhere">
+		<if test="userNo!=null and userNo!=''">
+			and userNo=#{userNo}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and phone=#{phone}
+		</if>
+		<if test="userLevel!=null and userLevel>0">
+			and userLevel=#{userLevel}
+		</if>
+		<if test="nickName!=null and nickName!=''">
+			and nickName=#{nickName}
+		</if>
+		<if test="isImport>0">
+			and isImport=#{isImport}
+		</if>
+		<if test="gender>0">
+			and b.gender=#{gender}
+		</if>
+	</sql>
+
+
+	<!-- 获取导入用户 -->
+	<select id="ImportUser" resultMap="userResult">
+		SELECT
+		a.userId,a.userNo,a.headImage,a.userLevel,a.nickName,a.inviteCode,a.phone,a.deviceType,a.registerTime,
+		a.userLevel,a.isDisable,b.sexuat,b.cityId,
+		b.age,b.gender,b.sign
+		FROM
+		user a inner join userdatum b
+		on
+		a.userId=b.userId
+	</select>
+
+
+	<!-- 禁用用户 -->
+	<update id="setUserIsEnable" parameterType="com.service.bean.User">
+		update user
+		<set>
+			<if test="isDisable!= null and isDisable>=0">
+				isDisable=#{isDisable},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+
+	<update id="updateUser" parameterType="com.service.bean.User">
+		update user
+		<set>
+			<if test="userLevel!='' and userLevel>0">
+				userLevel=#{userLevel},
+			</if>
+			<if test="isDisable!='' and isDisable>0">
+				isDisable=#{isDisable},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="isEasemob!='' and isEasemob>0">
+				isEasemob=#{isEasemob},
+			</if>
+			<if test="headImage!='' and headImage!=null">
+				headImage=#{headImage},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				passWord=#{passWord},
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				nickName=#{nickName},
+			</if>
+			<if test="easemobId!=null and easemobId!=''">
+				easemobId=#{easemobId},
+			</if>
+			<if test="getuiId!=null and getuiId!=''">
+				getuiId=#{getuiId},
+			</if>
+			<if test="imToken!=null and imToken!=''">
+				imToken=#{imToken},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+
+
+
+</mapper>

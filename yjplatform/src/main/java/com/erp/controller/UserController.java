@@ -3,6 +3,7 @@ package com.erp.controller;
 import com.erp.aspect.Log;
 import com.erp.config.Constant;
 import com.erp.utils.*;
+import com.service.bean.HomeUser;
 import com.ero.vo.UserVO;
 import com.erp.domain.DeptDO;
 import com.erp.domain.FileDO;
@@ -32,11 +33,14 @@ import java.util.Map;
 @RequestMapping("/sys/user")
 @Controller
 public class UserController extends BaseController {
-	private String prefix="system/user"  ;
+	private String prefix = "system/user";
 	@Autowired
 	UserService userService;
 	@Autowired
 	RoleService roleService;
+
+
+
 	@RequiresPermissions("sys:user:user")
 	@GetMapping("")
 	String user(Model model) {
@@ -71,7 +75,7 @@ public class UserController extends BaseController {
 		model.addAttribute("user", userDO);
 		List<RoleDO> roles = roleService.list(id);
 		model.addAttribute("roles", roles);
-		return prefix+"/edit";
+		return prefix + "/edit";
 	}
 
 	@RequiresPermissions("sys:user:add")
@@ -103,7 +107,6 @@ public class UserController extends BaseController {
 		return R.error();
 	}
 
-
 	@RequiresPermissions("sys:user:edit")
 	@Log("更新用户")
 	@PostMapping("/updatePeronal")
@@ -117,7 +120,6 @@ public class UserController extends BaseController {
 		}
 		return R.error();
 	}
-
 
 	@RequiresPermissions("sys:user:remove")
 	@Log("删除用户")
@@ -173,14 +175,15 @@ public class UserController extends BaseController {
 		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
 		}
-		try{
-			userService.resetPwd(userVO,getUser());
+		try {
+			userService.resetPwd(userVO, getUser());
 			return R.ok();
-		}catch (Exception e){
-			return R.error(1,e.getMessage());
+		} catch (Exception e) {
+			return R.error(1, e.getMessage());
 		}
 
 	}
+
 	@RequiresPermissions("sys:user:resetPwd")
 	@Log("admin提交更改用户密码")
 	@PostMapping("/adminResetPwd")
@@ -189,14 +192,15 @@ public class UserController extends BaseController {
 		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
 		}
-		try{
+		try {
 			userService.adminResetPwd(userVO);
 			return R.ok();
-		}catch (Exception e){
-			return R.error(1,e.getMessage());
+		} catch (Exception e) {
+			return R.error(1, e.getMessage());
 		}
 
 	}
+
 	@GetMapping("/tree")
 	@ResponseBody
 	public Tree<DeptDO> tree() {
@@ -207,17 +211,18 @@ public class UserController extends BaseController {
 
 	@GetMapping("/treeView")
 	String treeView() {
-		return  prefix + "/userTree";
+		return prefix + "/userTree";
 	}
 
 	@GetMapping("/personal")
 	String personal(Model model) {
-		UserDO userDO  = userService.get(getUserId());
-		model.addAttribute("user",userDO);
-//		model.addAttribute("hobbyList",dictService.getHobbyList(userDO));
-//		model.addAttribute("sexList",dictService.getSexList());
+		UserDO userDO = userService.get(getUserId());
+		model.addAttribute("user", userDO);
+		// model.addAttribute("hobbyList",dictService.getHobbyList(userDO));
+		// model.addAttribute("sexList",dictService.getSexList());
 		return prefix + "/personal";
 	}
+
 	@ResponseBody
 	@PostMapping("/uploadImg")
 	R uploadImg(@RequestParam("avatar_file") MultipartFile file, String avatar_data, HttpServletRequest request) {
@@ -230,9 +235,9 @@ public class UserController extends BaseController {
 		} catch (Exception e) {
 			return R.error("更新图像失败！");
 		}
-		if(result!=null && result.size()>0){
+		if (result != null && result.size() > 0) {
 			return R.ok(result);
-		}else {
+		} else {
 			return R.error("更新图像失败！");
 		}
 	}

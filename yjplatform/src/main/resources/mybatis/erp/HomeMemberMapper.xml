@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.erp.dao.HomeMemberDao">
+	<resultMap id="homeResultMap" type="com.service.bean.HomeUser">
+		<id column="homeId" property="homeId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="homeType" property="homeType" jdbcType="INTEGER" />
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="sortColumn" property="sortColumn" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		homeId,userId,homeType,createTime,sortColumn
+	</sql>
+	<insert id="insertHomeUser" parameterType="com.service.bean.HomeUser">
+		insert into homeuser(userId,homeType,createTime,sortColumn)
+		values(#{userId},#{homeType},now(),#{sortColumn})
+	</insert>
+	<delete id="deleteHomeUser">
+		delete from homeuser where userId in
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+	<select id="selectHomeUserByUserId" parameterType="java.lang.Integer"
+		resultType="com.service.bean.HomeUser">
+		select
+		<include refid="Base_Column_List"></include>
+		from homeuser where userId=#{userId}
+	</select>
+
+	<select id="selectHomeUserList" resultMap="homeResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from homeuser
+	</select>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.erp.dao.OrderDao">
+	<resultMap id="orderResultMap" type="com.service.bean.Order">
+		<id column="orderId" property="orderId" jdbcType="INTEGER" />
+		<result column="orderNumber" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="orderTime" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="productId" property="productId" jdbcType="INTEGER" />
+		<result column="orderState" property="orderState" jdbcType="INTEGER" />
+		<result column="orderPrice" property="orderPrice" jdbcType="DECIMAL" />
+		<result column="orderSource" property="orderSource" jdbcType="INTEGER" />
+		<result column="payType" property="payType" jdbcType="INTEGER" />
+		<!-- 映射用户信息表 一对一 -->
+		<association property="user" javaType="com.service.bean.User">
+			<id column="userId" property="userId" jdbcType="INTEGER" />
+			<result column="userNo" property="userNo" jdbcType="VARCHAR" />
+			<result column="phone" property="phone" jdbcType="VARCHAR" />
+			<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		</association>
+		<!-- 产品信息 一对一 -->
+		<association property="product" javaType="com.service.bean.Product">
+			<result column="price" property="price" jdbcType="DECIMAL" />
+			<result column="day" property="day" jdbcType="INTEGER" />
+			<result column="productType" property="productType" jdbcType="INTEGER" />
+			<result column="productDesc" property="productDesc" jdbcType="VARCHAR" />
+			<result column="title" property="title" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column">
+		orderId,orderNumber,userId,orderTime,productId,orderState,orderPrice,orderSource,payType
+	</sql>
+
+
+	<select id="list" resultMap="orderResultMap">
+		select
+		a.orderId,a.orderNumber,a.userId,a.orderState,a.orderSource,a.payType,a.orderPrice,a.orderTime,
+		b.userNo,b.nickName,c.productDesc,c.title
+		from 
+		t_order as a
+		inner join
+		user as b
+		on a.userId=b.userId
+		inner join product as c
+		on
+		a.productId=c.productId
+		where 1=1
+		<include refid="ListWhere"></include>
+		order by a.orderTime desc
+		<if test="offset != null and limit != null">
+			limit ${offset}, ${limit}
+		</if>
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(1)
+		from 
+		t_order as a
+		inner join
+		user as b
+		on a.userId=b.userId
+		inner join product as c
+		on
+		a.productId=c.productId
+		where 1=1
+		<include refid="ListWhere"></include>
+	</select>
+	
+	<sql id="ListWhere">
+		<if test="userNo!=null and userNo!='' ">
+			and b.userNo=#{userNo}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and b.phone=#{phone}
+		</if>
+		<if test="orderState!=null and orderState!=''">
+			and a.orderState=#{orderState}
+		</if>
+	</sql>
+
+</mapper>

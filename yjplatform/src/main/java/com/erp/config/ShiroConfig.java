@@ -3,8 +3,8 @@ package com.erp.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.erp.config.Constant;
 //import com.bootdo.common.redis.shiro.RedisCacheManager;
-import com.erp.redis.shiro.RedisManager;
-import com.erp.redis.shiro.RedisSessionDAO;
+//import com.erp.redis.shiro.RedisManager;
+//import com.erp.redis.shiro.RedisSessionDAO;
 import com.erp.shiro.UserRealm;
 
 //import org.apache.shiro.cache.CacheManager;
@@ -36,14 +36,14 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfig {
-    @Value("${spring.redis.host}")
-    private String host;
-    @Value("${spring.redis.password}")
-    private String password;
-    @Value("${spring.redis.port}")
-    private int port;
-    @Value("${spring.redis.timeout}")
-    private int timeout;
+//    @Value("${spring.redis.host}")
+//    private String host;
+//    @Value("${spring.redis.password}")
+//    private String password;
+//    @Value("${spring.redis.port}")
+//    private int port;
+//    @Value("${spring.redis.timeout}")
+//    private int timeout;
 
     @Value("${spring.cache.type}")
     private String cacheType ;
@@ -133,16 +133,16 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean
-    public RedisManager redisManager() {
-        RedisManager redisManager = new RedisManager();
-        redisManager.setHost(host);
-        redisManager.setPort(port);
-        redisManager.setExpire(1800);// 配置缓存过期时间
-        //redisManager.setTimeout(1800);
-        redisManager.setPassword(password);
-        return redisManager;
-    }
+//    @Bean
+//    public RedisManager redisManager() {
+//        RedisManager redisManager = new RedisManager();
+//        redisManager.setHost(host);
+//        redisManager.setPort(port);
+//        redisManager.setExpire(1800);// 配置缓存过期时间
+//        //redisManager.setTimeout(1800);
+//        redisManager.setPassword(password);
+//        return redisManager;
+//    }
 
     /**
      * cacheManager 缓存 redis实现
@@ -161,20 +161,20 @@ public class ShiroConfig {
      * RedisSessionDAO shiro sessionDao层的实现 通过redis
      * 使用的是shiro-redis开源插件
      */
-    @Bean
-    public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-        redisSessionDAO.setRedisManager(redisManager());
-        return redisSessionDAO;
-    }
+//    @Bean
+//    public RedisSessionDAO redisSessionDAO() {
+//        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+//        redisSessionDAO.setRedisManager(redisManager());
+//        return redisSessionDAO;
+//    }
 
     @Bean
     public SessionDAO sessionDAO() {
-        if (Constant.CACHE_TYPE_REDIS.equals(cacheType)) {
-            return redisSessionDAO();
-        } else {
+//        if (Constant.CACHE_TYPE_REDIS.equals(cacheType)) {
+//            return redisSessionDAO();
+//        } else {
             return new MemorySessionDAO();
-        }
+//        }
     }
 
     /**

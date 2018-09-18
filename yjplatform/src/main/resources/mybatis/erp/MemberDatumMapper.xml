@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.erp.dao.MemberDatumDao">
+	<resultMap id="datumResultMap" type="com.service.bean.UserDatum">
+		<id column="datumId" property="datumId" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="cityId" property="cityId" jdbcType="INTEGER" />
+		<result column="weight" property="weight" jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="VARCHAR" />
+		<result column="shape" property="shape" jdbcType="VARCHAR" />
+		<result column="sexuat" property="sexuat" jdbcType="VARCHAR" />
+		<result column="sign" property="sign" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		datumId,userId,age,gender,cityId,weight,height,shape,sexuat,sign
+	</sql>
+
+	<insert id="insertDatum" parameterType="com.service.bean.UserDatum"
+		keyProperty="datumId">
+		insert into userdatum
+		(userId,age,gender,cityId,weight,height,shape,sexuat,sign)
+		values
+		(#{userId},#{age},#{gender},#{cityId},#{weight},#{height},#{shape},#{sexuat},#{sign})
+	</insert>
+
+	<update id="updateDatum" parameterType="com.service.bean.UserDatum">
+		update userdatum
+		<set>
+			<if test="age>0">
+				age=#{age},
+			</if>
+			<if test="cityId!= null and cityId>0 ">
+				cityId=#{cityId},
+			</if>
+			<if test="weight!= null and weight!='' ">
+				weight=#{weight},
+			</if>
+			<if test="height!= null and height!='' ">
+				height=#{height},
+			</if>
+			<if test="shape!= null and shape!='' ">
+				shape=#{shape},
+			</if>
+			<if test="sexuat!= null and sexuat!='' ">
+				sexuat=#{sexuat},
+			</if>
+			<if test="sign!= null and sign!='' ">
+				sign=#{sign},
+			</if>
+			<if test="gender!= null and gender>0">
+				gender=#{gender},
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	<select id="selectDatumByUserId" resultType="com.service.bean.UserDatum"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		userdatum
+		where userId=#{userId}
+	</select>
+</mapper>

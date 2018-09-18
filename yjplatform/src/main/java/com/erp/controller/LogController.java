@@ -39,11 +39,11 @@ public class LogController {
 		PageDO<LogDO> page = logService.queryList(query);
 		return page;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/remove")
 	R remove(Long id) {
-		if (logService.remove(id)>0) {
+		if (logService.remove(id) > 0) {
 			return R.ok();
 		}
 		return R.error();
