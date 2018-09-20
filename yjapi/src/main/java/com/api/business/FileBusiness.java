@@ -113,7 +113,7 @@ public class FileBusiness {
 				// 压缩后的图片
 				String thumbnailName =userId + timeFile.format(Timedate) + "thuma.jpg";
 				Thumbnails.of(uploadPath+"/"+newFileName).scale(1f).outputFormat("jpg").toFile( uploadPath + "/"+thumbnailName);
-				imgStr.add(currentDate + "/" + thumbnailName);
+				imgStr.add("userimg/"+currentDate + "/" + thumbnailName);
 			}
 		}
 

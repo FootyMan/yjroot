@@ -64,7 +64,7 @@ function load() {
 				title : '头像',
 				align : 'center',
 				formatter : function(value, row, index) {
-					return '<img widht="30" height="30" src='+value+'>';
+					return '<img widht="30" height="25" src='+value+'>';
 				}
 			}, 
 			{
