@@ -75,7 +75,7 @@ public class FileBusiness {
 		}
 		// 以年与日存储目录路径
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM");//"YYYY-MM-dd"
 		System.out.println(uploadPath);
 
 		String currentDate = sdf.format(date);
