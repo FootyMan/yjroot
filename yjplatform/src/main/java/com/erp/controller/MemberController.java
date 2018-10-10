@@ -43,19 +43,19 @@ import com.service.utils.SystemConfig;
 public class MemberController extends BaseController {
 	private String prefix = "erp/member";
 	@Autowired
-	MemberService memberService;//会员
+	MemberService memberService;// 会员
 	@Autowired
-	HomeMemberImpl homeMemberImpl;//首页
+	HomeMemberImpl homeMemberImpl;// 首页
 	@Autowired
-	private ProvincImpl provincImpl;//城市
+	private ProvincImpl provincImpl;// 城市
 	@Autowired
-	private MemberImgImpl memberImgImpl;//图片
+	private MemberImgImpl memberImgImpl;// 图片
 	@Autowired
-	private MemberDatumDao memberDatumDao;//资料
+	private MemberDatumDao memberDatumDao;// 资料
 	@Autowired
-	private MemberRechargeImpl memberRechargeImpl;//充值
-//	@Autowired
-//	PropertiesSystemConfig systemConfig;
+	private MemberRechargeImpl memberRechargeImpl;// 充值
+	// @Autowired
+	// PropertiesSystemConfig systemConfig;
 
 	@RequiresPermissions("erp:member:list")
 	@GetMapping("")
@@ -89,7 +89,7 @@ public class MemberController extends BaseController {
 			m.setIsHomeUser(SetIsHomeUser(homeData, x.getUserId()));
 			m.setUserNo(x.getUserNo());
 			m.setUserLevelId(x.getUserLevel());
-			m.setHeadImage(SystemConfig.ImgurlPrefix+ x.getHeadImage());
+			m.setHeadImage(SystemConfig.ImgurlPrefix + x.getHeadImage());
 			if (x.getHeadImage().indexOf("http") != -1) {
 				m.setHeadImage(x.getHeadImage());
 			}
@@ -130,7 +130,7 @@ public class MemberController extends BaseController {
 	@GetMapping("/edit/{id}")
 	String edit(Model model, @PathVariable("id") int id) {
 
-		UserModel userModel=GetUserModel(id);
+		UserModel userModel = GetUserModel(id);
 		// 初始化城市
 		List<ProvinceModel> listPro = new ArrayList<ProvinceModel>();
 		List<Province> proEntiys = provincImpl.selectProvinces();
@@ -170,11 +170,13 @@ public class MemberController extends BaseController {
 			memberService.updateUser(user);
 			// 更新基本资料
 			UserDatum datum = SetUserDatum(userModel, userModel.getUserId());
-			memberDatumDao.updateDatum(datum);
+			int result = memberDatumDao.updateDatum(datum);
 
 			// 更新之前图片无效 从新添加
-			memberImgImpl.updateUserImgStatus(userModel.getUserId());
-			int result = AddUserImage(imgList, userModel.getUserId());
+			if (imgList != null && imgList.size() > 0) {
+				memberImgImpl.updateUserImgStatus(userModel.getUserId());
+				result = AddUserImage(imgList, userModel.getUserId());
+			}
 			if (result > 0) {
 				return R.ok();
 			}
@@ -260,10 +262,10 @@ public class MemberController extends BaseController {
 		}
 		return R.error();
 	}
-	
+
 	/**
-	 * get方式 使用@GetMapping和@PathVariable
-	 * type=1添加会员 2取消会员
+	 * get方式 使用@GetMapping和@PathVariable type=1添加会员 2取消会员
+	 * 
 	 * @param userId
 	 * @param type
 	 * @return
@@ -272,7 +274,7 @@ public class MemberController extends BaseController {
 	@Log("设置用户级别")
 	@GetMapping("/setmember/{userId}/{type}")
 	@ResponseBody
-	R setLevel(@PathVariable("userId") int userId,@PathVariable("type") int type) {
+	R setLevel(@PathVariable("userId") int userId, @PathVariable("type") int type) {
 
 		int result = -1;
 		User user = new User();
@@ -292,8 +294,10 @@ public class MemberController extends BaseController {
 		}
 		return R.error();
 	}
+
 	/**
 	 * 1启用 0禁用
+	 * 
 	 * @param userId
 	 * @param type
 	 * @return
@@ -302,7 +306,7 @@ public class MemberController extends BaseController {
 	@Log("禁用用户")
 	@GetMapping("/disable/{userId}/{type}")
 	@ResponseBody
-	R disable(@PathVariable("userId") int userId,@PathVariable("type") int type) {
+	R disable(@PathVariable("userId") int userId, @PathVariable("type") int type) {
 
 		User user = new User();
 		user.setUserId(userId);
@@ -313,36 +317,36 @@ public class MemberController extends BaseController {
 		}
 		return R.error();
 	}
-	
+
 	@RequiresPermissions("erp:member:info")
 	@Log("用户信息")
 	@GetMapping("/info/{id}")
 	String info(Model model, @PathVariable("id") int id) {
 
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("userId", id);
 		System.out.println("开始读取user。。。。。。。。。。。。。。。。。。");
-		UserModel userModel=GetUserModel(id);
+		UserModel userModel = GetUserModel(id);
 		System.out.println("结束读取user。。。。。。。。。。。。。。。。。。");
-		List<UserRecharge> recharge_data=memberRechargeImpl.selectRechargeByuserId(map);
+		List<UserRecharge> recharge_data = memberRechargeImpl.selectRechargeByuserId(map);
 		model.addAttribute("obj", userModel);
 		model.addAttribute("rec", recharge_data);
 		return prefix + "/info";
 	}
-	
+
 	/**
 	 * 获取用户信息
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public UserModel GetUserModel(int userId)
-	{
+	public UserModel GetUserModel(int userId) {
 		UserModel userModel = new UserModel();
 		if (userId > 0) {
 			List<User> entity_Users = memberService.selectDetalsERP(userId);
 			if (entity_Users != null && entity_Users.size() > 0) {
 				User enUser = entity_Users.get(0);
-				userModel.setHeadImage(SystemConfig.ImgurlPrefix+ enUser.getHeadImage());
+				userModel.setHeadImage(SystemConfig.ImgurlPrefix + enUser.getHeadImage());
 				if (enUser.getHeadImage().indexOf("http") != -1) {
 					userModel.setHeadImage(enUser.getHeadImage());
 				}
@@ -368,8 +372,9 @@ public class MemberController extends BaseController {
 				for (UserImg userImg : entity_Imgs) {
 					UserImageModel imgModel = new UserImageModel();
 					imgModel.setImageId(userImg.getImgId());
-					 imgModel.setImgUrl(SystemConfig.ImgurlPrefix +userImg.getImagePath());
-//					imgModel.setImgUrl("http://localhost:806/" + userImg.getImagePath());
+					imgModel.setImgUrl(SystemConfig.ImgurlPrefix + userImg.getImagePath());
+					// imgModel.setImgUrl("http://localhost:806/" +
+					// userImg.getImagePath());
 					imgModel.setIndex(index);
 					imgModel.setUpdateimgtag("img_src_" + index);
 					if (userImg.getImagePath().indexOf("http") != -1) {
